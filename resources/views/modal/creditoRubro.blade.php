@@ -81,13 +81,13 @@
                                                         <input type="hidden" name="fuenteR_id[]" value="{{ $fuentesRubro->id }}">
                                                         @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                                         <li style="list-style-type: none;">
-                                                            {{ $fuentesRubro->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
+                                                            {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                                         </li>
                                                     </div>
                                                 @endif
                                                 <div class="col-lg-4">
                                                     @if($fuentesRubro->valor_disp != 0)
-                                                        Valor usado de {{ $fuentesRubro->font->name }}:
+                                                        Valor usado de {{ $fuentesRubro->fontVigencia->font->name }}:
                                                         @if($rubro->rubrosMov->count() > 0)
                                                             <input type="hidden" name="rubro_Mov_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id) {{  $mov->id }} @endif @endforeach">
                                                             <input type="text" required  name="valorRed[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id) {{  $mov->valor }} @endif @endforeach" max="{{ $fuentesRubro->valor_disp }}" style="text-align: center">
@@ -104,7 +104,7 @@
                                                     <br>
                                                     <select name="fuente_id[]" required>
                                                         @foreach($fuentesAll as $fonts)
-                                                            <option value="{{ $fonts['id'] }}" @foreach($fuentesRubro->rubrosMov as $mov) @if($mov->fonts_id == $fonts['id'] and $mov->rubro_id == $rubro->id ) selected @endif @endforeach >{{ $fonts['name'] }}</option>
+                                                            <option value="{{ $fonts['id'] }}" @foreach($fuentesRubro->rubrosMov as $mov) @if($mov->fonts_id == $fonts['id'] and $mov->rubro_id == $rubro->id ) selected @endif @endforeach >{{ $fonts->font->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
