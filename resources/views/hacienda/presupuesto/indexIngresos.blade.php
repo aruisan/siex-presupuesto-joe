@@ -68,8 +68,10 @@
                         <h4>
                             <a href="{{ url('/newPreIng/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
                         </h4>
-                    @else
-                        <h4><b>&nbsp;</b></h4>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <h4>
+                            <a href="{{ url('/newPreIng/1',$añoActual-1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual - 1 }}</span></a>
+                        </h4>
                     @endif
                 </strong>
             </div>
@@ -133,7 +135,7 @@
                                     @if($codigo['valor'])
                                         <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
-                                    <!-- ADICIÓN -->
+                                <!-- ADICIÓN -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
@@ -144,7 +146,7 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorAdd['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    <!-- REDUCCIÓN -->
+                                <!-- REDUCCIÓN -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
@@ -155,7 +157,7 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRed['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    <!-- CREDITO -->
+                                <!-- CREDITO -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
@@ -166,7 +168,7 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCred['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    <!-- CONTRACREDITO -->
+                                <!-- CONTRACREDITO -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
@@ -177,7 +179,7 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCcred['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    <!-- PRESUPUESTO DEFINITIVO -->
+                                <!-- PRESUPUESTO DEFINITIVO -->
                                     @foreach($valoresDisp as $valorDisponible)
                                         @if($valorDisponible['id'] == $codigo['id'])
                                             <td class="text-center" style="vertical-align:middle;">$ <?php echo number_format($valorDisponible['valor'],0);?></td>

@@ -18,32 +18,32 @@
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
-       
-           
-            <div class="breadcrumb text-center">
-                <strong>
-                    <h4><b>NUEVO CDP</b></h4>
-                </strong>
-             </div>
- 
 
-            <div class="col-lg-12">
-                <ul class="nav nav-pills">
-        
-                    <li class="nav-item regresar">
-                        <a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a>
-                        </li>
 
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#nuevo" >NUEVO CDP</a>
-                        </li>   
-    
-                    </ul>
-             </div>
+        <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>NUEVO CDP</b></h4>
+            </strong>
+        </div>
 
-         <div class="col-lg-12">
+
+        <div class="col-lg-12">
+            <ul class="nav nav-pills">
+
+                <li class="nav-item regresar">
+                    <a class="nav-link "  href="{{ url('/administrativo/cdp/'.$vigencia) }}">Volver a CDP'S</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#nuevo" >NUEVO CDP</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="col-lg-12">
             <div class="tab-content">
-                 <div id="nuevo" class="tab-pane fade in active">
+                <div id="nuevo" class="tab-pane fade in active">
                     <div class="form-validation">
                         <form class="form-valide" action="{{url('/administrativo/cdp')}}" method="POST" enctype="multipart/form-data">
                             <hr>
@@ -68,6 +68,7 @@
 
                             <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                             <input type="hidden" class="form-control" name="dependencia_id" value="{{ $dependencia }}">
+                            <input type="hidden" class="form-control" name="vigencia_id" value="{{ $vigencia }}">
                             <input type="hidden" class="form-control" name="secretaria_e" value="0">
                             <center>
 
@@ -80,9 +81,9 @@
                             </center>
                         </form>
                     </div>
-                </div>   
                 </div>
-            </div> 
-     
-    </div>         
-    @stop
+            </div>
+        </div>
+
+    </div>
+@stop
