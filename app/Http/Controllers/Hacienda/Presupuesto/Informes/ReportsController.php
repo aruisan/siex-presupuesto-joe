@@ -26,11 +26,11 @@ class ReportsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function lvl($level){
+    public function lvl($level, $vigencia){
 
         $register = Register::all();
-        $levels = Level::all();
-        $vigencia = Vigencia::where('vigencia', 2019)->where('tipo', 0)->get();
+        $levels = Level::where('vigencia_id',$vigencia)->get();
+        $vigencia = Vigencia::findOrFail($vigencia);
 
         foreach ( $register as $register){
             if ($register->level_id == $level){
@@ -38,16 +38,18 @@ class ReportsController extends Controller
             }
         }
 
-        $lvl = $level;
+        $lvl = Level::find($level);
+
+        //dd($register);
 
         return view('hacienda.presupuesto.informes.index', compact('values', 'levels','vigencia','lvl'));
     }
 
     public function rubros($id){
         $values = Rubro::where('vigencia_id', $id)->get();
-        $levels = Level::all();
+        $levels = Level::where('vigencia_id',$id)->get();
 
-        return view('hacienda.presupuesto.informes.indexR', compact('values', 'levels'));
+        return view('hacienda.presupuesto.informes.indexR', compact('values', 'levels','id'));
     }
 
     public function create()

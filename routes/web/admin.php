@@ -6,6 +6,14 @@ Route::get('/info', function(){
 });
 
 Auth::routes();
+<?php
+Route::get('/', 'VisitanteController@index');
+
+Route::get('/info', function(){
+    dd(phpinfo());
+});
+
+Auth::routes();
 
 //Route::get('/home', 'Cobro\HomeController@index')->name('home');
 
@@ -240,6 +248,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     {
 
 
+
+        //crud Entidades
+        Route::resource('entidades','Admin\EntidadesController');
+
         //crud Modulos
         Route::resource('modulos','Admin\ModulosController');
 
@@ -303,25 +315,24 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosMovController@movimiento');
     Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
     Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
-
-    //INFORMES PRESUPUESTO
-
+    //INFORMES PRESUPUESTO EGRESOS
     Route::resource('presupuesto/informes','Hacienda\Presupuesto\Informes\ReportsController');
-    Route::get('presupuesto/informes/lvl/{id}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
+    Route::get('presupuesto/informes/lvl/{id}/{vigencia}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
     Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
-
+    Route::get('presupuesto/informes/contractual/homologar/{id}','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@index');
+    Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
+    Route::get('presupuesto/informes/contractual/homologar/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
+    Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
+    Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
+    Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
     // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
-
     Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
 
+
     ////// RUTAS PRESUPUESTO INGRESOS
-
     Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
-
     ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
-
     Route::get('newPreIng/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPreIng');
-
 
 
     ////// RUTAS PLAN DE DESARROLLO
