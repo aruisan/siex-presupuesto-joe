@@ -4,21 +4,32 @@
 @stop
 
 @section('sidebar')
-  @include('admin.roles.cuerpo.aside')
+  {{-- @include('admin.roles.cuerpo.aside') --}}
 @stop
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-            <h2 class="text-center"> Editar Rol</h2>
-    </div>
-</div>
-
+ <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Editar Rol</b></h4>
+            </strong>
+        </div>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar" href="{{route('roles.index')}}"> Roles</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" data-toggle="pill" href="#editar">Editar Rol</a>
+                </li>
+             
+            </ul>
+     
+            <div class="tab-content" style="background-color: white">
+                <div id="lista" class="tab-pane active"><br>
 {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-            <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+            <strong>Nombre:</strong>
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control','autofocus')) !!}
         </div>
         <ul class="nav nav-tabs nav-justified">
             @foreach($tabs as $tab)
@@ -66,13 +77,13 @@
         </div>
     
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-success btn-sm">Guardar</button>
+        <button type="submit" class="btn btn-danger btn-sm">Guardar</button>
     </div>
 
 </div>
 {!! Form::close() !!}
 
-
+</div></div>
 @endsection
 
 @section('css')

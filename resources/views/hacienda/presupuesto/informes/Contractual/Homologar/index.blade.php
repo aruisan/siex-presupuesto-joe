@@ -66,9 +66,15 @@
                                 </center>
                             </div>
                         @endif
+<<<<<<< HEAD
                         <br>
                         <hr>
                         <br>
+=======
+                            <br>
+                            <hr>
+                            <br>
+>>>>>>> master
                     @endif
                     @if(count($codes) > 0)
 
@@ -117,7 +123,11 @@
                         </div>
                     @endif
 
+<<<<<<< HEAD
                 </div>
+=======
+                    </div>
+>>>>>>> master
             </div>
         </div>
     </div>

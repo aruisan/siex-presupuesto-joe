@@ -39,6 +39,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
+       
 
         @if( $rol == 2)
             <li class="nav-item">

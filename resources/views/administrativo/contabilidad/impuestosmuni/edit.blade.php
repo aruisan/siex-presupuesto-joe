@@ -4,12 +4,18 @@
 @stop
 @section('content')
 <div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Editar Impuesto Municipal</h2>
-    </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+
+         <div class="breadcrumb text-center">
+            <strong>
+                <h3><b>Editar Impuesto Municipal</b></h3>
+            </strong>
+        </div>
+          	<ul class="nav nav-pills">
+                 <li class="nav-item regresar"> <a href={{ url('/administrativo/contabilidad/impumuni')}} class="nav-link">Impuestos Municipales</a></li>
+                <li class="nav-item active"> <a href="#crear" class="nav-link">Editar Impuesto</a></li>
+
+                </ul>
+    <div class="tab-content col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <br>
     <hr>
     <form action="{{ asset('/administrativo/contabilidad/impumuni/'.$desc->id) }}" method="POST"  class="form" enctype="multipart/form-data">
@@ -24,8 +30,7 @@
                 </div>
                 <small class="form-text text-muted">Concepto de la retención</small>
             </div>
-        </div>
-        <div class="row">
+       
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <label>Base: </label>
                 <div class="input-group">
@@ -44,8 +49,7 @@
                 </div>
                 <small class="form-text text-muted">Tarifa de la retención</small>
             </div>
-        </div>
-        <div class="row">
+       
             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <label>Codigo: </label>
                 <div class="input-group">
@@ -65,18 +69,19 @@
                 <small class="form-text text-muted">Cuenta de la retención</small>
             </div>
         </div>
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+         <div class="row">
+        <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-1" >
             <button class="btn btn-primary btn-raised btn-lg">Guardar</button>
         </div>
     </form>
-    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+    <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3 text-center">
         <form action="{{ asset('/administrativo/contabilidad/impumuni/'.$desc->id) }}" method="post">
             {!! method_field('DELETE') !!}
             {{ csrf_field() }}
             <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
         </form>
     </div>
-
-
+   </div>
+</div>
 </div>
 @endsection

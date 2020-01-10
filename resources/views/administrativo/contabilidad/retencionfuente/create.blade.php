@@ -3,7 +3,7 @@
     Crear Retención en la Fuente
 @stop
 @section('sidebar')
-    <div> <a class="btn btn-primary" href="{{ '/administrativo/contabilidad/retefuente' }}"><span class="hide-menu">Retención en la Fuente</span></a></div>
+    {{-- <div> <a class="btn btn-primary" href="{{ '/administrativo/contabilidad/retefuente' }}"><span class="hide-menu">Retención en la Fuente</span></a></div> --}}
 @stop
 
 
@@ -11,17 +11,28 @@
 
 <div class="col-lg-12 formularioRetencion">
 
-
+ 
         <div class="row">
-            <div class="col-lg-12 ">
-         <br>
-        <h2 class="text-center"> Creación de Retención</h2>
-    </div>
-</div>
-
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Nueva Retención en la Fuente</h2>
+            </div>
+        </div>
+        
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        
+        <ul class="nav nav-pills">
+          
+                <li class="nav-item ">
+                    <a class="nav-link regresar"  href="{{ '/administrativo/contabilidad/retefuente' }}">Retención en la fuente</a>
+                </li>
+                   <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#nueva" >Nueva Retención en la Fuente</a>
+                </li>
+             
+            </ul>
 <div class="col-10">
-
- <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+  <div class="tab-content col-sm-12" >
             
                    
     <br>
@@ -107,5 +118,5 @@
       </div>
      </div>
     </div>
-
+   </div>
 @endsection

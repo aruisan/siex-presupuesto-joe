@@ -3,27 +3,37 @@
     Crear Funcionarios
 @stop
 @section('sidebar')
-  @include('admin.funcionarios.cuerpo.aside')
+  {{-- @include('admin.funcionarios.cuerpo.aside') --}}
 @stop
 @section('content')
 
 <div class="col-12 formularioFuncionarios">
 
 
-        <div class="row">
-            <div class="col-9 margin-tb">
-                    <h2 class="text-center">Creación nuevo Funcionario</h2>
-            </div>
+    <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Creación nuevo Funcionario</b></h4>
+            </strong>
         </div>
-
-
+            <ul class="nav nav-pills">
+                <li class="nav-item ">
+                    <a class="nav-link "  href="{{route('funcionarios.index')}}">Lista Funcionarios</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" data-toggle="pill" href="#crear">Crear Funcionario</a>
+                </li>
+             
+            </ul>
+     
+            <div class="tab-content" style="background-color: white">
+                <div id="lista" class="tab-pane active"><br>
 
 
         {!! Form::open(array('route' => 'funcionarios.store','method'=>'POST')) !!}
         <div  id="data col-10">
 
-
-            <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+{{-- style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #6c0e03; " --}}
+            <div class="row inputCenter" >
             
                 <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
                     <div class="form-group">
@@ -46,28 +56,35 @@
 
             <div class="row inputCenter">
        
-                    <div class="col-xs-11 col-sm-11 col-md-4">
+                    <div class="col-xs-11 col-sm-11 col-md-6">
                         <div class="form-group">
                             {{ Form::label('Dependencia', 'Dependencia')}}
                             {!! Form::select('dependencia_id', $dependencias,[], array('class' => 'form-control')) !!}
                         </div>
                     </div> 
 
-                <div class="col-xs-11 col-sm-11 col-md-4">
+                <div class="col-xs-11 col-sm-11 col-md-6">
                     <div class="form-group">
                         {{ Form::label('Rol', 'Rol')}}
                         {!! Form::select('roles', $roles,[], array('class' => 'form-control')) !!}
                     </div>
                 </div>
                 
-                <div class=" col-xs-11 col-sm-11 col-md-4 col-lg-4">
+
+            
+
+            </div>
+
+   <div class="row inputCenter">
+       
+                <div class=" col-xs-11 col-sm-11 col-md-6 col-lg-6">
                     <div class="form-group">
                         {{ Form::label('Tipo', 'Tipo')}}
                         {{ Form::select('type_id', $tipos , null, ['id'=>'type','class' => 'form-control', 'placeholder' =>'Selecciona Tipo de usuario', '@change' => 'getJefes()']) }}            
                     </div>
                 </div>
-
-                <div class=" col-xs-11 col-sm-11 col-md-4 col-lg-4">
+              
+                <div class=" col-xs-11 col-sm-11 col-md-6 col-lg-6">
                     <div class="form-group" style="display: none;" id="divJefes">
                         {{ Form::label('Jefe', 'Jefe')}}
                         <select class="form-control" name="jefe" v-model="selected">
@@ -80,8 +97,7 @@
 
             </div>
 
-
-        <div class="row" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a;    margin-right: 15px;
+        <div class="row" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #6c0e03;    margin-right: 15px;
     margin-left: 15px;">
            
             <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">
@@ -106,6 +122,9 @@
                 </div>
         
          </div>
+
+    </div>
+</div>
 
     </div>
 </div>

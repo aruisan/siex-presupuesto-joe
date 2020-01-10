@@ -3,7 +3,7 @@
     Creación de Rubros
 @stop
 @section('sidebar')
-	@if($vigencia->tipo == 0)
+	{{-- @if($vigencia->tipo == 0)
 		@if($vigencia->vigencia == Carbon\Carbon::now()->year)
     		<li> <a href="{{ url('/presupuesto') }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
 		@else
@@ -15,8 +15,8 @@
 		@else
 			<li> <a href="{{ url('/newPreIng/'.$vigencia->tipo.'/'.$vigencia->vigencia) }}" class="btn btn-success"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
 		@endif
-	@endif
-    <li class="dropdown">
+	@endif --}}
+    {{-- <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>
             &nbsp;
@@ -30,14 +30,57 @@
             <li><a href="/presupuesto/rubro/create/{{ $vigencia_id }}" class="btn btn-primary">Rubros</a></li>
             <li><a href="/presupuesto/level/create/{{ $vigencia_id }}" class="btn btn-primary">Nuevo Nivel</a></li>
         </ul>
-    </li>
+    </li> --}}
 @stop
 @section('content')
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
-            <br>
-            <h2><center>Creación de Rubros para la Vigencia {{ $vigencia->vigencia }}</center></h2><br>
-            <hr>
+         <div class="breadcrumb text-center">
+        <strong>
+            <h2>  Creación de Rubros para la Vigencia {{ $vigencia->vigencia }}</h2>
+        </strong>
+    </div>
+
+ 	<ul class="nav nav-pills">
+
+	
+            @if($vigencia->tipo == 0)
+		@if($vigencia->vigencia == Carbon\Carbon::now()->year)
+    		<li class="nav-item regresar"> <a href="{{ url('/presupuesto') }}" class="nav-link"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@else
+			<li class="nav-item regresar"> <a href="{{ url('/newPre/'.$vigencia->tipo.'/'.$vigencia->vigencia) }}" class="nav-link"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@endif
+	@elseif($vigencia->tipo == 1)
+		@if($vigencia->vigencia == Carbon\Carbon::now()->year)
+			<li class="nav-item regresar"> <a href="{{ url('/presupuestoIng') }}" class="nav-link"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@else
+			<li class="nav-item regresar"> <a href="{{ url('/newPreIng/'.$vigencia->tipo.'/'.$vigencia->vigencia) }}" class="nav-link"><i class="fa fa-money"></i><span class="hide-menu">&nbsp; Presupuesto</span></a></li>
+		@endif
+	@endif
+
+	<li class="nav-item active"> <a href="#crear" class="nav-link">Crear Rubro</a></li>
+	
+       
+	<li class="dropdown nav-item">
+        <a class="dropdown-toggle nav-item" data-toggle="dropdown" href="#">
+            <span class="hide-menu">Niveles</span>
+            &nbsp;
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-user">
+            @foreach($niveles as $level)
+                <li><a class="nav-link btn-drop" href="/presupuesto/registro/create/{{ $level->vigencia_id }}" >Nivel {{ $level->level }}</a></li>
+            @endforeach
+            <li><a class="nav-link btn-drop" href="/presupuesto/font/create/{{ $vigencia_id }}">Fuentes</a></li>
+            <li><a class="nav-link btn-drop" href="/presupuesto/rubro/create/{{ $vigencia_id }}" >Rubros</a></li>
+            <li><a class="nav-link btn-drop" href="/presupuesto/level/create/{{ $vigencia_id }}" >Nuevo Nivel</a></li>
+        </ul>
+    </li>
+
+                </ul>
+
+
+           
         		<form action="{{ url('/presupuesto/rubro') }}" method="POST"  class="form">
                     {{ csrf_field() }}
 	        			<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{ $vigencia_id }}">
@@ -51,7 +94,7 @@
 		        				<th class="text-center">Code</th>
 		        				<th class="text-center">Nombre</th>
 		        				<th class="text-center">Valor</th>
-		        				<th class="text-center"><i class="fa fa-sign-in"></i></th>
+		        				<th class="text-center"><i class="fa fa-search"></i></th>
 		        				<th class="text-center"><i class="fa fa-trash-o"></i></th>
 		        			</thead>
 		        			<tbody>
@@ -81,8 +124,8 @@
 		        					<th scope="row"><input type="text" style="text-align:center" name="code[]" value="{{ $dato->cod }}"></th>
 		        					<th scope="row"><input type="text" style="text-align:center" name="nombre[]" value="{{ $dato->name }}"></th>
 		        					<th scope="row" class="text-center" style="vertical-align:middle;">$ <?php echo number_format($dato->fontsRubro->sum('valor'),0)?></th>
-		        					<td class="text-center" style="vertical-align:middle;"><a href="{{ url('/presupuesto/FontRubro', $dato->id) }}" class="btn-sm btn-success">&nbsp;<i class="fa fa-sign-in"></i>&nbsp;</a></td>
-		        					<td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
+		        					<td class="text-center" style="vertical-align:middle;"><a href="{{ url('/presupuesto/FontRubro', $dato->id) }} "title="Detalles fuente-rubro"  class="btn-sm btn-danger">&nbsp;<i class="fa fa-search"></i>&nbsp;</a></td>
+		        					<td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" title="borrar" ><i class="fa fa-trash-o"></i></button></td>
 		        				</tr>
 		        				@endforeach
 		        				@for($i=0;$i < $fila ;$i++)
@@ -117,8 +160,8 @@
 		        			</tbody>
 	        			</table>
 	        			</div><br><center>
-        			<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Fila</button>
-        			<button type="submit" class="btn btn-primary">Guardar</button>
+        			<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-danger">Nueva Fila</button>
+        			<button type="submit" class="btn btn-primary">Guardar</button><br><br>
 					</center>
         		</form>
         	</div>

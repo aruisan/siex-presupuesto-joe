@@ -1,19 +1,101 @@
-</div>
-<ul class="nav nav-pills">
-    <li class="nav-item">
-        <a class="nav-link regresar"  href="{{url('administrativo/registros/'.$id) }}">Volver a Registros</a>
-    </li>
-    <li class="nav-item active">
-        <a class="nav-link " data-toggle="pill" href="#cdpDisp">Agregar CDP'S </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#datos">Agregar datos básicos </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="#valor">Consultar Dinero CDP'S</a>
-    </li>
+@extends('layouts.dashboard')
+@section('titulo')
+    Crear Registros
+@stop
+@section('sidebar')
+    {{-- <li>
+        <a href="{{route('registros.index')}}" class="btn btn-success">
+            <span class="hide-menu"> Registros</span></a>
+    </li> --}}
+   
+@stop
+@section('content')
+    <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Nuevo Registro</b></h4>
+        </strong>
+    </div>
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+            <a class="nav-link regresar"  href="{{url('administrativo/registros/'.$id) }}">Volver a Registros</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link " data-toggle="pill" href="#cdpDisp">Agregar CDP'S </a>
+        </li>
+       <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#datos">Agregar datos básicos </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#valor">Consultar Dinero CDP'S</a>
+        </li>
+     
+    </ul>
 
-</ul>
+ 
+<div class="col-lg-12 " style="background-color:white;">
+            <div class="tab-content">
+
+                 <div id="cdpDisp" class="tab-pane fade in active">
+                        <hr>
+                        <center>
+                            <h3>CDP's Disponibles</h3>
+                        </center>
+                        <hr>
+
+
+                        <br>
+                        {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+                        <div class="table-responsive">
+                            <table id="tabla_rubrosCdp" class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col" class="text-center">CDP's</th>
+                                    <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        <select name="cdp_id[]" class="form-control selectF" required>
+                                            @foreach($cdps as $cdp)
+                                                <option value="{{ $cdp['id'] }}">{{ $cdp['id'] }} - {{ $cdp['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table><br>
+                            <center>
+                                <div id="prog">
+                                    <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Agregar Otro CDP</button>
+                                </div>
+                            </center>
+                            </div>
+                      </div>
+           
+            <div class="tab-pane" id="datos" >
+                    
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2" >
+                        <br>
+                        <hr>
+                        <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
+                        <input type="hidden" name="secretaria_e" value="0">
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <label>Tercero: </label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="persona_id">
+                                        @foreach($personas as $persona)
+                                            <option value="{{$persona->id}}">{{$persona->nombre}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <small class="form-text text-muted">Relacionar persona</small>
+                            </div>
+                        </div>
 
 
 <div class="col-lg-12 " style="background-color:white;">

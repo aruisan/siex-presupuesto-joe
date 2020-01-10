@@ -50,7 +50,7 @@
                         <div class="form-group row">
                             <div class="col-lg-8 ml-auto">
                             @can('dependencia-create')
-                                <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success btn-sm">Agregar Fila</button>
+                                <button type="button" v-on:click.prevent="nuevaFila" class="btn btn-danger btn-sm">Agregar Fila</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
                             @endcan
                             </div>

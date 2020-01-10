@@ -5,16 +5,30 @@
 @section('content')
 
 <div class="col-lg-12 formularioRetencion">
-<div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Editar Retención en la Fuente</h2>
-    </div>
-</div>
 
 
-<div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
-   
+ <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Editar Retención en la Fuente</h2>
+            </div>
+        </div>
+        
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        
+        <ul class="nav nav-pills">
+          
+                <li class="nav-item ">
+                    <a class="nav-link regresar"  href="{{ '/administrativo/contabilidad/retefuente' }}">Retención en la fuente</a>
+                </li>
+                   <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#nueva" >Editar Retención en la Fuente</a>
+                </li>
+             
+            </ul>
+<div class="col-10">
+  <div class="tab-content col-sm-12" >
+
     <br>
     <hr>
     <form action="{{ asset('/administrativo/contabilidad/retefuente/'.$retens->id) }}" method="POST"  class="form" enctype="multipart/form-data">
@@ -86,7 +100,11 @@
         <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
             <button class="btn btn-primary btn-raised btn-lg">Guardar</button>
         </div>
-    </form>
+    </form> 
+     <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+        <a class="btn btn-primary btn-raised btn-lg" href="{{ '/administrativo/contabilidad/retefuente' }}"> 
+        Cancelar</button></a>
+    </div>
     <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
         <form action="{{ asset('/administrativo/contabilidad/retefuente/'.$retens->id) }}" method="post">
             {!! method_field('DELETE') !!}
@@ -94,10 +112,7 @@
             <button class="btn btn-danger btn-raised btn-lg">Eliminar</button>
         </form>
     </div>
-     <div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
-        <a class="btn btn-primary btn-raised btn-lg" href="{{ '/administrativo/contabilidad/retefuente' }}"> 
-        Cancelar</button></a>
-    </div>
+       </div>    </div>
 
        </div>
 

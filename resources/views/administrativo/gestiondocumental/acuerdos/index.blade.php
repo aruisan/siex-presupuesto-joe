@@ -14,7 +14,7 @@
             </strong>
         </div>
             <ul class="nav nav-pills">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" data-toggle="pill" href="@can('acuerdos-list') #tabAcuerdos @endcan">ACUERDOS</a>
                 </li>
                 <li class="nav-item">
@@ -27,7 +27,7 @@
                     <a class="nav-link" data-toggle="pill" href="@can('resoluciones-list') #tabRes @endcan">RESOLUCIONES</a>
                 </li>
             </ul>
-        <br>
+      
             <div class="tab-content" style="background-color: white">
                 <div id="tabAcuerdos" class="tab-pane active"><br>
                     <div class="table-responsive">
