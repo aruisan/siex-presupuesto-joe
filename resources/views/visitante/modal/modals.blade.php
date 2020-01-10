@@ -10,11 +10,11 @@
              </div>
              <div class="modal-body">
                  <li>Presidente: <b></b> </li> 
-                Léri Aniseto Henry Taylor
-                 <li>Vicepresidenta Primera: <b></b> </li>
-                 {{-- Evis Livingston Howard --}}
+                 Léri Aniseto Henry Taylor
+                 <li>Vicepresidente Primero: <b></b> </li>
+                 Javier Rafael Rodriguez Archbold
                  <li>Vicepresidenta Segunda: <b> </b> </li>
-                 {{-- Elsa Robinson Hawkins --}}
+                 Evis Livingston Howard
              </div>
              <div class="modal-footer">
                  <div class="row">
@@ -100,7 +100,7 @@
                      Lista de Concejales
                  </h4>
              </div>
-             {{-- @if(count($Concejales) > 0)
+             @if(count($Concejales) > 0)
                  <div class="modal-body">
                      <div class="row">
                          @foreach ($Concejales as $key => $data)
@@ -122,14 +122,7 @@
                          Actualmente no hay concejales almacenados.
                      </div>
                  </div>
-             @endif --}}
-              <div class="col-md-12 align-self-center">
-                     <div class="alert alert-danger text-center">
-                         Actualmente no hay concejales almacenados.
-                     </div>
-                 </div>
-
-                
+             @endif
              <div class="modal-footer">
                  <div class="row">
                      <div class="col-sm-6 text-right">

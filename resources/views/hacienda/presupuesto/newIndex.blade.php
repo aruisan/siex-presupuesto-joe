@@ -3,7 +3,7 @@
     Vigencia: {{ $añoActual }}
 @stop
 @section('sidebar')
-    @if($V != "Vacio")
+    {{-- @if($V != "Vacio")
         <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
     @endif
     <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
@@ -17,7 +17,7 @@
                 <li class="dropdown-submenu">
                     <a class="test btn btn-primary text-left" href="#">Contractual &nbsp;<span class="fa fa-caret-right"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/presupuesto/informes/contractual/homologar') }}" class="btn btn-success text-left">Homologar</a></li>
+                        <li><a href="{{ url('/presupuesto/informes/contractual/homologar/'.$V) }}" class="btn btn-success text-left">Homologar</a></li>
                         <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-success text-left">Reporte</a></li>
                     </ul>
                 </li>
@@ -25,7 +25,7 @@
                     <a href="#" class="btn btn-primary text-left">FUT </a>
                 </li>
                 <li>
-                    <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-primary text-left">Niveles</a>
+                    <a href="{{ url('/presupuesto/informes/lvl/'.$primerLevel->id.'/'.$V) }}" class="btn btn-primary text-left">Niveles</a>
                 </li>
                 <li>
                     <a href="#" class="btn btn-primary text-left">Comparativo (Ingresos - Gastos)</a>
@@ -42,15 +42,96 @@
                 <i class="fa fa-plus"></i>
                 <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
         </li>
-    @endif
+    @endif --}}
 @stop
 @section('content')
     @if($V != "Vacio")
         @include('modal.Informes.reporte')
     @endif
-    <div class="col-md-12 align-self-center">
+
+<div class="row inputCenter"  >
+        <ul class="nav nav-pills">
+              @if($mesActual == 12)
+                       <li class="nav-item pillPri">
+                   
+                            <a href="{{ url('/newPre/0',$añoActual+1) }}" class="nav-link"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual + 1 }}</span></a>
+                        </li>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <li class="nav-item pillPri">  
+                            <a href="{{ url('/presupuesto') }}" class="nav-link"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual }}</span></a>
+                        </li>
+                    @endif
+                <li class="nav-item principal">
+                                    <a class="nav-link"  href="#editar"> Presupuesto de Egresos {{ $añoActual - 1 }}</a>
+                                </li>
+
+                   <li class="nav-item pillPri">
+                          <a class="nav-link "  href="{{ url('/newPreIng/1',$añoActual-1) }}">Presupuesto de Ingresos {{ $añoActual - 1 }}</a>
+                     </li>
+
+                         
+             
+            @if($V != "Vacio")
+        <li class="nav-item pillPri"> <a class="nav-link "href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+    @endif
+     
+
+            @if($V != "Vacio")
+                    <li class="dropdown">
+                        <a class="nav-item dropdown-toggle pillPri" data-toggle="dropdown">
+                            Informes
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li class="dropdown-submenu">
+                                <a class="test btn btn-drop text-left" href="#">Contractual &nbsp;</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('/presupuesto/informes/contractual/homologar/'.$V) }}" class="btn btn-drop text-left">Homologar</a></li>
+                                    <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-drop text-left">Reporte</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-drop text-left">FUT </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/presupuesto/informes/lvl/'.$primerLevel->id.'/'.$V) }}" class="btn btn-drop text-left">Niveles</a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-drop text-left">Comparativo (Ingresos - Gastos)</a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-drop text-left">Fuentes</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($V == "Vacio")
+                    <li class="nav-item pillPri">
+                        <a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-drop">
+                            <i class="fa fa-plus"></i>
+                            <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
+                    </li>
+                @endif
+         </ul>
+
+    <div class="col-md-12 align-self-center" style="background-color:#fff;">
         @if($V != "Vacio")
-            <div class="breadcrumb col-md-2 text-center">
+            {{-- <div class="breadcrumb col-md-2 text-center">
+                <strong>
+                    <h4>
+                        <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos</span></a>
+                    </h4>
+                </strong>
+            </div> --}}
+             <div class="row" >
+            <div class="breadcrumb col-md-12 text-center" >
+                <strong>
+               
+                    <h4><b> <br>Presupuesto de Egresos {{ $vigencia[0]->vigencia }}</b></h4>
+                </strong>
+            </div>
+             </div>
+            {{-- <div class="breadcrumb col-md-2 text-center">
                 <strong>
                     <h4>
                         <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos</span></a>
@@ -68,13 +149,15 @@
                         <h4>
                             <a href="{{ url('/presupuesto') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual - 1 }}</span></a>
                         </h4>
-                    @else
-                        <h4><b>&nbsp;</b></h4>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <h4>
+                            <a href="{{ url('/presupuesto') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual + 1 }}</span></a>
+                        </h4>
                     @endif
                 </strong>
-            </div>
+            </div> --}}
             <ul class="nav nav-pills">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-home"></i></a>
                 </li>
                 <li class="nav-item">
@@ -677,7 +760,7 @@
                     <div class="table-responsive">
                         @if(count($ordenPagos) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/ordenPagos') }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
+                            <a href="{{ url('administrativo/ordenPagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
                             <br>
                             <table class="table table-bordered" id="tabla_OrdenPago">
                                 <thead>
@@ -733,7 +816,7 @@
                     <div class="table-responsive">
                         @if(count($pagos) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/pagos') }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
+                            <a href="{{ url('administrativo/pagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
                             <br>
                             <table class="table table-bordered" id="tabla_Pagos">
                                 <thead>
@@ -776,7 +859,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay pagos realizados.
-                                    <a href="{{ url('administrativo/pagos/create') }}" class="btn btn-success btn-block">Crear Pagos</a>
+                                    <a href="{{ url('administrativo/pagos/create/'.$V) }}" class="btn btn-danger ">Crear Pagos</a>
                                 </center>
                             </div>
                         @endif
@@ -798,10 +881,8 @@
 
 @stop
 @section('js')
-   
 
       <!-- Datatables personalizadas buttons-->
     <script src="{{ asset('/js/datatableCustom.js') }}"></script>
-
 
 @stop

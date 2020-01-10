@@ -19,25 +19,25 @@
 @section('content')
     <div class="col-md-12 align-self-center">
         <div class="row justify-content-center">
-                 <div class="breadcrumb text-center">
-        <strong>
-            <h4><b>MODIFICAR CDP: {{ $idcdp->name }}</b></h4>
-        </strong>
-    </div>
+            <div class="breadcrumb text-center">
+                <strong>
+                    <h4><b>MODIFICAR CDP: {{ $idcdp->name }}</b></h4>
+                </strong>
+            </div>
             <ul class="nav nav-pills">
-    
-      <li class="nav-item regresar">
 
-            <a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ url('/administrativo/cdp/create') }}" >
-            
-                NUEVO CDP</a>
-        </li>
-  
-        
-   </ul>
+                <li class="nav-item regresar">
+
+                    <a class="nav-link "  href="{{ url('/administrativo/cdp/'.$vigen) }}">Volver a CDP'S</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url('/administrativo/cdp/create/'.$vigen) }}" >
+
+                        NUEVO CDP</a>
+                </li>
+
+
+            </ul>
             <br>
             <center><h2></h2></center>
             <br>
@@ -63,11 +63,11 @@
                     </div>
                     <div class="col-md-6 align-self-center">
                         <div class="form-group">
-                        <label class="control-label text-right col-md-4" for="fecha">Dependencia:</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control" disabled style="text-align:center" value="{{ $idcdp->dependencia->name }}">
+                            <label class="control-label text-right col-md-4" for="fecha">Dependencia:</label>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" disabled style="text-align:center" value="{{ $idcdp->dependencia->name }}">
+                            </div>
                         </div>
-                    </div>
                         <div class="form-group">
                             <label class="control-label text-right col-md-4" for="observacion">Observación<span class="text-danger">*</span></label>
                             <div class="col-lg-6">
@@ -82,8 +82,8 @@
                             </div>
                         </div>
                     </center>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-    @stop
+                </form>
+            </div>
+        </div>
+    </div>
+@stop

@@ -11,9 +11,9 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             @foreach($levels as $level)
-                <li><a href="/presupuesto/informes/lvl/{{$level->level}}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
+                <li><a href="/presupuesto/informes/lvl/{{$level->id}}/{{ $id }}" class="btn btn-primary">Nivel {{ $level->level }}</a></li>
             @endforeach
-            <li><a href="/presupuesto/informes/rubros" class="btn btn-primary">Rubros</a></li>
+            <li><a href="/presupuesto/informes/rubros/{{$id}}" class="btn btn-primary">Rubros</a></li>
         </ul>
     </li>@stop
 @section('content')
@@ -27,8 +27,13 @@
             <table class="table table-bordered hover" id="tabla">
                 <hr>
                 <thead>
-                <th class="text-center">Código</th>
-                <th class="text-center">Nombre</th>
+                <tr>
+                    <th colspan="2" class="text-center">Informe Presupuestal de Rubros</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Código</th>
+                    <th class="text-center">Nombre</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($values as $value)

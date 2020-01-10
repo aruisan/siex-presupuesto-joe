@@ -77,7 +77,7 @@ class CdpController extends Controller
         $vigencia = $id;
         $rubros = Rubro::all();
         $dependencia = auth()->user()->dependencia_id;
-        return view('administrativo.cdp.create', compact('dependencia','rubros','id'));
+        return view('administrativo.cdp.create', compact('dependencia','rubros','id', 'vigencia'));
     }
 
     public function anular($id, $vigen){
@@ -112,6 +112,7 @@ class CdpController extends Controller
      */
     public function store(Request $request)
     {
+
         $cdp = new Cdp();
         $cdp->name = $request->name;
         $cdp->valor = 0;

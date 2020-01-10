@@ -17,7 +17,7 @@
                 <li class="dropdown-submenu">
                     <a class="test btn btn-primary text-left" href="#">Contractual &nbsp;<span class="fa fa-caret-right"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('/presupuesto/informes/contractual/homologar') }}" class="btn btn-success text-left">Homologar</a></li>
+                        <li><a href="{{ url('/presupuesto/informes/contractual/homologar/'.$V) }}" class="btn btn-success text-left">Homologar</a></li>
                         <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-success text-left">Reporte</a></li>
                     </ul>
                 </li>
@@ -25,7 +25,7 @@
                     <a href="#" class="btn btn-primary text-left">FUT </a>
                 </li>
                 <li>
-                    <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-primary text-left">Niveles</a>
+                    <a href="{{ url('/presupuesto/informes/lvl/'.$primerLevel->id.'/'.$V) }}" class="btn btn-primary text-left">Niveles</a>
                 </li>
                 <li>
                     <a href="#" class="btn btn-primary text-left">Comparativo (Ingresos - Gastos)</a>
@@ -68,8 +68,10 @@
                         <h4>
                             <a href="{{ url('/newPre/0',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual + 1 }}</span></a>
                         </h4>
-                    @else
-                        <h4><b>&nbsp;</b></h4>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <h4>
+                            <a href="{{ url('/newPre/0',$añoActual-1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual - 1 }}</span></a>
+                        </h4>
                     @endif
                 </strong>
             </div>

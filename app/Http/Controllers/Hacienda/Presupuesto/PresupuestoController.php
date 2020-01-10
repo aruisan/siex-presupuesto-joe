@@ -43,6 +43,7 @@ class PresupuestoController extends Controller
             $V = $vigens[0]->id;
             $vigencia_id = $V;
             $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+            $primerLevel = Level::where('vigencia_id', $vigencia_id)->get()->first();
             $registers = Register::where('level_id', $ultimoLevel->id)->get();
             $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
             $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
@@ -902,7 +903,7 @@ class PresupuestoController extends Controller
             unset($cdps[0]);
         }
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel'));
     }
 
 
@@ -1937,12 +1938,13 @@ class PresupuestoController extends Controller
             return view('hacienda.presupuesto.vigencia.createVigAdelantada',compact('id','year'));
         } else {
             $vigens = Vigencia::findOrFail($vigencia[0]->id);
-            $añoActual = $vigens->vigencia;
+            $añoActual = Carbon::now()->year;
             $mesActual = Carbon::now()->month;
 
             $V = $vigens->id;
             $vigencia_id = $V;
             $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+            $primerLevel = Level::where('vigencia_id', $vigencia_id)->get()->first();
             $registers = Register::where('level_id', $ultimoLevel->id)->get();
             $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
             $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
@@ -2802,7 +2804,7 @@ class PresupuestoController extends Controller
             unset($cdps[0]);
         }
 
-        return view('hacienda.presupuesto.newIndex', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual'));
+        return view('hacienda.presupuesto.newIndex', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','vigencia'));
     }
 
     public function create()

@@ -9,7 +9,7 @@
             <span class="hide-menu"> Crear Orden de Pago</span></a>
     </li>
     <li>
-        <a href="{{ url('/administrativo/pagos') }}" class="btn btn-primary">
+        <a href="{{ url('/administrativo/pagos/'.$id) }}" class="btn btn-primary">
             <span class="hide-menu"> Pagos</span></a>
     </li>
     <li>
@@ -135,26 +135,26 @@
                 @endif
             </div>
         </div>
-@stop
-@section('js')
-    <script>
-        $('#tabla_CDP').DataTable( {
-            responsive: true,
-            "searching": true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+        @stop
+        @section('js')
+            <script>
+                $('#tabla_CDP').DataTable( {
+                    responsive: true,
+                    "searching": true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'print'
+                    ]
+                } );
 
-        $('#tabla_Historico').DataTable( {
-            responsive: true,
-            "searching": true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+                $('#tabla_Historico').DataTable( {
+                    responsive: true,
+                    "searching": true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'print'
+                    ]
+                } );
 
-    </script>
+            </script>
 @stop

@@ -26,12 +26,12 @@
         </strong>
     </div>
 
-    
+
     <ul class="nav nav-pills">
-         <li class="nav-item regresar">
+        <li class="nav-item regresar">
             <a class="nav-link" href="{{ url('/presupuesto') }}" >
-            
-            Volver a Presupuesto</a>
+
+                Volver a Presupuesto</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#tabTareas">TAREAS</a>
@@ -39,20 +39,20 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
-        
-         @if( $rol == 2)
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('/administrativo/cdp/create') }}" >
-            
-                NUEVO CDP</a>
-        </li>
 
-        
-    @endif
+        @if( $rol == 2)
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/administrativo/cdp/create/'.$vigencia_id) }}" >
 
-    
+                    NUEVO CDP</a>
+            </li>
+
+
+        @endif
+
+
     </ul>
-  
+
     <div class="tab-content" >
         <div id="tabTareas" class="tab-pane fade in active"><br>
             <br>
@@ -110,12 +110,12 @@
                                 </td>
                                 <td class="text-center">$<?php echo number_format($cdp->rubrosCdpValor->sum('valor_disp'),0) ?></td>
                                 @if($rol == 2)
-                                <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                </td>
+                                    <td class="text-center">
+                                        <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    </td>
                                 @elseif($rol == 3)
                                     <td class="text-center">
                                         <input type="checkbox" class="form-group">
@@ -196,18 +196,18 @@
             </div>
         </div>
 
-</div>
+    </div>
 @stop
 @section('js')
 
- <script type="text/javascript" >
+    <script type="text/javascript" >
 
         $(document).ready(function(){
-        
-        $('.nav-tabs a[href="#tabTareas"]').tab('show')
+
+            $('.nav-tabs a[href="#tabTareas"]').tab('show')
         });
 
-        </script>
+    </script>
 
     <script>
         $('#tabla_CDP').DataTable( {
@@ -227,5 +227,5 @@
                 'copy', 'csv', 'excel', 'print'
             ]
         } );
-        </script>
+    </script>
 @stop
