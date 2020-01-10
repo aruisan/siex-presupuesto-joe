@@ -8,18 +8,34 @@
 @stop
 
 @section('sidebar')
-	<li><a href="{{route('personas.create')}}" class="btn btn-success">Nuevo Tercero</a></li>
+	{{-- <li><a href="{{route('personas.create')}}" class="btn btn-success">Nuevo Tercero</a></li> --}}
 @stop
 
 @section('content')
+
+
+            <ul class="nav nav-pills">
+                <li class="nav-item active">
+                    <a class="nav-link" data-toggle="pill" href="#personas"> Terceros</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link"  href="{{route('personas.create')}}">Nuevo Tercero</a>
+                </li>
+             
+            </ul>
+     
+            <div class="tab-content" style="background-color: white">
+                <div id="lista" class="tab-pane active"> <div class="breadcrumb text-center">
+            <strong>
+                <h3><b>Terceros</b></h3>
+            </strong>
+        </div>
 	<div class="container-fluid">
-		<br>
+		
  <div class="table-responsive">
     	<div class="box">
-                <div class="box-header">
-                                <h3 class="box-title"></h3>
-                                </div><!-- /.box-header -->
-                                <div class="box-body">
+              
+             <div class="box-body">
 
 
 					<table class="table table-bordered cell-border table-hover" id="example"  data-form="deleteForm">
@@ -45,7 +61,7 @@
 								<td>{{$persona->direccion}}</td>
 								<td>{{$persona->tipo}}</td>
 								<td>{{$persona->telefono}}</td>
-								<td><a href="{{ route("personas.edit", $persona->id)}}" class="btn btn-xs btn-info">
+								<td><a href="{{ route("personas.edit", $persona->id)}}" class="btn btn-xs btn-danger">
 								<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
 								<td>
 									@include('personas.delete', ['persona' => $persona])
@@ -58,7 +74,8 @@
 			</div>
 		</div>
 	</div>
-
+	</div>
+	</div>
 @stop
 
 @section('js')
@@ -94,7 +111,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -106,13 +123,13 @@
 				  columns: [ 0,1,2,3,4]
 					},
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 

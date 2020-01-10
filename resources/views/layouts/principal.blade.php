@@ -223,7 +223,7 @@ background: rgb(149, 8, 8) !important;
                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-pres" href="">Presupuesto</a></li>
                             <!-- <li><a data-toggle="modal" data-target="#modal-rc" href="">Rendición de Cuentas</a></li> -->
                             <!-- <li><a data-toggle="modal" data-target="#modal-le" href="">Lista de Empleados</a></li> -->
-                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-Al" href="">Alcalde</a></li>
+                             {{-- <li><a class="item-menu" data-toggle="modal" data-target="#modal-Al" href="">Alcalde</a></li> --}}
                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-lc" href="">Lista de Concejales</a></li>
                             <li><a class="item-menu" data-toggle="modal" data-target="#modal-boletines" href="">Boletines</a></li>
                         </ul>

@@ -9,7 +9,7 @@
             <span class="hide-menu"> Crear Orden de Pago</span></a>
     </li>
     <li>
-        <a href="{{ url('/administrativo/pagos') }}" class="btn btn-primary">
+        <a href="{{ url('/administrativo/pagos/'.$id) }}" class="btn btn-primary">
             <span class="hide-menu"> Pagos</span></a>
     </li>
     <li>

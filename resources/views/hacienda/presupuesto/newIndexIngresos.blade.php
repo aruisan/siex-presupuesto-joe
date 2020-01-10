@@ -60,9 +60,15 @@
             </div>
             <div class="breadcrumb col-md-2 text-center">
                 <strong>
-                    <h4>
-                        <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual - 1 }}</span></a>
-                    </h4>
+                    @if($mesActual == 12)
+                        <h4>
+                            <a href="{{ url('/newPreIng/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
+                        </h4>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <h4>
+                            <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual+1 }}</span></a>
+                        </h4>
+                    @endif
                 </strong>
             </div>
             <ul class="nav nav-pills">

@@ -68,8 +68,10 @@
                         <h4>
                             <a href="{{ url('/newPreIng/1',$añoActual+1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual + 1 }}</span></a>
                         </h4>
-                    @else
-                        <h4><b>&nbsp;</b></h4>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <h4>
+                            <a href="{{ url('/newPreIng/1',$añoActual-1) }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos {{ $añoActual - 1 }}</span></a>
+                        </h4>
                     @endif
                 </strong>
             </div>

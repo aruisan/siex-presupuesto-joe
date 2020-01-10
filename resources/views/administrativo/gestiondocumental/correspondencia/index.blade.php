@@ -15,7 +15,7 @@
         </strong>
     </div>
     <ul class="nav nav-pills">
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#tabE">ENTRADA</a>
         </li>
         <li class="nav-item">
@@ -62,7 +62,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                 <a href="{{ url('dashboard/correspondencia/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 <a href="{{ url('dashboard/correspondencia/'.$data->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                             </td>
@@ -121,7 +121,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{Storage::url($data2->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{Storage::url($data2->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
                                     <a href="{{ url('dashboard/correspondencia/'.$data2->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('dashboard/correspondencia/'.$data2->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>

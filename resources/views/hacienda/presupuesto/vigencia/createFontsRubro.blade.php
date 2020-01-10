@@ -3,7 +3,7 @@
 	Asignación de Fuentes al Rubro
 @stop
 @section('sidebar')
-	<li class="dropdown">
+	{{-- <li class="dropdown">
 		<a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
 			<span class="hide-menu">Niveles</span>
 			&nbsp;
@@ -17,43 +17,37 @@
 			<li><a href="/presupuesto/rubro/create/{{ $rubro->vigencia->id }}" class="btn btn-primary">Rubros</a></li>
 			<li><a href="/presupuesto/level/create/{{ $rubro->vigencia->id }}" class="btn btn-primary">Nuevo Nivel</a></li>
 		</ul>
-	</li>
-	<br>
-	<div class="card">
-		<br>
-		<center>
-			<h4><b>Fuentes y su Disponibilidad</b></h4>
-		</center>
-		<br>
-		<div class="table-responsive">
-            <table class="table">
-                <thead>
-                <th>Fuente</th>
-                <th>Disponibilidad</th>
-                </thead>
-                <tbody>
-                @foreach($rubro->vigencia->fonts as $font)
-                    <tr>
-                        <td>{{ $font->font->name }}</td>
-                        <td>$<?php echo number_format($font->valor - $font->fontsRubro->sum('valor'),0) ?></td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-		</div>
-	</div>
-    <br>
-    <div class="card">
-        <br>
-        <center>
-            <h4><b>Valor del Rubro $<?php echo number_format($rubro->fontsRubro->sum('valor'),0) ?></b></h4>
-        </center>
-        <br>
-    </div>
+	</li> --}}
+
+	
 @stop
 @section('content')
+@foreach($rubro->vigencia->levels as $level)
+	@endforeach
+   <div class="breadcrumb text-center">
+        <strong>
+            <h4><b><h2> <h2>Fuentes del Rubro {{ $rubro->name }}</h2></h2></b></h4>
+        </strong>
+    </div>
+
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+                  <a class="nav-link regresar"  href="{{ url('/presupuesto/rubro/create/'. $rubro->vigencia->id ) }}">Volver a Rubro </a>
+                 </li>
+        <li class="nav-item active">
+            <a class="nav-link" data-toggle="pill" href="#datos"> Ver fuentes del Rubro</a>
+        </li>
+     
+         <li class="nav-item ">
+            <a class="nav-link" data-toggle="pill" href="#fuentes"> Fuentes Disponibles </a>
+        </li>
+     </ul>
 <div id="content">
-    <div class="col-md-12 align-self-center" id="crud">
+
+  <div class="col-lg-12 " style="background-color:white;" id="crud">
+            <div class="tab-content">
+
+                 <div id="datos" class="col-xs-12 col-sm-12 col-md-12 col-lg-12  tab-pane fade in active">
         <div class="row justify-content-center">
             <br>
             <center>
@@ -116,6 +110,45 @@
             </center>
             <br>
         </form>
+    </div>
+
+
+       <div id="fuentes" class="col-xs-12 col-sm-12 col-md-12 col-lg-12  tab-pane ">
+       <div class="card">
+		<br>
+		<center>
+			<h4><b>Fuentes y su Disponibilidad</b></h4>
+		</center>
+		<br>
+		<div class="table-responsive">
+            <table class="table">
+                <thead>
+                <th>Fuente</th>
+                <th>Disponibilidad</th>
+                </thead>
+                <tbody>
+                @foreach($rubro->vigencia->fonts as $font)
+                    <tr>
+                        <td>{{ $font->font->name }}</td>
+                        <td>$<?php echo number_format($font->valor - $font->fontsRubro->sum('valor'),0) ?></td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+		</div>
+	</div>
+    <br>
+    <div class="card">
+        <br>
+        <center>
+            <h4><b>Valor del Rubro $<?php echo number_format($rubro->fontsRubro->sum('valor'),0) ?></b></h4>
+        </center>
+        <br>
+    </div>
+       </div>
+</div>
+
+
     </div>
 </div>
 

@@ -31,7 +31,7 @@
                 <ul class="nav nav-pills">
         
                     <li class="nav-item regresar">
-                        <a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a>
+                        <a class="nav-link "  href="{{ url('/administrativo/cdp/'.$vigencia) }}">Volver a CDP'S</a>
                         </li>
 
                         <li class="nav-item active">
@@ -68,6 +68,7 @@
 
                             <input type="hidden" class="form-control" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}" min="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                             <input type="hidden" class="form-control" name="dependencia_id" value="{{ $dependencia }}">
+                            <input type="hidden" class="form-control" name="vigencia_id" value="{{ $vigencia }}">
                             <input type="hidden" class="form-control" name="secretaria_e" value="0">
                             <center>
 

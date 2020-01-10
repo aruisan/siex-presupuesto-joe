@@ -42,7 +42,7 @@
         
          @if( $rol == 2)
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/administrativo/cdp/create') }}" >
+            <a class="nav-link" href="{{ url('/administrativo/cdp/create/'.$vigencia_id) }}" >
             
                 NUEVO CDP</a>
         </li>

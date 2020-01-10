@@ -41,7 +41,7 @@
         </li>
          @if( $rol == 2)
         <li class="nav-item">
-            <a class="nav-link"  href="{{route('registros.create')}}">NUEVO REGISTRO</a>
+            <a class="nav-link"  href="{{ url('administrativo/registros/create/'.$vigencia) }}">NUEVO REGISTRO</a>
         </li>
           @endif
     </ul>

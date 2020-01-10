@@ -1,7 +1,7 @@
 {!! Form::Open(['url' => $url, 'method' => $method]) !!}
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success" style="display: flex;flex-direction: column;">
+            <div class="panel panel-danger" style="display: flex;flex-direction: column;">
                 <div class="panel-heading text-center">Datos Generales</div>
                 <div class="panel-body">
                     {{ Form::label('ficha_catastral', 'Ficha Catastral', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
@@ -11,7 +11,7 @@
                             {{ Form::text('ficha_catastral', $predio->ficha_catastral, ['class' => 'form-control', 'placeholder' => ' Ficha Catastral']) }}       
                         </div>
                     </div>
-                    {{ Form::label('Matricula Inmobiliaria', 'Matricula Inmobiliaria', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
+                    {{ Form::label('Matricula Inmobiliaria', 'Matrícula Inmobiliaria', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
                         <div class="input-group">
                             <span class="input-group-addon">#</span>
@@ -39,7 +39,7 @@
                             {{ Form::select('estrato', ['1' => '(1) Bajo-bajo', '2' => '(2) Bajo', '3' => '(3) Medio-bajo', '4' => '(4) Medio', '5' => '(5) Medio-alto', '6' => '(6) Alto'], $predio->estrato, ['class' => 'form-control']) }}         
                         </div>
                     </div>
-                    {{ Form::label('a_hectareas', 'Hectarias del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
+                    {{ Form::label('a_hectareas', 'Hectareas del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
                         <div class="input-group">
                             <span class="input-group-addon">Hm²</span>
@@ -64,8 +64,8 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success" style="display: flex;flex-direction: column;">
-                <div class="panel-heading text-center">Datos Economicos</div>
+            <div class="panel panel-danger" style="display: flex;flex-direction: column;">
+                <div class="panel-heading text-center">Datos Económicos</div>
                 <div class="panel-body">
                     {{ Form::label('avaluo', 'Avaluo', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -129,8 +129,8 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success" style="display: flex;flex-direction: column;">
-                <div class="panel-heading text-center">Datos Socio-economicos</div>
+            <div class="panel panel-danger" style="display: flex;flex-direction: column;">
+                <div class="panel-heading text-center">Datos Socioeconómicos</div>
                 <div class="panel-body">
                     {{ Form::label('tipo_tarifa', 'Tipo de Tarifa', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
@@ -139,7 +139,7 @@
                            {{ Form::text('tipo_tarifa', $predio->tipo_tarifa, ['class' => 'form-control', 'placeholder' => ' Tipo de Tarifa']) }}   
                         </div>            
                     </div>
-                    {{ Form::label('destino_economico', 'Destino Economico', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
+                    {{ Form::label('destino_economico', 'Destino Económico', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
@@ -171,7 +171,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="panel panel-success" style="display: flex;
+            <div class="panel panel-danger" style="display: flex;
     flex-direction: column;">
                 <div class="panel-heading text-center">Datos del Proceso</div>
                 <div class="panel-body">
@@ -182,7 +182,7 @@
                             {{ Form::select('existe', ['1' => 'SI', '0' => 'NO'], $predio->existe, ['class' => 'form-control']) }}            
                         </div>
                     </div>
-                    {{ Form::label('ubicación', 'Ubicacion del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
+                    {{ Form::label('ubicación', 'Ubicación del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-archive"></i></span>
@@ -196,7 +196,7 @@
                             {{ Form::select('exento', ['1' => 'SI', '0' => 'NO'], $predio->exento, ['class' => 'form-control']) }}            
                         </div>
                     </div>
-                    {{ Form::label('semaforo', 'Semaforo', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
+                    {{ Form::label('semaforo', 'Semáforo', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                    <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-filter"></i></span>
@@ -210,7 +210,7 @@
                             {{ Form::select('estado', ['1' => 'SI', '0' => 'NO'], $predio->existe, ['class' => 'form-control']) }}         
                         </div>
                     </div>                    
-                    {{ Form::label('observacion', 'Observacion del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
+                    {{ Form::label('observacion', 'Observación del Predio', ['class' => 'control-label col-xs-12 col-sm-6 col-md-4 col-lg-4'])}}
                     <div class="form-group col-xs-12 col-sm-6 col-md-8 col-lg-8">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-comment-o"></i></span>

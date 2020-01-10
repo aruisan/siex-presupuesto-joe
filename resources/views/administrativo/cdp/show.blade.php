@@ -23,7 +23,7 @@
 
             <ul class="nav nav-pills">
 
-                <li class="nav-item regresar"><a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a></li>
+                <li class="nav-item regresar"><a class="nav-link "  href="{{ url('/administrativo/cdp/'.$cdp->vigencia_id) }}">Volver a CDP'S</a></li>
                 <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">Información CDP: {{ $cdp->id }}</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#asigna">Asignar Rubros</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#rubros">Valor de Rubros</a></li>

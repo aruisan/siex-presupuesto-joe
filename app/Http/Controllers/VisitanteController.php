@@ -584,7 +584,7 @@ class VisitanteController extends Controller
 
         $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
 
-        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro'));
+       return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro','añoActual'));
 
     }
 

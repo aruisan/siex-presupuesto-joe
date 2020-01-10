@@ -3,8 +3,8 @@
 Creación de Niveles del PUC
 @stop
 @section('sidebar')
-    <li> <a href="{{ url('/administrativo/contabilidad/puc') }}" class="btn btn-success"><span class="hide-menu">PUC</span></a></li>
-    <li class="dropdown">
+    {{-- <li> <a href="{{ url('/administrativo/contabilidad/puc') }}" class="btn btn-success"><span class="hide-menu">PUC</span></a></li> --}}
+    {{-- <li class="dropdown">
         <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
             <span class="hide-menu">Niveles</span>
             &nbsp;
@@ -18,17 +18,64 @@ Creación de Niveles del PUC
                 <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $puc->id }}" class="btn btn-primary">Rubros</a></li>
                 <li><a href="/administrativo/contabilidad/puc/level/create/{{ $puc->id }}" class="btn btn-primary">Niveles</a></li>
         </ul>
-    </li>
+    </li> --}}
 @stop
 @section('content')
     <div class="col-md-12 align-self-center" id="crud">
         <div class="row justify-content-center">
-            <br>
-            <center><h2>Creación de Niveles del PUC</h2></center><br><br>
+
+
+        <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Creación de Niveles del PUC</b></h4>
+        </strong>
+    </div>
+        
+        {{-- style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; " --}}
+
+<div class="row inputCenter"  >
+        
+        <ul class="nav nav-pills">
+          
+              
+                   <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ url('/administrativo/contabilidad/puc') }}">Regresar a PUC </a>
+                     </li>
+
+
+          
+               <li class="nav-item active">
+                    <a class="nav-link"  href="#editar"> Modificar PUC</a>
+                </li>
+          
+     
+
+
+            <li class="dropdown">
+                    <a class="nav-item dropdown-toggle" data-toggle="dropdown" href="#">Niveles
+                    <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                    
+
+                            @foreach($niveles as $level)
+                                <li>
+                                <li><a href="/administrativo/contabilidad/puc/registers/create/{{ $level->puc_id }}/{{$level->level}}" class="btn btn-drop  text-left">Nivel {{ $level->level }}</a></li>                
+                                </li>
+                            @endforeach
+                                <li><a href="/administrativo/contabilidad/puc/rubro/create/{{ $puc->id }}" class="btn btn-drop  text-left">Rubros</a></li>
+                                <li><a href="/administrativo/contabilidad/puc/level/create/{{ $puc->id }}" class="btn btn-drop  text-left">Niveles</a></li>
+                        </ul>
+                </li>
+
+         </ul>
+
+      
+          
                 <form action="{{ url('/administrativo/contabilidad/puc/level') }}" method="POST"  class="form">
                     {{ csrf_field() }}
                     <input type="hidden" class="form-control" id="puc_id" name="puc_id" value="{{ $puc->id }}">
                     <div class="table-responsive">
+                    <br>
                         <table class="table table-bordered" id="tabla">
                             <thead>
                             <th class="text-center">Nivel</th>
@@ -60,8 +107,10 @@ Creación de Niveles del PUC
                         <br>
                     <center>
                         <button type="submit" class="btn btn-primary">Guardar</button>
+                       
                     </center>
-                </form>
+                </form> <br>
+            </div>
             </div>
         </div>
 

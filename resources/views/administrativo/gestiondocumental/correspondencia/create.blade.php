@@ -240,7 +240,7 @@
 
                      <div class="input-group col-lg-8">
                         <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
-                        <input type="file" name="fileCorrespondenciaE" accept="application/pdf" class="form-control">
+                        <input type="file" name="fileCorrespondenciaE" accept="application/pdf" class="form-control" required>
                      </div>
                  
                     <div class="input-group">
@@ -260,6 +260,7 @@
                      <div class="input-group col-lg-8">
                         <span class="input-group-addon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
                         <input type="file" name="fileCorrespondenciaS" accept="application/pdf" class="form-control" required>
+                        
                       </div>
                  
                     <div class="input-group">

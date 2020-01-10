@@ -11,7 +11,7 @@
             </strong>
         </div>
             <ul class="nav nav-pills">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" data-toggle="pill" href="#tabCreate">Creaciones</a>
                 </li>
                 <li class="nav-item">
@@ -21,7 +21,7 @@
                     <a class="nav-link" data-toggle="pill" href="#tabDelete">Eliminaciones</a>
                 </li>
             </ul>
-        <br>
+     
             <div class="tab-content" style="background-color: white">
                 <div id="tabCreate" class="tab-pane active"><br>
                     <div class="table-responsive">
@@ -180,7 +180,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -192,13 +192,13 @@
 				  columns: [ 0,1,2,3,4]
 					},
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 
@@ -235,7 +235,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -247,13 +247,13 @@
 				  columns: [ 0,1,2,3,4]
 					},
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 
@@ -291,7 +291,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -303,13 +303,13 @@
 				  columns: [ 0,1,2,3,4]
 					},
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 

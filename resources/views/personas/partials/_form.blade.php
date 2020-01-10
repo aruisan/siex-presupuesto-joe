@@ -2,7 +2,7 @@
 <div class="col-12 formularioTerceros">
             <div class="row justify-content-center">
                 <br>
-                    <div class="col-9 margin-tb">
+                    <div class="breadcrumb text-center">
                         <center> 
                         <h2>Nuevo Tercero</h2></center></div>
                         <br>
@@ -34,14 +34,9 @@
 
 
 
-            <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+            <div class="row inputCenter" >
             
-                    <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
-                        <div class="form-group">
-                            {{ Form::label('Declarante', 'Declarante')}}
-                            {{ Form::checkbox('declarante','1', $persona->declarante) }}
-                            </div>
-                        </div>
+                 
               
             
                         <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
@@ -60,13 +55,19 @@
                     </div>
                  </div>
 
+            <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
+                        <div class="form-group">
+                            {{ Form::label('Declarante', 'Declarante')}}<br>
+                            {{ Form::checkbox('declarante','1', $persona->declarante,['class' => 'check']) }}
+                            </div>
+                        </div>
             </div>
             
 
-            <div class="inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
+            <div class="inputCenter" >
                 <div class="row">
                    
-                    <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
+                    <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
                         <div class="form-group">
                             {{ Form::label('Email', 'Email')}}
                             {{ Form::text('email', $persona->email, ['class' => 'form-control', 'placeholder' => 'Email']) }}            
@@ -74,42 +75,41 @@
                     </div>
         
             
-                    <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
+                    <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
                         <div class="form-group">
                             {{ Form::label('Direccion', 'Direccion')}}
                             {{ Form::text('direccion', $persona->direccion, ['class' => 'form-control', 'placeholder' => 'Direccion']) }}            
                         </div>
                     </div>
-            </div>
-
-
-        <div class="row">
-                
-                <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
+                    
+                    <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
                     <div class="form-group">
                         {{ Form::label('Telefono', 'Telefono')}}
                         {{ Form::text('telefono', $persona->telefono, ['class' => 'form-control', 'placeholder' => 'Telefono']) }}            
                     </div>
                 </div>
 
-
-                <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6">  
+            </div>
+        </div>
+     <div class="inputCenter" >
+        <div class="row">
+                
+               <div class="col-xs-11 col-sm-11 col-md-4 col-lg-4">  
                     <div class="form-group">
                         {{ Form::label('Ciudad', 'Ciudad')}}
                         {{ Form::text('ciudad', $persona->ciudad, ['class' => 'form-control', 'placeholder' => 'Ciudad']) }}
                     </div>
                 </div>
 
-            <div>
+           
         </div>
-
+   </div>
 
        
             <div class="form-group text-center">
-                <input type="submit" value="Guardar" class="btn btn-lg btn-success" >
+                <input type="submit" value="Guardar" class="btn-danger  btn-lg" >
             </div>
-
-        </div>
+ 
     
     </div>
 {!! Form::close()!!}

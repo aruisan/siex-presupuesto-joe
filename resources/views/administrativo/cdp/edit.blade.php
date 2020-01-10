@@ -28,10 +28,10 @@
     
       <li class="nav-item regresar">
 
-            <a class="nav-link "  href="{{ url('/administrativo/cdp') }}">Volver a CDP'S</a>
+            <a class="nav-link "  href="{{ url('/administrativo/cdp/'.$vigen) }}">Volver a CDP'S</a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="{{ url('/administrativo/cdp/create') }}" >
+            <a class="nav-link" href="{{ url('/administrativo/cdp/create/'.$vigen) }}" >
             
                 NUEVO CDP</a>
         </li>
