@@ -169,7 +169,7 @@ class CodeContractualesController extends Controller
             unset($rubros[0]);
         }
         $codes = CodeContractuales::all();
-        return view('hacienda.presupuesto.informes.Contractual.Homologar.index',compact('rubros','Rubros','rol','codes'));
+        return view('hacienda.presupuesto.informes.Contractual.Homologar.index',compact('rubros','Rubros','rol','codes','vigencia'));
 
     }
 
@@ -339,11 +339,11 @@ class CodeContractualesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        $vigencia = Vigencia::findOrFail($id);
         $codes = CodeContractuales::all();
-        dd($codes);
-        return view('hacienda.presupuesto.informes.Contractual.Homologar.create',compact('codes'));
+        return view('hacienda.presupuesto.informes.Contractual.Homologar.create',compact('codes','vigencia'));
     }
 
     /**
@@ -363,7 +363,7 @@ class CodeContractualesController extends Controller
             $codes->save();
 
             Session::flash('success','Código contractual añadido exitosamente');
-            return redirect('/presupuesto/informes/contractual/homologar/create');
+            return redirect('/presupuesto/informes/contractual/homologar/'. $request->vigencia.'/create');
         } else {
             Session::flash('error','Ya se encuentra un código contractual registrado en el software con ese mismo codigo');
             return back();

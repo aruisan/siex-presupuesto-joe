@@ -12,7 +12,7 @@
         </li>
     @endif
     <li>
-        <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success">
+        <a href="{{ url('presupuesto/informes/contractual/homologar/'. $vigencia->id .'/create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i>&nbsp;
             <span class="hide-menu"> Añadir Código Contractual</span></a>
     </li>
@@ -34,16 +34,16 @@
                             <table class="table table-bordered hover" id="tabla">
                                 <hr>
                                 <thead>
-                                <tr>
-                                    <th colspan="5" class="text-center">Tabla de Rubros con sus Códigos Contractuales Asignados</th>
-                                </tr>
-                                <tr>
-                                    <th class="text-center">Código</th>
-                                    <th class="text-center">Rubro</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Valor Inicial</th>
-                                    <th class="text-center">Valor Disponible</th>
-                                </tr>
+                                    <tr>
+                                        <th colspan="5" class="text-center">Tabla de Rubros con sus Códigos Contractuales Asignados</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">Código</th>
+                                        <th class="text-center">Rubro</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor Inicial</th>
+                                        <th class="text-center">Valor Disponible</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($Rubros as $value)
@@ -66,9 +66,9 @@
                                 </center>
                             </div>
                         @endif
-                        <br>
-                        <hr>
-                        <br>
+                            <br>
+                            <hr>
+                            <br>
                     @endif
                     @if(count($codes) > 0)
 
@@ -112,12 +112,12 @@
                         <div class="alert alert-danger">
                             <center>
                                 No hay codigos contractuales, se recomienda crearlos.
-                                <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success btn-block">CREAR</a>
+                                <a href="{{ url('presupuesto/informes/contractual/homologar/'. $vigencia->id .'/create') }}" class="btn btn-success btn-block">CREAR</a>
                             </center>
                         </div>
                     @endif
 
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -129,114 +129,114 @@
             responsive: true,
             "searching": true,
             ordering: false,
-
+                    
             language: {
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sSearch": "Buscar:",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast":"Último",
-                    "sNext":"Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "sProcessing":"Procesando...",
-            },
+			  "lengthMenu": "Mostrar _MENU_ registros",
+			  "zeroRecords": "No se encontraron resultados",
+			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			  "sSearch": "Buscar:",
+			  "oPaginate": {
+				  "sFirst": "Primero",
+				  "sLast":"Último",
+				  "sNext":"Siguiente",
+				  "sPrevious": "Anterior"
+			   },
+			   "sProcessing":"Procesando...",
+		  },
             dom: 'Bfrtip',
-            buttons:[
-                {
-                    extend:    'copyHtml5',
-                    text:      '<i class="fa fa-clone"></i> ',
-                    titleAttr: 'Copiar',
-                    className: 'btn btn-primary'
-
-                },
-                {
-                    extend:    'excelHtml5',
-                    text:      '<i class="fa fa-file-excel-o"></i> ',
-                    titleAttr: 'Exportar a Excel',
-                    className: 'btn btn-success',
-                    title: 'Predios'
-                },
-                {
-                    extend:    'pdfHtml5',
-                    text:      '<i class="fa fa-file-pdf-o"></i> ',
-                    titleAttr: 'Exportar a PDF',
-                    message : 'SIEX-Providencia',
-                    header :true,
-                    orientation : 'landscape',
-                    pageSize: 'LEGAL',
-                    className: 'btn btn-danger',
-                    title: 'Predios'
-                },
-                {
-                    extend:    'print',
-                    text:      '<i class="fa fa-print"></i> ',
-                    titleAttr: 'Imprimir',
-                    className: 'btn btn-info',
-                    title: 'Predios'
-                },
-            ]
+            buttons:[ 
+			  {
+			  extend:    'copyHtml5',
+			  text:      '<i class="fa fa-clone"></i> ',
+			  titleAttr: 'Copiar',
+			  className: 'btn btn-primary'
+			    
+		  },
+		  {
+			  extend:    'excelHtml5',
+			  text:      '<i class="fa fa-file-excel-o"></i> ',
+			  titleAttr: 'Exportar a Excel',
+			  className: 'btn btn-success',
+			  title: 'Predios'
+		  },
+		  {
+			  extend:    'pdfHtml5',
+			  text:      '<i class="fa fa-file-pdf-o"></i> ',
+			  titleAttr: 'Exportar a PDF',     
+			  message : 'SIEX-Providencia',
+			  header :true,
+			  orientation : 'landscape',
+			  pageSize: 'LEGAL',
+			  className: 'btn btn-danger',
+			  title: 'Predios'
+			   },
+		  {
+			  extend:    'print',
+			  text:      '<i class="fa fa-print"></i> ',
+			  titleAttr: 'Imprimir',
+			  className: 'btn btn-info',
+			  title: 'Predios'
+		  },
+	  ]	             
         } );
 
         $('#tabla2').DataTable( {
             responsive: true,
             "searching": true,
             ordering: false,
-
+       
             language: {
-                "lengthMenu": "Mostrar _MENU_ registros",
-                "zeroRecords": "No se encontraron resultados",
-                "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sSearch": "Buscar:",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast":"Último",
-                    "sNext":"Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "sProcessing":"Procesando...",
-            },
+			  "lengthMenu": "Mostrar _MENU_ registros",
+			  "zeroRecords": "No se encontraron resultados",
+			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			  "sSearch": "Buscar:",
+			  "oPaginate": {
+				  "sFirst": "Primero",
+				  "sLast":"Último",
+				  "sNext":"Siguiente",
+				  "sPrevious": "Anterior"
+			   },
+			   "sProcessing":"Procesando...",
+		  },
             dom: 'Bfrtip',
-            buttons:[
-                {
-                    extend:    'copyHtml5',
-                    text:      '<i class="fa fa-clone"></i> ',
-                    titleAttr: 'Copiar',
-                    className: 'btn btn-primary'
-
-                },
-                {
-                    extend:    'excelHtml5',
-                    text:      '<i class="fa fa-file-excel-o"></i> ',
-                    titleAttr: 'Exportar a Excel',
-                    className: 'btn btn-success',
-                    title: 'Predios'
-                },
-                {
-                    extend:    'pdfHtml5',
-                    text:      '<i class="fa fa-file-pdf-o"></i> ',
-                    titleAttr: 'Exportar a PDF',
-                    message : 'SIEX-Providencia',
-                    header :true,
-                    orientation : 'landscape',
-                    pageSize: 'LEGAL',
-                    className: 'btn btn-danger',
-                    title: 'Predios'
-                },
-                {
-                    extend:    'print',
-                    text:      '<i class="fa fa-print"></i> ',
-                    titleAttr: 'Imprimir',
-                    className: 'btn btn-info',
-                    title: 'Predios'
-                },
-            ]
+            buttons:[ 
+			  {
+			  extend:    'copyHtml5',
+			  text:      '<i class="fa fa-clone"></i> ',
+			  titleAttr: 'Copiar',
+			  className: 'btn btn-primary'
+			    
+		  },
+		  {
+			  extend:    'excelHtml5',
+			  text:      '<i class="fa fa-file-excel-o"></i> ',
+			  titleAttr: 'Exportar a Excel',
+			  className: 'btn btn-success',
+			  title: 'Predios'
+		  },
+		  {
+			  extend:    'pdfHtml5',
+			  text:      '<i class="fa fa-file-pdf-o"></i> ',
+			  titleAttr: 'Exportar a PDF',     
+			  message : 'SIEX-Providencia',
+			  header :true,
+			  orientation : 'landscape',
+			  pageSize: 'LEGAL',
+			  className: 'btn btn-danger',
+			  title: 'Predios'
+			   },
+		  {
+			  extend:    'print',
+			  text:      '<i class="fa fa-print"></i> ',
+			  titleAttr: 'Imprimir',
+			  className: 'btn btn-info',
+			  title: 'Predios'
+		  },
+	  ]	             
         } );
     </script>
 @stop
