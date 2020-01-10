@@ -1,12 +1,5 @@
 <?php
-Route::get('/', 'VisitanteController@index');
 
-Route::get('/info', function(){
-    dd(phpinfo());
-});
-
-Auth::routes();
-<?php
 Route::get('/', 'VisitanteController@index');
 
 Route::get('/info', function(){
@@ -379,3 +372,4 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 
 });
+?>
