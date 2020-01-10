@@ -122,7 +122,7 @@
                                         <td class="text-dark" style="vertical-align:middle;">{{ $codigo['codigo']}}</td>
                                     @endif
                                     <td class="text-dark" style="vertical-align:middle;">{{ $codigo['name']}}</td>
-                                     <!-- PRESUPUESTO INICIAL-->
+                                    <!-- PRESUPUESTO INICIAL-->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorInicial['valor'],0);?></td>
@@ -131,7 +131,7 @@
                                     @if($codigo['valor'])
                                         <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
-                                    <!-- ADICIÓN -->
+                                <!-- ADICIÓN -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
@@ -142,7 +142,7 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorAdd['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    <!-- REDUCCIÓN -->
+                                <!-- REDUCCIÓN -->
                                     @foreach($valoresIniciales as $valorInicial)
                                         @if($valorInicial['id'] == $codigo['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
@@ -153,29 +153,29 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRed['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    <!-- CREDITO -->
-                                        @foreach($valoresIniciales as $valorInicial)
-                                            @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach($valoresCred as $valorCred)
-                                            @if($codigo['id_rubro'] == $valorCred['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCred['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
-                                    <!-- CONTRACREDITO -->
-                                        @foreach($valoresIniciales as $valorInicial)
-                                            @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach($valoresCcred as $valorCcred)
-                                            @if($codigo['id_rubro'] == $valorCcred['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCcred['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
-                                    <!-- PRESUPUESTO DEFINITIVO -->
+                                <!-- CREDITO -->
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresCred as $valorCred)
+                                        @if($codigo['id_rubro'] == $valorCred['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCred['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                <!-- CONTRACREDITO -->
+                                    @foreach($valoresIniciales as $valorInicial)
+                                        @if($valorInicial['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($valoresCcred as $valorCcred)
+                                        @if($codigo['id_rubro'] == $valorCcred['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCcred['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                <!-- PRESUPUESTO DEFINITIVO -->
                                     @foreach($valoresDisp as $valorDisponible)
                                         @if($valorDisponible['id'] == $codigo['id'])
                                             <td class="text-center" style="vertical-align:middle;">$ <?php echo number_format($valorDisponible['valor'],0);?></td>
@@ -250,15 +250,15 @@
                             </thead>
                             <tbody>
                             @foreach($Rubros as  $Rubro)
-                            <tr>
-                                <td>{{ $Rubro['codigo'] }}</td>
-                                <td>{{ $Rubro['name'] }}</td>
-                                <td class="text-center">$ <?php echo number_format($Rubro['valor'],0);?>.00</td>
-                                <td class="text-center">$ <?php echo number_format($Rubro['valor_disp'],0);?>.00</td>
-                                <td class="text-center">
-                                    <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{ $Rubro['codigo'] }}</td>
+                                    <td>{{ $Rubro['name'] }}</td>
+                                    <td class="text-center">$ <?php echo number_format($Rubro['valor'],0);?>.00</td>
+                                    <td class="text-center">$ <?php echo number_format($Rubro['valor_disp'],0);?>.00</td>
+                                    <td class="text-center">
+                                        <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
+                                    </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -407,7 +407,7 @@
                 <a href="{{ url('presupuesto/vigencia/create/1') }}" class="alert-link">Crear Presupuesto de Ingresos</a>.
             </div>
         @endif
-        </div>
+    </div>
 @stop
 @section('js')
     <script>

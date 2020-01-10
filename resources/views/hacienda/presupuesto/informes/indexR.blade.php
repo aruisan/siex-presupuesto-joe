@@ -27,13 +27,13 @@
             <table class="table table-bordered hover" id="tabla">
                 <hr>
                 <thead>
-                    <tr>
-                        <th colspan="2" class="text-center">Informe Presupuestal de Rubros</th>
-                    </tr>
-                    <tr>
-                        <th class="text-center">Código</th>
-                        <th class="text-center">Nombre</th>
-                    </tr>
+                <tr>
+                    <th colspan="2" class="text-center">Informe Presupuestal de Rubros</th>
+                </tr>
+                <tr>
+                    <th class="text-center">Código</th>
+                    <th class="text-center">Nombre</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($values as $value)

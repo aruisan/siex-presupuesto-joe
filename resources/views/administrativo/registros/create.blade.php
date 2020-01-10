@@ -81,6 +81,7 @@
                         <hr>
                         <input type="hidden" name="fecha" value="{{ Carbon\Carbon::today()->Format('Y-m-d')}}">
                         <input type="hidden" name="secretaria_e" value="0">
+                        <input type="hidden" name="vigencia" value="{{ $id }}">
 
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">

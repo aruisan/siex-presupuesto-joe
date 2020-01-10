@@ -318,28 +318,28 @@
                             <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
                             <td class="text-center">
                                 @foreach($valores as $valAdd)
-                                    @if($fuentes->font_id == $valAdd['id'])
+                                    @if($fuentes->font_vigencia_id == $valAdd['id'])
                                         $ <?php echo number_format($valAdd['adicion'],0);?>.00
                                     @endif
                                 @endforeach
                             </td>
                             <td class="text-center">
                                 @foreach($valores as $valAdd)
-                                    @if($fuentes->font_id == $valAdd['id'])
+                                    @if($fuentes->font_vigencia_id == $valAdd['id'])
                                         $ <?php echo number_format($valAdd['reduccion'],0);?>.00
                                     @endif
                                 @endforeach
                             </td>
                             <td class="text-center">
                                 @foreach($valores as $valAdd)
-                                    @if($fuentes->font_id == $valAdd['id'])
+                                    @if($fuentes->font_vigencia_id == $valAdd['id'])
                                         $ <?php echo number_format($valAdd['credito'],0);?>.00
                                     @endif
                                 @endforeach
                             </td>
                             <td class="text-center">
                                 @foreach($valores as $valAdd)
-                                    @if($fuentes->font_id == $valAdd['id'])
+                                    @if($fuentes->font_vigencia_id == $valAdd['id'])
                                         $ <?php echo number_format($valAdd['ccredito'],0);?>.00
                                     @endif
                                 @endforeach

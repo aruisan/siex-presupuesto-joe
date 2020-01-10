@@ -50,9 +50,7 @@
     @endif
 
 <div class="row inputCenter"  >
-        
         <ul class="nav nav-pills">
-          
               @if($mesActual == 12)
                        <li class="nav-item pillPri">
                    
@@ -60,17 +58,15 @@
                         </li>
                     @elseif($mesActual == 1 or $mesActual == 2)
                         <li class="nav-item pillPri">  
-                            <a href="{{ url('/newPre/0',$añoActual-1) }}" class="nav-link"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual - 1 }}</span></a>
+                            <a href="{{ url('/presupuesto') }}" class="nav-link"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual }}</span></a>
                         </li>
                     @endif
-
                 <li class="nav-item principal">
-                                    <a class="nav-link"  href="#editar"> Presupuesto de Egresos {{ $añoActual }}</a>
+                                    <a class="nav-link"  href="#editar"> Presupuesto de Egresos {{ $añoActual - 1 }}</a>
                                 </li>
 
-
                    <li class="nav-item pillPri">
-                          <a class="nav-link "  href="{{ url('/presupuestoIng') }}">Presupuesto de Ingresos {{ $añoActual }}</a>
+                          <a class="nav-link "  href="{{ url('/newPreIng/1',$añoActual-1) }}">Presupuesto de Ingresos {{ $añoActual - 1 }}</a>
                      </li>
 
                          
@@ -98,7 +94,7 @@
                                 <a href="#" class="btn btn-drop text-left">FUT </a>
                             </li>
                             <li>
-                                <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-drop text-left">Niveles</a>
+                                <a href="{{ url('/presupuesto/informes/lvl/'.$primerLevel->id.'/'.$V) }}" class="btn btn-drop text-left">Niveles</a>
                             </li>
                             <li>
                                 <a href="#" class="btn btn-drop text-left">Comparativo (Ingresos - Gastos)</a>
@@ -116,13 +112,7 @@
                             <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
                     </li>
                 @endif
-
-  
-
          </ul>
-
-
-
 
     <div class="col-md-12 align-self-center" style="background-color:#fff;">
         @if($V != "Vacio")
@@ -137,7 +127,7 @@
             <div class="breadcrumb col-md-12 text-center" >
                 <strong>
                
-                    <h4><b> <br>Presupuesto de Egresos {{ $añoActual }}</b></h4>
+                    <h4><b> <br>Presupuesto de Egresos {{ $vigencia[0]->vigencia }}</b></h4>
                 </strong>
             </div>
              </div>
@@ -770,7 +760,7 @@
                     <div class="table-responsive">
                         @if(count($ordenPagos) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/ordenPagos') }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
+                            <a href="{{ url('administrativo/ordenPagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
                             <br>
                             <table class="table table-bordered" id="tabla_OrdenPago">
                                 <thead>
@@ -826,7 +816,7 @@
                     <div class="table-responsive">
                         @if(count($pagos) >= 1)
                             <br>
-                            <a href="{{ url('administrativo/pagos') }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
+                            <a href="{{ url('administrativo/pagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
                             <br>
                             <table class="table table-bordered" id="tabla_Pagos">
                                 <thead>
@@ -869,7 +859,7 @@
                             <div class="alert alert-danger">
                                 <center>
                                     No hay pagos realizados.
-                                    <a href="{{ url('administrativo/pagos/create') }}" class="btn btn-success btn-block">Crear Pagos</a>
+                                    <a href="{{ url('administrativo/pagos/create/'.$V) }}" class="btn btn-danger ">Crear Pagos</a>
                                 </center>
                             </div>
                         @endif
@@ -891,10 +881,8 @@
 
 @stop
 @section('js')
-   
 
       <!-- Datatables personalizadas buttons-->
     <script src="{{ asset('/js/datatableCustom.js') }}"></script>
-
 
 @stop

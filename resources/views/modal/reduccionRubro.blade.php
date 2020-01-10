@@ -26,7 +26,7 @@
                                     <input type="hidden" name="fuenteR_id[]" value="{{ $fuentesRubro->id }}">
                                     <td>
                                         <div class="col-lg-12">
-                                            @if($red->count() > 0)
+                                        @if($red->count() > 0)
                                             <!--
                                                 <input type="hidden" name="fuente_id[]" value="@foreach($fuentesRubro->rubrosMov as $mov) @if($mov->rubro_id == $rubro->id and $mov->movimiento == 3) {{  $mov->fonts_id }}@endif @endforeach">
                                                 <input type="hidden" name="fuenteBase_id[]" value="{{ $fuentesRubro->fontVigencia->font->id }}">

@@ -39,7 +39,7 @@ class RegistrosController extends Controller
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        $regT = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->paginate(5);
+        $regT = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->get();
         foreach ($regT as $dataT){
             if ($dataT->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
                 $registros[] = collect(['id' => $dataT->id, 'objeto' => $dataT->objeto, 'nombre' => $dataT->persona->nombre, 'valor' => $dataT->val_total, 'saldo' => $dataT->saldo, 'estado' => $dataT->secretaria_e]);
@@ -51,21 +51,17 @@ class RegistrosController extends Controller
                 $registrosHistorico[] = collect(['id' => $data->id, 'objeto' => $data->objeto, 'nombre' => $data->persona->nombre, 'valor' => $data->val_total, 'saldo' => $data->saldo, 'estado' => $data->secretaria_e]);
             }
         }
-        if (isset($registros) and isset($registrosHistorico)){
-            return view('administrativo.registros.index',compact('registros','rol', 'registrosHistorico','vigencia'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
-        } else{
-            if (isset($registros)){
-                return view('administrativo.registros.index',compact('registros','rol','vigencia'))
-                    ->with('i', ($request->input('page', 1) - 1) * 5);
-            } elseif(isset($registrosHistorico)) {
-                return view('administrativo.registros.index',compact('rol', 'registrosHistorico','vigencia'))
-                    ->with('i', ($request->input('page', 1) - 1) * 5);
-            } else {
-                return view('administrativo.registros.index',compact('rol','vigencia'))
-                    ->with('i', ($request->input('page', 1) - 1) * 5);
-            }
+        if (!isset($registros)){
+            $registros[] = null;
+            unset($registros[0]);
         }
+        if (!isset($registrosHistorico)){
+            $registrosHistorico[] = null;
+            unset($registrosHistorico[0]);
+        }
+
+        return  view('administrativo.registros.index', compact('registros','rol', 'registrosHistorico','vigencia'))->with('i', ($request->input('page', 1) - 1) * 5);
+
     }
  
     /**
@@ -77,16 +73,14 @@ class RegistrosController extends Controller
     {
         $personas = Persona::all();
         $roles = auth()->user()->roles;
-        foreach ($roles as $role){
-            $rol= $role->id;
-        }
+        foreach ($roles as $role){$rol= $role->id;}
         $cdp = Cdp::all()->where('jefe_e','3')->where('vigencia_id',$id)->count();
         if($cdp > 0){
             $cdps = Cdp::all()->where('jefe_e','3')->where('saldo','>','0')->where('vigencia_id',$id);
             return view('administrativo.registros.create', compact('rol','personas','cdps', 'id'));
         }else{
             Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
-            return redirect('/administrativo/registros');
+            return redirect('/administrativo/registros/'.$id);
         }
     }
  

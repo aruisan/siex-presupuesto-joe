@@ -135,26 +135,26 @@
                 @endif
             </div>
         </div>
-@stop
-@section('js')
-    <script>
-        $('#tabla_CDP').DataTable( {
-            responsive: true,
-            "searching": true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+        @stop
+        @section('js')
+            <script>
+                $('#tabla_CDP').DataTable( {
+                    responsive: true,
+                    "searching": true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'print'
+                    ]
+                } );
 
-        $('#tabla_Historico').DataTable( {
-            responsive: true,
-            "searching": true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'print'
-            ]
-        } );
+                $('#tabla_Historico').DataTable( {
+                    responsive: true,
+                    "searching": true,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'print'
+                    ]
+                } );
 
-    </script>
+            </script>
 @stop

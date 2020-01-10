@@ -313,7 +313,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
             Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
             Route::get('presupuesto/informes/contractual/homologar/{id}','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@index');
             Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
-            Route::get('presupuesto/informes/contractual/homologar/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
+            Route::get('presupuesto/informes/contractual/homologar/{id}/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
             Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
             Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
             Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');

@@ -12,7 +12,7 @@
         </li>
     @endif
     <li>
-        <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success">
+        <a href="{{ url('presupuesto/informes/contractual/homologar/'. $vigencia->id .'/create') }}" class="btn btn-success">
             <i class="fa fa-plus"></i>&nbsp;
             <span class="hide-menu"> Añadir Código Contractual</span></a>
     </li>
@@ -112,7 +112,7 @@
                         <div class="alert alert-danger">
                             <center>
                                 No hay codigos contractuales, se recomienda crearlos.
-                                <a href="{{ url('presupuesto/informes/contractual/homologar/create') }}" class="btn btn-success btn-block">CREAR</a>
+                                <a href="{{ url('presupuesto/informes/contractual/homologar/'. $vigencia->id .'/create') }}" class="btn btn-success btn-block">CREAR</a>
                             </center>
                         </div>
                     @endif

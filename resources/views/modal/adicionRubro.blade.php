@@ -26,7 +26,7 @@
                                     <input type="hidden" name="fuenteR_id[]" value="{{ $fuentesRubro->id }}">
                                     <td>
                                         <div class="col-lg-12">
-                                            @if($add->count() > 0)                            
+                                        @if($add->count() > 0)
                                             <!--
                                                 <input type="hidden" name="fuente_id[]" value="@foreach($add as $mov) @if($mov->rubro_id == $fuentesRubro->rubro_id and $mov->movimiento == 2) {{ $fuentesRubro->id }} @else
                                                 {{ $fuentesRubro->id }} @endif @endforeach">

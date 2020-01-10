@@ -3,7 +3,7 @@
     Añadir Código Contractual
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/presupuesto/informes/contractual/homologar') }}"><span class="hide-menu">Homologar</span></a></li>
+    <li> <a class="btn btn-primary" href="{{ asset('/presupuesto/informes/contractual/homologar/'.$vigencia->id) }}"><span class="hide-menu">Homologar</span></a></li>
 @stop
 @section('content')
 
@@ -28,6 +28,7 @@
             <div class="row inputCenter" style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #3d7e9a; ">
                 <br>
                 {!! Form::open(array('route' => 'homologar.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+                <input type="hidden" name="vigencia" value="{{ $vigencia->id }}">
                 <div class="row">
                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <label>Código: </label>
