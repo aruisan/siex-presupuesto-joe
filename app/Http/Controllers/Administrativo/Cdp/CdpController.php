@@ -157,6 +157,9 @@ class CdpController extends Controller
         $V = $vigens->id;
         $vigencia_id = $V;
 
+        $conteoTraits = new ConteoTraits;
+        $conteo = $conteoTraits->conteoCdps($vigens, $cdp->id);
+
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
         $registers = Register::where('level_id', $ultimoLevel->id)->get();
         $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
@@ -205,7 +208,7 @@ class CdpController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
-        return view('administrativo.cdp.show', compact('cdp','rubros','valores','rol','infoRubro'));
+        return view('administrativo.cdp.show', compact('cdp','rubros','valores','rol','infoRubro', 'conteo'));
     }
 
     /**
