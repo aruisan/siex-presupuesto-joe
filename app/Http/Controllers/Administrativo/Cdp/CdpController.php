@@ -342,7 +342,7 @@ class CdpController extends Controller
         $vigencia = Vigencia::find($vigencia_id);
 
         $conteoTraits = new ConteoTraits;
-        $conteo = $conteoTraits->conteoCdps($vigencia->vigencia, $cdp->id);
+        $conteo = $conteoTraits->conteoCdps($vigencia, $cdp->id);
 
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
         $registers = Register::where('level_id', $ultimoLevel->id)->get();
