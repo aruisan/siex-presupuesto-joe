@@ -4,11 +4,11 @@
 @stop
 @section('sidebar')
     @if($V != "Vacio")
-        <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+        {{-- <li> <a href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li> --}}
     @endif
-    <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li>
+    {{-- <li> <a href="#" class="btn btn-primary hidden"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp; Cambiar Vigencia</span></a></li> --}}
     @if($V != "Vacio")
-        <li class="dropdown">
+        {{-- <li class="dropdown">
             <a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown">
                 Informes
                 <i class="fa fa-caret-down"></i>
@@ -34,35 +34,121 @@
                     <a href="#" class="btn btn-primary text-left">Fuentes</a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
     @endif
     @if($V == "Vacio")
-        <li>
+        {{-- <li>
             <a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i>
                 <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
-        </li>
+        </li> --}}
     @endif
 @stop
 @section('content')
     @if($V != "Vacio")
         @include('modal.Informes.reporte')
     @endif
-    <div class="col-md-12 align-self-center">
+ 
+    {{-- <div class="breadcrumb text-center">
+        <strong>
+            <h4><b>Presupuesto de Egresos {{ $añoActual }}</b></h4>
+        </strong>
+    </div> --}}
+        
+        {{-- style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; " --}}
+
+<div class="row inputCenter"  >
+        
+        <ul class="nav nav-pills">
+          
+              @if($mesActual == 12)
+                       <li class="nav-item pillPri">
+                   
+                            <a href="{{ url('/newPre/0',$añoActual+1) }}" class="nav-link"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual + 1 }}</span></a>
+                        </li>
+                    @elseif($mesActual == 1 or $mesActual == 2)
+                        <li class="nav-item pillPri">  
+                            <a href="{{ url('/newPre/0',$añoActual-1) }}" class="nav-link"><span class="hide-menu"> Presupuesto de Egresos {{ $añoActual - 1 }}</span></a>
+                        </li>
+                    @endif
+
+                <li class="nav-item principal">
+                                    <a class="nav-link"  href="#editar"> Presupuesto de Egresos {{ $añoActual }}</a>
+                                </li>
+
+
+                   <li class="nav-item pillPri">
+                          <a class="nav-link "  href="{{ url('/presupuestoIng') }}">Presupuesto de Ingresos {{ $añoActual }}</a>
+                     </li>
+
+                         
+             
+            @if($V != "Vacio")
+        <li class="nav-item pillPri"> <a class="nav-link "href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
+    @endif
+     
+
+            @if($V != "Vacio")
+                    <li class="dropdown">
+                        <a class="nav-item dropdown-toggle pillPri" data-toggle="dropdown">
+                            Informes
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li class="dropdown-submenu">
+                                <a class="test btn btn-drop text-left" href="#">Contractual &nbsp;</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('/presupuesto/informes/contractual/homologar/'.$V) }}" class="btn btn-drop text-left">Homologar</a></li>
+                                    <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-drop text-left">Reporte</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-drop text-left">FUT </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-drop text-left">Niveles</a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-drop text-left">Comparativo (Ingresos - Gastos)</a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-drop text-left">Fuentes</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($V == "Vacio")
+                    <li class="nav-item pillPri">
+                        <a href="{{ url('/presupuesto/vigencia/create/0') }}" class="btn btn-drop">
+                            <i class="fa fa-plus"></i>
+                            <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
+                    </li>
+                @endif
+
+  
+
+         </ul>
+
+
+
+
+    <div class="col-md-12 align-self-center" style="background-color:#fff;">
         @if($V != "Vacio")
-            <div class="breadcrumb col-md-2 text-center">
+            {{-- <div class="breadcrumb col-md-2 text-center">
                 <strong>
                     <h4>
                         <a href="{{ url('/presupuestoIng') }}" class="btn btn-success"><span class="hide-menu"> Presupuesto de Ingresos</span></a>
                     </h4>
                 </strong>
-            </div>
-            <div class="breadcrumb col-md-8 text-center">
+            </div> --}}
+             <div class="row" >
+            <div class="breadcrumb col-md-12 text-center" >
                 <strong>
                     <h4><b>Presupuesto de Egresos {{ $añoActual }}</b></h4>
                 </strong>
             </div>
-            <div class="breadcrumb col-md-2 text-center">
+             </div>
+            {{-- <div class="breadcrumb col-md-2 text-center">
                 <strong>
                     @if($mesActual == 12)
                         <h4>
@@ -74,12 +160,13 @@
                         </h4>
                     @endif
                 </strong>
-            </div>
+            </div> --}}
+
             <ul class="nav nav-pills">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-home"></i></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" data-toggle="pill"  href="@can('fuentes-list') #tabFuente @endcan">Fuentes</a>
                 </li>
                 <li class="nav-item">
@@ -113,7 +200,8 @@
                     <a class="nav-link" data-toggle="pill" href="#tabP">Pagos</a>
                 </li>
             </ul>
-
+     
+       <hr>
             <!-- TABLA DE PRESUPUESTO -->
 
             <div class="tab-content" style="background-color: white">
@@ -418,9 +506,12 @@
                 <div id="tabCert" class=" tab-pane fade"><br>
                     <div class="table-responsive">
                         @if(isset($cdps))
+                            <div class="row">
+                                 <div style="position:left;">
+                            <a href="{{ url('administrativo/cdp/'.$V) }}" class="btn btn-primary m-b-12" style="position:left;">Otras acciones de CDP's</a>
                             <br>
-                            <a href="{{ url('administrativo/cdp/'.$V) }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
-                            <br>
+                             </div>
+                              </div>
                             <table class="table table-bordered" id="tabla_CDP">
                                 <thead>
                                 <tr>
@@ -434,9 +525,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($cdps as $cdp)
+                                @foreach($cdps as $index => $cdp)
                                     <tr>
-                                        <td class="text-center">{{ $cdp['id'] }}</td>
+                                        <td class="text-center">{{ $index+1}}</td>
                                         <td class="text-center">{{ $cdp['name'] }}</td>
                                         <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
                                         <td class="text-center">
@@ -481,8 +572,8 @@
                             <br><br>
                             <div class="alert alert-danger">
                                 <center>
-                                    No hay CDP's.
-                                    <a href="{{ url('administrativo/cdp/create/'.$V) }}" class="btn btn-success btn-block">Crear CDP</a>
+                                    No hay CDP's.<br><br>
+                                    <a href="{{ url('administrativo/cdp/create/'.$V) }}" class="btn btn-danger ">Crear CDP</a>
                                 </center>
                             </div>
                         @endif
@@ -543,8 +634,8 @@
                             <br>
                             <div class="alert alert-danger">
                                 <center>
-                                    No hay Registros.
-                                    <a href="{{ url('administrativo/registros/create/'.$V) }}" class="btn btn-success btn-block">Crear Registro</a>
+                                    No hay Registros.<br><br>
+                                    <a href="{{ url('administrativo/registros/create/'.$V) }}" class="btn btn-danger " >Crear Registro</a>
                                 </center>
                             </div>
                         @endif
@@ -708,8 +799,8 @@
                             <br>
                             <div class="alert alert-danger">
                                 <center>
-                                    No hay ordenes de pagos realizadas.
-                                    <a href="{{ url('administrativo/ordenPagos/create/'.$V) }}" class="btn btn-success btn-block">Crear Orden de Pago</a>
+                                    No hay ordenes de pagos realizadas.<br><br>
+                                    <a href="{{ url('administrativo/ordenPagos/create/'.$V) }}" class="btn btn-danger ">Crear Orden de Pago</a>
                                 </center>
                             </div>
                         @endif
@@ -764,8 +855,8 @@
                             <br>
                             <div class="alert alert-danger">
                                 <center>
-                                    No hay pagos realizados.
-                                    <a href="{{ url('administrativo/pagos/create/'.$V) }}" class="btn btn-success btn-block">Crear Pagos</a>
+                                    No hay pagos realizados.<br><br>
+                                    <a href="{{ url('administrativo/pagos/create/'.$V) }}" class="btn btn-danger ">Crear Pagos</a>
                                 </center>
                             </div>
                         @endif
@@ -784,7 +875,10 @@
                     </div>
                 @endif
             </div>
+ </div>
 
+  </div> 
+  <br><br>
         @stop
     @section('js')
 

@@ -57,7 +57,7 @@
                         <td>$ <?php echo number_format($data->valor,0);?></td>
                         <td>{{$data->asunto}}</td>
                         <td class="text-center">
-                            <a href="contractual/{{$data->id}}/edit " class="btn-sm btn-success" title="Editar"><span class="fa fa-edit"></span></a>
+                            <a href="contractual/{{$data->id}}/edit " class="btn-sm btn-primary" title="Editar"><span class="fa fa-edit"></span></a>
                             <a href="contractual/{{$data->id}}/anexos " class="btn-sm btn-primary" title="Anexos"><span class="glyphicon glyphicon-open-file"></span></a>
                         </td>
                     </tr>
@@ -110,7 +110,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -120,13 +120,13 @@
 			  header :true,
 			  orientation : 'landscape',
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 

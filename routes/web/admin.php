@@ -1,8 +1,9 @@
 <?php
+
 Route::get('/', 'VisitanteController@index');
 
 Route::get('/info', function(){
-	dd(phpinfo());
+    dd(phpinfo());
 });
 
 Auth::routes();

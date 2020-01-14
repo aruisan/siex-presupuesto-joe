@@ -35,8 +35,8 @@
 				        <tr class="active">
 				            <th class="text-center">Selected</th>
 				            <th class="text-center">FICHA CATASTRAL</th>
-				            <th class="text-center">MATRICULA INMOBILARIA</th>
-				            <th class="text-center">Direccion</th>
+				            <th class="text-center">MATRÍCULA INMOBILARIA</th>
+				            <th class="text-center">Dirección</th>
 				            <th class="text-center">Nombre</th>
 				        </tr>
 				    </thead>

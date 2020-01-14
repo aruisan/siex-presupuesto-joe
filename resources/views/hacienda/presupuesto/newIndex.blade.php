@@ -113,7 +113,6 @@
                     </li>
                 @endif
          </ul>
-
     <div class="col-md-12 align-self-center" style="background-color:#fff;">
         @if($V != "Vacio")
             {{-- <div class="breadcrumb col-md-2 text-center">
@@ -126,7 +125,6 @@
              <div class="row" >
             <div class="breadcrumb col-md-12 text-center" >
                 <strong>
-               
                     <h4><b> <br>Presupuesto de Egresos {{ $vigencia[0]->vigencia }}</b></h4>
                 </strong>
             </div>

@@ -17,6 +17,7 @@ use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use PDF;
 use Carbon\Carbon;
+Use App\Traits\ConteoTraits;
 
 
 use Session;
@@ -319,6 +320,7 @@ class CdpController extends Controller
 
     public function pdf($id, $vigen)
     {
+
         $roles = auth()->user()->roles;
         foreach ($roles as $role){
             $rol= $role->id;
@@ -336,9 +338,11 @@ class CdpController extends Controller
         //codigo de rubros
 
         $V = $vigen;
-
         $vigencia_id = $V;
         $vigencia = Vigencia::find($vigencia_id);
+
+        $conteoTraits = new ConteoTraits;
+        $conteo = $conteoTraits->conteoCdps($vigencia->vigencia, $cdp->id);
 
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
         $registers = Register::where('level_id', $ultimoLevel->id)->get();
@@ -395,7 +399,7 @@ class CdpController extends Controller
         $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
-        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia', 'dias', 'meses', 'fecha'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia', 'dias', 'meses', 'fecha', 'conteo'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
         return $pdf->stream();
     }
 }

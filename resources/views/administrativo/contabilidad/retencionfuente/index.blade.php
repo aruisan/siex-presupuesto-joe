@@ -3,16 +3,31 @@
     Retención en la Fuente
 @stop
 @section('sidebar')
-    <li><a href="{{ url('/administrativo/contabilidad/retefuente/create') }}" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Nueva Retención en la Fuente</a></li>
+    {{-- <li><a href="{{ url('/administrativo/contabilidad/retefuente/create') }}" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Nueva Retención en la Fuente</a></li> --}}
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
-        <div class="breadcrumb text-center">
-            <strong>
-                <h4><b>Retención en la Fuente</b></h4>
-            </strong>
+    
+        <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> Retención en la Fuente</h2>
+            </div>
         </div>
-            <br>
+        
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        
+        <ul class="nav nav-pills">
+          
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#ver">Retención en la fuente</a>
+                </li>
+                   <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ url('/administrativo/contabilidad/retefuente/create') }}" >Nueva Retención en la Fuente</a>
+                </li>
+             
+            </ul>
+            
                 <div class="table-responsive">
                     <br>
                     @if(count($data) > 0)
@@ -55,6 +70,8 @@
                     @endif
                 </div>
             </div>
+        </div>
+            
 @stop
 
 @section('js')
@@ -86,13 +103,19 @@
 			  extend:    'copyHtml5',
 			  text:      '<i class="fa fa-clone"></i> ',
 			  titleAttr: 'Copiar',
-			  className: 'btn btn-primary'
+			  className: 'btn btn-primary',
+               exportOptions: {
+				  columns: [ 0,1,2,3,4,5,6]
+					}
 		  },
 		  {
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary',
+               exportOptions: {
+				  columns: [ 0,1,2,3,4,5,6]
+					}
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -102,13 +125,19 @@
 			  header :true,
 			  orientation : 'landscape',
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
+             exportOptions: {
+				  columns: [ 0,1,2,3,4,5,6]
+					}
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary',
+               exportOptions: {
+				  columns: [ 0,1,2,3,4,5,6]
+					}
 		  },
 	  ]	             
 

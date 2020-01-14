@@ -3,7 +3,7 @@
     Impuestos Municipales
 @stop
 @section('sidebar')
-    <li><a href="{{ url('/administrativo/contabilidad/impumuni/create') }}" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Nuevo impuesto municipal</a></li>
+    {{-- <li><a href="{{ url('/administrativo/contabilidad/impumuni/create') }}" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp; Nuevo impuesto municipal</a></li> --}}
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
@@ -12,7 +12,12 @@
                 <h4><b>Impuestos Municipales</b></h4>
             </strong>
         </div>
-            <br>
+          	<ul class="nav nav-pills">
+                 <li class="nav-item active"> <a href="#impuesto" class="nav-link">Impuestos Municipales</a></li>
+                <li class="nav-item "> <a href="{{ url('/administrativo/contabilidad/impumuni/create') }}" class="nav-link">Crear Impuesto</a></li>
+
+                </ul>
+	
                 <div class="table-responsive">
                     <br>
                     @if(count($data) > 0)
@@ -47,7 +52,7 @@
                     @else
                         <div class="col-md-12 align-self-center">
                             <div class="alert alert-danger text-center">
-                                Actualmente no hay una retencion en la fuente almacenada.
+                                Actualmente no hay ningún impuesto municipal almacenado.
                             </div>
                         </div>
                     @endif
@@ -57,13 +62,60 @@
 
 @section('js')
     <script>
-            $('#tabla_corrE').DataTable( {
-                responsive: true,
-                "searching": true,
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'print'
-                ]
-            } );
+          //Spanish
+   $('#tabla_corrE').DataTable({
+	language: {
+			  "lengthMenu": "Mostrar _MENU_ registros",
+			  "zeroRecords": "No se encontraron resultados",
+			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+			  "sSearch": "Buscar:",
+			  "oPaginate": {
+				  "sFirst": "Primero",
+				  "sLast":"Último",
+				  "sNext":"Siguiente",
+				  "sPrevious": "Anterior"
+			   },
+			   "sProcessing":"Procesando...",
+		  },
+	  //para usar los botones
+	  
+	  "pageLength": 5,   
+	  responsive: "true",
+	   "ordering": false,
+	  dom: 'Bfrtilp',       
+	  buttons:[ 
+			  {
+			  extend:    'copyHtml5',
+			  text:      '<i class="fa fa-clone"></i> ',
+			  titleAttr: 'Copiar',
+			  className: 'btn btn-primary'
+		  },
+		  {
+			  extend:    'excelHtml5',
+			  text:      '<i class="fa fa-file-excel-o"></i> ',
+			  titleAttr: 'Exportar a Excel',
+			  className: 'btn btn-primary'
+		  },
+		  {
+			  extend:    'pdfHtml5',
+			  text:      '<i class="fa fa-file-pdf-o"></i> ',
+			  titleAttr: 'Exportar a PDF',     
+			  message : 'SIEX-Providencia',
+			  header :true,
+			  orientation : 'landscape',
+			  pageSize: 'LEGAL',
+			  className: 'btn btn-primary',
+			   },
+		  {
+			  extend:    'print',
+			  text:      '<i class="fa fa-print"></i> ',
+			  titleAttr: 'Imprimir',
+			  className: 'btn btn-primary'
+		  },
+	  ]	             
+
+		 });
     </script>
 @stop
