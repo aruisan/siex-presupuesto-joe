@@ -3,18 +3,40 @@
     PUC
 @stop
 @section('sidebar')
-    @if($data)
+    {{-- @if($data)
         <li><a href="/administrativo/contabilidad/puc/level/create/{{ $data->id }}" class="btn btn-primary"><i class="fa fa-edit"></i> &nbsp; Modificar PUC</a></li>
-    @endif
+    @endif --}}
 @stop
 @section('content')
     <div class="col-md-12 align-self-center">
-        <div class="breadcrumb text-center">
-            <strong>
-                <h4><b>PUC</b></h4>
-            </strong>
+       
+
+
+           <div class="row">
+            
+            <div class="col-lg-12 margin-tb">
+                <h2 class="text-center"> PUC</h2>
+            </div>
         </div>
-            <br>
+        
+<div class="row inputCenter"  style=" margin-top: 20px;    padding-top: 20px;    border-top: 3px solid #efb827; ">
+        
+        <ul class="nav nav-pills">
+          
+              
+                   <li class="nav-item active">
+                    <a class="nav-link "  href="#" >PUC </a>
+                </li>
+
+
+            @if($data)
+               <li class="nav-item">
+                    <a class="nav-link "  href="/administrativo/contabilidad/puc/level/create/{{ $data->id }}"> Modificar PUC</a>
+                </li>
+          
+             @endif
+              </ul>
+              
                 <div class="table-responsive">
                     <br>
                     @if($data)
@@ -50,6 +72,7 @@
                     @endif
                 </div>
             </div>
+             </div>
 @stop
 
 @section('js')
@@ -87,7 +110,7 @@
 			  extend:    'excelHtml5',
 			  text:      '<i class="fa fa-file-excel-o"></i> ',
 			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-success'
+			  className: 'btn btn-primary'
 		  },
 		  {
 			  extend:    'pdfHtml5',
@@ -99,13 +122,13 @@
 				  columns: [ 0,1,2,3,4]
 					},
 			  pageSize: 'LEGAL',
-			  className: 'btn btn-danger',
+			  className: 'btn btn-primary',
 			   },
 		  {
 			  extend:    'print',
 			  text:      '<i class="fa fa-print"></i> ',
 			  titleAttr: 'Imprimir',
-			  className: 'btn btn-info'
+			  className: 'btn btn-primary'
 		  },
 	  ]	             
 

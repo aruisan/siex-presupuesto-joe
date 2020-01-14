@@ -3,7 +3,7 @@
 	Creación de Registros
 @stop
 @section('sidebar')
-	<li class="dropdown">
+	{{-- <li class="dropdown">
 		<a class="dropdown-toggle btn btn btn-primary" data-toggle="dropdown" href="#">
 			<span class="hide-menu">Niveles</span>
 			&nbsp;
@@ -17,11 +17,48 @@
 			<li><a href="/presupuesto/rubro/create/{{ $nivel->vigencia_id }}" class="btn btn-primary">Rubros</a></li>
 			<li><a href="/presupuesto/level/create/{{ $nivel->vigencia_id }}" class="btn btn-primary">Nuevo Nivel</a></li>
 		</ul>
-	</li>
+	</li> --}}
 @stop
 @section('content')
 	<div class="col-md-12 align-self-center" id="crud">
-		<br><center><h2>Nivel {{ $nivel->level }} - {{ $nivel->name }}</h2></center><br>
+
+
+	            
+
+   <div class="breadcrumb text-center">
+        <strong>
+            <h2><b>Nivel {{ $nivel->level }} - {{ $nivel->name }}</b></h2>
+        </strong>
+    </div>
+
+ 	<ul class="nav nav-pills">
+
+	
+             <li class="nav-item">
+                  <a class="nav-link regresar"  href="{{ url('/presupuesto/level/create/'. $nivel->vigencia_id ) }}">Volver a niveles </a>
+                 </li>
+
+
+            <li class="dropdown nav-item">
+		<a class="dropdown-toggle " data-toggle="dropdown" href="#">
+			<span class="hide-menu">Niveles</span>
+			&nbsp;
+			<i class="fa fa-caret-down"></i>
+		</a>
+		<ul class="dropdown-menu dropdown-user">
+			@foreach($niveles as $level)
+				<li><a class="nav-link btn-drop" href="/presupuesto/registro/create/{{ $level->vigencia_id }}/{{ $level->level }}" >Nivel {{ $level->level }}</a></li>
+			@endforeach
+			<li><a class="nav-link btn-drop" href="/presupuesto/font/create/{{ $nivel->vigencia_id }}" >Fuentes</a></li>
+			<li><a class="nav-link btn-drop" href="/presupuesto/rubro/create/{{ $nivel->vigencia_id }}" >Rubros</a></li>
+			<li><a class="nav-link btn-drop"  href="/presupuesto/level/create/{{ $nivel->vigencia_id }}" >Nuevo Nivel</a></li>
+		</ul>
+	</li>
+
+                </ul>
+
+
+
 			<form action="{{url('/presupuesto/registro')}}" method="POST"  class="form">
 				{{ csrf_field() }}
 				<input type="hidden"   name="level_id" value="{{ $nivel->id }}">
@@ -74,8 +111,8 @@
 					</tbody>
 				</table><br>
 				<center>
-					<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Agregar Fila</button>
-					<button type="submit" class="btn btn-primary">Guardar</button>
+					<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-danger">Agregar Fila</button>
+					<button type="submit" class="btn btn-primary">Guardar</button><br>
 				</center>
 		</form>
 	</div>

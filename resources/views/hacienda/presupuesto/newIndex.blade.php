@@ -94,7 +94,11 @@
                                 <a href="#" class="btn btn-drop text-left">FUT </a>
                             </li>
                             <li>
+<<<<<<< HEAD
+                                <a href="{{ url('/presupuesto/informes/lvl/1') }}" class="btn btn-drop text-left">Niveles</a>
+=======
                                 <a href="{{ url('/presupuesto/informes/lvl/'.$primerLevel->id.'/'.$V) }}" class="btn btn-drop text-left">Niveles</a>
+>>>>>>> development
                             </li>
                             <li>
                                 <a href="#" class="btn btn-drop text-left">Comparativo (Ingresos - Gastos)</a>
@@ -112,8 +116,19 @@
                             <span class="hide-menu"> Nuevo Presupuesto de Egresos</span></a>
                     </li>
                 @endif
+<<<<<<< HEAD
+
+  
+
          </ul>
 
+
+
+
+=======
+         </ul>
+
+>>>>>>> development
     <div class="col-md-12 align-self-center" style="background-color:#fff;">
         @if($V != "Vacio")
             {{-- <div class="breadcrumb col-md-2 text-center">
@@ -127,7 +142,11 @@
             <div class="breadcrumb col-md-12 text-center" >
                 <strong>
                
+<<<<<<< HEAD
+                    <h4><b> <br>Presupuesto de Egresos {{ $añoActual }}</b></h4>
+=======
                     <h4><b> <br>Presupuesto de Egresos {{ $vigencia[0]->vigencia }}</b></h4>
+>>>>>>> development
                 </strong>
             </div>
              </div>

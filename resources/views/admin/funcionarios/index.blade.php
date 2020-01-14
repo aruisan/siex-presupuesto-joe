@@ -3,16 +3,30 @@
     Funcionarios
 @stop
 @section('sidebar')
-  @include('admin.funcionarios.cuerpo.aside')
+  {{-- @include('admin.funcionarios.cuerpo.aside') --}}
 @stop
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-            <h2 class="text-center">Administración Funcionarios</h2>
-    </div>
-</div>
 
-<div class="table-responsive">
+        <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Administración Funcionarios</b></h4>
+            </strong>
+        </div>
+            <ul class="nav nav-pills">
+                <li class="nav-item active">
+                    <a class="nav-link " data-toggle="pill" href="#lista"> Funcionarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('funcionarios.create')}}">Crear Funcionario</a>
+                </li>
+             
+            </ul>
+     
+            <div class="tab-content" style="background-color: white">
+                <div id="lista" class="tab-pane active"><br>
+                    <div class="table-responsive">
+                        <br>
+                  <div class="table-responsive">
                           <div class="box">
                                     <div class="box-header">
                                     <h3 class="box-title"></h3>
@@ -51,7 +65,7 @@
                                         @endif
                                       </td>
                                       <td class="text-center">
-                                        <a href="{{ route('funcionarios.edit',$user->id) }}" class="btn btn-sm btn-info">
+                                        <a href="{{ route('funcionarios.edit',$user->id) }}" class="btn btn-sm btn-danger">
                                           <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                         </a>
                                       </td>
@@ -69,6 +83,8 @@
                                   </div>
                                </div>
                             </div>
+                                 </div>
+                               </div>
 
 
 {!! $data->render() !!}

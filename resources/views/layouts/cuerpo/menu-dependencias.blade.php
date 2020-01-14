@@ -65,8 +65,8 @@
 </li>
 
 <li class="dropdown ">
-   <a class="btn btn-default btn-sm item-menu" href="{{ url('/dashboard/alcaldia') }}">
-   ALCALDIA
+   <a class="btn btn-default btn-sm item-menu" href="{{ url('/dashboard/concejales') }}">
+   CONCEJALES
    </a>
 </li>
 
