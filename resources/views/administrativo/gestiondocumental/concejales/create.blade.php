@@ -3,16 +3,27 @@
     Crear Concejal
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/concejales') }}"><span class="hide-menu">CONCEJALES</span></a></li>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/concejales') }}"><span class="hide-menu">CONCEJALES</span></a></li> --}}
 @stop
 @section('content')
-<div class="row">
-    <br>
-    <div class="col-lg-12 margin-tb">
-        <h2 class="text-center"> Creación de Concejal</h2>
-    </div>
-</div>
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
+   <div class="col-md-12 align-self-center">
+     <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Nuevo Concejal</b></h4>
+            </strong>
+        </div>
+            <ul class="nav nav-pills">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{ asset('/dashboard/concejales') }}">Concejales</a>
+                </li>
+               
+                <li class="nav-item active">
+                    <a class="nav-link" href="#nuevo">Nuevo Concejal</a>
+                </li>
+             
+            </ul>
+    
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="background-color: white">
     <br>
     <hr>
     {!! Form::open(array('route' => 'concejales.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
@@ -25,7 +36,7 @@
                     @foreach($Usuarios as $usuario)
                         <option value="{{$usuario['id']}}">{{$usuario['name']}}</option>
                     @endforeach
-                </select>
+                </select    >
             </div>
             <small class="form-text text-muted">Comisión asignada al acuerdo</small>
         </div>
@@ -63,4 +74,7 @@
     </div>
     {!! Form::close() !!}
 </div>
+</div>
+
+
 @endsection

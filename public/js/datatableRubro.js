@@ -32,20 +32,20 @@ buttons:[
 	  extend:    'excelHtml5',
 	  text:      '<i class="fa fa-file-excel-o"></i> ',
 	  titleAttr: 'Exportar a Excel',
-	  className: 'btn btn-success'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'pdfHtml5',
 	  text:      '<i class="fa fa-file-pdf-o"></i> ',
 	  titleAttr: 'Exportar a PDF',
 	   message : 'Fuentes-SIEX',
-	  className: 'btn btn-danger'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'print',
 	  text:      '<i class="fa fa-print"></i> ',
 	  titleAttr: 'Imprimir',
-	  className: 'btn btn-info'
+	  className: 'btn btn-primary'
   },
 ]	        
 
@@ -84,20 +84,20 @@ buttons:[
 	  extend:    'excelHtml5',
 	  text:      '<i class="fa fa-file-excel-o"></i> ',
 	  titleAttr: 'Exportar a Excel',
-	  className: 'btn btn-success'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'pdfHtml5',
 	  text:      '<i class="fa fa-file-pdf-o"></i> ',
 	  titleAttr: 'Exportar a PDF',
 	   message : 'Fuentes-SIEX',
-	  className: 'btn btn-danger'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'print',
 	  text:      '<i class="fa fa-print"></i> ',
 	  titleAttr: 'Imprimir',
-	  className: 'btn btn-info'
+	  className: 'btn btn-primary'
   },
 ]	        
 
@@ -136,20 +136,20 @@ buttons:[
 	  extend:    'excelHtml5',
 	  text:      '<i class="fa fa-file-excel-o"></i> ',
 	  titleAttr: 'Exportar a Excel',
-	  className: 'btn btn-success'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'pdfHtml5',
 	  text:      '<i class="fa fa-file-pdf-o"></i> ',
 	  titleAttr: 'Exportar a PDF',
 	   message : 'Fuentes-SIEX',
-	  className: 'btn btn-danger'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'print',
 	  text:      '<i class="fa fa-print"></i> ',
 	  titleAttr: 'Imprimir',
-	  className: 'btn btn-info'
+	  className: 'btn btn-primary'
   },
 ]	        
 
@@ -188,20 +188,20 @@ buttons:[
 	  extend:    'excelHtml5',
 	  text:      '<i class="fa fa-file-excel-o"></i> ',
 	  titleAttr: 'Exportar a Excel',
-	  className: 'btn btn-success'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'pdfHtml5',
 	  text:      '<i class="fa fa-file-pdf-o"></i> ',
 	  titleAttr: 'Exportar a PDF',
 	   message : 'Fuentes-SIEX',
-	  className: 'btn btn-danger'
+	  className: 'btn btn-primary'
   },
   {
 	  extend:    'print',
 	  text:      '<i class="fa fa-print"></i> ',
 	  titleAttr: 'Imprimir',
-	  className: 'btn btn-info'
+	  className: 'btn btn-primary'
   },
 ]	        
 

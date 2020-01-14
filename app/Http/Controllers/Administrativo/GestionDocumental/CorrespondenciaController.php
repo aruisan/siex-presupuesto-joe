@@ -68,7 +68,7 @@ class CorrespondenciaController extends Controller
         if ($CorrespondenciaE->estado == 0){
             $estado = "Pendiente";
         } elseif ($CorrespondenciaE->estado == 1){
-            $estado = "Aprovado";
+            $estado = "Aprobado";
         } elseif ($CorrespondenciaE->estado == 2){
             $estado = "Rechazado";
         } elseif ($CorrespondenciaE->estado == 3){

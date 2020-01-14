@@ -3,14 +3,26 @@
     Crear Roles
 @stop
 @section('sidebar')
-  @include('admin.roles.cuerpo.aside')
+  {{-- @include('admin.roles.cuerpo.aside') --}}
 @stop
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-            <h2 class="text-center"> Crear Rol</h2>
-    </div>
-</div>
+  <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Nuevo Rol</b></h4>
+            </strong>
+        </div>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link regresar" href="{{route('roles.index')}}"> Roles</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" data-toggle="pill" href="#crear">Nuevo Rol</a>
+                </li>
+             
+            </ul>
+     
+            <div class="tab-content" style="background-color: white">
+                <div id="lista" class="tab-pane active"><br>
 
 
 {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
@@ -55,7 +67,8 @@
 </div>
 {!! Form::close() !!}
 
-
+</div>
+</div>
 @endsection
 
 @section('css')

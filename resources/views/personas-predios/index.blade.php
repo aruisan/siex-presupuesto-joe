@@ -1,25 +1,33 @@
 @extends('layouts.dashboard')
 
 @section('titulo')
-    Funcionarios
+    Asignar dueños a predio
 @stop
 @section('sidebar')
-  @include('cobro.predios.cuerpo.aside')
+  {{-- @include('cobro.predios.cuerpo.aside') --}}
 @stop
 @section('content')
-    
+    <div class="breadcrumb text-center">
+        <strong>
+            <h3><b>Asignar Personas a Predio</b></h3>
+        </strong>
+    </div>
+			
 	<div class="container-fluid">
-				<button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#myModal" 
+				{{-- <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#myModal" 
 		    			data-id="{{$predio->id}}">
 		    		Ingresar Dueños al Predio
 		    		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-		    	</button>
+		    	</button> --}}
 
-		<ul class="nav nav-tabs">
-			<li role="presentation"><a href="{{url('predios')}}">Predios</a></li>
-		  <li role="presentation" class="active"><a href="">Asignar personas a predio</a></li>
-{{-- 		  <li role="presentation"><a href="{{route('unnassigned')}}">Predios sin Asignar</a></li>
-		  <li role="presentation"><a href="{{route('assignor')}}">Predios Asignados</a></li>  --}}
+				<ul class="nav nav-pills">
+      <li class="nav-item">
+			<li role="presentation" class="nav-item"><a class="nav-linkregresar" href="{{url('predios')}}">Predios</a></li>
+		 	 <li role="presentation" class="nav-item active"><a class="nav-link" href="#">Asignar personas a predio</a></li>
+            <li role="presentation" class="nav-item"><a class="nav-link "  data-toggle="modal" data-target="#myModal" data-id="{{$predio->id}}" >Asignar dueños al Predio</a></li>
+         
+		</li>
+			
 		</ul>
 		<br>
 
@@ -27,7 +35,7 @@
 			<table class="table table-bordered cell-border table-hover">
 			    <tbody>
 					<tr>
-						<td><b>Matricula Inmoviliaria: </b></td>
+						<td><b>Matricula Inmobiliaria: </b></td>
 						<td>{{$predio->matricula_inmobiliaria}}</td>
 					</tr>
 					<tr>

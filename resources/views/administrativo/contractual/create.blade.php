@@ -24,7 +24,7 @@
         <div class="row">
             
             <div class="col-lg-12 margin-tb">
-                <h2 class="text-center"> Contractual</h2>
+                <h2 class="text-center"> Crear nuevo Contrato</h2>
             </div>
         </div>
         
@@ -32,11 +32,11 @@
         
         <ul class="nav nav-pills">
           
-                <li class="nav-item active">
-                    <a class="nav-link "  href="{{ url('/contractual') }}"> Volver a Contractual</a>
+                <li class="nav-item">
+                    <a class="nav-link regresar"  href="{{ url('/contractual') }}"> Volver a Contractual</a>
                 </li>
-                   <li class="nav-item">
-                    <a class="nav-link regresar"  href="#" >Nuevo </a>
+                   <li class="nav-item active">
+                    <a class="nav-link "  href="#" >Nuevo </a>
                 </li>
              
             </ul>

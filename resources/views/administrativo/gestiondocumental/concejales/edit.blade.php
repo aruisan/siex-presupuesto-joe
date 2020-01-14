@@ -3,32 +3,33 @@
     Concejal
 @stop
 @section('sidebar')
-    <li> <a class="btn btn-primary" href="{{ asset('/dashboard/concejales') }}"><span class="hide-menu">CONCEJALES</span></a></li>
-    
-    <h3 class="text-center nConcejal">Número de Identificación</h3>
-   
-    <h4 class="text-center nConcejal">{{ $datos->num_dc }}</h4>
-    
-    <h3 class="text-center nConcejal">Persona de tipo:</h3>
-    
-    <h4 class="text-center nConcejal">{{ $datos->tipo }}</h4>
-    <hr>
-    <div class="row text-center">
-        <form action="{{ asset('/dashboard/concejales/'.$concejal->id) }}" method="post">
-            {!! method_field('DELETE') !!}
-            {{ csrf_field() }}
-            <button class="btn btn-danger btn-raised btn-lg">Eliminar Concejal</button>
-        </form>
-    </div>
+    {{-- <li> <a class="btn btn-primary" href="{{ asset('/dashboard/concejales') }}"><span class="hide-menu">CONCEJALES</span></a></li> --}}
 
-    <hr>
 
 @stop
 @section('content')
+   <div class="breadcrumb text-center">
+            <strong>
+                <h4><b>Editar Concejal</b></h4>
+            </strong>
+        </div>
+            <ul class="nav nav-pills">
+                  <li class="nav-item ">
+                    <a class="nav-link" href="{{ asset('/dashboard/concejales') }}">Concejales</a>
+                </li>
+               
+                <li class="nav-item active">
+                    <a class="nav-link" data-toggle="pill" href="#editar">Editar Concejal</a>
+                </li>
 
+                 <li class="nav-item ">
+                    <a class="nav-link" data-toggle="pill" href="#datos">Datos básicos</a>
+                </li>
+             
+            </ul>
 
- <div class="col-lg-12 align-self-center">
-     
+            <div class="tab-content" style="background-color: white">
+                     <div id="editar" class="tab-pane active">
         <div class="row justify-content-center">
 
                 <div class="col-lg-4 ">
@@ -125,5 +126,28 @@
                 </form>
                  </div>
         </div>
+         </div>
+
+               <div id="datos" class="tab-pane ">
+                   <br><br><br>
+    <h3 class="text-center nConcejal">Número de Identificación</h3>
+   
+    <h4 class="text-center nConcejal">{{ $datos->num_dc }}</h4>
+    
+    <h3 class="text-center nConcejal">Persona de tipo:</h3>
+    
+    <h4 class="text-center nConcejal">{{ $datos->tipo }}</h4>
+    <hr>
+    <div class="row text-center">
+        <form action="{{ asset('/dashboard/concejales/'.$concejal->id) }}" method="post">
+            {!! method_field('DELETE') !!}
+            {{ csrf_field() }}
+            <button class="btn btn-danger btn-raised btn-lg">Eliminar Concejal</button>
+        </form>
+    </div>
+
+    <hr>
+                 </div>
+
 </div>
 @endsection

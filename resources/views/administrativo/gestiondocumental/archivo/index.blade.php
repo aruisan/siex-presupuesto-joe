@@ -14,7 +14,7 @@
             </strong>
         </div>
             <ul class="nav nav-pills">
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" data-toggle="pill" href="@can('archivos-list') #tabArchivo @endcan">ARCHIVO</a>
                 </li>
                 <li class="nav-item">
@@ -24,11 +24,11 @@
                     <a class="nav-link" data-toggle="pill" href="@can('planAdquisiciones-list') #tabPA @endcan">PLAN DE ADQUISICIONES</a>
                 </li>
             </ul>
-        <br>
+    
             <div class="tab-content" style="background-color: white">
-                <div id="tabArchivo" class="tab-pane active"><br>
+                <div id="tabArchivo" class="tab-pane active"><br>  <br>
                     <div class="table-responsive">
-                        <br>
+                      
                         @if(count($Documents) > 0)
                         <table class="table table-hover table-bordered" align="100%" id="tabla_corrE">
                             <thead>
