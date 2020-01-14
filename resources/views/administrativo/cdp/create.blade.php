@@ -19,12 +19,7 @@
 @section('content')
     <div class="col-md-12 align-self-center">
 
-            <div class="col-lg-12">
-                <ul class="nav nav-pills">
         
-                    <li class="nav-item regresar">
-                        <a class="nav-link "  href="{{ url('/administrativo/cdp/'.$vigencia) }}">Volver a CDP'S</a>
-                        </li>
 
         <div class="breadcrumb text-center">
             <strong>
@@ -45,9 +40,7 @@
                 </li>
 
             </ul>
-        </div>
-
-        <div class="col-lg-12">
+       
             <div class="tab-content">
                 <div id="nuevo" class="tab-pane fade in active">
                     <div class="form-validation">
@@ -90,6 +83,6 @@
                 </div>
             </div>
         </div>
-
-    </div>
+  </div>
+  
 @stop
