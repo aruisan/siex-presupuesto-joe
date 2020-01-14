@@ -525,9 +525,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($cdps as $cdp)
+                                @foreach($cdps as $index => $cdp)
                                     <tr>
-                                        <td class="text-center">{{ $cdp['id'] }}</td>
+                                        <td class="text-center">{{ $index+1}}</td>
                                         <td class="text-center">{{ $cdp['name'] }}</td>
                                         <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
                                         <td class="text-center">

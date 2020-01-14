@@ -77,9 +77,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($cdpTarea as $cdp)
+                        @foreach($cdpTarea as $index => $cdp)
                             <tr>
-                                <td class="text-center">{{ $cdp->id }}</td>
+                                <td class="text-center">{{ $index }}</td>
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">

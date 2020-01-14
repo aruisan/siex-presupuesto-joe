@@ -20,4 +20,9 @@ class Vigencia extends Model implements Auditable
     public function levels(){
         return $this->hasMany('App\Model\Hacienda\Presupuesto\Level','vigencia_id');
     }
+
+    public function cdps(){
+        return $this->hasMany('App\Model\Administrativo\Cdp\Cdp','vigencia_id');
+    }
+
 }
