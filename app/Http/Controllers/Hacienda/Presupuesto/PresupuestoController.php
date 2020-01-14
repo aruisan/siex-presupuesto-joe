@@ -1938,7 +1938,7 @@ class PresupuestoController extends Controller
             return view('hacienda.presupuesto.vigencia.createVigAdelantada',compact('id','year'));
         } else {
             $vigens = Vigencia::findOrFail($vigencia[0]->id);
-            $añoActual = $vigens->vigencia;
+            $añoActual = Carbon::now()->year;
             $mesActual = Carbon::now()->month;
 
             $V = $vigens->id;
@@ -2804,7 +2804,7 @@ class PresupuestoController extends Controller
             unset($cdps[0]);
         }
 
-        return view('hacienda.presupuesto.newIndex', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel'));
+        return view('hacienda.presupuesto.newIndex', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','vigencia'));
     }
 
     public function create()

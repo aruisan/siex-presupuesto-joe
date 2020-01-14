@@ -105,13 +105,13 @@ class RubrosController extends Controller
             $rol= $role->id;
         }
         $rubro = Rubro::findOrFail($id);
-        $rubros = Rubro::where('id', '!=', $id)->get();
+        $rubros = Rubro::where('id', '!=', $id)->where('vigencia_id', $rubro->vigencia_id)->get();
         $fuentesR = $rubro->Fontsrubro;
         $add = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','2']])->get();
         $red = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','3']])->get();
         $añoActual = Carbon::now()->year;
-        $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
-        $fuentesAll = FontsVigencia::where('vigencia_id', $vigens[0]->id)->get();
+        $vigens = Vigencia::findOrFail($rubro->vigencia_id);
+        $fuentesAll = FontsVigencia::where('vigencia_id', $vigens->id)->get();
         $valor = $fuentesR->sum('valor');
         $valorDisp = $fuentesR->sum('valor_disp');
 
@@ -123,7 +123,7 @@ class RubrosController extends Controller
 
             if ($rubro->rubrosMov->count() > 0){
                 foreach($rubro->rubrosMov as $RM){
-                    if ($RM->fonts_id == $fuente->font_vigencia_id){
+                    if ($RM->font_vigencia_id == $fuente->font_vigencia_id){
                         if ($RM->movimiento == 1){
                             $suma[] = $RM->valor;
                         } elseif($RM->movimiento == 2){
@@ -160,8 +160,6 @@ class RubrosController extends Controller
             $valores[] = collect(['id' => $fuente->font_vigencia_id , 'credito' => $val, 'ccredito' => $val2, 'adicion' => $Cred, 'reduccion' => $CCred]);
             unset($suma, $resta, $Cred, $CCred);
         }
-
-
         $RubrosM = RubrosMov::where([['rubro_id','=',$rubro->id],['valor','>','0']])->get();
         foreach ($RubrosM as $data){
             $files[] = collect(['idResource' => $data->resource_id , 'ruta' => $data->Resource->ruta, 'mov' => $data->movimiento]);

@@ -266,6 +266,7 @@ class OrdenPagosController extends Controller
     public function show($id)
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
+
         $vigenc = $OrdenPago->registros->cdpsRegistro[0]->cdp->vigencia_id;
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);

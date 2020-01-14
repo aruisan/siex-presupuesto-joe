@@ -78,7 +78,7 @@ class RubrosMovController extends Controller
     {
         $movim = RubrosMov::findOrFail($id);
         $valorAnterior = $movim->valor;
-        $idFAnterior = $movim->fonts_id;
+        $idFAnterior = $movim->font_vigencia_id;
 
         $Frubro = FontsRubro::findOrFail($idFR);
 
@@ -87,7 +87,7 @@ class RubrosMovController extends Controller
         $Frubro->save();
 
         if ($idF != $idFAnterior){
-            $FAdd = FontsRubro::where([['rubro_id', $idR],['font_id', '=', $idFAnterior]])->get();
+            $FAdd = FontsRubro::where([['rubro_id', $idR],['font_vigencia_id', '=', $idFAnterior]])->get();
             $count2 = $FAdd->count();
 
             for($x = 0; $x < $count2; $x++){
@@ -95,7 +95,7 @@ class RubrosMovController extends Controller
                 $FAdd[$x]->save();
             }
 
-            $FAdd2 = FontsRubro::where([['rubro_id', $idR],['font_id', '=', $idF]])->get();
+            $FAdd2 = FontsRubro::where([['rubro_id', $idR],['font_vigencia_id', '=', $idF]])->get();
             $count3 = $FAdd2->count();
 
             for($y = 0; $y < $count3; $y++){
@@ -105,7 +105,7 @@ class RubrosMovController extends Controller
 
         } else{
 
-            $FAdd = FontsRubro::where([['rubro_id', $idR],['font_id', '=', $idF]])->get();
+            $FAdd = FontsRubro::where([['rubro_id', $idR],['font_vigencia_id', '=', $idF]])->get();
             $count2 = $FAdd->count();
 
             for($x = 0; $x < $count2; $x++){
@@ -116,7 +116,7 @@ class RubrosMovController extends Controller
         }
 
         $mov = RubrosMov::findOrFail($id);
-        $mov->fonts_id = $idF;
+        $mov->font_vigencia_id = $idF;
         $mov->valor = $valor;
         $mov->save();
 
@@ -224,13 +224,13 @@ class RubrosMovController extends Controller
                     $rubrosMov = new RubrosMov();
                     $rubrosMov->valor = $valor_Red[$i];
                     $rubrosMov->fonts_rubro_id = $fuenteR_id[$i];
-                    $rubrosMov->fonts_id = $fuente_id_Add[$i];
+                    $rubrosMov->font_vigencia_id = $fuente_id_Add[$i];
                     $rubrosMov->rubro_id = $id;
                     $rubrosMov->movimiento = $m;
                     $rubrosMov->resource_id = $resource;
                     $rubrosMov->save();
 
-                    $FAdd = FontsRubro::where([['rubro_id', $id],['font_id', '=', $fuente_id_Add[$i]]])->get();
+                    $FAdd = FontsRubro::where([['rubro_id', $id],['font_vigencia_id', '=', $fuente_id_Add[$i]]])->get();
                     $count2 = $FAdd->count();
                     for($x = 0; $x < $count2; $x++){
                         $FAdd[$x]->valor_disp = $FAdd[$x]->valor_disp + $valor_Red[$i];
@@ -266,7 +266,7 @@ class RubrosMovController extends Controller
                     $rubrosMov2 = new RubrosMov();
                     $rubrosMov2->valor = $valor[$i];
                     $rubrosMov2->fonts_rubro_id = $fuenteR_id[$i];
-                    $rubrosMov2->fonts_id = 1;
+                    $rubrosMov2->font_vigencia_id = 1;
                     $rubrosMov2->rubro_id = $id;
                     $rubrosMov2->movimiento = $m;
                     $rubrosMov2->resource_id = $resource;
@@ -300,7 +300,7 @@ class RubrosMovController extends Controller
                     $rubrosMov3 = new RubrosMov();
                     $rubrosMov3->valor = $valor2[$i];
                     $rubrosMov3->fonts_rubro_id = $fuenteR2_id[$i];
-                    $rubrosMov3->fonts_id = 1;
+                    $rubrosMov3->font_vigencia_id = 1;
                     $rubrosMov3->rubro_id = $id;
                     $rubrosMov3->movimiento = $m;
                     $rubrosMov3->resource_id = $resource2;
