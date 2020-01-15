@@ -66,21 +66,9 @@
                                 </center>
                             </div>
                         @endif
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        <br>
-                        <hr>
-                        <br>
-=======
                             <br>
                             <hr>
                             <br>
->>>>>>> master
-=======
-                            <br>
-                            <hr>
-                            <br>
->>>>>>> development
                     @endif
                     @if(count($codes) > 0)
 
@@ -128,16 +116,7 @@
                             </center>
                         </div>
                     @endif
-
-<<<<<<< HEAD
-<<<<<<< HEAD
                 </div>
-=======
-                    </div>
->>>>>>> master
-=======
-                    </div>
->>>>>>> development
             </div>
         </div>
     </div>

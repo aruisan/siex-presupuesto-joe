@@ -46,6 +46,7 @@
                         <br>
                         {!! Form::open(array('route' => 'registros.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
                         <div class="table-responsive">
+                            <input type="hidden" name="numReg" value="{{ $registrocount }}">
                             <table id="tabla_rubrosCdp" class="table table-bordered">
                                 <thead>
                                 <tr>

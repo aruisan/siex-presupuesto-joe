@@ -272,7 +272,7 @@
                                 <tbody>
                                 @foreach($rubro->cdpRegistroValor as  $data2)
                                     <tr class="text-center">
-                                        <td><a href="{{ url('administrativo/registros/'.$data2->registro_id) }}">{{ $data2->registro_id }}</a></td>
+                                        <td><a href="{{ url('administrativo/registros/'.$data2->registro_id) }}">{{ $data2->registro->code }}</a></td>
                                         <td>{{ $data2->registro->objeto }}</td>
                                         <td>$ <?php echo number_format($data2->valor,0);?>.00</td>
                                         <td>$ <?php echo number_format( $data2->valor_disp,0);?>.00</td>
