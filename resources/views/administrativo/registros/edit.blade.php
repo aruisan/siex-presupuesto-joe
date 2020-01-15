@@ -17,7 +17,7 @@
     </div>
     <ul class="nav nav-pills">
       <li class="nav-item">
-            <a class="nav-link regresar"  href="{{url('administrativo/registros') }}">Volver a Registros</a>
+            <a class="nav-link regresar"  href="{{url('administrativo/registros/'.$vigencia) }}">Volver a Registros</a>
         </li> 
         <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#datos"> Editar Registro </a>

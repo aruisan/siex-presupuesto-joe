@@ -891,7 +891,7 @@ class PresupuestoController extends Controller
         $allReg = Registro::all();
         foreach ($allReg as $reg){
             if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $V){
-                $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
+                $registros[] = collect(['id' => $reg->id, 'code' => $reg->code, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
             }
         }
         if (!isset($registros)){
@@ -2792,7 +2792,7 @@ class PresupuestoController extends Controller
         $allReg = Registro::all();
         foreach ($allReg as $reg){
             if ($reg->cdpsRegistro[0]->cdp->vigencia_id == $V){
-                $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
+                $registros[] = collect(['id' => $reg->id, 'code' => $reg->code, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
             }
         }
         if (!isset($registros)){

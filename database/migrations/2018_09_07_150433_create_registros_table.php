@@ -15,6 +15,7 @@ class CreateRegistrosTable extends Migration
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
             $table->text('objeto');
             $table->date('ff_expedicion');
             $table->string('ruta');

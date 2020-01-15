@@ -42,13 +42,13 @@ class RegistrosController extends Controller
         $regT = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->get();
         foreach ($regT as $dataT){
             if ($dataT->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
-                $registros[] = collect(['id' => $dataT->id, 'objeto' => $dataT->objeto, 'nombre' => $dataT->persona->nombre, 'valor' => $dataT->val_total, 'saldo' => $dataT->saldo, 'estado' => $dataT->secretaria_e]);
+                $registros[] = collect(['id' => $dataT->id, 'code' => $dataT->code , 'objeto' => $dataT->objeto, 'nombre' => $dataT->persona->nombre, 'valor' => $dataT->val_total, 'saldo' => $dataT->saldo, 'estado' => $dataT->secretaria_e]);
             }
         }
         $regH = Registro::where('secretaria_e','3')->orderBy('id','DESC')->get();
         foreach ($regH as $data){
             if ($data->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
-                $registrosHistorico[] = collect(['id' => $data->id, 'objeto' => $data->objeto, 'nombre' => $data->persona->nombre, 'valor' => $data->val_total, 'saldo' => $data->saldo, 'estado' => $data->secretaria_e]);
+                $registrosHistorico[] = collect(['id' => $data->id, 'code' => $data->code, 'objeto' => $data->objeto, 'nombre' => $data->persona->nombre, 'valor' => $data->val_total, 'saldo' => $data->saldo, 'estado' => $data->secretaria_e]);
             }
         }
         if (!isset($registros)){
@@ -75,9 +75,16 @@ class RegistrosController extends Controller
         $roles = auth()->user()->roles;
         foreach ($roles as $role){$rol= $role->id;}
         $cdp = Cdp::all()->where('jefe_e','3')->where('vigencia_id',$id)->count();
+        $registros = Registro::all();
+        $registrocount = 0;
+        foreach ($registros as $registro){
+            if ($registro->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $registrocount = $registrocount +1;
+            }
+        }
         if($cdp > 0){
             $cdps = Cdp::all()->where('jefe_e','3')->where('saldo','>','0')->where('vigencia_id',$id);
-            return view('administrativo.registros.create', compact('rol','personas','cdps', 'id'));
+            return view('administrativo.registros.create', compact('rol','personas','cdps', 'id','registrocount'));
         }else{
             Session::flash('error','Actualmente no existen CDPs disponibles para crear registros.');
             return redirect('/administrativo/registros/'.$id);
@@ -100,8 +107,11 @@ class RegistrosController extends Controller
             $ruta = "";
         }
 
+        //$registros = Registro::where()
+
         $registro = new Registro();
 
+        $registro->code = $request->numReg + 1;
         $registro->objeto = $request->objeto;
         $registro->ff_expedicion = $request->fecha;
         $registro->ruta = $ruta;
