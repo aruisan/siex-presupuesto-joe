@@ -47,7 +47,7 @@
             <a class="nav-link" data-toggle="pill" href="#fuentes"> Fuentes de Rubro </a>
         </li>
              <li class="nav-item ">
-            <a class="nav-link" data-toggle="pill" href="#cdp"> CDP´S de Rubro </a>
+            <a class="nav-link" data-toggle="pill" href="#cdp"> CDP's de Rubro </a>
         </li>
              <li class="nav-item ">
             <a class="nav-link" data-toggle="pill" href="#registros"> Registros de Rubro </a>
@@ -222,7 +222,7 @@
                                 <tbody>
                                 @foreach($rubro->rubrosCdp as  $data)
                                     <tr class="text-center">
-                                        <td><a href="{{ url('administrativo/cdp/'.$data->cdps->id) }}">{{ $data->cdps->id }}</a></td>
+                                        <td><a href="{{ url('administrativo/cdp/'. $data->cdps->vigencia_id.'/'.$data->cdps->id) }}">{{ $data->cdps->code }}</a></td>
                                         <td>{{ $data->cdps->name }}</td>
                                         <td>
                                             <span class="badge badge-pill badge-danger">
@@ -272,7 +272,7 @@
                                 <tbody>
                                 @foreach($rubro->cdpRegistroValor as  $data2)
                                     <tr class="text-center">
-                                        <td><a href="{{ url('administrativo/registros/'.$data2->registro_id) }}">{{ $data2->registro->code }}</a></td>
+                                        <td><a href="{{ url('administrativo/registros/show/'.$data2->registro_id) }}">{{ $data2->registro->code }}</a></td>
                                         <td>{{ $data2->registro->objeto }}</td>
                                         <td>$ <?php echo number_format($data2->valor,0);?>.00</td>
                                         <td>$ <?php echo number_format( $data2->valor_disp,0);?>.00</td>

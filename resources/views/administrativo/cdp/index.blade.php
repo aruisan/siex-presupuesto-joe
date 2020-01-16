@@ -79,7 +79,7 @@
                         <tbody>
                         @foreach($cdpTarea as $index => $cdp)
                             <tr>
-                                <td class="text-center">{{ $index }}</td>
+                                <td class="text-center">{{ $cdp->code }}</td>
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
@@ -157,7 +157,7 @@
                         <tbody>
                         @foreach($cdps as $cdp)
                             <tr>
-                                <td class="text-center">{{ $cdp->id }}</td>
+                                <td class="text-center">{{ $cdp->code }}</td>
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">

@@ -10,7 +10,7 @@
 			</div>
 			
 			<div style="width: 12%;  display: inline-block; border:1px solid black; margin: 6px 0px 0px 0px;" class="col-md-2">
-				<h4>Número {{$conteo}}</h4>
+				<h4>Número {{ $cdp->code }}</h4>
 			</div> 
 		</div>
 				

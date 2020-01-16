@@ -15,6 +15,7 @@ class CreateCdpsTable extends Migration
     {
         Schema::create('cdps', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
             $table->text('name');
             $table->integer('valor');
             $table->date('fecha');

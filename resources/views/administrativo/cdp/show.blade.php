@@ -24,7 +24,7 @@
             <ul class="nav nav-pills">
 
                 <li class="nav-item regresar"><a class="nav-link "  href="{{ url('/administrativo/cdp/'.$cdp->vigencia_id) }}">Volver a CDP'S</a></li>
-                <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">Información CDP: {{ $cdp->id }}</a></li>
+                <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">Información CDP: {{ $cdp->code }}</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#asigna">Asignar Rubros</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#rubros">Valor de Rubros</a></li>
 
@@ -38,7 +38,7 @@
                     <div class="row ">
                         <br>
                         <div class="col-sm-9"><h3>Objeto del CDP: {{ $cdp->name }}</h3></div>
-                        <div class="col-sm-3"><h4><b>Número del CDP:</b>&nbsp;{{ $cdp->id }}</h4></div>
+                        <div class="col-sm-3"><h4><b>Número del CDP:</b>&nbsp;{{ $cdp->code }}</h4></div>
                         <br>
                         <br>
 
