@@ -515,7 +515,7 @@
                                 <tbody>
                                 @foreach($cdps as $cdp)
                                     <tr>
-                                        <td class="text-center">{{ $cdp['id'] }}</td>
+                                        <td class="text-center">{{ $cdp['code'] }}</td>
                                         <td class="text-center">{{ $cdp['name'] }}</td>
                                         <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
                                         <td class="text-center">
@@ -591,7 +591,7 @@
                                 <tbody>
                                 @foreach ($registros as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['code'] }}</td>
                                         <td class="text-center">{{ $data['objeto'] }}</td>
                                         <td class="text-center">{{ $data['nombre'] }}</td>
                                         <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
