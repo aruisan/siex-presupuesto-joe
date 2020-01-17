@@ -107,8 +107,6 @@ class RegistrosController extends Controller
             $ruta = "";
         }
 
-        //$registros = Registro::where()
-
         $registro = new Registro();
 
         $registro->code = $request->numReg + 1;
@@ -188,9 +186,14 @@ class RegistrosController extends Controller
 
         if($destroy->ruta == ""){
 
+            $cdpReg = CdpsRegistro::where('registro_id', $id)->get();
+            $vigencia =  $cdpReg[0]->cdp->vigencia_id;
+            foreach ($cdpReg as $data){
+                $data->delete();
+            }
             $destroy->delete();
             Session::flash('error','Registro borrado correctamente');
-            return redirect('/administrativo/registros');
+            return redirect('/administrativo/registros/'.$vigencia);
 
         }else{
 
@@ -200,10 +203,14 @@ class RegistrosController extends Controller
             if (file_exists($file_path)) {
                 unlink($file_path);
             }
-
+            $cdpReg = CdpsRegistro::where('registro_id', $id)->get();
+            $vigencia =  $cdpReg[0]->cdp->vigencia_id;
+            foreach ($cdpReg as $data){
+                $data->delete();
+            }
             $destroy->delete();
             Session::flash('error','Registro borrado correctamente');
-            return redirect('/administrativo/registros');
+            return redirect('/administrativo/registros/'.$vigencia);
         }
 
     }

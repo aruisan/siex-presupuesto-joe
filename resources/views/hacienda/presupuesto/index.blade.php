@@ -626,7 +626,9 @@
                                             <a href="{{ url('administrativo/registros/show',$data['id']) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/registro/pdf/'.$data['id'].'/'.$V) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            @if($data['estado'] == 3)
+                                                <a href="{{ url('administrativo/registro/pdf/'.$data['id'].'/'.$V) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -847,7 +849,7 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/pagos/show/',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/pagos/show',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
