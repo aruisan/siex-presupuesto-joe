@@ -114,10 +114,15 @@ class CdpController extends Controller
     public function store(Request $request)
     {
 
-        $countCdps = Cdp::where('vigencia_id', $request->vigencia_id)->count();
+        $countCdps = Cdp::where('vigencia_id', $request->vigencia_id)->orderBy('id')->get()->last();
+        if ($countCdps == null){
+            $count = 0;
+        }else{
+            $count = $countCdps->code;
+        }
         $cdp = new Cdp();
         $cdp->name = $request->name;
-        $cdp->code = $countCdps + 1;
+        $cdp->code = $count + 1;
         $cdp->valor = 0;
         $cdp->fecha = $request->fecha;
         $cdp->dependencia_id = $request->dependencia_id;
