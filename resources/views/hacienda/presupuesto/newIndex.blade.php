@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Vigencia: {{ $añoActual }}
+    Vigencia: {{ $vigencia[0]->vigencia }}
 @stop
 @section('sidebar')
     {{-- @if($V != "Vacio")
