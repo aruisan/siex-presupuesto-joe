@@ -116,6 +116,7 @@ class OrdenPagosController extends Controller
     public function liquidacion($id)
     {
         $ordenPago = OrdenPagos::findOrfail($id);
+        $vigencia = $ordenPago->registros->cdpsRegistro[0]->cdp->vigencia_id;
         if ($ordenPago->descuentos->count() == 0){
             Session::flash('warning',' Se deben realizar primero los descuentos para poder hacer la contabilización de la orden de pago.');
             return redirect('administrativo/ordenPagos/descuento/create/'.$ordenPago->id);
@@ -164,7 +165,7 @@ class OrdenPagosController extends Controller
             $Pagos = OrdenPagos::where('estado','=',1);
             $SumPagos = $Pagos->sum('valor');
 
-            return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','Usuarios','codigos'));
+            return view('administrativo.ordenpagos.createLiquidacion', compact('ordenPago','registro','SumPagos','ordenPagoDesc','Usuarios','codigos','vigencia'));
         }
     }
 
@@ -362,6 +363,7 @@ class OrdenPagosController extends Controller
     public function update(Request $request, $id)
     {
         $ordenPago = OrdenPagos::findOrFail($id);
+        $vigenc = $ordenPago->registros->cdpsRegistro[0]->cdp->vigencia_id;
         $Descuentos = OrdenPagosDescuentos::where('orden_pagos_id','=',$ordenPago->id)->get();
 
         if($Descuentos->count() == 0){
@@ -369,7 +371,7 @@ class OrdenPagosController extends Controller
             $ordenPago->save();
 
             Session::flash('success','La orden de pago se ha actualizado exitosamente');
-            return redirect('/administrativo/ordenPagos');
+            return redirect('/administrativo/ordenPagos/'.$vigenc);
 
         } else{
 
@@ -407,14 +409,14 @@ class OrdenPagosController extends Controller
     {
         $descuentos = OrdenPagosDescuentos::where('orden_pagos_id','=',$id)->get();
         $orden = OrdenPagos::findOrFail($id);
-
+        $vigenc = $orden->registros->cdpsRegistro[0]->cdp->vigencia_id;
         if (count($descuentos) > 0){
             Session::flash('warning', 'Tiene '.count($descuentos).' Descuentos Relacionados a la Orden de Pago. Elimine los Descuentos para Poder Eliminar la Orden de Pago');
             return redirect('/administrativo/ordenPagos/'.$id.'/edit');
         }else{
             $orden->delete();
             Session::flash('error','Orden de pago eliminada correctamente');
-            return redirect('/administrativo/ordenPagos');
+            return redirect('/administrativo/ordenPagos/'.$vigenc);
         }
     }
 
