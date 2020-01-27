@@ -311,7 +311,7 @@
                                                     &nbsp;
                                                     <br>
 
-                                                    @if($cdp->jefe_e != "3" and $cdp->jefe_e != "2")
+                                                    @if($cdp->jefe_e != "3" and $cdp->jefe_e != "2" and $cdp->secretaria_e != "3")
                                                         @if($rol == 2)
                                                             @if($rubrosCdpData->rubrosCdpValor->count() > 0)
                                                                 <b>Liberar Dinero</b>
@@ -334,7 +334,7 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if($cdp->jefe_e != "3")
+                                            @if($cdp->jefe_e != "3" and $cdp->secretaria_e != "3")
                                                 @if($rol == 2)
                                                     <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
                                                     <button type="submit" class="btn btn-primary">Guardar Rubros</button>

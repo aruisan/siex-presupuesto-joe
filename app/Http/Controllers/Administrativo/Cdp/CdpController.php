@@ -38,6 +38,7 @@ class CdpController extends Controller
         if ($rol == 2)
         {
             $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('secretaria_e', '0')->orWhere('jefe_e','1')->get();
+            $cdProcess = Cdp::where('vigencia_id', $vigencia_id)->where('secretaria_e', '3')->where('jefe_e','0')->get();
             $cdps = Cdp::where('vigencia_id', $id)
                 ->where(function ($query) {
                     $query->where('jefe_e','3')
@@ -48,6 +49,7 @@ class CdpController extends Controller
         }elseif ($rol == 3)
         {
             $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('jefe_e','0')->get();
+            $cdProcess = null;
             $cdps = Cdp::where('vigencia_id', $id)
                 ->where(function ($query) {
                     $query->where('jefe_e','3')
@@ -57,6 +59,7 @@ class CdpController extends Controller
         {
             $cdpTarea = null;
             $cdps = null;
+            $cdProcess = null;
         }
         //this change fix the problem with the count
         if ($cdpTarea == null){
@@ -65,7 +68,10 @@ class CdpController extends Controller
         if ($cdps == null){
             $cdps = [];
         }
-        return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea','vigencia_id'));
+        if ($cdProcess == null){
+            $cdProcess = [];
+        }
+        return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea','vigencia_id','cdProcess'));
     }
 
     /**
