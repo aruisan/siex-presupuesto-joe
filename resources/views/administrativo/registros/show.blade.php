@@ -106,210 +106,196 @@
     <hr>
     <br>
     <div class="table-responsive" id="prog">
-        @if($registro->cdpsRegistro->count() == 0 )
-            @if($rol == 2)
-                <div class="col-md-12 align-self-center">
-                    <div class="alert alert-danger text-center">
-                        El registro no tiene cdps asigandos. Desea borrar el registro? &nbsp;
-                        {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $registro->id],'style'=>'display:inline']) !!}
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Borrar Registro
-                        </button>
-                        {!! Form::close() !!}
-                    </div>
-                </div>
-                @else
-                <div class="col-md-12 align-self-center">
-                    <div class="alert alert-danger text-center">El registro no tiene CDP's asigandos.</div>
-                </div>
-            @endif
+        @if($registro->cdpsRegistro->count() == 0 and $rol == 3)
         @else
-        @endif
-            @if($registro->cdpsRegistro->count() == 0 and $rol == 3)
-            @else
-                <form class="form" action="{{url('/administrativo/cdpsRegistro')}}" method="POST" class="form">
-                    {{ csrf_field() }}
-                    <table id="tabla_rubrosCdp" class="table table-bordered">
-                        <thead>
+            <form class="form" action="{{url('/administrativo/cdpsRegistro')}}" method="POST" class="form">
+                {{ csrf_field() }}
+                <table id="tabla_rubrosCdp" class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th scope="col" class="text-center">Nombre CDP's</th>
+                        <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if($registro->cdpsRegistro->count() == 0)
                         <tr>
-                            <th>&nbsp;</th>
-                            <th scope="col" class="text-center">Nombre CDP's</th>
-                            <th scope="col" class="text-center"><i class="fa fa-trash-o"></i></th>
+                            <td>&nbsp;</td>
+                            <td class="text-center">
+                                <input type="hidden" name="registro_id" value="{{ $registro->id }}">
+                                <select name="cdp_id[]" class="form-group-lg" required>
+                                    @foreach($cdps as $cdp)
+                                        <option value="{{ $cdp['id'] }}">{{ $cdp['id'] }} - {{ $cdp['name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
                         </tr>
-                        </thead>
-                        <tbody>
-                        @if($registro->cdpsRegistro->count() == 0)
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td class="text-center">
-                                    <input type="hidden" name="registro_id" value="{{ $registro->id }}">
-                                    <select name="cdp_id[]" class="form-group-lg" required>
-                                        @foreach($cdps as $cdp)
-                                            <option value="{{ $cdp['id'] }}">{{ $cdp['id'] }} - {{ $cdp['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>
-                            </tr>
-                        @endif
-                        @for($i = 0; $i < $registro->cdpsRegistro->count(); $i++)
-                            @php($cdpsRegistroData = $registro->cdpsRegistro[$i] )
-                            <tr>
-                                <td class="text-center">
-                                    <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
-                                </td>
-                                <td class="text-center">
-                                    <div class="col-lg-6">
-                                        <h4>
-                                            <b>CDP : {{ $cdpsRegistroData->cdp->name }}</b>
-                                        </h4>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <h4>
-                                            Disponible:
-                                            <b>$<?php echo number_format($cdpsRegistroData->cdp->saldo,0) ?></b>
-                                        </h4>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    @if($cdpsRegistroData->cdpRegistroValor->count() == 0)
-                                        <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdpsRegistroData->id }})" ><i class="fa fa-trash-o"></i></button>
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr id="fuente{{$i}}" style="display: none">
-                                <td style="vertical-align: middle">
-                                    <b>Rubros del CDP</b>
-                                </td>
-                                <td>
-                                    <div class="col-lg-12">
-                                        @foreach($cdpsRegistroData->cdp->rubrosCdpValor as $RCV)
-                                            @if($RCV->valor_disp != 0)
-                                                <div class="col-lg-6">
-                                                    <input type="hidden" name="registro_id" value="{{ $registro->id }}">
-                                                    <input type="hidden" name="fuente_id[]" value="{{ $RCV->fontsRubro->id }}">
-                                                    <input type="hidden" name="cdp_id_s[]" value="{{ $RCV->cdp_id }}">
-                                                    <input type="hidden" name="rubro_id[]" value="{{ $RCV->fontsRubro->rubro->id }}">
-                                                    <input type="hidden" name="rubros_cdp_id[]" value="{{ $cdpsRegistroData->id }}">
-                                                    @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
-                                                    <li style="list-style-type: none;">
-                                                        Dinero Disponible del Rubro {{ $RCV->fontsRubro->rubro->name }} :
-                                                        $<?php echo number_format( $RCV->valor_disp,0) ?>
-                                                    </li>
-                                                </div>
-                                            @endif
+                    @endif
+                    @for($i = 0; $i < $registro->cdpsRegistro->count(); $i++)
+                        @php($cdpsRegistroData = $registro->cdpsRegistro[$i] )
+                        <tr>
+                            <td class="text-center">
+                                <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
+                            </td>
+                            <td class="text-center">
+                                <div class="col-lg-6">
+                                    <h4>
+                                        <b>CDP : {{ $cdpsRegistroData->cdp->name }}</b>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h4>
+                                        Disponible:
+                                        <b>$<?php echo number_format($cdpsRegistroData->cdp->saldo,0) ?></b>
+                                    </h4>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                @if($cdpsRegistroData->cdpRegistroValor->count() == 0)
+                                    <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminar({{ $cdpsRegistroData->id }})" ><i class="fa fa-trash-o"></i></button>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr id="fuente{{$i}}" style="display: none">
+                            <td style="vertical-align: middle">
+                                <b>Rubros del CDP</b>
+                            </td>
+                            <td>
+                                <div class="col-lg-12">
+                                    @foreach($cdpsRegistroData->cdp->rubrosCdpValor as $RCV)
+                                        @if($RCV->valor_disp != 0)
                                             <div class="col-lg-6">
-                                                @if($registro->secretaria_e == "3")
-                                                    Valor Usado del Rubro {{ $RCV->fontsRubro->rubro->name }}:
-                                                    @if($cdpsRegistroData->cdpRegistroValor->count() != 0)
-                                                        @foreach($RCV->fontsRubro->cdpRegistrosValor as  $valoresRV)
-                                                            @php($id_rubrosCdp = $cdpsRegistroData->id )
-                                                            @if($valoresRV->registro_id == $registro->id)
-                                                                @if($cdpsRegistroData->cdp->id == $valoresRV->cdp_id and $RCV->fontsRubro->rubro->id == $valoresRV->rubro_id)
-                                                                    <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresRV->id }}">
-                                                                    @if($registro->secretaria_e == "0")
-                                                                        <input type="number" required  name="valorFuenteUsar[]" id="id{{$RCV->font_id}}" class="valor{{ $valoresRV->cdps_registro_id }}" value="{{ $valoresRV->valor }}" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
-                                                                    @else
-                                                                        $<?php echo number_format( $valoresRV->valor,0) ?>
-                                                                    @endif
+                                                <input type="hidden" name="registro_id" value="{{ $registro->id }}">
+                                                <input type="hidden" name="fuente_id[]" value="{{ $RCV->fontsRubro->id }}">
+                                                <input type="hidden" name="cdp_id_s[]" value="{{ $RCV->cdp_id }}">
+                                                <input type="hidden" name="rubro_id[]" value="{{ $RCV->fontsRubro->rubro->id }}">
+                                                <input type="hidden" name="rubros_cdp_id[]" value="{{ $cdpsRegistroData->id }}">
+                                                @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
+                                                <li style="list-style-type: none;">
+                                                    Dinero Disponible del Rubro {{ $RCV->fontsRubro->rubro->name }} :
+                                                    $<?php echo number_format( $RCV->valor_disp,0) ?>
+                                                </li>
+                                            </div>
+                                        @endif
+                                        <div class="col-lg-6">
+                                            @if($registro->secretaria_e == "3")
+                                                Valor Usado del Rubro {{ $RCV->fontsRubro->rubro->name }}:
+                                                @if($cdpsRegistroData->cdpRegistroValor->count() != 0)
+                                                    @foreach($RCV->fontsRubro->cdpRegistrosValor as  $valoresRV)
+                                                        @php($id_rubrosCdp = $cdpsRegistroData->id )
+                                                        @if($valoresRV->registro_id == $registro->id)
+                                                            @if($cdpsRegistroData->cdp->id == $valoresRV->cdp_id and $RCV->fontsRubro->rubro->id == $valoresRV->rubro_id)
+                                                                <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresRV->id }}">
+                                                                @if($registro->secretaria_e == "0")
+                                                                    <input type="number" required  name="valorFuenteUsar[]" id="id{{$RCV->font_id}}" class="valor{{ $valoresRV->cdps_registro_id }}" value="{{ $valoresRV->valor }}" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                                                @else
+                                                                    $<?php echo number_format( $valoresRV->valor,0) ?>
                                                                 @endif
                                                             @endif
-                                                        @endforeach
-                                                        @if($registro->cdpRegistroValor->count() == 0)
-                                                            <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                                            <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
                                                         @endif
-                                                    @else
+                                                    @endforeach
+                                                    @if($registro->cdpRegistroValor->count() == 0)
                                                         <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                                        <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{  $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                                        <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
                                                     @endif
-                                                @elseif($RCV->valor_disp > 0)
-                                                    Valor Usado del Rubro {{ $RCV->fontsRubro->rubro->name }}:
-                                                    @if($cdpsRegistroData->cdpRegistroValor->count() != 0 )
-                                                        @foreach($RCV->fontsRubro->cdpRegistrosValor as  $valoresRV)
-                                                            @php($id_rubrosCdp = $cdpsRegistroData->id )
-                                                            @if($valoresRV->registro_id == $registro->id)
-                                                                @if($cdpsRegistroData->cdp->id == $valoresRV->cdp_id and $RCV->fontsRubro->rubro->id == $valoresRV->rubro_id)
-                                                                    <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresRV->id }}">
-                                                                    @if($registro->secretaria_e == "0")
-                                                                        <input type="number" required  name="valorFuenteUsar[]" id="id{{$RCV->font_id}}" class="valor{{ $valoresRV->cdps_registro_id }}" value="{{ $valoresRV->valor }}" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
-                                                                    @else
-                                                                        $<?php echo number_format( $valoresRV->valor,0) ?>
-                                                                    @endif
+                                                @else
+                                                    <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                    <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{  $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                                @endif
+                                            @elseif($RCV->valor_disp > 0)
+                                                Valor Usado del Rubro {{ $RCV->fontsRubro->rubro->name }}:
+                                                @if($cdpsRegistroData->cdpRegistroValor->count() != 0 )
+                                                    @foreach($RCV->fontsRubro->cdpRegistrosValor as  $valoresRV)
+                                                        @php($id_rubrosCdp = $cdpsRegistroData->id )
+                                                        @if($valoresRV->registro_id == $registro->id)
+                                                            @if($cdpsRegistroData->cdp->id == $valoresRV->cdp_id and $RCV->fontsRubro->rubro->id == $valoresRV->rubro_id)
+                                                                <input type="hidden" name="rubros_cdp_valor_id[]" value="{{ $valoresRV->id }}">
+                                                                @if($registro->secretaria_e == "0")
+                                                                    <input type="number" required  name="valorFuenteUsar[]" id="id{{$RCV->font_id}}" class="valor{{ $valoresRV->cdps_registro_id }}" value="{{ $valoresRV->valor }}" max="{{ $cdpsRegistroData->cdp->saldo }}" style="text-align: center">
+                                                                @else
+                                                                    $<?php echo number_format( $valoresRV->valor,0) ?>
                                                                 @endif
                                                             @endif
-                                                        @endforeach
-                                                        @if($registro->cdpRegistroValor->count() == 0)
-                                                            <input type="hidden" name="rubros_cdp_valor_id[]" value="">
-                                                            <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" min="0" style="text-align: center">
                                                         @endif
-                                                    @else
+                                                    @endforeach
+                                                    @if($registro->cdpRegistroValor->count() == 0)
                                                         <input type="hidden" name="rubros_cdp_valor_id[]" value="">
                                                         <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" min="0" style="text-align: center">
                                                     @endif
+                                                @else
+                                                    <input type="hidden" name="rubros_cdp_valor_id[]" value="">
+                                                    <input type="number" required  name="valorFuenteUsar[]" class="form-group-sm" value="0" max="{{ $cdpsRegistroData->cdp->saldo }}" min="0" style="text-align: center">
                                                 @endif
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <b>Valor Total</b>
-                                    <br>
-                                    <b>
-                                        @if($cdpsRegistroData->cdpRegistroValor->count() > 0)
-                                            $<?php echo number_format( $cdpsRegistroData->cdpRegistroValor->sum('valor') ,0) ?>
-                                        @else
-                                            $0.00
-                                        @endif
-                                    </b>
-                                    <br>
-                                    &nbsp;
-                                    <br>
-                                    @if($rol == 2 and $registro->secretaria_e != 3)
-                                        @if($cdpsRegistroData->cdpRegistroValor->count() > 0)
-                                            <b>Liberar Dinero</b>
-                                            <br>
-                                            <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $cdpsRegistroData->cdpRegistroValor->first()->cdps_registro_id }})" ><i class="fa fa-money"></i></button>
-                                        @else
-                                        @endif
-                                    @endif
-                                </td>
-                            </tr>
-                            @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
-                        @endfor
-                        </tbody>
-                    </table>
-                    @if($registro->secretaria_e != 3)
-                    <center>
-                        <div class="row">
-                            <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <label>IVA: </label>
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                    <input type="number" class="form-control" id="iva" name="iva" value="{{ $registro->iva }}" required min="0" style="text-align: center">
+                                            @endif
+                                        </div>
+                                    @endforeach
                                 </div>
-                                <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>
+                            </td>
+                            <td class="text-center">
+                                <b>Valor Total</b>
+                                <br>
+                                <b>
+                                    @if($cdpsRegistroData->cdpRegistroValor->count() > 0)
+                                        $<?php echo number_format( $cdpsRegistroData->cdpRegistroValor->sum('valor') ,0) ?>
+                                    @else
+                                        $0.00
+                                    @endif
+                                </b>
+                                <br>
+                                &nbsp;
+                                <br>
+                                @if($rol == 2 and $registro->secretaria_e != 3)
+                                    @if($cdpsRegistroData->cdpRegistroValor->count() > 0)
+                                        <b>Liberar Dinero</b>
+                                        <br>
+                                        <button type="button" class="btn-sm btn-danger" v-on:click.prevent="eliminarV({{ $cdpsRegistroData->cdpRegistroValor->first()->cdps_registro_id }})" ><i class="fa fa-money"></i></button>
+                                    @else
+                                    @endif
+                                @endif
+                            </td>
+                        </tr>
+                        @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
+                    @endfor
+                    </tbody>
+                </table>
+                @if($registro->secretaria_e != 3)
+                <center>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <label>IVA: </label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                <input type="number" class="form-control" id="iva" name="iva" value="{{ $registro->iva }}" required min="0" style="text-align: center">
                             </div>
+                            <small class="form-text text-muted">Valor del iva con el que se va a regir el registro</small>
                         </div>
-                    </center>
-                    @endif
-                    <br>
-                    <center>
-                        @if($rol == 2 and $registro->secretaria_e != 3)
-                            @if($registro->cdpsRegistro->count() == 0)
-                            <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                            @endif
-                            <button type="submit" class="btn btn-primary">Actualizar Registro</button>
-                            @if($registro->cdpRegistroValor->sum('valor') > 0 )
-                                @php($valTot = $registro->iva + $registro->cdpRegistroValor->sum('valor'))
-                                <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpRegistroValor->sum('valor').'/3/'.$valTot)}}" type="submit" class="btn btn-success">
-                                    Finalizar Registro
-                                </a>
-                            @endif
+                    </div>
+                </center>
+                @endif
+                <br>
+                <center>
+                    @if($rol == 2 and $registro->secretaria_e != 3)
+                        @if($registro->cdpsRegistro->count() == 0)
+                        <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
                         @endif
-                    </center>
-                </form>
+                        <button type="submit" class="btn btn-primary">Actualizar Registro</button>
+                        @if($registro->cdpRegistroValor->sum('valor') > 0 )
+                            @php($valTot = $registro->iva + $registro->cdpRegistroValor->sum('valor'))
+                            <a href="{{url('/administrativo/registros/'.$registro->id.'/'.$fechaActual.'/'.$registro->cdpRegistroValor->sum('valor').'/3/'.$valTot)}}" type="submit" class="btn btn-success">
+                                Finalizar Registro
+                            </a>
+                        @endif
+                    @endif
+                </center>
+            </form>
+            @if($cdpsRegistroData->cdpRegistroValor->count() == 0)
+                {!! Form::open(['method' => 'DELETE','route' => ['registros.destroy', $registro->id],'style'=>'display:inline']) !!}
+                <center><button type="submit" class="btn btn-primary">Borrar Registro</button></center>
+                {!! Form::close() !!}
             @endif
+        @endif
     </div>
 </div>
 

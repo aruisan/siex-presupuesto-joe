@@ -53,7 +53,7 @@
     <br>
     @if($OrdenPago->estado == 1)
         <li> <a href="{{ url('/administrativo/ordenPagos/pdf/'.$OrdenPago->id) }}" target="_blank" class="btn btn-primary"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i>&nbsp; Orden de Pago</span></a></li>
-        <li> <a href="{{ url('/administrativo/pagos/create/') }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Pagar</span></a></li>
+        <li> <a href="{{ url('/administrativo/pagos/create/'.$vigencia_id) }}" class="btn btn-success"><span class="hide-menu"><i class="fa fa-credit-card"></i>&nbsp; Pagar</span></a></li>
     @else
         <li> <a href="{{ url('/administrativo/ordenPagos/monto/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu"> Asignación de Monto</span></a></li>
         <li> <a href="{{ url('/administrativo/ordenPagos/descuento/create/'.$OrdenPago->id) }}" class="btn btn-primary"><span class="hide-menu">Descuentos</span></a></li>
@@ -169,7 +169,7 @@
                             @endfor
                         </td>
                         <td>{{ $R->cdpRegistroValor[$i]->fontRubro->rubro->name}}</td>
-                        <td>{{ $R->cdpRegistroValor[$i]->fontRubro->font->code }} - {{ $R->cdpRegistroValor[$i]->fontRubro->font->name }}</td>
+                        <td>{{ $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->font->code }} - {{ $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->font->name }}</td>
                         <td>{{ $OrdenPago->registros->objeto }}</td>
                         <td>$ <?php echo number_format($OrdenPago->registros->valor,0);?></td>
                     </tr>

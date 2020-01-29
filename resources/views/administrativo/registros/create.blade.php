@@ -59,7 +59,7 @@
                                     <td class="text-center">
                                         <select name="cdp_id[]" class="form-control selectF" required>
                                             @foreach($cdps as $cdp)
-                                                <option value="{{ $cdp['id'] }}">{{ $cdp['id'] }} - {{ $cdp['name'] }}</option>
+                                                <option value="{{ $cdp['id'] }}">{{ $cdp['code'] }} - {{ $cdp['name'] }}</option>
                                             @endforeach
                                         </select>
                                     </td>
