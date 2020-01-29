@@ -334,8 +334,8 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if($cdp->jefe_e != "3" and $cdp->secretaria_e != "3")
-                                                @if($rol == 2)
+                                            @if($cdp->jefe_e != "3")
+                                                @if($rol == 2 and $cdp->secretaria_e != "3")
                                                     <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
                                                     <button type="submit" class="btn btn-primary">Guardar Rubros</button>
                                                     @if($cdp->rubrosCdp->count() > 0 )
