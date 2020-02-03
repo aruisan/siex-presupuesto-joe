@@ -18,14 +18,14 @@
                     <hr>
                     {{ csrf_field() }}
                     <div class="col-md-12 text-center">
-                        <h2 class="tituloOrden">Seleccione el registro correspondiente:</h2>
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <br>
+                        <div class="col-md-12 text-center">
+
+                        </div>
+                        <h2 class="tituloOrden"></h2>
                         <div class="table-responsive">
-                          <div class="box">
+                            <div class="box">
                                 <div class="box-header">
-                                <h3 class="box-title"></h3>
+                                    <h3 class="box-title">Seleccione el registro correspondiente:</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                             @if(count($Registros) >= 1)
@@ -48,7 +48,7 @@
                                     <tbody>
                                     @foreach ($Registros as $key => $data)
                                         <tr onclick="ver('col{{$data['info']->id}}','Obj{{$data['info']->objeto}}','Name{{$data['info']->persona->nombre}}','Cc{{$data['info']->persona->num_dc}}','Sal{{$data['info']->saldo}}','Val{{$data['info']->valor}}','Iva{{$data['info']->iva}}','ValTo{{ $data['info']->val_total}}');" style="cursor:pointer">
-                                            <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->id }}</td>
+                                            <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->code }}</td>
                                             <td id="Obj{{$data['info']->objeto}}" class="text-center">{{ $data['info']->objeto }}</td>
                                             <td id="Name{{$data['info']->persona->nombre}}" class="text-center">{{ $data['info']->persona->nombre }}</td>
                                             <td id="Cc{{$data['info']->persona->num_dc}}" class="text-center hidden">{{ $data['info']->persona->num_dc }}</td>

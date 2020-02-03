@@ -76,7 +76,6 @@
                                 <th class="text-center"><i class="fa fa-usd"></i></th>
                                 <th class="text-center"><i class="fa fa-edit"></i></th>
                             @elseif ($rol == 3)
-                                <th class="text-center">Aprobar</th>
                                 <th class="text-center">Ver</th>
                             @endif
                         </tr>
@@ -123,9 +122,6 @@
                                         <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                     </td>
                                 @elseif($rol == 3)
-                                    <td class="text-center">
-                                        <input type="checkbox" class="form-group">
-                                    </td>
                                     <td class="text-center">
                                         <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                     </td>

@@ -58,9 +58,9 @@
 
                             <div class="col-md-6 align-self-center">
                                 <div class="form-group">
-                                    <label class="col-lg-4 col-form-label text-right" for="observacion">Observación<span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label text-right" for="observacion">Observación</label>
                                     <div class="col-lg-6">
-                                        <textarea name="observacion" class="form-control" required></textarea>
+                                        <textarea name="observacion" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
