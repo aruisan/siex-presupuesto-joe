@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label text-right col-md-4" for="observacion">Observación<span class="text-danger">*</span></label>
+                            <label class="control-label text-right col-md-4" for="observacion">Observación</label>
                             <div class="col-lg-6">
                                 <textarea name="observacion" class="form-control">{{ $idcdp->observacion }}</textarea>
                             </div>
