@@ -37,8 +37,7 @@
                             <th class="text-center">Objeto</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Valor Total</th>
-                            <th class="text-center"><i class="fa fa-usd"></i></th>
-                            <th class="text-center"><i class="fa fa-edit"></i></th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -61,10 +60,8 @@
                                 </td>
                                 <td class="text-center">$<?php echo number_format($CI->val_total,0) ?></td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/CIngresos/show/'.$CI->id) }}" title="Ingresar Dinero al CDP" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{ url('administrativo/CIngresos/'.$CI->id.'/edit') }}" title="Editar CDP" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('administrativo/CIngresos/show/'.$CI->id) }}" title="Ver Comprobante de Ingreso" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
+                                    <a href="{{ url('administrativo/CIngresos/'.$CI->id.'/edit') }}" title="Editar Comprobante de Ingreso" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -90,38 +87,32 @@
                             <th class="text-center">Objeto</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Valor</th>
-                            <th class="text-center">Saldo</th>
                             <th class="text-center">Ver</th>
-                            <th class="text-center">PDF</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($CIngresos as $cdp)
+                        @foreach($CIngresos as $historico)
                             <tr>
-                                <td class="text-center">{{ $cdp->code }}</td>
-                                <td class="text-center">{{ $cdp->name }}</td>
+                                <td class="text-center">{{ $historico->code }}</td>
+                                <td class="text-center">{{ $historico->concepto }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
-                                        @if($cdp->jefe_e == "0")
+                                        @if($historico->estado == "0")
                                             Pendiente
-                                        @elseif($cdp->jefe_e == "1")
+                                        @elseif($historico->estado == "1")
                                             Rechazado
-                                        @elseif($cdp->jefe_e == "2")
+                                        @elseif($historico->estado == "2")
                                             Anulado
-                                        @elseif($cdp->jefe_e == "3")
+                                        @elseif($historico->estado == "3")
                                             Aprobado
                                         @else
                                             En Espera
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">$<?php echo number_format($cdp->valor,0) ?></td>
-                                <td class="text-center">$<?php echo number_format($cdp->saldo,0) ?></td>
+                                <td class="text-center">$<?php echo number_format($historico->valor,0) ?></td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
-                                </td>
-                                <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$vigencia_id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{ url('administrativo/CIngresos/show/'.$historico->id) }}" title="Ver Comprobante de Ingreso" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach
