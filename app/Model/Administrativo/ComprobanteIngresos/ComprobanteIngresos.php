@@ -17,4 +17,9 @@ class ComprobanteIngresos extends Model implements Auditable
     public function users(){
         return $this->hasMany('App\User','user_id');
     }
+
+    public function rubros(){
+        return $this->hasMany('App\Model\Administrativo\ComprobanteIngresos\CIRubros','comprobante_ingreso_id');
+
+    }
 }

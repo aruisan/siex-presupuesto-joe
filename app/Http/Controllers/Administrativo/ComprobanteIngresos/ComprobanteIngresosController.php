@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Administrativo\ComprobanteIngresos;
 
 use App\Model\Administrativo\ComprobanteIngresos\ComprobanteIngresos;
+use App\Model\Administrativo\ComprobanteIngresos\CIRubros;
+use App\Model\Hacienda\Presupuesto\FontsRubro;
+use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -86,9 +90,8 @@ class ComprobanteIngresosController extends Controller
      */
     public function show($id)
     {
-
-        dd($id);
-        $all_rubros = Rubro::where('vigencia_id',$vigencia)->get();
+        $comprobante = ComprobanteIngresos::findOrFail($id);
+        $all_rubros = Rubro::where('vigencia_id',$comprobante->vigencia_id)->get();
         foreach ($all_rubros as $rubro){
             if ($rubro->fontsRubro->sum('valor_disp') != 0){
                 $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
@@ -99,7 +102,7 @@ class ComprobanteIngresosController extends Controller
 
         //codigo de rubros
 
-        $vigens = Vigencia::findOrFail($vigencia);
+        $vigens = Vigencia::findOrFail($comprobante->vigencia_id);
         $V = $vigens->id;
         $vigencia_id = $V;
 
@@ -151,6 +154,79 @@ class ComprobanteIngresosController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
+        return view('administrativo.comprobanteIngresos.show', compact('comprobante','rubros','valores','infoRubro','vigens'));
+    }
+
+    public function rubroStore(Request $request){
+
+        $rubros = $request->rubro_id;
+        if ($rubros != null){
+            $count = count($rubros);
+
+            for($i = 0; $i < $count; $i++){
+
+                $rubroSave = new CIRubros();
+                $rubroSave->comprobante_ingreso_id = $request->comprobante_id;
+                $rubroSave->rubro_id = $rubros[$i];
+                $rubroSave->save();
+            }
+
+            Session::flash('success','Rubros asignados correctamente al comprobante de ingresos');
+        }
+        if (isset($request->fuente_id)){
+
+            $fontsRubroId = $request->fuente_id;
+            $valor = $request->valor;
+            $count2 = count($fontsRubroId);
+
+            for($i = 0; $i < $count2; $i++){
+
+                $rubroUpdate = CIRubros::findOrFail($request->rubros_valor_id[$i]);
+                $rubroUpdate->valor = $valor[$i];
+                $rubroUpdate->fonts_rubro_id = $fontsRubroId[$i];
+                $rubroUpdate->save();
+            }
+
+            Session::flash('success','Dinero asignado correctamente');
+        }
+
+
+        return  back();
+    }
+
+    public function rubroDelete($id){
+
+        $rubro = CIRubros::find($id);
+        $rubro->delete();
+        Session::flash('error','Rubro eliminado correctamente del comprobante de ingresos');
+
+    }
+
+    public function estados($estado, $id){
+
+        if ($estado == 3){
+
+            $comprobante = ComprobanteIngresos::findOrFail($id);
+            $valorAdd = $comprobante->rubros->sum('valor');
+            if ($comprobante->valor == $valorAdd){
+                foreach ($comprobante->rubros as $data){
+                    $fontR = FontsRubro::findOrFail($data->fonts_rubro_id);
+                    $fontR->valor_disp = $data->valor + $fontR->valor_disp;
+                    $fontR->save();
+                }
+                $comprobante->estado = "3";
+                $comprobante->save();
+
+                Session::flash('success','Comprobante de Ingresos Finalizado Correctamente');
+
+                return redirect('/administrativo/CIngresos/'.$comprobante->vigencia_id);
+            } else {
+                Session::flash('error','No se puede finalizar debido a que el valor asignado a los rubros no es el mismo valor del comprobante de ingresos');
+
+                return back();
+            }
+
+        }
     }
 
     /**
@@ -182,8 +258,12 @@ class ComprobanteIngresosController extends Controller
      * @param  \App\comprobante_egresos  $comprobante_egresos
      * @return \Illuminate\Http\Response
      */
-    public function destroy(comprobante_egresos $comprobante_egresos)
+    public function destroy($vigen, $id)
     {
-        //
+        $comprobante = ComprobanteIngresos::findOrFail($id);
+        $comprobante->delete();
+
+        Session::flash('error','Comprobante de Ingresos Borrado Correctamente');
+        return redirect('../administrativo/CIngresos/'.$vigen);
     }
 }

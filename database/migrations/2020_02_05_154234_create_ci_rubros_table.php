@@ -16,12 +16,12 @@ class CreateCiRubrosTable extends Migration
         Schema::create('CI_rubros', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('valor');
+            $table->integer('valor')->nullable();
             $table->integer('comprobante_ingreso_id')->unsigned();
             $table->foreign('comprobante_ingreso_id')->references('id')->on('comprobante_ingresos');
             $table->integer('rubro_id')->unsigned();
             $table->foreign('rubro_id')->references('id')->on('rubros');
-            $table->integer('fonts_rubro_id')->unsigned();
+            $table->integer('fonts_rubro_id')->nullable()->unsigned();
             $table->foreign('fonts_rubro_id')->references('id')->on('fonts_rubro');
 
             $table->timestamps();
