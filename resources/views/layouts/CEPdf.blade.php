@@ -77,7 +77,7 @@
 			<div class="col-md-4 s57 text-center" >
 				<center>
 					_____________________ <br>
-					Virginia Webster Archbold 	<br>
+					Marhit May Jay 	<br>
 					Secretaria
 				</center>
 			</div>

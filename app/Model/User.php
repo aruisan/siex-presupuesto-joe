@@ -52,4 +52,9 @@ class User extends Authenticatable implements Auditable
     {
         return $this->hasMany('App\Model\Cobro\UserBoss', 'boss_id');
     }
+
+    public function CIngresos()
+    {
+        return $this->belongsTo('App\Model\Administrativo\ComprobanteIngresos\ComprobanteIngresos');
+    }
 }

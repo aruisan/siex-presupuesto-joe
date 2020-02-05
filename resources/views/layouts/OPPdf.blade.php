@@ -73,29 +73,29 @@
 
 		@yield('contenido')
 		<div style="margin-top: 100px; font-size: 13px;">
-			<div class="row">
-				<div class="col-md-4 s17" >
-					<center>
-						_____________________ <br>
-						Javier Rafael Rodriguez Archbold<br>
-						Presidente
-					</center>
-				</div>
-				<div class="col-md-4 s57" >
-					<center>
-						_____________________ <br>
-						Ledys Livingston Livingston<br>
-						Contador
-					</center>
-				</div>
-				<div class="col-md-4 s17" >
-					<center>
-						_____________________ <br>
-						Virginia Webster Archbold<br>
-						Secretaria
-					</center>
+			<div class="col-md-12 align-self-center">
+				<div class="table-borderless">
+					<table class="table table-borderless">
+						<tr class="text-center">
+							<td>
+								<center>
+									_____________________ <br>
+									Léri Aniseto Henry Taylor<br>
+									Presidente
+								</center>
+							</td>
+							<td>
+								<center>
+									_____________________ <br>
+									Armando Fernandez<br>
+									Contador
+								</center>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
+			<br>
 			<div class="row">
 				<div class="text-center">
 					Documento Generado por el Software
