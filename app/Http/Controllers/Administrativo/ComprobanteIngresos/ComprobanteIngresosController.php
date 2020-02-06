@@ -12,6 +12,7 @@ use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Traits\FileTraits;
 use Session;
 
 
@@ -25,10 +26,14 @@ class ComprobanteIngresosController extends Controller
     public function index($id)
     {
         $vigencia = Vigencia::findOrFail($id);
-        $CIngresosT = ComprobanteIngresos::where('vigencia_id', $id)->where('estado','!=','3')->get();
-        $CIngresos = ComprobanteIngresos::where('vigencia_id', $id)->where('estado','3')->get();
+        if ($vigencia->tipo == 1){
+            $CIngresosT = ComprobanteIngresos::where('vigencia_id', $id)->where('estado','!=','3')->get();
+            $CIngresos = ComprobanteIngresos::where('vigencia_id', $id)->where('estado','3')->get();
 
-        return view('administrativo.comprobanteIngresos.index', compact('vigencia', 'CIngresosT', 'CIngresos'));
+            return view('administrativo.comprobanteingresos.index', compact('vigencia', 'CIngresosT', 'CIngresos'));
+        } else {
+            return back();
+        }
     }
 
     /**
@@ -41,7 +46,7 @@ class ComprobanteIngresosController extends Controller
         $vigencia = Vigencia::findOrFail($id);
         $user_id = auth()->user()->id;
 
-        return view('administrativo.comprobanteIngresos.create', compact('vigencia','user_id'));
+        return view('administrativo.comprobanteingresos.create', compact('vigencia','user_id'));
     }
 
     /**
@@ -75,6 +80,7 @@ class ComprobanteIngresosController extends Controller
         $comprobante->ff = $request->fecha;
         $comprobante->user_id = $request->user_id;
         $comprobante->vigencia_id = $request->vigencia_id;
+        $comprobante->ruta = $ruta;
         $comprobante->save();
 
         Session::flash('success','El comprobante de ingreso se ha creado exitosamente');
@@ -154,7 +160,7 @@ class ComprobanteIngresosController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
-        return view('administrativo.comprobanteIngresos.show', compact('comprobante','rubros','valores','infoRubro','vigens'));
+        return view('administrativo.comprobanteingresos.show', compact('comprobante','rubros','valores','infoRubro','vigens'));
     }
 
     public function rubroStore(Request $request){
