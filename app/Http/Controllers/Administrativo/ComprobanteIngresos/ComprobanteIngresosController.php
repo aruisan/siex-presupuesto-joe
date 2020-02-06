@@ -30,7 +30,7 @@ class ComprobanteIngresosController extends Controller
             $CIngresosT = ComprobanteIngresos::where('vigencia_id', $id)->where('estado','!=','3')->get();
             $CIngresos = ComprobanteIngresos::where('vigencia_id', $id)->where('estado','3')->get();
 
-            return view('administrativo.comprobanteIngresos.index', compact('vigencia', 'CIngresosT', 'CIngresos'));
+            return view('administrativo.comprobanteingresos.index', compact('vigencia', 'CIngresosT', 'CIngresos'));
         } else {
             return back();
         }
@@ -46,7 +46,7 @@ class ComprobanteIngresosController extends Controller
         $vigencia = Vigencia::findOrFail($id);
         $user_id = auth()->user()->id;
 
-        return view('administrativo.comprobanteIngresos.create', compact('vigencia','user_id'));
+        return view('administrativo.comprobanteingresos.create', compact('vigencia','user_id'));
     }
 
     /**
@@ -160,7 +160,7 @@ class ComprobanteIngresosController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
-        return view('administrativo.comprobanteIngresos.show', compact('comprobante','rubros','valores','infoRubro','vigens'));
+        return view('administrativo.comprobanteingresos.show', compact('comprobante','rubros','valores','infoRubro','vigens'));
     }
 
     public function rubroStore(Request $request){
