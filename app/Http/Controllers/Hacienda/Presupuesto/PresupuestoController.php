@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
-use App\Http\Controllers\Controller;
+use App\Model\Administrativo\ComprobanteIngresos\ComprobanteIngresos;
+use App\Model\Administrativo\ComprobanteIngresos\CIRubros;
+use App\Model\Hacienda\Presupuesto\Informes\CodeContractuales;
+use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
+use App\Model\Administrativo\OrdenPago\OrdenPagos;
+use App\Model\Hacienda\Presupuesto\FontsVigencia;
+use App\Model\Administrativo\Registro\Registro;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Hacienda\Presupuesto\RubrosMov;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use App\Model\Hacienda\Presupuesto\Rubro;
-use App\Model\Hacienda\Presupuesto\Font;
-use App\Model\Hacienda\Presupuesto\FontsVigencia;
-use App\Model\Hacienda\Presupuesto\Vigencia;
-use App\Model\Hacienda\Presupuesto\Level;
-use App\Model\Hacienda\Presupuesto\Register;
-use App\Model\Administrativo\Cdp\Cdp;
-use App\Model\Administrativo\Registro\Registro;
-use App\Model\Administrativo\OrdenPago\OrdenPagos;
-use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
-use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Administrativo\Pago\PagoRubros;
-use App\Model\Hacienda\Presupuesto\Informes\CodeContractuales;
+use App\Model\Hacienda\Presupuesto\Register;
+use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\Rubro;
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Administrativo\Pago\Pagos;
+use App\Model\Administrativo\Cdp\Cdp;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class PresupuestoController extends Controller
@@ -928,6 +928,7 @@ class PresupuestoController extends Controller
             $allRegisters = Register::orderByDesc('level_id')->get();
             $pagos = Pagos::all();
             $ordenPagos = OrdenPagos::all();
+            $comprobanteIng = ComprobanteIngresos::where('vigencia_id',$vigencia_id)->get();
 
             global $lastLevel;
             $lastLevel = $ultimoLevel->id;
@@ -1416,8 +1417,94 @@ class PresupuestoController extends Controller
 
         $codeCon = CodeContractuales::all();
 
+        //TOTAL RECAUDO
+        foreach ($Rubros as $rubro){
+            $infoR = Rubro::findOrFail($rubro['id_rubro']);
+            $totalRecaud[] = collect(['id' => $infoR->id, 'valor' => $infoR->compIng->sum('valor')]);
+        }
 
-        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','mesActual'));
+        //TOTAL GENERAL VALOR RECAUDO
+
+        foreach ($allRegisters as $allRegister){
+            if ($allRegister->level->vigencia_id == $vigencia_id) {
+                if ($allRegister->level_id == $lastLevel) {
+                    $rubrosRegs = Rubro::where('register_id', $allRegister->id)->get();
+                    foreach ($rubrosRegs as $rubrosReg) {
+                        foreach ($rubrosReg->compIng as $Rub){
+                            $compInfo = CIRubros::where('id', $Rub->id)->get();
+                            if ($compInfo->count() > 0 ){
+                                $ArraytotalRub[] = $Rub->valor;
+                            }
+                        }
+                    }
+                    if (isset($ArraytotalRub)) {
+                        $totalRub = array_sum($ArraytotalRub);
+                        $valoresFinRec[] = collect(['id' => $allRegister->id, 'valor' => $totalRub, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($ArraytotalRub);
+                    } else {
+                        $valoresFinRec[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                } else {
+                    for ($i = 0; $i < sizeof($valoresFinRec); $i++) {
+                        if ($valoresFinRec[$i]['register_id'] == $allRegister->id) {
+                            $suma[] = $valoresFinRec[$i]['valor'];
+                        }
+                    }
+                    if (isset($suma)) {
+                        $valSum = array_sum($suma);
+                        $valoresFinRec[] = collect(['id' => $allRegister->id, 'valor' => $valSum, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($suma);
+                    } else {
+                        $valoresFinRec[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                }
+            }
+        }
+
+        //SALDO POR RECAUDAR
+        foreach ($Rubros as $rubro){
+            $infoR2 = Rubro::findOrFail($rubro['id_rubro']);
+            $recaudado = $infoR->compIng->sum('valor');
+            $valor = $infoR->fontsRubro->sum('valor');
+            $saldoRecaudo[] = collect(['id' => $infoR2->id, 'valor' => $valor - $recaudado]);
+        }
+
+        //TOTAL GENERAL SALDO POR RECAUDAR
+
+        foreach ($allRegisters as $allRegister){
+            if ($allRegister->level->vigencia_id == $vigencia_id) {
+                if ($allRegister->level_id == $lastLevel) {
+                    $rubrosRegs = Rubro::where('register_id', $allRegister->id)->get();
+                    foreach ($rubrosRegs as $rubrosReg2) {
+                        $recaudado2 = $rubrosReg2->compIng->sum('valor');
+                        $valor2 = $rubrosReg2->fontsRubro->sum('valor');
+                        $ArraytotalSald[] = $valor2 - $recaudado2;
+                    }
+                    if (isset($ArraytotalSald)) {
+                        $totalSald = array_sum($ArraytotalSald);
+                        $valoresFinSald[] = collect(['id' => $allRegister->id, 'valor' => $totalSald, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($ArraytotalSald);
+                    } else {
+                        $valoresFinSald[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                } else {
+                    for ($i = 0; $i < sizeof($valoresFinSald); $i++) {
+                        if ($valoresFinSald[$i]['register_id'] == $allRegister->id) {
+                            $suma[] = $valoresFinSald[$i]['valor'];
+                        }
+                    }
+                    if (isset($suma)) {
+                        $valSum = array_sum($suma);
+                        $valoresFinSald[] = collect(['id' => $allRegister->id, 'valor' => $valSum, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                        unset($suma);
+                    } else {
+                        $valoresFinSald[] = collect(['id' => $allRegister->id, 'valor' => 0, 'level_id' => $allRegister->level_id, 'register_id' => $allRegister->register_id]);
+                    }
+                }
+            }
+        }
+
+        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald'));
     }
 
     public function newPreIng($id, $year){

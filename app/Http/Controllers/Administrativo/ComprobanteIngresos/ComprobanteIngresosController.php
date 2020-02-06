@@ -11,7 +11,6 @@ use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Traits\FileTraits;
 use Session;
 
@@ -167,6 +166,8 @@ class ComprobanteIngresosController extends Controller
 
         $rubros = $request->rubro_id;
         if ($rubros != null){
+
+            //dd($request, $rubros);
             $count = count($rubros);
 
             for($i = 0; $i < $count; $i++){
@@ -215,11 +216,6 @@ class ComprobanteIngresosController extends Controller
             $comprobante = ComprobanteIngresos::findOrFail($id);
             $valorAdd = $comprobante->rubros->sum('valor');
             if ($comprobante->valor == $valorAdd){
-                foreach ($comprobante->rubros as $data){
-                    $fontR = FontsRubro::findOrFail($data->fonts_rubro_id);
-                    $fontR->valor_disp = $data->valor + $fontR->valor_disp;
-                    $fontR->save();
-                }
                 $comprobante->estado = "3";
                 $comprobante->save();
 
