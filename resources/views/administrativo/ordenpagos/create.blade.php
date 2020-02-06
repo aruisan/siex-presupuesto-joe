@@ -33,6 +33,7 @@
                                 <table class="display" id="tabla_Registros">
                                     <thead>
                                     <tr>
+                                        <th class="text-center hidden"><i class="fa fa-hashtag"></i></th>
                                         <th class="text-center"><i class="fa fa-hashtag"></i></th>
                                         <th class="text-center">Objeto</th>
                                         <th class="text-center">Tercero</th>
@@ -48,7 +49,8 @@
                                     <tbody>
                                     @foreach ($Registros as $key => $data)
                                         <tr onclick="ver('col{{$data['info']->id}}','Obj{{$data['info']->objeto}}','Name{{$data['info']->persona->nombre}}','Cc{{$data['info']->persona->num_dc}}','Sal{{$data['info']->saldo}}','Val{{$data['info']->valor}}','Iva{{$data['info']->iva}}','ValTo{{ $data['info']->val_total}}');" style="cursor:pointer">
-                                            <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->code }}</td>
+                                            <td id="col{{$data['info']->id}}" class="text-center hidden">{{ $data['info']->id }}</td>
+                                            <td class="text-center">{{ $data['info']->code }}</td>
                                             <td id="Obj{{$data['info']->objeto}}" class="text-center">{{ $data['info']->objeto }}</td>
                                             <td id="Name{{$data['info']->persona->nombre}}" class="text-center">{{ $data['info']->persona->nombre }}</td>
                                             <td id="Cc{{$data['info']->persona->num_dc}}" class="text-center hidden">{{ $data['info']->persona->num_dc }}</td>

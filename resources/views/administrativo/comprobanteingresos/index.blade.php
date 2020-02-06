@@ -84,7 +84,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Objeto</th>
+                            <th class="text-center">Concepto</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Valor</th>
                             <th class="text-center">Ver</th>
