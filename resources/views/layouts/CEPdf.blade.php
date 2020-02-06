@@ -77,8 +77,8 @@
 			<div class="col-md-4 s57 text-center" >
 				<center>
 					_____________________ <br>
-					Marhit May Jay 	<br>
-					Secretaria
+					Armando Fernandez 	<br>
+					Contador
 				</center>
 			</div>
 			<div class="col-md-4 s17 text-center" >
