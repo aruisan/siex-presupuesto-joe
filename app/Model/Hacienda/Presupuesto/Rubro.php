@@ -49,4 +49,9 @@ class Rubro extends Model implements Auditable
     public function codeCo(){
         return $this->hasOne('App\Model\Hacienda\Presupuesto\Informes\CodeContractuales', 'id', 'code_contractuales_id');
     }
+
+    public function compIng(){
+        return $this->hasMany('App\Model\Administrativo\ComprobanteIngresos\CIRubros','rubro_id');
+
+    }
 }

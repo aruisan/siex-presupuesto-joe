@@ -129,7 +129,19 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
-	    //Registros
+	    //Comprobante de Egresos
+
+        Route::get('CIngresos/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@index');
+        Route::get('CIngresos/create/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@create');
+        Route::get('CIngresos/show/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@show');
+        Route::get('CIngresos/fin/{estado}/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@estados');
+        Route::delete('CIngresos/{vigen}/{id}/delete', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@destroy');
+        Route::resource('CIngresos', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController');
+        Route::post('CIRubro', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@rubroStore');
+        Route::delete('CIRubro/{id}/delete', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@rubroDelete');
+
+
+        //Registros
 
         Route::get('registros/{id}', 'Administrativo\Registro\RegistrosController@index');
         Route::get('registros/create/{id}', 'Administrativo\Registro\RegistrosController@create');

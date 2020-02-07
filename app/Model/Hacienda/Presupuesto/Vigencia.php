@@ -25,4 +25,8 @@ class Vigencia extends Model implements Auditable
         return $this->hasMany('App\Model\Administrativo\Cdp\Cdp','vigencia_id');
     }
 
+    public function CIngresos(){
+        return $this->hasMany('App\Model\Administrativo\ComprobanteIngresos\ComprobanteIngresos','vigencia_id');
+    }
+
 }

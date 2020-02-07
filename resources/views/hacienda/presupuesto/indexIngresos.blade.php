@@ -112,9 +112,11 @@
                                 <th class="text-center">P. Inicial</th>
                                 <th class="text-center">Adición</th>
                                 <th class="text-center">Reducción</th>
-                                <th class="text-center">Credito</th>
-                                <th class="text-center">CCredito</th>
                                 <th class="text-center">P.Definitivo</th>
+                                <th class="text-center">Recaudo Mes</th>
+                                <th class="text-center">Recaudo Acumulado</th>
+                                <th class="text-center">Total Recaudado</th>
+                                <th class="text-center">Saldo Por Recaudar</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -157,28 +159,6 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRed['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                <!-- CREDITO -->
-                                    @foreach($valoresIniciales as $valorInicial)
-                                        @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valoresCred as $valorCred)
-                                        @if($codigo['id_rubro'] == $valorCred['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCred['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
-                                <!-- CONTRACREDITO -->
-                                    @foreach($valoresIniciales as $valorInicial)
-                                        @if($valorInicial['id'] == $codigo['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
-                                        @endif
-                                    @endforeach
-                                    @foreach($valoresCcred as $valorCcred)
-                                        @if($codigo['id_rubro'] == $valorCcred['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorCcred['valor'],0);?></td>
-                                        @endif
-                                    @endforeach
                                 <!-- PRESUPUESTO DEFINITIVO -->
                                     @foreach($valoresDisp as $valorDisponible)
                                         @if($valorDisponible['id'] == $codigo['id'])
@@ -188,6 +168,30 @@
                                     @foreach($ArrayDispon as $valorPD)
                                         @if($codigo['id_rubro'] == $valorPD['id'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorPD['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    <td class="text-center text-dark"></td>
+                                    <td class="text-center text-dark"></td>
+                                <!-- TOTAL RECAUDADO-->
+                                    @foreach($valoresFinRec as $valorFinRec)
+                                        @if($valorFinRec['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinRec['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($totalRecaud as $totalR)
+                                        @if($codigo['id_rubro'] == $totalR['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($totalR['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                <!-- SALDO POR RECAUDAR -->
+                                    @foreach($valoresFinSald as $valorFinSald)
+                                        @if($valorFinSald['id'] == $codigo['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorFinSald['valor'],0);?></td>
+                                        @endif
+                                    @endforeach
+                                    @foreach($saldoRecaudo as $saldoR)
+                                        @if($codigo['id_rubro'] == $saldoR['id'])
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($saldoR['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                 </tr>

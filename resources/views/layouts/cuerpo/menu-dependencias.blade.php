@@ -100,8 +100,18 @@
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="#">Comprobante de Ingresos</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">Comprobante de Egresos</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobante de Ingresos </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{ url('/administrativo/CIngresos/4') }}">2020</a></li>
+         </ul>
+      </li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobante de Egresos </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{ url('/administrativo/ordenPagos/3') }}">2020</a></li>
+         </ul>
+      </li>
       <li><a class="item-menu" tabindex="-1" href="#">Informes</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">Bancos</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">PAC</a></li>
