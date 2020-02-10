@@ -777,7 +777,7 @@
                                 <tbody>
                                 @foreach ($ordenPagos as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['code'] }}</td>
                                         <td class="text-center">{{ $data['nombre'] }}</td>
                                         <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
                                         <td class="text-center">{{ $data['persona'] }}</td>
@@ -833,7 +833,7 @@
                                 <tbody>
                                 @foreach ($pagos as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['code'] }}</td>
                                         <td class="text-center">{{ $data['nombre'] }}</td>
                                         <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
                                         <td class="text-center">{{ $data['persona'] }}</td>

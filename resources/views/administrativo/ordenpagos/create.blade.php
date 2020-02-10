@@ -191,6 +191,7 @@
                             <div class="col-md-6">
                                 <br>
                                 <input type="number" style="text-align: center" class="form-control formularioOrdenLabel" value="{{ $numOP + 1 }}" disabled name="num_OP">
+                                <input type="hidden"  class="form-control" name="next" value="{{ $numOP + 1 }}">
                                 <input type="hidden"  class="form-control" name="IdR" id="IdR">
                             </div>
                             </div>
@@ -364,7 +365,7 @@
                 $("#IdR").val(content.innerHTML);
                 $("#ValTOP").val(Sal.innerHTML);
                 $("#ValS").val(Val.innerHTML);
-                  
+
                 document.getElementById("concepto").focus(); 
                 
                } else {
