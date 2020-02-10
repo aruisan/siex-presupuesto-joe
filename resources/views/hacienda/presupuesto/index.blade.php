@@ -772,6 +772,7 @@
                                     <th class="text-center">Tercero</th>
                                     <th class="text-center">Estado</th>
                                     <th class="text-center"><i class="fa fa-eye"></i></th>
+                                    <th class="text-center">Archivo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -782,18 +783,21 @@
                                         <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
                                         <td class="text-center">{{ $data['persona'] }}</td>
                                         <td class="text-center">
-                                    <span class="badge badge-pill badge-danger">
-                                        @if($data['estado'] == "0")
-                                            Pendiente
-                                        @elseif($data['estado'] == "1")
-                                            Pagado
-                                        @else
-                                            Anulado
-                                        @endif
-                                    </span>
+                                            <span class="badge badge-pill badge-danger">
+                                                @if($data['estado'] == "0")
+                                                    Pendiente
+                                                @elseif($data['estado'] == "1")
+                                                    Pagado
+                                                @else
+                                                    Anulado
+                                                @endif
+                                            </span>
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ url('administrativo/ordenPagos/show',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/ordenPagos/pdf',$data['id']) }}" title="Orden de Pago" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -828,6 +832,7 @@
                                     <th class="text-center">Tercero</th>
                                     <th class="text-center">Estado</th>
                                     <th class="text-center"><i class="fa fa-eye"></i></th>
+                                    <th class="text-center">Archivo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -850,6 +855,9 @@
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ url('administrativo/pagos/show',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ url('administrativo/egresos/pdf',$data['id']) }}" title="Comprobante de Egresos" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

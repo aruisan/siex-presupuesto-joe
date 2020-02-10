@@ -124,7 +124,7 @@
 		</div>
 		<br>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaP">
+			<table class="table-bordered" id="tablaP">
 				<thead>
 				<tr>
 					<th class="text-center" colspan="5" style="background-color: rgba(19,165,255,0.14)">PRESUPUESTO</th>

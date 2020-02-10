@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/pagos') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/pagos/'.$id) }}" class="btn btn-success">
             <span class="hide-menu">Pagos</span></a>
     </li>
 @stop
