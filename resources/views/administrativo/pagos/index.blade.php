@@ -50,7 +50,7 @@
                         <tbody>
                         @foreach($pagosTarea as $pagoT)
                             <tr class="text-center">
-                                <td>{{ $pagoT['info']->id }}</td>
+                                <td>{{ $pagoT['info']->code }}</td>
                                 <td>{{ $pagoT['info']->orden_pago->nombre}}</td>
                                 <td>$<?php echo number_format($pagoT['info']->valor,0) ?></td>
                                 <td>
@@ -91,7 +91,7 @@
                         <thead>
                         <tr>
                             <th class="text-center">Id Pago</th>
-                            <th class="text-center">Id Orden de Pago</th>
+                            <th class="text-center">Orden de Pago</th>
                             <th class="text-center">Concepto Orden de Pago</th>
                             <th class="text-center">Valor Pago</th>
                             <th class="text-center">Tercero</th>
@@ -102,8 +102,8 @@
                         <tbody>
                         @foreach($pagos as $pago)
                             <tr class="text-center">
-                                <td>{{ $pago['info']->id }}</td>
-                                <td><a href="{{ url('administrativo/ordenPagos/show/'.$pago['info']->orden_pago_id) }}">{{ $pago['info']->orden_pago_id }}</a></td>
+                                <td>{{ $pago['info']->code }}</td>
+                                <td><a href="{{ url('administrativo/ordenPagos/show/'.$pago['info']->orden_pago_id) }}" title="Ver Orden de Pago" class="btn-sm btn-success">Ver Orden de Pago</a></td>
                                 <td>{{ $pago['info']->orden_pago->nombre }}</td>
                                 <td>$<?php echo number_format($pago['info']->valor,0) ?></td>
                                 <td>{{ $pago['info']->orden_pago->registros->persona->nombre }}</td>
@@ -120,6 +120,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ url('administrativo/pagos/show/'.$pago['info']->id) }}" title="Ver Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('/administrativo/egresos/pdf/'.$pago['info']->id) }}" title="Comprobante de Egresos" class="btn-sm btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

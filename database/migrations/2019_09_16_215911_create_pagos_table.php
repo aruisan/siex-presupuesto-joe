@@ -15,6 +15,8 @@ class CreatePagosTable extends Migration
     {
         Schema::create('pagos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
+
 
             $table->integer('orden_pago_id')->unsigned();
             $table->foreign('orden_pago_id')->references('id')->on('orden_pagos');

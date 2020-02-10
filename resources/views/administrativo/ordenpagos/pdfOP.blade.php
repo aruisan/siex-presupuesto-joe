@@ -4,7 +4,7 @@
 		<div class="table-responsive br-black-1">
 			<table class="table table-borderless">
 				<tr class="text-center">
-					<td>ORDEN DE PAGO No: {{ $OrdenPago->id }}</td>
+					<td>ORDEN DE PAGO No: {{ $OrdenPago->code }}</td>
 					<td><?=$dias[$fecha->format('w')]." ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " del ".$fecha->format('Y')?></td>
 				</tr>
 				<tr class="text-center">

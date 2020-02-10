@@ -70,9 +70,20 @@ class OrdenPagosController extends Controller
                 $Registros[] = collect(['info' => $reg]);
             }
         }
+        $oP = OrdenPagos::orderBy('code','ASC')->get();
+        foreach ($oP as $data){
+            if ($data->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $ordenPago[] = collect(['info' => $data, 'persona' => $data->registros->persona->nombre]);
+            }
+        }
         //dd($Registros[0]['info']);
         $PUCs = Puc::all();
-        $numOP = count(OrdenPagos::all());
+        if (isset($ordenPago)){
+            $last = array_last($ordenPago);
+            $numOP = $last['info']->code;
+        }else{
+            $numOP = 0;
+        }
         if (!isset($Registros)) {
             Session::flash('warning', 'No hay registros disponibles para crear la orden de pago, debe crear un nuevo registro. ');
             return redirect('/administrativo/ordenPagos/'.$id);
@@ -99,6 +110,7 @@ class OrdenPagosController extends Controller
             return redirect('/administrativo/ordenPagos/create/'.$request->vigencia);
         } else {
             $ordenPago = new OrdenPagos();
+            $ordenPago->code = $request->next;
             $ordenPago->nombre = $request->concepto;
             $ordenPago->valor = $request->ValTOP;
             $ordenPago->saldo = $request->ValTOP;
@@ -504,7 +516,7 @@ class OrdenPagosController extends Controller
     public function pdf_CE($id)
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
-        $Egreso_id = $OrdenPago->pago->id;
+        $Egreso_id = $OrdenPago->pago->code;
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
