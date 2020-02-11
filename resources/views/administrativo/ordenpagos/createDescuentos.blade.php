@@ -149,7 +149,7 @@
                                         <td class="text-center">{{ $desMun[$i]->concepto }}</td>
                                         <td class="text-center">{{ $desMun[$i]->tarifa }}%</td>
                                         <?php
-                                        $valorMulti = $ordenPago->registros->valor * $desMun[$i]->tarifa;
+                                        $valorMulti = $ordenPago->valor * $desMun[$i]->tarifa;
                                         $value = $valorMulti / 100;
                                         ?>
                                         <td class="text-center">
@@ -175,9 +175,9 @@
     <script>
         var Data = {
             @foreach($retenF as $key => $data)
-                @if($ordenPago->registros->valor >= $data->base)
+                @if($ordenPago->valor >= $data->base)
                     <?php
-                        $valorM = $ordenPago->registros->valor * $data->tarifa;
+                        $valorM = $ordenPago->valor * $data->tarifa;
                         $val = $valorM / 100;
                     ?>
                     "{{$data->id}}":["{{$data->tarifa}}","{{$data->base}}","{{$val}}"],
