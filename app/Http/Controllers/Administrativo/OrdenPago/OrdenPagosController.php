@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrativo\OrdenPago;
 use App\Model\Administrativo\Contabilidad\LevelPUC;
 use App\Model\Administrativo\Contabilidad\RegistersPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
+use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosDescuentos;
 use App\Model\Administrativo\OrdenPago\OrdenPagosPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagosPayments;
@@ -515,8 +516,9 @@ class OrdenPagosController extends Controller
 
     public function pdf_CE($id)
     {
-        $OrdenPago = OrdenPagos::findOrFail($id);
-        $Egreso_id = $OrdenPago->pago->code;
+        $Pago = Pagos::findOrFail($id);
+        $Egreso_id = $Pago->code;
+        $OrdenPago = OrdenPagos::findOrFail($Pago->orden_pago_id);
         $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
