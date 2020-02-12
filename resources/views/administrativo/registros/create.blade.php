@@ -230,7 +230,7 @@
                             '                <td class="text-center">\n' +
                             '                    <select name="cdp_id[]" class="form-control selectF" required>\n' +
                             '                        @foreach($cdps as $cdp)\n' +
-                            '                            <option value="{{ $cdp["id"] }}">{{ $cdp["id"] }} - {{ $cdp["name"] }}</option>\n' +
+                            '                            <option value="{{ $cdp["id"] }}">{{ $cdp["code"] }} - {{ $cdp["name"] }}</option>\n' +
                             '                        @endforeach\n' +
                             '                    </select>\n' +
                             '                </td>\n' +
