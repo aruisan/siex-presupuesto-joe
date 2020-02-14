@@ -45,7 +45,7 @@
                 <label>Tarifa: </label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                    <input type="number" name="tarifa" class="form-control" required value="{{ $desc->tarifa }}">
+                    <input type="number" step="0.01" name="tarifa" class="form-control" required value="{{ $desc->tarifa }}">
                 </div>
                 <small class="form-text text-muted">Tarifa de la retención</small>
             </div>

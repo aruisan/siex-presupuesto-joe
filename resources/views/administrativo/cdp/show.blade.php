@@ -343,8 +343,61 @@
                                         @endif
                                     </center>
                                 </form>
-
                             </div>
+                            @if($cdp->jefe_e == 3)
+                                <br><br>
+                                <hr>
+                                <center>
+                                    <h3>Registros Asignados al CDP</h3>
+                                </center>
+                                <hr>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tablaRegistros">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Id</th>
+                                            <th class="text-center">Nombre</th>
+                                            <th class="text-center">Estado</th>
+                                            <th class="text-center">Valor Inicial</th>
+                                            <th class="text-center">Valor Disponible</th>
+                                            <th class="text-center">Ver</th>
+                                            <th class="text-center">PDF</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($cdp->cdpsRegistro as $data)
+                                            <tr class="text-center">
+                                                <td>{{ $data->registro->code }}</td>
+                                                <td>{{ $data->registro->objeto }}</td>
+                                                <td class="text-center">
+                                                    <span class="badge badge-pill badge-danger">
+                                                        @if($data->registro->secretaria_e == "0")
+                                                            Pendiente
+                                                        @elseif($data->registro->secretaria_e == "1")
+                                                            Rechazado
+                                                        @elseif($data->registro->secretaria_e == "2")
+                                                            Anulado
+                                                        @else
+                                                            Aprobado
+                                                        @endif
+                                                    </span>
+                                                </td>
+                                                <td>$ <?php echo number_format($data->registro->valor,0);?>.00</td>
+                                                <td>$ <?php echo number_format( $data->registro->valor_disp,0);?>.00</td>
+                                                <td class="text-center">
+                                                    <a href="{{ url('administrativo/registros/show',$data->registro_id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                                </td>
+                                                <td class="text-center">
+                                                    @if($data->registro->secretaria_e == "3")
+                                                        <a href="{{ url('administrativo/registro/pdf/'.$data->registro_id.'/'.$cdp->vigencia_id) }}" title="Ver Archivo" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
                             @if($cdp->jefe_e == "3" and $cdp->secretaria_e == "3")
 
                                 <form action="{{url('/administrativo/cdp/'.$cdp->id.'/anular/'.$cdp->vigencia_id)}}" method="POST" class="form">
@@ -433,6 +486,10 @@
                 responsive: true,
                 "searching": false,
                 "ordering" : false
+            } );
+
+            $('#tablaRegistros').DataTable( {
+                responsive: true
             } );
 
             $(document).on('click', '.borrar', function (event) {

@@ -55,7 +55,7 @@
                             <label>Tarifa: </label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
-                                <input type="number" name="tarifa" class="form-control" required>
+                                <input type="number" name="tarifa" class="form-control" step="0.01" required>
                             </div>
                             <small class="form-text text-muted">Tarifa de la retención</small>
                         </div>
