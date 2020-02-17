@@ -54,7 +54,7 @@ class PresupuestoController extends Controller
             $ordenP = OrdenPagos::all();
             foreach ($ordenP as $ord){
                 if ($ord->registros->cdpsRegistro[0]->cdp->vigencia_id == $V){
-                    $ordenPagos[] = collect(['id' => $ord->id, 'nombre' => $ord->nombre, 'persona' => $ord->registros->persona->nombre, 'valor' => $ord->valor, 'estado' => $ord->estado]);
+                    $ordenPagos[] = collect(['id' => $ord->id, 'code' => $ord->code, 'nombre' => $ord->nombre, 'persona' => $ord->registros->persona->nombre, 'valor' => $ord->valor, 'estado' => $ord->estado]);
                 }
             }
             if (!isset($ordenPagos)){
@@ -64,10 +64,10 @@ class PresupuestoController extends Controller
                 foreach ($ordenPagos as $data){
                     $pagoFind = Pagos::where('orden_pago_id',$data['id'])->get();
                     if ($pagoFind->count() == 1){
-                        $pagos[] = collect(['id' => $pagoFind[0]->id, 'nombre' => $data['nombre'], 'persona' => $pagoFind[0]->orden_pago->registros->persona->nombre, 'valor' => $pagoFind[0]->valor, 'estado' => $pagoFind[0]->estado]);
+                        $pagos[] = collect(['id' => $pagoFind[0]->id, 'code' =>$pagoFind[0]->code, 'nombre' => $data['nombre'], 'persona' => $pagoFind[0]->orden_pago->registros->persona->nombre, 'valor' => $pagoFind[0]->valor, 'estado' => $pagoFind[0]->estado]);
                     } elseif($pagoFind->count() > 1){
                         foreach ($pagoFind as $info){
-                            $pagos[] = collect(['id' => $info->id, 'nombre' => $data['nombre'], 'persona' => $info->orden_pago->registros->persona->nombre, 'valor' => $info->valor, 'estado' => $info->estado]);
+                            $pagos[] = collect(['id' => $info->id, 'code' => $info->code, 'nombre' => $data['nombre'], 'persona' => $info->orden_pago->registros->persona->nombre, 'valor' => $info->valor, 'estado' => $info->estado]);
                         }
                     }
                 }

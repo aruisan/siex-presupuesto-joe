@@ -51,7 +51,7 @@
                         <tbody>
                         @foreach($ordenPagoTarea as $ordenPagoT)
                             <tr class="text-center">
-                                <td>{{ $ordenPagoT['info']->id }}</td>
+                                <td>{{ $ordenPagoT['info']->code }}</td>
                                 <td>{{ $ordenPagoT['info']->nombre }}</td>
                                 <td>$<?php echo number_format($ordenPagoT['info']->valor,0) ?></td>
                                 <td>
@@ -104,7 +104,7 @@
                         <tbody>
                         @foreach($ordenPagos as $ordenPago)
                             <tr class="text-center">
-                                <td>{{ $ordenPago['id'] }}</td>
+                                <td>{{ $ordenPago['code'] }}</td>
                                 <td>{{ $ordenPago['nombre'] }}</td>
                                 <td>$<?php echo number_format($ordenPago['valor'],0) ?></td>
                                 <td>
@@ -120,6 +120,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ url('administrativo/ordenPagos/show/'.$ordenPago['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/pdf/'.$ordenPago['id']) }}" title="Orden de Pago" class="btn-sm btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

@@ -61,11 +61,23 @@ class PagosController extends Controller
                 $ordenPagos[] = collect(['info' => $data]);
             }
         }
+        $pagos = Pagos::orderBy('code','ASC')->get();
+        foreach ($pagos as $data){
+            if ($data->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $pagosAll[] = collect(['info' => $data, 'persona' => $data->orden_pago->registros->persona->nombre]);
+            }
+        }
         if (!isset($ordenPagos)){
             Session::flash('warning', 'No hay ordenes de pago disponibles para crear el pago. ');
             return redirect('/administrativo/pagos/'.$id);
         } else {
-            return view('administrativo.pagos.create', compact('ordenPagos','id'));
+            if (isset($pagosAll)){
+                $last2 = array_last($pagosAll);
+                $numP = $last2['info']->code;
+            }else{
+                $numP = 0;
+            }
+            return view('administrativo.pagos.create', compact('ordenPagos','id','numP'));
         }
     }
 
@@ -84,6 +96,7 @@ class PagosController extends Controller
         } else {
 
             $Pago = new Pagos();
+            $Pago->code = $request->numPago;
             $Pago->orden_pago_id = $request->IdOP;
             $Pago->valor = $request->Monto;
             $Pago->estado = "0";

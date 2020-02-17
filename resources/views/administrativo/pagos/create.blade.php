@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/pagos') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/pagos/'.$id) }}" class="btn btn-success">
             <span class="hide-menu">Pagos</span></a>
     </li>
 @stop
@@ -27,6 +27,7 @@
                             <table class="display" id="tabla_OrdenesPago">
                                 <thead>
                                 <tr>
+                                    <th class="text-center hidden"><i class="fa fa-hashtag"></i></th>
                                     <th class="text-center"><i class="fa fa-hashtag"></i></th>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Tercero</th>
@@ -42,7 +43,8 @@
                                 @foreach ($ordenPagos as $key => $data)
                                     <?php $desc = $data['info']->valor - $data['info']->descuentos->sum('valor');?>
                                     <tr onclick="ver('col{{$data['info']->id}}','Obj{{$data['info']->nombre}}','Name{{$data['info']->registros->persona->nombre}}','Val{{$data['info']->saldo}}','ValTo{{$data['info']->valor}}','Iva{{$data['info']->iva}}','Desc{{$desc}}');" style="cursor:pointer">
-                                        <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->id }}</td>
+                                        <td id="col{{$data['info']->id}}" class="text-center hidden">{{ $data['info']->id }}</td>
+                                        <td class="text-center">{{ $data['info']->code}}</td>
                                         <td id="Obj{{$data['info']->nombre}}" class="text-center">{{ $data['info']->nombre }}</td>
                                         <td id="Name{{$data['info']->registros->persona->nombre}}" class="text-center">{{ $data['info']->registros->persona->nombre }}</td>
                                         <td class="text-center">$<?php echo number_format($desc,0) ?></td>
@@ -70,6 +72,7 @@
                                     <label class="control-label text-right col-md-4">Nombre Orden de Pago: </label>
                                     <div class="col-lg-6">
                                         <input type="hidden" name="IdOP" id="IdOP">
+                                        <input type="hidden" name="numPago" value="{{ $numP + 1 }}">
                                         <input type="hidden" name="SaldoOP" id="SaldoOP">
                                         <input type="hidden" name="ff" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
                                         <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>

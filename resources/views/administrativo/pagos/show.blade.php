@@ -44,7 +44,7 @@
     <br>
     @if($pago->estado == 1)
         <li> <a href="{{ url('/administrativo/ordenPagos/pdf/'.$ordenPago->id) }}" target="_blank" class="btn btn-primary"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i>&nbsp; Orden de Pago</span></a></li>
-         <li> <a href="{{ url('/administrativo/egresos/pdf/'.$ordenPago->id) }}" target="_blank" class="btn btn-success"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i> &nbsp; Comprobante de Egresos</span></a></li>
+         <li> <a href="{{ url('/administrativo/egresos/pdf/'.$pago->id) }}" target="_blank" class="btn btn-success"><span class="hide-menu"><i class="fa fa-file-pdf-o"></i> &nbsp; Comprobante de Egresos</span></a></li>
         @else
         <li>
             <a href="{{ url('/administrativo/pagos/asignacion/'.$pago->id) }}" class="btn btn-primary">
