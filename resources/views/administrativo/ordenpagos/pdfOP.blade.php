@@ -86,7 +86,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaDesc">
+			<table class="table-bordered" id="tablaDesc" style="width: 100%">
 				<thead>
 				<tr>
 					<th colspan="4" class="text-center" style="background-color: rgba(19,165,255,0.14)"> DESCUENTOS</th>
@@ -124,7 +124,7 @@
 		</div>
 		<br>
 		<div class="table-responsive br-black-1">
-			<table class="table-bordered" id="tablaP">
+			<table class="table-bordered" id="tablaP" style="width: 100%">
 				<thead>
 				<tr>
 					<th class="text-center" colspan="5" style="background-color: rgba(19,165,255,0.14)">PRESUPUESTO</th>
@@ -157,7 +157,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaP">
+			<table class="table-bordered" id="tablaP" style="width: 100%">
 				<thead>
 				<tr>
 					<th class="text-center" colspan="5" style="background-color: rgba(19,165,255,0.14)">CONTABILIZACIÓN</th>
