@@ -12,7 +12,7 @@
 					<td>Nit o Cedula: {{ $OrdenPago->registros->persona->num_dc }}</td>
 				</tr>
 				<tr class="text-center">
-					<td>Orden de Pago No: {{$OrdenPago->id}}</td>
+					<td>Orden de Pago No: {{$OrdenPago->code}}</td>
 					<td>Fecha Orden de Pago: <?=$dias[$fechaO->format('w')]." ".$fechaO->format('d')." ".$meses[$fechaO->format('n')-1]. " ".$fechaO->format('Y')?></td>
 				</tr>
 			</table>
@@ -121,7 +121,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaDesc">
+			<table class="table-bordered" id="tablaDesc" style="width: 100%">
 				<thead>
 				<tr>
 					<th colspan="4" class="text-center" style="background-color: rgba(19,165,255,0.14)"> DESCUENTOS</th>
