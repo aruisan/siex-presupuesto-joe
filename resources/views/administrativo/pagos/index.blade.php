@@ -2,21 +2,6 @@
 @section('titulo')
     Pagos
 @stop
-@section('sidebar')
-    <li>
-        <a href="{{ url('/administrativo/pagos/create/'.$id) }}" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-            <span class="hide-menu"> Crear Pago</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/administrativo/ordenPagos/'.$id) }}" class="btn btn-primary">
-            <span class="hide-menu"> Ordenes de Pago</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/administrativo/registros/'.$id) }}" class="btn btn-primary">
-            <span class="hide-menu"> Registros</span></a>
-    </li>
-@stop
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
@@ -24,14 +9,25 @@
         </strong>
     </div>
     <ul class="nav nav-pills">
-        <li class="nav-item">
+        <li class="nav-item regresar">
+            <a class="nav-link" href="{{ url('/presupuesto') }}" >PRESUPUESTO</a>
+        </li>
+        <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#tabTareas">TAREAS</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
+        <li class="nav-item">
+            <a class="tituloTabs" href="{{ url('/administrativo/pagos/create/'.$id) }}">NUEVO PAGO</a>
+        </li>
+        <li class="nav-item pillPri">
+            <a class="tituloTabs" href="{{ url('/administrativo/ordenPagos/'.$id) }}">ORDENES DE PAGO</a>
+        </li>
+        <li class="nav-item pillPri">
+            <a class="tituloTabs" href="{{ url('/administrativo/registros/'.$id) }}">REGISTROS</a>
+        </li>
     </ul>
-    <br>
     <div class="tab-content" style="background-color: white">
         <div id="tabTareas" class="tab-pane active"><br>
             <div class="table-responsive">
