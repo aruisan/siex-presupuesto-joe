@@ -65,7 +65,6 @@ class RubrosController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $id         = $request->rubro_id;
         $name       = $request->nombre;
         $subProy    = $request->subproyecto_id;
@@ -207,7 +206,6 @@ class RubrosController extends Controller
      */
     public function update($id, $name, $code, $register, $subproyecto_id)
     {
-        //dd($name);
         $rubro = Rubro::findOrFail($id);
         $rubro->name = $name;
         $rubro->cod = $code;

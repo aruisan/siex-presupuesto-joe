@@ -43,8 +43,6 @@ class PagosController extends Controller
             unset($pagos[0]);
         }
 
-        //dd($pagosTarea, $pagos);
-
         return view('administrativo.pagos.index', compact('pagos','pagosTarea','id'));
     }
 
@@ -93,6 +91,7 @@ class PagosController extends Controller
 
             Session::flash('warning','El valor que va a pagar: $'.$request->Monto.' es mayor al valor disponible de la orden de pago: $'.$request->SaldoOP);
             return back();
+
         } else {
 
             $Pago = new Pagos();
@@ -160,7 +159,6 @@ class PagosController extends Controller
             Session::flash('warning','El valor tomado de los rubros debe ser igual al valor a pagar: $'.$pago->valor);
             return back();
         }
-
     }
 
     public function asignacionDelete(Request $request){
@@ -183,7 +181,6 @@ class PagosController extends Controller
             Session::flash('warning','El pago no ha recibido la asignación del monto, por favor realizarla');
             return redirect('administrativo/pagos/asignacion/'.$pago->id);
         }
-
     }
 
     public function bankStore(Request $request){
