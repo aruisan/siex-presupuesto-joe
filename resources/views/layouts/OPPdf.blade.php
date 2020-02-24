@@ -72,10 +72,10 @@
 		</div>
 
 		@yield('contenido')
-		<div style="margin-top: 100px; font-size: 13px;">
+		<div style="margin-top: 50px; font-size: 13px;">
 			<div class="col-md-12 align-self-center">
 				<div class="table-borderless">
-					<table class="table table-borderless">
+					<table class="table table-borderless" style="border: hidden">
 						<tr class="text-center">
 							<td>
 								<center>

@@ -72,23 +72,30 @@
 	</div>
 
 	@yield('contenido')
-	<div style="margin-top: 100px; font-size: 13px;">
-		<div class="row">
-			<div class="col-md-4 s57 text-center" >
-				<center>
-					_____________________ <br>
-					Armando Fernandez 	<br>
-					Contador
-				</center>
-			</div>
-			<div class="col-md-4 s17 text-center" >
-				<center>
-					_____________________ <br>
-					{{$OrdenPago->registros->persona->nombre}} 	<br>
-					{{ $OrdenPago->registros->persona->num_dc }}
-				</center>
+	<div style="margin-top: 50px; font-size: 13px;">
+		<div class="col-md-12 align-self-center">
+			<div class="table table-borderless">
+				<table class="table table-borderless" style="border: hidden">
+					<tr class="text-center">
+						<td>
+							<center>
+								_____________________ <br>
+								Armando Fernandez 	<br>
+								Contador
+							</center>
+						</td>
+						<td>
+							<center>
+								_____________________ <br>
+								{{$OrdenPago->registros->persona->nombre}} 	<br>
+								{{ $OrdenPago->registros->persona->num_dc }}
+							</center>
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="text-center">
 				Documento Generado por Software
