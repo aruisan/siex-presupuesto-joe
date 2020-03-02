@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Administrativo\Contabilidad;
 
 use App\Model\Administrativo\Contabilidad\RubrosPuc;
 use App\Model\Administrativo\Contabilidad\RegistersPuc;
+use App\Model\Hacienda\Presupuesto\Vigencia;
 use App\Model\Administrativo\Contabilidad\LevelPUC;
 use App\Model\Administrativo\Contabilidad\Puc;
 use App\Model\Persona;
@@ -30,10 +31,12 @@ class RubrosPucController extends Controller
      */
     public function create($vigencia_id)
     {
-        $vigencia = Puc::findOrFail($vigencia_id);
+        $vig = Vigencia::findOrFail($vigencia_id);
+        $vigencia = Puc::where('vigencia', $vig->vigencia)->get();
         $niveles = LevelPUC::where('puc_id', $vigencia_id)->get();
         $ultimoLevel = LevelPUC::where('puc_id', $vigencia_id)->get()->last();
         $registers = RegistersPuc::where('level_puc_id', $ultimoLevel->id)->get();
+        $rubros = RubrosPuc::where('puc_id', $vigencia[0]->id)->paginate(10);
 
         foreach ($registers as $register){
 
@@ -53,19 +56,20 @@ class RubrosPucController extends Controller
 
 
 
-        $levels = RubrosPuc::where('puc_id', $vigencia_id)->count();
+        $levels = RubrosPuc::where('puc_id', $vigencia[0]->id)->count();
+
         if($levels == 0){
-            $fila = $vigencia->levels;
-        }else if($levels >= $vigencia->levels){
+            $fila = $vigencia[0]->levels;
+        }else if($levels >= $vigencia[0]->levels){
             $fila = 0;
-        }else if( $vigencia->levels > $levels){
-            $fila = $vigencia->levels - $levels;
+        }else if( $vigencia[0]->levels > $levels){
+            $fila = $vigencia[0]->levels - $levels;
         }
 
         $terceros = Persona::all();
 
 
-        return view('administrativo.contabilidad.puc.createRubros', compact('vigencia', 'fila', 'niveles', 'registers', 'codigos','vigencia_id','terceros'));
+        return view('administrativo.contabilidad.puc.createRubros', compact('vigencia', 'fila', 'niveles', 'registers', 'codigos','vigencia_id','terceros', 'rubros'));
     }
 
     /**
