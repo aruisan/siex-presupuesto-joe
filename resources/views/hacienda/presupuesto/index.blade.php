@@ -794,10 +794,10 @@
                                             </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/ordenPagos/show',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/ordenPagos/show',$data['id']) }}" target="_blank" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/ordenPagos/pdf',$data['id']) }}" title="Orden de Pago" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{ url('administrativo/ordenPagos/pdf',$data['id']) }}" target="_blank" title="Orden de Pago" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -854,10 +854,10 @@
                                     </span>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/pagos/show',$data['id']) }}" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            <a href="{{ url('administrativo/pagos/show',$data['id']) }}" target="_blank" title="Ver Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/egresos/pdf',$data['id']) }}" title="Comprobante de Egresos" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            <a href="{{ url('administrativo/egresos/pdf',$data['id']) }}" target="_blank" title="Comprobante de Egresos" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

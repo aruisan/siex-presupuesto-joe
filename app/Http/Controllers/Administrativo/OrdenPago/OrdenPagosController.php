@@ -77,7 +77,6 @@ class OrdenPagosController extends Controller
                 $ordenPago[] = collect(['info' => $data, 'persona' => $data->registros->persona->nombre]);
             }
         }
-        //dd($Registros[0]['info']);
         $PUCs = Puc::all();
         if (isset($ordenPago)){
             $last = array_last($ordenPago);
@@ -348,8 +347,6 @@ class OrdenPagosController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
-
-        //dd($infoRubro[0]['id_rubro'], $R->cdpRegistroValor[0]->fontRubro, $R->cdpRegistroValor[0]->rubro_id);
 
         return view('administrativo.ordenpagos.show', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro','vigencia_id'));
     }

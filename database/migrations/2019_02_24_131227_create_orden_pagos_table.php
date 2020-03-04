@@ -18,7 +18,6 @@ class CreateOrdenPagosTable extends Migration
             $table->increments('id');
             $table->integer('code');
 
-
             $table->text('nombre');
             $table->integer('valor');
             $table->integer('saldo');
