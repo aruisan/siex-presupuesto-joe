@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Model\Administrativo\ComprobanteIngresos\ComprobanteIngresos;
-use App\Model\Administrativo\ComprobanteIngresos\CIRubros;
 use App\Model\Hacienda\Presupuesto\Informes\CodeContractuales;
+use App\Model\Administrativo\ComprobanteIngresos\CIRubros;
 use App\Model\Administrativo\OrdenPago\OrdenPagosRubros;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
 use App\Model\Hacienda\Presupuesto\FontsVigencia;
@@ -35,6 +35,15 @@ class PresupuestoController extends Controller
         $añoActual = Carbon::now()->year;
         $mesActual = Carbon::now()->month;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
+        $historico = Vigencia::where('vigencia', '!=', $añoActual)->get();
+        foreach ($historico as $his) {
+            if ($his->tipo == "0"){
+                $years[] = [ 'info' => $his->vigencia." - Egresos", 'id' => $his->id];
+            }else{
+                $years[] = [ 'info' => $his->vigencia." - Ingresos", 'id' => $his->id];
+            }
+        }
+        asort($years);
 
         if ($vigens->count() == 0){
             $V = "Vacio";
@@ -903,7 +912,7 @@ class PresupuestoController extends Controller
             unset($cdps[0]);
         }
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel'));
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','years'));
     }
 
 
