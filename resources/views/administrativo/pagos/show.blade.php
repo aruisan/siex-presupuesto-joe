@@ -6,7 +6,7 @@
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>{{ $ordenPago->nombre }}</b></h4>
+                <h4><b>{{ $pago->concepto }}</b></h4>
             </strong>
         </div>
         <div class="col-lg-12">
@@ -36,7 +36,7 @@
                                     <div class="form-group">
                                         <label class="control-label text-right col-md-4" for="nombre">Nombre:</label>
                                         <div class="col-lg-6">
-                                            <input type="text" disabled class="form-control" name="name" style="text-align:center" value="{{ $ordenPago->nombre }}">
+                                            <input type="text" disabled class="form-control" name="name" style="text-align:center" value="{{ $pago->concepto }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label class="control-label text-right col-md-4" for="nombre">Tercero:</label>
                                         <div class="col-lg-6">
-                                            <input type="text" disabled class="form-control" name="name" style="text-align:center" value="{{ $ordenPago->registros->persona->nombre }}">
+                                            <input type="text" disabled class="form-control" name="name" style="text-align:center" value="{{ $pago->persona->nombre }}">
                                         </div>
                                     </div>
                                     <div class="form-group">
