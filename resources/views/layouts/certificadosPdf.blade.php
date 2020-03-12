@@ -79,19 +79,11 @@
 						Secretaria General.
 					</center>
 				@else
-					@if($cdo->id == 241)
-						<center>
-							_____________________ <br>
-							Virginia Webster Archbold	<br>
-							Secretaria General.
-						</center>
-					@else
-						<center>
-							_____________________ <br>
-							Marhit May Jay 	<br>
-							Secretaria General.
-						</center>
-					@endif
+					<center>
+						_____________________ <br>
+						Marhit May Jay 	<br>
+						Secretaria General.
+					</center>
 				@endif
 			@else
 				@if($registro->ff_expedicion < '2020-02-01')
