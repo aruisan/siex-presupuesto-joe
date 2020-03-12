@@ -8,8 +8,8 @@
 					<td><?=$dias[$fecha->format('w')]." ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " del ".$fecha->format('Y')?></td>
 				</tr>
 				<tr class="text-center">
-					<td>Beneficiario: {{$OrdenPago->registros->persona->nombre}}</td>
-					<td>Nit o Cedula: {{ $OrdenPago->registros->persona->num_dc }}</td>
+					<td>Beneficiario: {{$OrdenPago->pago->persona->nombre}}</td>
+					<td>Nit o Cedula: {{ $OrdenPago->pago->persona->num_dc }}</td>
 				</tr>
 				<tr class="text-center">
 					<td>Orden de Pago No: {{$OrdenPago->code}}</td>
@@ -21,7 +21,7 @@
 			<center>
 				<h4>CONCEPTO</h4>
 				<p>
-					<h5>{{ $OrdenPago->nombre }}</h5>
+					<h5>{{ $OrdenPago->pago->concepto }}</h5>
 				</p>
 			</center>
 		</div>

@@ -47,7 +47,7 @@
                         @foreach($pagosTarea as $pagoT)
                             <tr class="text-center">
                                 <td>{{ $pagoT['info']->code }}</td>
-                                <td>{{ $pagoT['info']->orden_pago->nombre}}</td>
+                                <td>{{ $pagoT['info']->concepto}}</td>
                                 <td>$<?php echo number_format($pagoT['info']->valor,0) ?></td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
@@ -60,7 +60,7 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">{{ $pagoT['info']->orden_pago->registros->persona->nombre }}</td>
+                                <td class="text-center">{{ $pagoT['persona'] }}</td>
                                 <td>
                                     <a href="{{ url('administrativo/pagos/show/'.$pagoT['info']->id) }}" title="Ver Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
                                     <a href="{{ url('administrativo/pagos/asignacion/'.$pagoT['info']->id) }}" title="Asignar Monto" class="btn-sm btn-success"><i class="fa fa-usd"></i></a>
@@ -88,7 +88,7 @@
                         <tr>
                             <th class="text-center">Id Pago</th>
                             <th class="text-center">Orden de Pago</th>
-                            <th class="text-center">Concepto Orden de Pago</th>
+                            <th class="text-center">Concepto</th>
                             <th class="text-center">Valor Pago</th>
                             <th class="text-center">Tercero</th>
                             <th class="text-center">Estado</th>
@@ -100,9 +100,9 @@
                             <tr class="text-center">
                                 <td>{{ $pago['info']->code }}</td>
                                 <td><a href="{{ url('administrativo/ordenPagos/show/'.$pago['info']->orden_pago_id) }}" title="Ver Orden de Pago" class="btn-sm btn-success">Ver Orden de Pago</a></td>
-                                <td>{{ $pago['info']->orden_pago->nombre }}</td>
+                                <td>{{ $pago['info']->concepto }}</td>
                                 <td>$<?php echo number_format($pago['info']->valor,0) ?></td>
-                                <td>{{ $pago['info']->orden_pago->registros->persona->nombre }}</td>
+                                <td>{{ $pago['info']->persona->nombre }}</td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
                                         @if($pago['info']->estado == "0")

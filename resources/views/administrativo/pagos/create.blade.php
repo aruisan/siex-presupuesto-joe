@@ -75,7 +75,7 @@
                                         <input type="hidden" name="numPago" value="{{ $numP + 1 }}">
                                         <input type="hidden" name="SaldoOP" id="SaldoOP">
                                         <input type="hidden" name="ff" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
-                                        <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto" disabled>
+                                        <input type="text" style="text-align: center" class="form-control" name="Objeto" id="Objeto">
                                     </div>
                                 </div>
                             </div>

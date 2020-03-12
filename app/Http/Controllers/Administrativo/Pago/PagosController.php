@@ -24,7 +24,7 @@ class PagosController extends Controller
         $pT = Pagos::where('estado', '0')->get();
         foreach ($pT as $data){
             if ($data->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
-                $pagosTarea[] = collect(['info' => $data, 'persona' => $data->orden_pago->registros->persona->nombre]);
+                $pagosTarea[] = collect(['info' => $data, 'persona' => $data->persona->nombre]);
             }
         }
 
@@ -94,8 +94,11 @@ class PagosController extends Controller
 
         } else {
 
+            $OrdenPago = OrdenPagos::findOrFail($request->IdOP);
             $Pago = new Pagos();
             $Pago->code = $request->numPago;
+            $Pago->concepto = $request->Objeto;
+            $Pago->persona_id = $OrdenPago->registros->persona_id;
             $Pago->orden_pago_id = $request->IdOP;
             $Pago->valor = $request->Monto;
             $Pago->estado = "0";

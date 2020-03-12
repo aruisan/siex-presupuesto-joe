@@ -306,7 +306,14 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	////// RUTAS PRESUPUESTO
 
 
-	Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
+    //// HISTORICO
+    Route::get('presupuesto/historico/{id}', 'Hacienda\Presupuesto\VigenciaController@historico');
+
+
+
+
+
+    Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
 	Route::get('presupuesto/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
 	Route::resource('presupuesto/vigencia', 'Hacienda\Presupuesto\VigenciaController');
 	Route::get('presupuesto/level/create/{vigencia}', 'Hacienda\Presupuesto\LevelController@create');
