@@ -129,7 +129,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
-	    //Comprobante de Egresos
+
+        //TESORERIA
+
+	           //Comprobante de Egresos
 
         Route::get('CIngresos/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@index');
         Route::get('CIngresos/create/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@create');
@@ -140,6 +143,22 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::post('CIRubro', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@rubroStore');
         Route::delete('CIRubro/{id}/delete', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@rubroDelete');
 
+            //Bancos
+
+        Route::resource('bancos','Administrativo\Tesoreria\BancosController');
+
+
+
+
+        //Almacen
+
+            //Inventario
+
+        Route::resource('inventario','Administrativo\Almacen\InventarioController');
+
+            //Bienes, muebles e inmuebles
+
+        Route::resource('muebles','Administrativo\Almacen\MueblesController');
 
         //Registros
 

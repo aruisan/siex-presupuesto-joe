@@ -69,6 +69,17 @@
    CONCEJALES
    </a>
 </li>
+<li class="dropdown ">
+   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
+   ALMACEN
+   <span class="caret"></span>
+   </a>
+
+   <ul class="dropdown-menu">
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/inventario')}}">Inventario</a></li>    
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/muebles')}}">Bienes, Muebles e Inmuebles</a></li>
+   </ul>
+</li>
 
 <li class="dropdown ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
@@ -90,7 +101,17 @@
      
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Informes</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Balances </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="#">Prueba</a></li>
+            <li><a class="item-menu" href="#">Terceros</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Final</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="#">Estado de Resultados</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Notas al Balance</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">NICP</a></li>
    </ul>
 </li>
 
@@ -113,7 +134,7 @@
          </ul>
       </li>
       <li><a class="item-menu" tabindex="-1" href="#">Informes</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">Bancos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/bancos') }}"">Bancos</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">PAC</a></li>
    </ul>
 </li>
