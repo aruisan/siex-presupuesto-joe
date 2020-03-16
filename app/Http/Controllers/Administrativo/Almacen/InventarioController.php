@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Administrativo\Almacen;
 
-use App\Model\Aministrativo\Almacen\inventario;
+use App\Model\Administrativo\Almacen\inventario;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -16,7 +16,8 @@ class InventarioController extends Controller
      */
     public function index()
     {
-        dd("Inventario");
+        $items = Inventario::all();
+        return view('Administrativo.Almacen.index', compact('items'));
     }
 
     /**

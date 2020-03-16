@@ -380,17 +380,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::get('pdd/periodo/create/{producto}','Planeacion\Pdd\PeriodoController@create');
 	Route::resource('pdd/periodo','Planeacion\Pdd\PeriodoController');
 
-
-
-	////// RUTAS ALMACEN
-
-	Route::get('almacen/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
-	Route::get('almacen/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
-	Route::get('almacen/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
-	Route::get('almacen/entradas','Hacienda\Almacen\AlmacenController@entradas');
-	Route::get('almacen/salidas','Hacienda\Almacen\AlmacenController@salidas');
-	Route::Resource('almacen','Hacienda\Almacen\AlmacenController');
-
 	////// RUTAS CONTRACTUAL
 
 	// Route::get('/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');

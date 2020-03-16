@@ -20,6 +20,7 @@ class CreateBancosTable extends Migration
             $table->text('descripcion');
             $table->integer('valor_inicial');
             $table->integer('valor_actual');
+            $table->enum('estado', [0, 1]);
 
             $table->integer('rubros_puc_id')->unsigned();
             $table->foreign('rubros_puc_id')->references('id')->on('rubros_pucs');
