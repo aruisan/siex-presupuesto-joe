@@ -116,17 +116,15 @@
                             <small class="form-text text-muted">Seleccione la nueva foto para el concejal o si la desea cambiar</small>
                         </div>
                     </div>
-
- <div class="row">
-                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                        <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                            <button class="btn btn-primary btn-raised btn-lg" id="storeRegistro">Guardar</button>
+                        </div>
                     </div>
-                    </div>
-
                 </form>
                  </div>
         </div>
-         </div>
+                     </div>
 
                <div id="datos" class="tab-pane ">
                    <br><br><br>

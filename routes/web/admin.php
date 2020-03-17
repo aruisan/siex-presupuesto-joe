@@ -152,13 +152,17 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //Almacen
 
+            //Productos
+
+            Route::resource('productos','Administrativo\Almacen\ProductoController');
+
             //Inventario
 
-        Route::resource('inventario','Administrativo\Almacen\InventarioController');
+            Route::resource('inventario','Administrativo\Almacen\InventarioController');
 
             //Bienes, muebles e inmuebles
 
-        Route::resource('muebles','Administrativo\Almacen\MueblesController');
+            Route::resource('muebles','Administrativo\Almacen\MueblesController');
 
         //Registros
 

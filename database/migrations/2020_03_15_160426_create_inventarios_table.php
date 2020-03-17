@@ -16,6 +16,7 @@ class CreateInventariosTable extends Migration
         Schema::create('inventarios', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('num_factura');
             $table->text('descripcion');
             $table->text('unidad');
             $table->integer('valor_unidad');
@@ -23,9 +24,9 @@ class CreateInventariosTable extends Migration
             $table->integer('cantidad');
             $table->date('fecha_ing');
             $table->date('fecha_salida');
-            
-            $table->integer('rubros_puc_id')->unsigned();
-            $table->foreign('rubros_puc_id')->references('id')->on('rubros_pucs');
+
+            $table->integer('producto_id')->unsigned();
+            $table->foreign('producto_id')->references('id')->on('productos');
 
             $table->timestamps();
         });

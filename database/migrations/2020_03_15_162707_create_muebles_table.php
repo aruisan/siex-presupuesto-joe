@@ -16,6 +16,7 @@ class CreateMueblesTable extends Migration
         Schema::create('muebles', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('num_factura');
             $table->text('descripcion');
             $table->date('fecha_ing');
             $table->date('fecha_baja');
@@ -24,11 +25,11 @@ class CreateMueblesTable extends Migration
             $table->integer('depresiacion');
             $table->integer('nuevo_valor');
             $table->integer('vida_util');
-    
-            $table->integer('rubros_puc_id')->unsigned();
-            $table->foreign('rubros_puc_id')->references('id')->on('rubros_pucs');
+
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
+            $table->integer('producto_id')->unsigned();
+            $table->foreign('producto_id')->references('id')->on('productos');
 
             $table->timestamps();
         });

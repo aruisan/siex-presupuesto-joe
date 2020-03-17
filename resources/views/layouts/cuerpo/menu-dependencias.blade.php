@@ -76,8 +76,9 @@
    </a>
 
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/inventario')}}">Inventario</a></li>    
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/muebles')}}">Bienes, Muebles e Inmuebles</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/productos')}}">Productos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/inventario')}}">Inventario</a></li>
    </ul>
 </li>
 
@@ -88,8 +89,6 @@
    </a>
 
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
-      
       {{-- <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" href="#" >PUC</a>
          <ul class="dropdown-menu">
@@ -98,20 +97,20 @@
             <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndexAct')}}">PUC de vigencia</a></li>
          </ul>
       </li> --}}
-     
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Comprobantes de Contabilidad</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Estado de Resultados</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Notas al Balance</a></li>
       <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" >Balances </a>
          <ul class="dropdown-menu">
             <li><a class="item-menu" href="#">Prueba</a></li>
             <li><a class="item-menu" href="#">Terceros</a></li>
-            <li><a class="item-menu" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Final</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">General</a></li>
          </ul>
       </li>
-      <li><a class="item-menu" tabindex="-1" href="#">Estado de Resultados</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">Notas al Balance</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Libros</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">NICP</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
    </ul>
 </li>
 
@@ -133,8 +132,10 @@
             <li><a class="item-menu" href="{{ url('/administrativo/ordenPagos/3') }}">2020</a></li>
          </ul>
       </li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">Informes</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/bancos') }}"">Bancos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/bancos') }}">Bancos</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">PAC</a></li>
    </ul>
 </li>

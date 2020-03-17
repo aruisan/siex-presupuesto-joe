@@ -1,0 +1,223 @@
+<?php
+
+namespace App\Http\Controllers\Administrativo\Almacen;
+
+use App\Model\Administrativo\Contabilidad\RegistersPuc;
+use App\Model\Administrativo\Almacen\producto;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use App\Traits\FileTraits;
+use Session;
+
+class ProductoController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $items = producto::all();
+        return view('Administrativo.Almacen.Producto.index', compact('items'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
+
+        foreach ($R1 as $r1) {
+            $codigoEnd = $r1->code;
+            $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+            foreach ($r1->codes as $data1){
+                $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
+                $codigo = $reg0->code;
+                $codigoEnd = "$r1->code$codigo";
+                $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                if ($reg0->codes){
+                    foreach ($reg0->codes as $data3){
+                        $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                        $codigo = $reg->code;
+                        $codigoF = "$codigoEnd$codigo";
+                        $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                        foreach ($reg->codes as $data4){
+                            $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                            $codigo = $reg1->code;
+                            $code = "$codigoF$codigo";
+                            $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                            foreach ($reg1->rubro as $rubro){
+                                $codigo = $rubro->codigo;
+                                $code1 = "$code$codigo";
+                                $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return view('Administrativo.Almacen.Producto.create', compact('codigos'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $prod = new producto();
+        $prod->nombre = $request->name;
+        $prod->cant_inicial = $request->cant_inicial;
+        $prod->cant_actual = $request->cant_inicial;
+        $prod->cant_minima = $request->cant_min;
+        $prod->cant_maxima = $request->cant_max;
+        $prod->metodo = $request->metodo;
+        $prod->tipo = $request->tipo;
+        $prod->rubros_puc_id = $request->PUC;
+        $prod->save();
+
+        if ($request->file){
+            $file = new FileTraits;
+            $ruta = $file->Img($request->file('file'), 'productos', $prod->id);
+        }
+
+        Session::flash('success','El producto se ha creado exitosamente');
+        return redirect('administrativo/productos');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $item = producto::findOrFail($id);
+
+        $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
+
+        foreach ($R1 as $r1) {
+            $codigoEnd = $r1->code;
+            $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+            foreach ($r1->codes as $data1){
+                $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
+                $codigo = $reg0->code;
+                $codigoEnd = "$r1->code$codigo";
+                $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                if ($reg0->codes){
+                    foreach ($reg0->codes as $data3){
+                        $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                        $codigo = $reg->code;
+                        $codigoF = "$codigoEnd$codigo";
+                        $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                        foreach ($reg->codes as $data4){
+                            $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                            $codigo = $reg1->code;
+                            $code = "$codigoF$codigo";
+                            $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                            foreach ($reg1->rubro as $rubro){
+                                $codigo = $rubro->codigo;
+                                $code1 = "$code$codigo";
+                                $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('Administrativo.Almacen.Producto.show', compact('codigos','item'));
+
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $item = producto::findOrFail($id);
+
+        $R1 = RegistersPuc::where('register_puc_id', NULL)->get();
+
+        foreach ($R1 as $r1) {
+            $codigoEnd = $r1->code;
+            $codigos[] = collect(['id' => $r1->id, 'codigo' => $codigoEnd, 'name' => $r1->name, 'register_id' => $r1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+            foreach ($r1->codes as $data1){
+                $reg0 = RegistersPuc::findOrFail($data1->registers_puc_id);
+                $codigo = $reg0->code;
+                $codigoEnd = "$r1->code$codigo";
+                $codigos[] = collect(['id' => $reg0->id, 'codigo' => $codigoEnd, 'name' => $reg0->name, 'register_id' => $reg0->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                if ($reg0->codes){
+                    foreach ($reg0->codes as $data3){
+                        $reg = RegistersPuc::findOrFail($data3->registers_puc_id);
+                        $codigo = $reg->code;
+                        $codigoF = "$codigoEnd$codigo";
+                        $codigos[] = collect(['id' => $reg->id, 'codigo' => $codigoF, 'name' => $reg->name, 'register_id' => $reg->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                        foreach ($reg->codes as $data4){
+                            $reg1 = RegistersPuc::findOrFail($data4->registers_puc_id);
+                            $codigo = $reg1->code;
+                            $code = "$codigoF$codigo";
+                            $codigos[] = collect(['id' => $reg1->id, 'codigo' => $code, 'name' => $reg1->name, 'register_id' => $reg1->register_puc_id, 'code_N' =>  '', 'name_N' => '', 'naturaleza' => '','per_id' => '']);
+                            foreach ($reg1->rubro as $rubro){
+                                $codigo = $rubro->codigo;
+                                $code1 = "$code$codigo";
+                                $codigos[] = collect(['id' => $rubro->id, 'codigo' => $code1, 'name' => $rubro->nombre_cuenta, 'code' => $rubro->codigo, 'code_N' =>  $rubro->codigo_NIPS, 'name_N' => $rubro->nombre_NIPS, 'naturaleza' => $rubro->naturaleza,'per_id' => $rubro->persona_id, 'register_id' => $rubro->registers_puc_id]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('Administrativo.Almacen.Producto.edit', compact('item', 'codigos'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $item = producto::findOrFail($id);
+        $item->nombre = $request->name;
+        $item->cant_minima = $request->cant_min;
+        $item->cant_maxima = $request->cant_max;
+        $item->metodo = $request->metodo;
+        $item->tipo = $request->tipo;
+        $item->rubros_puc_id = $request->PUC;
+        $item->save();
+
+        if ($request->file){
+            $file = new FileTraits;
+            $ruta = $file->Img($request->file('file'), 'productos', $item->id);
+        }
+
+        Session::flash('success','El producto se ha actualizado correctamente');
+        return redirect('administrativo/productos');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Producto  $producto
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Producto $producto)
+    {
+        //
+    }
+}
