@@ -23,6 +23,8 @@ class CreateProductosTable extends Migration
             $table->integer('cant_maxima');
             $table->enum('metodo', [0, 1]);
             $table->enum('tipo', [0, 1]);
+            $table->integer('valor_inicial');
+            $table->integer('valor_actual');
 
             $table->integer('rubros_puc_id')->unsigned();
             $table->foreign('rubros_puc_id')->references('id')->on('rubros_pucs');

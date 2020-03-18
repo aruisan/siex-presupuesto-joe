@@ -22,7 +22,7 @@
             <div class="form-validation">
                 <form class="form-valide" action="{{url('/administrativo/productos')}}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
-                    <div class="col-md-6 align-self-center">
+                    <div class="col-md-4 align-self-center">
                         <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
                             <div class="col-lg-6">
@@ -30,11 +30,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 align-self-center">
+                    <div class="col-md-4 align-self-center">
                         <div class="form-group">
                             <label class="col-lg-4 col-form-label text-right" for="nombre">Foto del Producto</label>
                             <div class="col-lg-6">
                                 <input type="file" name="file" accept="image/*" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 align-self-center">
+                        <div class="form-group">
+                            <label class="col-lg-4 col-form-label text-right" for="nombre">Valor Actual <span class="text-danger">*</span></label>
+                            <div class="col-lg-6">
+                                <input type="number" class="form-control" name="valor" required min="0">
                             </div>
                         </div>
                     </div>

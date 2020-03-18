@@ -63,19 +63,56 @@
                                 <td>TOTAL</td>
                             </tr>
                             <tr class="text-center">
-                                <td>1</td>
+                                <td>0</td>
+                                <td>{{ $item->created_at->Format('Y-m-d') }}</td>
+                                <td>Producto inicial en la plataforma</td>
+                                <td></td>
+                                <td>{{ $item->cant_inicial }}</td>
+                                <td></td>
+                                <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ $item->cant_inicial }}</td>
+                                <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
                             </tr>
+                            @foreach($data as $key => $info)
+                                <tr class="text-center">
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $info->created_at->Format('Y-m-d') }}</td>
+                                    <td>{{ $info->descripcion }}</td>
+                                    <td></td>
+                                    @if($info->tipo == 0)
+                                        <td>{{ $info->cantidad }}</td>
+                                        <td>$<?php echo number_format($info->valor_unidad,0) ?></td>
+                                        <td>$<?php echo number_format($info->valor_final,0) ?></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        @if(!isset($cant))
+                                            @php($cant = $item->cant_inicial + $info->cantidad )
+                                            <td>{{ $cant }}</td>
+                                        @else
+                                            <td>{{ $cant + $info->cantidad }}</td>
+                                        @endif
+                                        @if(!isset($val))
+                                            @php($val = $item->valor_inicial + $info->valor_final )
+                                            <td>$<?php echo number_format($val,0) ?></td>
+                                        @else
+                                            <td>$<?php echo number_format($val + $info->valor_final,0) ?></td>
+                                        @endif
+                                    @else
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{ $info->cantidad }}</td>
+                                        <td>$<?php echo number_format($info->valor_unidad,0) ?></td>
+                                        <td>$<?php echo number_format($info->valor_final,0) ?></td>
+                                        <td></td>
+                                        <td></td>
+                                    @endif
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -8,4 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 class inventario extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
+
+    public function producto(){
+        return $this->belongsTo('App\Model\Administrativo\Almacen\producto','producto_id');
+    }
 }

@@ -13,7 +13,10 @@
             <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-home"></i></a>
         </li>
         <li class="nav-item">
-            <a class="tituloTabs" href="{{ url('/administrativo/Inventario/create') }}">NUEVO ITEM</a>
+            <a class="tituloTabs" href="{{ url('/administrativo/inventario/create') }}">Nuevo Comprobante de Ingreso</a>
+        </li>
+        <li class="nav-item">
+            <a class="tituloTabs" href="{{ url('/administrativo/inventario/salida') }}">Nuevo Comprobante de Salida</a>
         </li>
     </ul>
     <div class="tab-content" style="background-color: white">
@@ -24,39 +27,43 @@
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Concepto</th>
-                            <th class="text-center">Valor</th>
-                            <th class="text-center">Estado</th>
-                            <th class="text-center">Registro</th>
-                            <th class="text-center">Tercero</th>
-                            <th class="text-center">Acciones</th>
+                            <th class="text-center">Tipo</th>
+                            <th class="text-center">Núm Factura</th>
+                            <th class="text-center">Producto</th>
+                            <th class="text-center">Descripcion</th>
+                            <th class="text-center">Unidad</th>
+                            <th class="text-center">Cantidad</th>
+                            <th class="text-center">Fecha Ingreso</th>
+                            <th class="text-center">Fecha Salida</th>
+                            <th class="text-center">Factura</th>
+                            <th class="text-center">Comprobante</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($items as $item)
                             <tr class="text-center">
-                                <td>{{ $ordenPagoT['info']->code }}</td>
-                                <td>{{ $ordenPagoT['info']->nombre }}</td>
-                                <td>$<?php echo number_format($ordenPagoT['info']->valor,0) ?></td>
+                                <td>{{ $item->id }}</td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
-                                        @if($ordenPagoT['info']->estado == "0")
-                                            Pendiente
-                                        @elseif($ordenPagoT['info']->estado == "1")
-                                            Finalizado
-                                        @else
-                                            Anulado
+                                        @if($item->tipo == "0")
+                                            Entrada
+                                        @else($item->tipo == "1")
+                                            Salida
                                         @endif
                                     </span>
                                 </td>
-                                <td class="text-center">{{ $ordenPagoT['info']->registros->objeto }}</td>
-                                <td class="text-center">{{ $ordenPagoT['persona'] }}</td>
+                                <td>{{ $item->num_factura }}</td>
+                                <td><a href="{{ url('administrativo/productos/'.$item->producto_id) }}" title="Ver Producto"><span class="badge badge-pill badge-danger">{{ $item->producto->nombre }}</span></a></td>
+                                <td>{{ $item->descripcion }}</td>
+                                <td>{{ $item->unidad }}</td>
+                                <td>{{ $item->cantidad }}</td>
+                                <td>{{ $item->fecha_ing }}</td>
+                                <td>{{ $item->fecha_salida }}</td>
                                 <td>
-                                    <a href="{{ url('administrativo/ordenPagos/'.$ordenPagoT['info']->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/show/'.$ordenPagoT['info']->id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/monto/create/'.$ordenPagoT['info']->id) }}" title="Asignación de Monto" class="btn-sm btn-primary"><i class="fa fa-usd"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/descuento/create/'.$ordenPagoT['info']->id) }}" title="Descuentos" class="btn-sm btn-success"><i class="fa fa-usd"></i><i class="fa fa-arrow-down"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/liquidacion/create/'.$ordenPagoT['info']->id) }}" title="Contabilización" class="btn-sm btn-primary"><i class="fa fa-calculator"></i></a>
+                                    <a href="{{Storage::url($item->ruta)}}" title="Ver Factura" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                </td>
+                                <td>
+                                    <a href="{{ url('administrativo/inventario/'.$item->id) }}" title="Comprobante" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -66,7 +73,7 @@
                     <br><br>
                     <div class="alert alert-danger">
                         <center>
-                            No se encuentra ningun item almacenado en el inventario.
+                            No se encuentra ningun movimiento en el inventario.
                         </center>
                     </div>
                 @endif

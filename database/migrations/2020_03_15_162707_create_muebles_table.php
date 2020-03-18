@@ -16,15 +16,17 @@ class CreateMueblesTable extends Migration
         Schema::create('muebles', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('num_factura');
-            $table->text('descripcion');
-            $table->date('fecha_ing');
-            $table->date('fecha_baja');
-            $table->enum('estado', [0, 1, 2]);
-            $table->integer('avaluo');
-            $table->integer('depresiacion');
-            $table->integer('nuevo_valor');
-            $table->integer('vida_util');
+            $table->bigInteger('num_factura')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->date('fecha_ing')->nullable();
+            $table->date('fecha_baja')->nullable();
+            $table->enum('estado', [0, 1, 2])->nullable();
+            $table->integer('avaluo')->nullable();
+            $table->integer('depresiacion')->nullable();
+            $table->integer('nuevo_valor')->nullable();
+            $table->integer('vida_util')->nullable();
+            $table->enum('tipo', [0, 1]);
+            $table->string('ruta')->nullable();
 
             $table->integer('persona_id')->unsigned();
             $table->foreign('persona_id')->references('id')->on('personas');
