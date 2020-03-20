@@ -101,8 +101,8 @@
                                     <label class="col-lg-4 col-form-label text-right">Tipo<span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
                                         <select class="form-control" name="tipo">
-                                            <option value="0">Consumo</option>
-                                            <option value="1">Devolutivo</option>
+                                            <option value="0" @if($item->tipo == 0) selected @endif>Consumo</option>
+                                            <option value="1" @if($item->tipo == 1) selected @endif>Devolutivo</option>
                                         </select>
                                     </div>
                                 </div>

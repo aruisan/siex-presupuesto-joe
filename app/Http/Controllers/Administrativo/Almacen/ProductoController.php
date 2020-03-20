@@ -108,8 +108,27 @@ class ProductoController extends Controller
         } else {
             $data = $item->mueble;
         }
+        $cant = $item->cant_inicial;
+        $total = $item->valor_inicial;
+        foreach ($data as $prod){
+            if ($prod->tipo == 0){
+                $saldos[] = collect(['cantidad' => $cant + $prod->cantidad, 'total' => $total + $prod->valor_final]);
+                $cant = $cant +  $prod->cantidad;
+                $total = $total + $prod->valor_final;
+                $valEntrada[] = $prod->valor_final;
+            } else{
+                $saldos[] = collect(['cantidad' => $cant - $prod->cantidad, 'total' => $total - $prod->valor_final]);
+                $cant = $cant -  $prod->cantidad;
+                $total = $total - $prod->valor_final;
+                $valSalida[] = $prod->valor_final;
+            }
+        }
+        $Saldo = array_last($saldos);
+        $finSaldo = $Saldo['total'];
+        $finEntrada = array_sum($valEntrada) + $item->valor_inicial;
+        $finSalida = array_sum($valSalida);
 
-        return view('Administrativo.Almacen.Producto.show', compact('item', 'data'));
+        return view('Administrativo.Almacen.Producto.show', compact('item', 'data', 'saldos','finEntrada','finSalida','finSaldo'));
 
     }
 

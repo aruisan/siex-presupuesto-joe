@@ -164,6 +164,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
             Route::resource('muebles','Administrativo\Almacen\MueblesController');
 
+            //Comprobante de Salida
+
+            Route::resource('salida','Administrativo\Almacen\SalidaController');
+
+
+
         //Registros
 
         Route::get('registros/{id}', 'Administrativo\Registro\RegistrosController@index');

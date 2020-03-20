@@ -40,6 +40,12 @@ class InventarioController extends Controller
         }
     }
 
+
+    public function storeSalida($request)
+    {
+        dd($request);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

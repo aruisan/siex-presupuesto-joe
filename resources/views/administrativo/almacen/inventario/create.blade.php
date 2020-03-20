@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Comprobante de Ingreso
+    Nuevo Comprobante de Ingreso
 @stop
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
-            <h4><b>Comprobante de Ingreso</b></h4>
+            <h4><b>Nuevo Comprobante de Ingreso</b></h4>
         </strong>
     </div>
     <ul class="nav nav-pills">
@@ -17,7 +17,7 @@
             <a class="nav-link" data-toggle="pill" href="#tabHome">Comprobante de Ingreso</a>
         </li>
         <li class="nav-item">
-            <a class="tituloTabs" href="{{ url('/administrativo/inventario/salida') }}">Nuevo Comprobante de Salida</a>
+            <a class="tituloTabs" href="{{ url('/administrativo/salida/create') }}">Nuevo Comprobante de Salida</a>
         </li>
     </ul>
     <div class="tab-content" style="background-color: white">

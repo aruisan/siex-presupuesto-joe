@@ -16,7 +16,7 @@
             <a class="tituloTabs" href="{{ url('/administrativo/inventario/create') }}">Nuevo Comprobante de Ingreso</a>
         </li>
         <li class="nav-item">
-            <a class="tituloTabs" href="{{ url('/administrativo/inventario/salida') }}">Nuevo Comprobante de Salida</a>
+            <a class="tituloTabs" href="{{ url('/administrativo/salida/create') }}">Nuevo Comprobante de Salida</a>
         </li>
     </ul>
     <div class="tab-content" style="background-color: white">
