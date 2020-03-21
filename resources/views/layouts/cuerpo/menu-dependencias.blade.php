@@ -77,6 +77,14 @@
 
    <ul class="dropdown-menu">
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/muebles')}}">Bienes, Muebles e Inmuebles</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/salida/create')}}">Comprobante de Salida</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobantes de Entrada </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="#">Bienes, Muebles e Inmuebles</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/inventario/create')}}">Inventario</a></li>
+         </ul>
+      </li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/productos')}}">Productos</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/inventario')}}">Inventario</a></li>
    </ul>

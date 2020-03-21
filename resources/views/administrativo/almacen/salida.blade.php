@@ -63,7 +63,7 @@
                             {{ csrf_field() }}
                             <div class="col-md-12 align-self-center">
                             <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
+                                <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre</label>
                                 <div class="col-lg-6">
                                     <input type="text" class="form-control" name="Objeto" id="Objeto" disabled>
                                     <input type="hidden"  class="form-control" name="IdProd" id="IdProd">

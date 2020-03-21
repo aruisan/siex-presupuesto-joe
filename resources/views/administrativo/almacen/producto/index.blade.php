@@ -27,6 +27,8 @@
                             <th class="text-center">Nombre</th>
                             <th class="text-center">Tipo</th>
                             <th class="text-center">Metodo</th>
+                            <th class="text-center">Cantidad Actual</th>
+                            <th class="text-center">Valor Actual</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
@@ -53,6 +55,8 @@
                                          @endif
                                     </span>
                                 </td>
+                                <td><?php echo number_format($item->cant_actual,0) ?></td>
+                                <td>$<?php echo number_format($item->valor_actual,0) ?></td>
                                 <td>
                                     <a href="{{ url('administrativo/productos/'.$item->id.'/edit') }}" title="Editar" class="btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                     <a href="{{ url('administrativo/productos/'.$item->id) }}" title="Ver" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>

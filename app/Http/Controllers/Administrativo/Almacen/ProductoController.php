@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use App\Traits\FileTraits;
 use Session;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ProductoController extends Controller
 {
@@ -86,8 +87,9 @@ class ProductoController extends Controller
         $prod->save();
 
         if ($request->file){
-            $file = new FileTraits;
-            $ruta = $file->Img($request->file('file'), 'productos', $prod->id);
+            $fileName = $prod->id.'.jpg';
+            $path = public_path('/img/productos/'.$fileName);
+            Image::make($request->file('file'))->resize(300, 300)->save($path);
         }
 
         Session::flash('success','El producto se ha creado exitosamente');
@@ -123,10 +125,24 @@ class ProductoController extends Controller
                 $valSalida[] = $prod->valor_final;
             }
         }
-        $Saldo = array_last($saldos);
-        $finSaldo = $Saldo['total'];
-        $finEntrada = array_sum($valEntrada) + $item->valor_inicial;
-        $finSalida = array_sum($valSalida);
+        if (isset($saldos)){
+            if (isset($valSalida)){
+                $Saldo = array_last($saldos);
+                $finSaldo = $Saldo['total'];
+                $finEntrada = array_sum($valEntrada) + $item->valor_inicial;
+                $finSalida = array_sum($valSalida);
+            } else {
+                $Saldo = array_last($saldos);
+                $finSaldo = $Saldo['total'];
+                $finEntrada = array_sum($valEntrada) + $item->valor_inicial;
+                $finSalida = 0;
+            }
+        } else {
+            $saldos = 0;
+            $finSaldo = $item->valor_inicial;
+            $finSalida = 0;
+            $finEntrada = $item->valor_inicial;
+        }
 
         return view('Administrativo.Almacen.Producto.show', compact('item', 'data', 'saldos','finEntrada','finSalida','finSaldo'));
 

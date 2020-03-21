@@ -60,7 +60,9 @@
                                 <td>{{ $item->fecha_ing }}</td>
                                 <td>{{ $item->fecha_salida }}</td>
                                 <td>
-                                    <a href="{{Storage::url($item->ruta)}}" title="Ver Factura" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                    @if(isset($item->ruta))
+                                        <a href="{{Storage::url('Inventario/'.$item->ruta)}}" title="Ver Factura" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
+                                    @endif
                                 </td>
                                 <td>
                                     <a href="{{ url('administrativo/inventario/'.$item->id) }}" title="Comprobante" class="btn btn-success"><i class="fa fa-eye"></i></a>

@@ -93,9 +93,11 @@ class InventarioController extends Controller
      * @param  \App\inventario  $inventario
      * @return \Illuminate\Http\Response
      */
-    public function show(inventario $inventario)
+    public function show($id)
     {
-        //
+        $movimiento = inventario::findOrFail($id);
+
+        return view('Administrativo.Almacen.Inventario.show', compact('movimiento'));
     }
 
     /**
