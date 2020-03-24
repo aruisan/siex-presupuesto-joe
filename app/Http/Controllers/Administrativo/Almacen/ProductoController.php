@@ -114,15 +114,29 @@ class ProductoController extends Controller
         $total = $item->valor_inicial;
         foreach ($data as $prod){
             if ($prod->tipo == 0){
-                $saldos[] = collect(['cantidad' => $cant + $prod->cantidad, 'total' => $total + $prod->valor_final]);
-                $cant = $cant +  $prod->cantidad;
-                $total = $total + $prod->valor_final;
-                $valEntrada[] = $prod->valor_final;
+                if ($item->tipo == 0){
+                    $saldos[] = collect(['cantidad' => $cant + $prod->cantidad, 'total' => $total + $prod->valor_final]);
+                    $cant = $cant +  $prod->cantidad;
+                    $total = $total + $prod->valor_final;
+                    $valEntrada[] = $prod->valor_final;
+                }elseif ($item->tipo == 1){
+                    $saldos[] = collect(['cantidad' => $cant + $prod->cantidad, 'total' => $total + $prod->nuevo_valor]);
+                    $cant = $cant +  $prod->cantidad;
+                    $total = $total + $prod->nuevo_valor;
+                    $valEntrada[] = $prod->nuevo_valor;
+                }
             } else{
-                $saldos[] = collect(['cantidad' => $cant - $prod->cantidad, 'total' => $total - $prod->valor_final]);
-                $cant = $cant -  $prod->cantidad;
-                $total = $total - $prod->valor_final;
-                $valSalida[] = $prod->valor_final;
+                if ($item->tipo == 0){
+                    $saldos[] = collect(['cantidad' => $cant - $prod->cantidad, 'total' => $total - $prod->valor_final]);
+                    $cant = $cant -  $prod->cantidad;
+                    $total = $total - $prod->valor_final;
+                    $valSalida[] = $prod->valor_final;
+                }elseif ($item->tipo == 1){
+                    $saldos[] = collect(['cantidad' => $cant - $prod->cantidad, 'total' => $total - $prod->nuevo_valor]);
+                    $cant = $cant -  $prod->cantidad;
+                    $total = $total - $prod->nuevo_valor;
+                    $valSalida[] = $prod->nuevo_valor;
+                }
             }
         }
         if (isset($saldos)){

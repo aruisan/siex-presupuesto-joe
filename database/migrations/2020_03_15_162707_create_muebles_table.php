@@ -21,8 +21,10 @@ class CreateMueblesTable extends Migration
             $table->date('fecha_ing')->nullable();
             $table->date('fecha_baja')->nullable();
             $table->enum('estado', [0, 1, 2])->nullable();
+            $table->integer('cantidad')->nullable();
             $table->integer('avaluo')->nullable();
-            $table->integer('depresiacion')->nullable();
+            $table->integer('depreciacion')->nullable();
+            $table->integer('valor_unidad')->nullable();
             $table->integer('nuevo_valor')->nullable();
             $table->integer('vida_util')->nullable();
             $table->enum('tipo', [0, 1]);

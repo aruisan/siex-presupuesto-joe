@@ -62,104 +62,56 @@
                         <form class="form-valide" action="{{url('/administrativo/salida')}}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="col-md-12 align-self-center">
-                            <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre</label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" name="Objeto" id="Objeto" disabled>
-                                    <input type="hidden"  class="form-control" name="IdProd" id="IdProd">
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="Objeto" id="Objeto" disabled>
+                                        <input type="hidden"  class="form-control" name="IdProd" id="IdProd">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 align-self-center">
-                            <br>
-                            <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right">Cantidad Actual</label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" name="actual" id="actual" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 align-self-center">
-                            <br>
-                            <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right">Cantidad Minima</label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" name="minima" id="minima" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 align-self-center">
-                            <br>
-                            <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right">Cantidad a Retirar<span class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="number" class="form-control" name="salida" id="salida" value="0" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 align-self-center">
-                            <br>
-                            <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right">Valor Unidad<span class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <input type="number" class="form-control" name="valUni" id="ValUni" value="0" min="0" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 align-self-center">
-                            <br>
-                            <div class="form-group">
-                                <label class="col-lg-4 col-form-label text-right">Descripción de Salida<span class="text-danger">*</span></label>
-                                <div class="col-lg-6">
-                                    <textarea type="text" style="text-align: center" class="form-control" name="descripcion" id="descripcion" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-12 ml-auto">
+                            <div class="col-md-6 align-self-center">
                                 <br>
-                                <center>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Realizar Salida</button>
-                                </center>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Cantidad Actual</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="actual" id="actual" disabled>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6 align-self-center" style="display: none" id="devolutivo" name="devolutivo">
-                        <form class="form-valide" action="{{url('/administrativo/salida')}}" method="POST" enctype="multipart/form-data">
-                            {{ csrf_field() }}
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Cantidad Minima</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="minima" id="minima" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Cantidad a Retirar<span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" name="salida" id="salida" value="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Valor Unidad<span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" name="valUni" id="ValUni" value="0" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12 align-self-center">
-                                <div class="form-group">
-                                    <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre <span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <input type="text" class="form-control" name="ObjetoD" id="ObjetoD" disabled>
-                                        <input type="hidden"  class="form-control" name="IdProdD" id="IdProdD">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 align-self-center">
-                                <div class="form-group">
-                                    <label class="col-lg-4 col-form-label text-right" for="nombre">Valor Actual <span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <input type="number" class="form-control" name="valor" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 align-self-center">
                                 <br>
                                 <div class="form-group">
-                                    <label class="col-lg-4 col-form-label text-right">Cantidad Inicial<span class="text-danger">*</span></label>
+                                    <label class="col-lg-4 col-form-label text-right">Descripción de Salida<span class="text-danger">*</span></label>
                                     <div class="col-lg-6">
-                                        <input type="number" class="form-control" name="cant_inicial" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 align-self-center">
-                                <br>
-                                <div class="form-group">
-                                    <label class="col-lg-4 col-form-label text-right">Cantidad Minima<span class="text-danger">*</span></label>
-                                    <div class="col-lg-6">
-                                        <input type="number" class="form-control" name="cant_min" disabled>
+                                        <textarea type="text" style="text-align: center" class="form-control" name="descripcion" id="descripcion" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +119,29 @@
                                 <div class="col-lg-12 ml-auto">
                                     <br>
                                     <center>
-                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Almacenar Producto</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Realizar Salida</button>
+                                    </center>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 align-self-center" style="display: none" id="devolutivo" name="devolutivo">
+                        <form class="form-valide" action="{{url('/administrativo/salida')}}" method="POST" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="col-md-12 align-self-center">
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right" for="nombre">Nombre</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="ObjetoD" id="ObjetoD" disabled>
+                                        <input type="hidden"  class="form-control" name="IdProdD" id="IdProdD">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-lg-12 ml-auto">
+                                    <br>
+                                    <center>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Realizar Salida</button>
                                     </center>
                                 </div>
                             </div>

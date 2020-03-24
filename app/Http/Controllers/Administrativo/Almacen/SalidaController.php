@@ -7,7 +7,6 @@ use App\Model\Administrativo\Almacen\producto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use App\Traits\FileTraits;
 use Carbon\Carbon;
 use Session;
 
@@ -73,7 +72,7 @@ class SalidaController extends Controller
                 return redirect('administrativo/salida/create');
             }
         } else{
-            dd("devolutivo");
+            dd("devolutivo", $request);
         }
     }
 

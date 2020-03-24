@@ -81,7 +81,7 @@
       <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" >Comprobantes de Entrada </a>
          <ul class="dropdown-menu">
-            <li><a class="item-menu" href="#">Bienes, Muebles e Inmuebles</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/muebles/create')}}">Bienes, Muebles e Inmuebles</a></li>
             <li><a class="item-menu" href="{{url('/administrativo/inventario/create')}}">Inventario</a></li>
          </ul>
       </li>

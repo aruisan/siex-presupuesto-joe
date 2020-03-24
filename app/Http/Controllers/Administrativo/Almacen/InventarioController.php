@@ -40,12 +40,6 @@ class InventarioController extends Controller
         }
     }
 
-
-    public function storeSalida($request)
-    {
-        dd($request);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -54,6 +48,14 @@ class InventarioController extends Controller
      */
     public function store(Request $request)
     {
+        for($y=0;$y< count($request->producto); $y++){
+            $validate = producto::findOrFail($request->producto[$y]);
+            if ($validate->cant_actual + $request->cantidad[$y] > $validate->cant_maxima){
+                Session::flash('error','No se pueden superar el almacenamiento maximo permitido para el producto '.$validate->nombre.'.');
+                return redirect('administrativo/inventario/create');
+            }
+        }
+
         if($request->hasFile('file'))
         {
             $file = new FileTraits;

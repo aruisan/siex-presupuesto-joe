@@ -65,56 +65,111 @@
                                 <td>CANTIDAD</td>
                                 <td>TOTAL</td>
                             </tr>
-                            <tr class="text-center">
-                                <td>0</td>
-                                <td>{{ $item->created_at->Format('Y-m-d') }}</td>
-                                <td>Producto inicial en la plataforma</td>
-                                <td></td>
-                                <td>{{ $item->cant_inicial }}</td>
-                                <td></td>
-                                <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>{{ $item->cant_inicial }}</td>
-                                <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
-                            </tr>
-                            @for($x=0;$x< count($data); $x++)
+                            @if($item->tipo == "0")
                                 <tr class="text-center">
-                                    <td>{{ $x+1 }}</td>
-                                    <td>{{ $data[$x]->created_at->Format('Y-m-d') }}</td>
-                                    <td>{{ $data[$x]->descripcion }}</td>
+                                    <td>0</td>
+                                    <td>{{ $item->created_at->Format('Y-m-d') }}</td>
+                                    <td>Producto inicial en la plataforma</td>
                                     <td></td>
-                                    @if($data[$x]->tipo == 0)
-                                        <td>{{ $data[$x]->cantidad }}</td>
-                                        <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
-                                        <td>$<?php echo number_format($data[$x]->valor_final,0) ?></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    @else
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{ $data[$x]->cantidad }}</td>
-                                        <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
-                                        <td>$<?php echo number_format($data[$x]->valor_final,0) ?></td>
-                                    @endif
-                                    <td><?php echo number_format($saldos[$x]['cantidad'],0)?></td>
-                                    <td>$<?php echo number_format($saldos[$x]['total'],0) ?></td>
+                                    <td>{{ $item->cant_inicial }}</td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ $item->cant_inicial }}</td>
+                                    <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
                                 </tr>
-                            @endfor
-                            <tr class="text-center">
-                                <td colspan="4">TOTALES</td>
-                                <td></td>
-                                <td></td>
-                                <td>$<?php echo number_format($finEntrada,0) ?></td>
-                                <td></td>
-                                <td></td>
-                                <td>$<?php echo number_format($finSalida,0) ?></td>
-                                <td></td>
-                                <td>$<?php echo number_format($finSaldo,0) ?></td>
-                            </tr>
+                                @for($x=0;$x< count($data); $x++)
+                                    <tr class="text-center">
+                                        <td>{{ $x+1 }}</td>
+                                        <td>{{ $data[$x]->created_at->Format('Y-m-d') }}</td>
+                                        <td>{{ $data[$x]->descripcion }}</td>
+                                        <td></td>
+                                        @if($data[$x]->tipo == 0)
+                                            <td>{{ $data[$x]->cantidad }}</td>
+                                            <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
+                                            <td>$<?php echo number_format($data[$x]->valor_final,0) ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        @else
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ $data[$x]->cantidad }}</td>
+                                            <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
+                                            <td>$<?php echo number_format($data[$x]->valor_final,0) ?></td>
+                                        @endif
+                                        <td><?php echo number_format($saldos[$x]['cantidad'],0)?></td>
+                                        <td>$<?php echo number_format($saldos[$x]['total'],0) ?></td>
+                                    </tr>
+                                @endfor
+                                <tr class="text-center">
+                                    <td colspan="4">TOTALES</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($finEntrada,0) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($finSalida,0) ?></td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($finSaldo,0) ?></td>
+                                </tr>
+                            @else
+                                <tr class="text-center">
+                                    <td>0</td>
+                                    <td>{{ $item->created_at->Format('Y-m-d') }}</td>
+                                    <td>Producto inicial en la plataforma</td>
+                                    <td></td>
+                                    <td>{{ $item->cant_inicial }}</td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ $item->cant_inicial }}</td>
+                                    <td>$<?php echo number_format($item->valor_inicial,0) ?></td>
+                                </tr>
+                                @for($x=0;$x< count($data); $x++)
+                                    <tr class="text-center">
+                                        <td>{{ $x+1 }}</td>
+                                        <td>{{ $data[$x]->created_at->Format('Y-m-d') }}</td>
+                                        <td>{{ $data[$x]->descripcion }}</td>
+                                        <td></td>
+                                        @if($data[$x]->tipo == 0)
+                                            <td>{{ $data[$x]->cantidad }}</td>
+                                            <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
+                                            <td>$<?php echo number_format($res= $data[$x]->valor_unidad * $data[$x]->cantidad,0) ?></td>
+                                            <?php unset($res) ?>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        @else
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ $data[$x]->cantidad }}</td>
+                                            <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
+                                            <td>$<?php echo number_format($res2= $data[$x]->valor_unidad * $data[$x]->cantidad,0) ?>/td>
+                                            <?php unset($res2) ?>
+                                        @endif
+                                        <td><?php echo number_format($saldos[$x]['cantidad'],0)?></td>
+                                        <td>$<?php echo number_format($saldos[$x]['total'],0) ?></td>
+                                    </tr>
+                                @endfor
+                                <tr class="text-center">
+                                    <td colspan="4">TOTALES</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($finEntrada,0) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($finSalida,0) ?></td>
+                                    <td></td>
+                                    <td>$<?php echo number_format($finSaldo,0) ?></td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>
