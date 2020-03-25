@@ -137,6 +137,51 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Cantidad Actual</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="actual" id="actualD" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Cantidad Minima</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" name="minima" id="minimaD" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Cantidad a Retirar<span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" name="salida" id="salidaD" value="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Valor Unidad<span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" name="valUni" id="ValUniD" value="0" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 align-self-center">
+                                <br>
+                                <div class="form-group">
+                                    <label class="col-lg-4 col-form-label text-right">Descripción de Salida<span class="text-danger">*</span></label>
+                                    <div class="col-lg-6">
+                                        <textarea type="text" style="text-align: center" class="form-control" name="descripcion" id="descripcionD" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 ml-auto">
                                     <br>
@@ -213,6 +258,8 @@
                     $("#consumo").hide();
                     $("#devolutivo").show();
                     $("#ObjetoD").val(Obj.innerHTML);
+                    $("#actualD").val(Actual.innerHTML);
+                    $("#minimaD").val(Min.innerHTML);
                     $("#IdProdD").val(content.innerHTML);
                 }
             } else {

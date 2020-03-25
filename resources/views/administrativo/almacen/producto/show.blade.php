@@ -30,13 +30,17 @@
                             <tbody>
                             <tr class="text-center">
                                 <td rowspan="2"><img src="{{ asset('img/productos/'.$item->id.'.jpg')}}" width="30%" height="30%"></td>
-                                <td colspan="3">Producto = {{ $item->nombre }}</td>
+                                <td colspan="2">Producto = {{ $item->nombre }}</td>
+                                <td colspan="2">{{ Carbon\Carbon::today()->Format('d-m-Y')}}</td>
                             </tr>
                             <tr class="text-center">
-                                <td>Cantidad Maxima = {{ $item->cant_maxima }}</td>
-                                <td>Cantidad Minima = {{ $item->cant_minima }}</td>
+                                <td>Cantidad Maxima = <?php echo number_format($item->cant_maxima,0) ?></td>
+                                <td>Cantidad Minima = <?php echo number_format($item->cant_minima,0) ?></td>
                                 <td>
                                     Método = @if($item->metodo == 0) U.E.P.S @else P.E.P.S @endif
+                                </td>
+                                <td>
+                                    Tipo = @if($item->tipo == 0) Consumo @else Devolutivo @endif
                                 </td>
                             </tr>
 
@@ -151,7 +155,7 @@
                                             <td></td>
                                             <td>{{ $data[$x]->cantidad }}</td>
                                             <td>$<?php echo number_format($data[$x]->valor_unidad,0) ?></td>
-                                            <td>$<?php echo number_format($res2= $data[$x]->valor_unidad * $data[$x]->cantidad,0) ?>/td>
+                                            <td>$<?php echo number_format($res2= $data[$x]->valor_unidad * $data[$x]->cantidad,0) ?></td>
                                             <?php unset($res2) ?>
                                         @endif
                                         <td><?php echo number_format($saldos[$x]['cantidad'],0)?></td>

@@ -30,7 +30,7 @@ class CreateMueblesTable extends Migration
             $table->enum('tipo', [0, 1]);
             $table->string('ruta')->nullable();
 
-            $table->integer('persona_id')->unsigned();
+            $table->integer('persona_id')->unsigned()->nullable();
             $table->foreign('persona_id')->references('id')->on('personas');
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos');

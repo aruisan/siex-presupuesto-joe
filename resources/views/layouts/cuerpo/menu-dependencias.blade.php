@@ -77,12 +77,21 @@
 
    <ul class="dropdown-menu">
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/muebles')}}">Bienes, Muebles e Inmuebles</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/salida/create')}}">Comprobante de Salida</a></li>
       <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" >Comprobantes de Entrada </a>
          <ul class="dropdown-menu">
             <li><a class="item-menu" href="{{url('/administrativo/muebles/create')}}">Bienes, Muebles e Inmuebles</a></li>
             <li><a class="item-menu" href="{{url('/administrativo/inventario/create')}}">Inventario</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/salida/create')}}">Comprobante de Salida</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobantes</a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="#">Baja de Inmueble</a></li>
+            <li><a class="item-menu" href="#">Asignación</a></li>
+            <li><a class="item-menu" href="#">Devolución</a></li>
+            <li><a class="item-menu" href="#">Corrección</a></li>
          </ul>
       </li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/productos')}}">Productos</a></li>

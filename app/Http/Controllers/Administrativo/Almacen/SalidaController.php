@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrativo\Almacen;
 
 use App\Model\Administrativo\Almacen\inventario;
+use App\Model\Administrativo\Almacen\muebles;
 use App\Model\Administrativo\Almacen\producto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
@@ -72,7 +73,31 @@ class SalidaController extends Controller
                 return redirect('administrativo/salida/create');
             }
         } else{
-            dd("devolutivo", $request);
+
+            $prod = producto::findOrFail($request->IdProdD);
+            $result = $prod->cant_actual - $request->salida;
+            if ($prod->cant_minima <= $result){
+                $prod->cant_actual = $result;
+                $value = $request->salida * $request->valUni;
+                $prod->valor_actual = $prod->valor_actual - $value;
+                $prod->save();
+
+                $mueble = new muebles();
+                $mueble->descripcion = $request->descripcion;
+                $mueble->fecha_baja = Carbon::now()->Format('Y-m-d');
+                $mueble->valor_unidad = $request->valUni;
+                $mueble->nuevo_valor = $value;
+                $mueble->cantidad = $request->salida;
+                $mueble->tipo = "1";
+                $mueble->producto_id = $request->IdProdD;
+                $mueble->save();
+
+                Session::flash('success','El comprobante de salida se ha realizado exitosamente');
+                return redirect('/administrativo/muebles');
+            } else {
+                Session::flash('error','No se puede realizar una salida debido a que la cantidad que quedaria tras realizar la salida es menor a la cantidad minima especificada al producto.');
+                return redirect('administrativo/salida/create');
+            }
         }
     }
 

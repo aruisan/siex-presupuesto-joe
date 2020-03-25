@@ -55,10 +55,14 @@
                                 <td>{{ $item->num_factura }}</td>
                                 <td><a href="{{ url('administrativo/productos/'.$item->producto_id) }}" title="Ver Producto"><span class="badge badge-pill badge-danger">{{ $item->producto->nombre }}</span></a></td>
                                 <td>{{ $item->descripcion }}</td>
-                                <td>$<?php echo number_format($item->avaluo ,0) ?></td>
-                                <td>{{ $item->cantidad }}</td>
-                                <td>{{ $item->created_at->Format('d-m-Y') }}</td>
-                                <td>{{ $item->fecha_salida }}</td>
+                                <td>
+                                    @if(isset($item->avaluo))
+                                        $<?php echo number_format($item->avaluo ,0) ?>
+                                    @endif
+                                </td>
+                                <td><?php echo number_format($item->cantidad ,0) ?></td>
+                                <td>{{ $item->fecha_ing }}</td>
+                                <td>{{ $item->fecha_baja }}</td>
                                 <td>
                                     @if(isset($item->ruta))
                                         <a href="{{Storage::url('Muebles/'.$item->ruta)}}" title="Ver Factura" class="btn btn-success"><i class="fa fa-file-pdf-o"></i></a>
