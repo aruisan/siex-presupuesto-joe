@@ -1,26 +1,26 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Bancos
+    PAC
 @stop
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
-            <h4><b>Bancos</b></h4>
+            <h4><b>PAC</b></h4>
         </strong>
     </div>
     <ul class="nav nav-pills">
         <li class="nav-item active">
-            <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-bank"></i></a>
+            <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-calendar-check-o"></i></a>
         </li>
         <li class="nav-item">
-            <a class="tituloTabs" href="{{ url('/administrativo/bancos/create') }}"><i class="fa fa-plus"></i>&nbsp;Nuevo Banco</a>
+            <a class="tituloTabs" href="{{ url('/administrativo/pac/create') }}"><i class="fa fa-plus"></i>&nbsp;Nuevo PAC</a>
         </li>
     </ul>
     <div class="tab-content" style="background-color: white">
         <div id="tabHome" class="tab-pane active"><br>
             <div class="table-responsive">
                 @if(count($items) > 0)
-                    <table class="table table-bordered" id="tabla_Banks">
+                    <table class="table table-bordered" id="tabla_PAC">
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
@@ -59,7 +59,7 @@
                     <br><br>
                     <div class="alert alert-danger">
                         <center>
-                            No se encuentra ningun banco almacenado en la plataforma.
+                            No se encuentra ningun PAC almacenado en la plataforma.
                         </center>
                     </div>
                 @endif
@@ -69,7 +69,7 @@
     @stop
     @section('js')
         <script>
-            $('#tabla_Banks').DataTable( {
+            $('#tabla_PAC').DataTable( {
                 responsive: true,
                 "searching": true,
                 dom: 'Bfrtip',

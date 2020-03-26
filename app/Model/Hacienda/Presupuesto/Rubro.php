@@ -52,6 +52,9 @@ class Rubro extends Model implements Auditable
 
     public function compIng(){
         return $this->hasMany('App\Model\Administrativo\ComprobanteIngresos\CIRubros','rubro_id');
+    }
 
+    public function pac(){
+        return $this->hasOne('App\Model\Administrativo\Tesoreria\Pac','id', 'rubro_id');
     }
 }

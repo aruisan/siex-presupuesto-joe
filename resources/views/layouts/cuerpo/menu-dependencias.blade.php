@@ -153,7 +153,7 @@
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">Informes</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/bancos') }}">Bancos</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">PAC</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/pac') }}">PAC</a></li>
    </ul>
 </li>
 
