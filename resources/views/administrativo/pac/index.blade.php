@@ -19,38 +19,27 @@
     <div class="tab-content" style="background-color: white">
         <div id="tabHome" class="tab-pane active"><br>
             <div class="table-responsive">
-                @if(count($items) > 0)
+                @if(count($data) > 0)
                     <table class="table table-bordered" id="tabla_PAC">
                         <thead>
                         <tr>
                             <th class="text-center">#</th>
-                            <th class="text-center">Número Cuenta</th>
-                            <th class="text-center">Descripción</th>
-                            <th class="text-center">Valor Actual</th>
-                            <th class="text-center">Estado</th>
+                            <th class="text-center">Rubro</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Valor a Asignar</th>
+                            <th class="text-center">Total Asignado</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($items as $item)
+                        @foreach($data as $val)
                             <tr class="text-center">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->numero_cuenta }}</td>
-                                <td>{{ $item->descripcion }}</td>
-                                <td>$<?php echo number_format($item->valor_actual,0) ?></td>
-                                <td>
-                                    <span class="badge badge-pill badge-danger">
-                                        @if($item->estado == "0")
-                                            Activa
-                                        @else
-                                            Inactiva
-                                        @endif
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="{{ url('administrativo/bancos/'.$item->id) }}" title="Ver" class="btn btn-success"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ url('administrativo/bancos/'.$item->id.'/edit') }}" title="Editar" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                </td>
+                                <td>{{ $val['id'] }}</td>
+                                <td>{{ $val['rubro'] }}</td>
+                                <td>{{ $val['name'] }}</td>
+                                <td>$<?php echo number_format($val['valorD'],0) ?></td>
+                                <td>$<?php echo number_format($val['totalD'],0) ?></td>
+                                <td><a href="{{ url('administrativo/pac/'.$val['id'].'/edit') }}" title="Editar" class="btn btn-success"><i class="fa fa-edit"></i></a></td>
                             </tr>
                         @endforeach
                         </tbody>

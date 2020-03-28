@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Nuevo PAC
+    PAC - {{ $data[0]['rubro']['codigo'] }} - {{ $data[0]['rubro']['name'] }}
 @stop
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
-            <h4><b>Nuevo PAC</b></h4>
+            <h4><b>{{ $data[0]['rubro']['codigo'] }} - {{ $data[0]['rubro']['name'] }}</b></h4>
         </strong>
     </div>
 
@@ -14,7 +14,7 @@
             <a class="tituloTabs" href="{{ url('/administrativo/pac') }}"><i class="fa fa-backward"></i>&nbsp;Volver a PAC</a>
         </li>
         <li class="nav-item active">
-                <a class="nav-link" data-toggle="pill" href="#tabHome">Nuevo PAC</a>
+                <a class="nav-link" data-toggle="pill" href="#tabHome">PAC</a>
         </li>
     </ul>
     <div class="tab-content" style="background-color: white">
@@ -24,72 +24,17 @@
                     <div class="col-md-2 align-self-center">
                     </div>
                     <div class="col-md-8 align-self-center">
-                        <center>
-                            <h3 class="box-title">Seleccione el Rubro Presupuestal:</h3>
-                        </center>
-                        <br>
-                        <table class="display" id="tabla_Productos">
-                            <thead>
-                            <tr>
-                                <th class="text-center hidden"><i class="fa fa-hashtag"></i></th>
-                                <th class="text-center"><i class="fa fa-hashtag"></i></th>
-                                <th class="text-center hidden">Codigo</th>
-                                <th class="text-center">Rubro</th>
-                                <th class="text-center">Nombre</th>
-                                <th class="text-center hidden">Valor Inicial</th>
-                                <th class="text-center">Valor Inicial</th>
-                                <th class="text-center">Valor Actual</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($Rubros as $key => $data)
-                                <tr onclick="ver('col{{$data['id_rubro']}}','Code{{$data['codigo']}}','Obj{{$data['name']}}','Ini{{$data['valor']}}','Act{{$data['valor_disp']}}');" style="cursor:pointer">
-                                    <td id="col{{$data['id_rubro']}}" class="text-center hidden">{{ $data['id_rubro'] }}</td>
-                                    <td class="text-center">{{ $key + 1 }}</td>
-                                    <td id="Code{{$data['codigo']}}" class="text-center hidden">{{$data['codigo']}}</td>
-                                    <td class="text-center">{{$data['codigo']}}</td>
-                                    <td id="Obj{{$data['name']}}" class="text-center">{{ $data['name']}}</td>
-                                    <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
-                                    <td id="Ini{{$data['valor']}}" class="text-center hidden">{{$data['valor']}}</td>
-                                    <td id="Act{{$data['valor_disp']}}" class="text-center">$<?php echo number_format($data['valor_disp'],0) ?></td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <form class="form-valide" style="display: none" action="{{url('/administrativo/salida')}}" method="POST" enctype="multipart/form-data" id="form">
-                            <center>
-                                <h3 class="box-title">Proyección Nuevo Plan</h3>
-                            </center>
-                            <br>
+                        <form class="form-valide"  action="{{url('/administrativo/salida/'.$data[0]['pac']->id)}}" method="POST" enctype="multipart/form-data" id="form">
+                            {!! method_field('PUT') !!}
                             {{ csrf_field() }}
                             <div class="col-md-12 align-self-center">
                                 <div class="col-md-6 align-self-center">
                                     <div class="col-md-12 align-self-center">
-                                        <div class="form-group">
-                                            <br><br>
-                                            <label class="col-lg-4 col-form-label text-right" for="nombre">Rubro</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="Objeto" id="Objeto" disabled>
-                                                <input type="hidden"  class="form-control" name="IdRub" id="IdRub">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 align-self-center">
-                                        <br>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-form-label text-right">Nombre</label>
-                                            <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="actual" id="actual" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 align-self-center">
-                                        <br>
+                                        <br><br><br><br><br>
                                         <div class="form-group">
                                             <label class="col-lg-4 col-form-label text-right">Apropiación Presupuestal</label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" name="minima" id="minima" disabled>
-                                                <input type="hidden" class="form-control" name="apropiacion" id="apropiacion">
+                                                <input type="text" class="form-control" value="{{ $data[0]['rubro']['valor'] }}" name="apropiacion" id="apropiacion" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +43,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 col-form-label text-right">Sin Situación de Fondos</label>
                                             <div class="col-lg-6">
-                                                <input type="number" class="form-control" name="fondos" id="fondos" onchange="fondo()" value="0" required>
+                                                <input type="number" class="form-control" name="fondos" id="fondos" onchange="fondo()" value="{{ $data[0]['pac']->situacion_fondos }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -107,8 +52,8 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 col-form-label text-right">Pac Aprobado</label>
                                             <div class="col-lg-6">
-                                                <input type="number" class="form-control" name="aprobado" id="aprobado" value="0" disabled>
-                                                <input type="hidden" class="form-control" name="apro" id="apro" value="0">
+                                                <input type="number" class="form-control" name="aprobado" id="aprobado" value="{{ $data[0]['pac']->aprobado }}" disabled>
+                                                <input type="hidden" class="form-control" name="apro" id="apro" value="{{ $data[0]['pac']->aprobado }}">
                                             </div>
                                         </div>
                                     </div>
@@ -117,7 +62,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 col-form-label text-right">Rezago</label>
                                             <div class="col-lg-6">
-                                                <input type="number" class="form-control" onchange="rezago()" name="rez" id="rez" value="0" min="0" required >
+                                                <input type="number" class="form-control" onchange="rezago()" name="rez" id="rez" value="{{ $data[0]['pac']->rezago }}" min="0" required >
                                             </div>
                                         </div>
                                     </div>
@@ -126,8 +71,8 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 col-form-label text-right">A Distribuir</label>
                                             <div class="col-lg-6">
-                                                <input type="number" class="form-control" name="distri" id="distri" value="0" disabled>
-                                                <input type="hidden" class="form-control" name="distri2" id="distri2" value="0">
+                                                <input type="number" class="form-control" name="distri" id="distri" value="{{ $data[0]['pac']->distribuir }}" disabled>
+                                                <input type="hidden" class="form-control" name="distri2" id="distri2" value="{{ $data[0]['pac']->distribuir }}">
                                             </div>
                                         </div>
                                     </div>
@@ -145,83 +90,90 @@
                                         <tr class="text-center">
                                             <td>1</td>
                                             <td>Enero</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="enero" id="enero" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="enero" id="enero" value="{{ $meses[0]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>2</td>
                                             <td>Febrero</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="febrero" id="febrero" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="febrero" id="febrero" value="{{ $meses[1]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>3</td>
                                             <td>Marzo</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="marzo" id="marzo" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="marzo" id="marzo" value="{{ $meses[2]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>4</td>
                                             <td>Abril</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="abril" id="abril" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="abril" id="abril" value="{{ $meses[3]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>5</td>
                                             <td>Mayo</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="mayo" id="mayo" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="mayo" id="mayo" value="{{ $meses[4]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>6</td>
                                             <td>Junio</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="junio" id="junio" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="junio" id="junio" value="{{ $meses[5]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>7</td>
                                             <td>Julio</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="julio" id="julio" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="julio" id="julio" value="{{ $meses[6]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>8</td>
                                             <td>Agosto</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="agosto" id="agosto" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="agosto" id="agosto" value="{{ $meses[7]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>9</td>
                                             <td>Septiembre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="septiembre" id="septiembre" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="septiembre" id="septiembre" value="{{ $meses[8]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>10</td>
                                             <td>Octubre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="octubre" id="octubre" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="octubre" id="octubre" value="{{ $meses[9]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>11</td>
                                             <td>Noviembre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="noviembre" id="noviembre" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="noviembre" id="noviembre" value="{{ $meses[10]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>12</td>
                                             <td>Diciembre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="diciembre" id="diciembre" value="0" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="diciembre" id="diciembre" value="{{ $meses[11]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td colspan="2">Total Distribuido</td>
                                             <td>
-                                                <input type="number" style="text-align: center" class="form-control" onchange="distribucion()" name="total" id="total" value="0" disabled>
-                                                <input type="hidden" class="form-control" name="tot" id="tot" value="0">
+                                                <input type="number" style="text-align: center" class="form-control" onchange="distribucion()" name="total" id="total" value="{{ $data[0]['pac']->total_distri }}" disabled>
+                                                <input type="hidden" class="form-control" name="tot" id="tot" value="{{ $data[0]['pac']->total_distri }}">
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-lg-12 ml-auto">
-                                        <br>
+                                    <div class="col-md-12 ml-auto">
+                                        <br><br>
                                         <center>
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;Guardar</button>
+                                            <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Actualizar</button>
                                         </center>
                                     </div>
                                 </div>
                             </div>
                         </form>
+                        <div class="form-group row">
+                            <div class="col-md-12 ml-auto">
+                                <center>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Actualizar</button>
+                                </center>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

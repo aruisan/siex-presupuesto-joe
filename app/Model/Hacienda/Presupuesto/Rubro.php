@@ -55,6 +55,6 @@ class Rubro extends Model implements Auditable
     }
 
     public function pac(){
-        return $this->hasOne('App\Model\Administrativo\Tesoreria\Pac','id', 'rubro_id');
+        return $this->hasOne('App\Model\Administrativo\Tesoreria\Pac','rubro_id', 'id');
     }
 }
