@@ -14,6 +14,7 @@ use App\Model\Hacienda\Presupuesto\RubrosMov;
 use App\Model\Administrativo\Pago\PagoRubros;
 use App\Model\Hacienda\Presupuesto\Register;
 use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Administrativo\Tesoreria\Pac;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Administrativo\Pago\Pagos;
@@ -912,7 +913,21 @@ class PresupuestoController extends Controller
             unset($cdps[0]);
         }
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','years'));
+        //PAC
+
+        foreach ($Rubros as $data){
+            $rub = Rubro::findOrFail($data['id_rubro']);
+            if ($rub->pac != null){
+                $pacs[] = collect(['rubro' => $data, 'pac' => $rub->pac]);
+            }
+        }
+
+        if (!isset($pacs)){
+            $pacs[] = null;
+            unset($pacs[0]);
+        }
+
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','years','pacs'));
     }
 
 
@@ -920,6 +935,15 @@ class PresupuestoController extends Controller
         $añoActual = Carbon::now()->year;
         $mesActual = Carbon::now()->month;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 1)->where('estado', '0')->get();
+        $historico = Vigencia::where('vigencia', '!=', $añoActual)->get();
+        foreach ($historico as $his) {
+            if ($his->tipo == "0"){
+                $years[] = [ 'info' => $his->vigencia." - Egresos", 'id' => $his->id];
+            }else{
+                $years[] = [ 'info' => $his->vigencia." - Ingresos", 'id' => $his->id];
+            }
+        }
+        asort($years);
 
         if ($vigens->count() == 0){
             $V = "Vacio";
@@ -1513,7 +1537,7 @@ class PresupuestoController extends Controller
             }
         }
 
-        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald'));
+        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales', 'Rubros','valoresCdp','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald','years'));
     }
 
     public function newPreIng($id, $year){

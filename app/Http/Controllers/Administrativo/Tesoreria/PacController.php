@@ -364,9 +364,58 @@ class PacController extends Controller
      * @param  \App\Pac  $pac
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pac $pac)
+    public function update(Request $request, $id)
     {
-        //
+        $pac = Pac::findOrFail($id);
+        $pac->situacion_fondos = $request->fondos;
+        $pac->aprobado = $request->apro;
+        $pac->rezago = $request->rez;
+        $pac->distribuir = $request->distri2;
+        $pac->total_distri = $request->tot;
+        $pac->save();
+
+        foreach ($pac->meses as $mes){
+            if ($mes->mes == "Enero"){
+                $mes->valor = $request->Enero;
+                $mes->save();
+            } elseif ($mes->mes == "Febrero"){
+                $mes->valor = $request->Febrero;
+                $mes->save();
+            } elseif ($mes->mes == "Marzo"){
+                $mes->valor = $request->Marzo;
+                $mes->save();
+            } elseif ($mes->mes == "Abril"){
+                $mes->valor = $request->Abril;
+                $mes->save();
+            } elseif ($mes->mes == "Mayo"){
+                $mes->valor = $request->Mayo;
+                $mes->save();
+            } elseif ($mes->mes == "Junio"){
+                $mes->valor = $request->Junio;
+                $mes->save();
+            } elseif ($mes->mes == "Julio"){
+                $mes->valor = $request->Julio;
+                $mes->save();
+            } elseif ($mes->mes == "Agosto"){
+                $mes->valor = $request->Agosto;
+                $mes->save();
+            } elseif ($mes->mes == "Septiembre"){
+                $mes->valor = $request->Septiembre;
+                $mes->save();
+            } elseif ($mes->mes == "Octubre"){
+                $mes->valor = $request->Octubre;
+                $mes->save();
+            } elseif ($mes->mes == "Noviembre"){
+                $mes->valor = $request->Noviembre;
+                $mes->save();
+            } elseif ($mes->mes == "Diciembre"){
+                $mes->valor = $request->Diciembre;
+                $mes->save();
+            }
+        }
+
+        Session::flash('success','El PAC se ha actualizado exitosamente');
+        return redirect('/administrativo/pac/'.$id.'/edit');
     }
 
     /**
@@ -375,8 +424,15 @@ class PacController extends Controller
      * @param  \App\Pac  $pac
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pac $pac)
+    public function destroy($id)
     {
-        //
+        $pac = Pac::findOrFail($id);
+        foreach ($pac->meses as $mes){
+            $mes->delete();
+        }
+        $pac->delete();
+
+        Session::flash('error','El PAC se ha eliminado exitosamente');
+        return redirect('/administrativo/pac');
     }
 }

@@ -56,7 +56,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <form class="form-valide" style="display: none" action="{{url('/administrativo/salida')}}" method="POST" enctype="multipart/form-data" id="form">
+                        <form class="form-valide" style="display: none" action="{{url('/administrativo/pac')}}" method="POST" enctype="multipart/form-data" id="form">
                             <center>
                                 <h3 class="box-title">Proyección Nuevo Plan</h3>
                             </center>

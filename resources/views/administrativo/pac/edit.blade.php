@@ -24,7 +24,7 @@
                     <div class="col-md-2 align-self-center">
                     </div>
                     <div class="col-md-8 align-self-center">
-                        <form class="form-valide"  action="{{url('/administrativo/salida/'.$data[0]['pac']->id)}}" method="POST" enctype="multipart/form-data" id="form">
+                        <form class="form-valide"  action="{{url('/administrativo/pac/'.$data[0]['pac']->id)}}" method="POST" enctype="multipart/form-data" id="form">
                             {!! method_field('PUT') !!}
                             {{ csrf_field() }}
                             <div class="col-md-12 align-self-center">
@@ -34,7 +34,7 @@
                                         <div class="form-group">
                                             <label class="col-lg-4 col-form-label text-right">Apropiación Presupuestal</label>
                                             <div class="col-lg-6">
-                                                <input type="text" class="form-control" value="{{ $data[0]['rubro']['valor'] }}" name="apropiacion" id="apropiacion" disabled>
+                                                <input type="text" class="form-control" value="{{ $data[0]['rubro']['valor'] }}" name="minima" id="minima" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -90,62 +90,62 @@
                                         <tr class="text-center">
                                             <td>1</td>
                                             <td>Enero</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="enero" id="enero" value="{{ $meses[0]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Enero" id="enero" value="{{ $meses[0]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>2</td>
                                             <td>Febrero</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="febrero" id="febrero" value="{{ $meses[1]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Febrero" id="febrero" value="{{ $meses[1]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>3</td>
                                             <td>Marzo</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="marzo" id="marzo" value="{{ $meses[2]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Marzo" id="marzo" value="{{ $meses[2]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>4</td>
                                             <td>Abril</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="abril" id="abril" value="{{ $meses[3]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Abril" id="abril" value="{{ $meses[3]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>5</td>
                                             <td>Mayo</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="mayo" id="mayo" value="{{ $meses[4]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Mayo" id="mayo" value="{{ $meses[4]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>6</td>
                                             <td>Junio</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="junio" id="junio" value="{{ $meses[5]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Junio" id="junio" value="{{ $meses[5]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>7</td>
                                             <td>Julio</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="julio" id="julio" value="{{ $meses[6]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Julio" id="julio" value="{{ $meses[6]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>8</td>
                                             <td>Agosto</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="agosto" id="agosto" value="{{ $meses[7]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Agosto" id="agosto" value="{{ $meses[7]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>9</td>
                                             <td>Septiembre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="septiembre" id="septiembre" value="{{ $meses[8]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Septiembre" id="septiembre" value="{{ $meses[8]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>10</td>
                                             <td>Octubre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="octubre" id="octubre" value="{{ $meses[9]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Octubre" id="octubre" value="{{ $meses[9]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>11</td>
                                             <td>Noviembre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="noviembre" id="noviembre" value="{{ $meses[10]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Noviembre" id="noviembre" value="{{ $meses[10]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td>12</td>
                                             <td>Diciembre</td>
-                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="diciembre" id="diciembre" value="{{ $meses[11]->valor }}" min="0"></td>
+                                            <td><input type="number" step="any" style="text-align: center" class="form-control" onchange="distribucion()" name="Diciembre" id="diciembre" value="{{ $meses[11]->valor }}" min="0"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td colspan="2">Total Distribuido</td>
@@ -157,23 +157,20 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-12 ml-auto">
-                                        <br><br>
-                                        <center>
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Actualizar</button>
-                                        </center>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <br><br><br>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Actualizar</button>
                             </div>
                         </form>
-                        <div class="form-group row">
-                            <div class="col-md-12 ml-auto">
-                                <center>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i>&nbsp;&nbsp;Actualizar</button>
-                                </center>
+                        <form action="{{ asset('/administrativo/pac/'.$data[0]['pac']->id) }}" method="POST" class="form-valide">
+                            <div class="col-md-6 align-self-center">
+                                {!! method_field('DELETE') !!}
+                                {{ csrf_field() }}
+                                <br><br><br>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i>&nbsp;&nbsp;Eliminar</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -221,50 +218,15 @@
             } );
         } );
 
-        function ver(col, Obj, Inicial, Actual){
-            content = document.getElementById(col);
-            var Obj = document.getElementById(Obj);
-            var Inicial = document.getElementById(Inicial);
-            var Actual = document.getElementById(Actual);
-            var data = content.innerHTML;
-
-            if (data) {
-                $("#form").show();
-                $("#Objeto").val(Obj.innerHTML);
-                $("#actual").val(Inicial.innerHTML);
-                $("#minima").val(Actual.innerHTML);
-                $("#apropiacion").val(Actual.innerHTML);
-                $("#aprobado").val(Actual.innerHTML);
-                $("#distri").val(Actual.innerHTML);
-                $("#distri2").val(Actual.innerHTML);
-                $("#IdRub").val(content.innerHTML);
-                var div = parseInt(Actual.innerHTML) / 12;
-                $("#total").val(Actual.innerHTML);
-                $("#tot").val(Actual.innerHTML);
-                $("#enero").val(div);
-                $("#febrero").val(div);
-                $("#marzo").val(div);
-                $("#abril").val(div);
-                $("#mayo").val(div);
-                $("#junio").val(div);
-                $("#julio").val(div);
-                $("#agosto").val(div);
-                $("#septiembre").val(div);
-                $("#octubre").val(div);
-                $("#noviembre").val(div);
-                $("#diciembre").val(div);
-            } else {
-                $("#form").hide();
-            }
-        }
-        
         function fondo() {
             var dinero = document.getElementById("minima").value;
             var fondo = document.getElementById("fondos").value;
-            var result = dinero - fondo;
+            var res = dinero - fondo;
+            var rezago = document.getElementById("rez").value;
+            var result = parseInt(res) - parseInt(rezago);
             var div2 = result/12;
-            $("#aprobado").val(result);
-            $("#apro").val(result);
+            $("#aprobado").val(res);
+            $("#apro").val(res);
             $("#distri").val(result);
             $("#distri2").val(result);
             $("#total").val(result);

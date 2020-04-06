@@ -98,9 +98,22 @@ class MueblesController extends Controller
      * @param  \App\muebles  $muebles
      * @return \Illuminate\Http\Response
      */
-    public function show(muebles $muebles)
+    public function show($id)
     {
-        //
+        $movimiento = muebles::findOrFail($id);
+        $año = $movimiento->created_at->format('Y');
+        for ($i=0;$i<$movimiento->vida_util + 1;$i++){
+            $años[] = intval($año);
+            $año = $año + 1;
+
+        }
+        $val = $movimiento->avaluo;
+        for ($x=0;$x<$movimiento->vida_util + 1;$x++){
+            $values[] = intval($val);
+            $val = $val - $movimiento->depreciacion;
+        }
+
+        return view('Administrativo.Almacen.Muebles.show',compact('movimiento','años','values'));
     }
 
     /**
