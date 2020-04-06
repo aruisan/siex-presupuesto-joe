@@ -19,7 +19,6 @@
 @section('content')
     <div class="col-md-12 align-self-center">
 
-        
 
         <div class="breadcrumb text-center">
             <strong>
