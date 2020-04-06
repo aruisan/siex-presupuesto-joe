@@ -129,7 +129,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
 	Route::group(['prefix' => 'administrativo'] ,function () 
 	{
-	    //Comprobante de Egresos
+
+        //TESORERIA
+
+	           //Comprobante de Egresos
 
         Route::get('CIngresos/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@index');
         Route::get('CIngresos/create/{id}', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@create');
@@ -139,6 +142,37 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('CIngresos', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController');
         Route::post('CIRubro', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@rubroStore');
         Route::delete('CIRubro/{id}/delete', 'Administrativo\ComprobanteIngresos\ComprobanteIngresosController@rubroDelete');
+
+            //Bancos
+
+        Route::resource('bancos','Administrativo\Tesoreria\BancosController');
+
+
+            //Pac
+        Route::resource('pac','Administrativo\Tesoreria\PacController');
+
+
+
+
+
+        //ALMACEN
+
+            //Productos
+
+            Route::resource('productos','Administrativo\Almacen\ProductoController');
+
+            //Inventario
+
+            Route::resource('inventario','Administrativo\Almacen\InventarioController');
+
+            //Bienes, muebles e inmuebles
+
+            Route::resource('muebles','Administrativo\Almacen\MueblesController');
+
+            //Comprobante de Salida
+
+            Route::resource('salida','Administrativo\Almacen\SalidaController');
+
 
 
         //Registros
@@ -360,17 +394,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::resource('pdd/producto','Planeacion\Pdd\ProductoController');
 	Route::get('pdd/periodo/create/{producto}','Planeacion\Pdd\PeriodoController@create');
 	Route::resource('pdd/periodo','Planeacion\Pdd\PeriodoController');
-
-
-
-	////// RUTAS ALMACEN
-
-	Route::get('almacen/nuevaEntrada','Hacienda\Almacen\AlmacenController@nuevaEntrada');
-	Route::get('almacen/inventarioEntradas','Hacienda\Almacen\AlmacenController@inventarioEntradas');
-	Route::get('almacen/inventarioSalidas','Hacienda\Almacen\AlmacenController@inventarioSalidas');
-	Route::get('almacen/entradas','Hacienda\Almacen\AlmacenController@entradas');
-	Route::get('almacen/salidas','Hacienda\Almacen\AlmacenController@salidas');
-	Route::Resource('almacen','Hacienda\Almacen\AlmacenController');
 
 	////// RUTAS CONTRACTUAL
 

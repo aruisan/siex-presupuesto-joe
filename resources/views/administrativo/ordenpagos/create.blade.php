@@ -18,10 +18,6 @@
                     <hr>
                     {{ csrf_field() }}
                     <div class="col-md-12 text-center">
-                        <div class="col-md-12 text-center">
-
-                        </div>
-                        <h2 class="tituloOrden"></h2>
                         <div class="table-responsive">
                             <div class="box">
                                 <div class="box-header">
@@ -30,7 +26,7 @@
                                 <div class="box-body">
                             @if(count($Registros) >= 1)
                                 <br>
-                                <table class="display" id="tabla_Registros">
+                                <table class="display" width="100%" id="tabla_Registros">
                                     <thead>
                                     <tr>
                                         <th class="text-center hidden"><i class="fa fa-hashtag"></i></th>

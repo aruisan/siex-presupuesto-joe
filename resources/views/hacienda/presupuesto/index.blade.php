@@ -90,7 +90,7 @@
                         <a class="nav-link" data-toggle="pill" href="@can('rubros-list') #tabRubros @endcan">Rubros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link hidden" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
+                        <a class="nav-link" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="@can('cdps-list') #tabCert @endcan">CDP's</a>
@@ -414,7 +414,47 @@
                     <!-- TABLA DE PAC -->
 
                     <div id="tabPAC" class="tab-pane fade"><br>
-                        <h2 class="text-center">PAC</h2>
+                        <div class="table-responsive">
+                            @if(count($pacs) >= 1)
+                                <table class="table table-bordered" id="tabla_PAC">
+                                    <br>
+                                    <a href="{{ url('administrativo/pac/') }}" class="btn btn-primary btn-block m-b-12">PAC</a>
+                                    <br>
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Rubro</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor a Asignar</th>
+                                        <th class="text-center">Valor Asignado</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($pacs as $key =>  $pac)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $pac['rubro']['codigo'] }}</td>
+                                            <td class="text-center">{{ $pac['rubro']['name'] }}</td>
+                                            <td class="text-center">$ <?php echo number_format($pac['pac']->distribuir,0);?>.00</td>
+                                            <td class="text-center">$ <?php echo number_format($pac['pac']->total_distri,0);?>.00</td>
+                                            <td>
+                                                <a href="{{ url('administrativo/pac/'.$pac['pac']->id.'/edit') }}" title="Ver PAC" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <br>
+                                <div class="alert alert-danger">
+                                    <center>
+                                        No se Encuentra Ningun PAC Almacenado en la Plataforma. Se Recomienda Crearlo.<br><br>
+                                        <a href="{{ url('administrativo/pac/create') }}" class="btn btn-danger " >Crear PAC</a>
+                                    </center>
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                     <!-- TABLA DE CDP's -->
