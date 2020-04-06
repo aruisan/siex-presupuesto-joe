@@ -19,7 +19,7 @@ class BancosController extends Controller
     public function index()
     {
         $items = bancos::all();
-        return view('Administrativo.Bancos.index',compact('items'));
+        return view('administrativo.bancos.index',compact('items'));
     }
 
     /**
@@ -61,7 +61,7 @@ class BancosController extends Controller
             }
         }
 
-        return view('Administrativo.Bancos.create', compact('codigos'));
+        return view('administrativo.bancos.create', compact('codigos'));
     }
 
     /**
@@ -127,7 +127,7 @@ class BancosController extends Controller
             }
         }
 
-        return view('Administrativo.Bancos.show',compact('item','codigos'));
+        return view('administrativo.bancos.show',compact('item','codigos'));
     }
 
     /**
@@ -171,7 +171,7 @@ class BancosController extends Controller
             }
         }
 
-        return view('Administrativo.Bancos.edit',compact('item','codigos'));
+        return view('administrativo.bancos.edit',compact('item','codigos'));
     }
 
     /**

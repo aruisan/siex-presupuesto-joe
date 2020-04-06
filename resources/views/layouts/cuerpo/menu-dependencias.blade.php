@@ -117,6 +117,7 @@
       <li><a class="item-menu" tabindex="-1" href="#">Comprobantes de Contabilidad</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">Estado de Resultados</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">Notas al Balance</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/config')}}">Configuración</a></li>
       <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" >Balances </a>
          <ul class="dropdown-menu">

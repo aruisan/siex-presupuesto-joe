@@ -21,7 +21,7 @@ class MueblesController extends Controller
     public function index()
     {
         $items = muebles::all();
-        return view('Administrativo.Almacen.Muebles.index', compact('items'));
+        return view('administrativo.almacen.muebles.index', compact('items'));
     }
 
     /**
@@ -37,7 +37,7 @@ class MueblesController extends Controller
             Session::flash('error', 'No hay productos almacenados en la plataforma con el tipo devolutivo.');
             return redirect('administrativo/muebles');
         } else {
-            return view('Administrativo.Almacen.Muebles.create', compact('productos','users'));
+            return view('administrativo.almacen.muebles.create', compact('productos','users'));
         }
     }
 
@@ -113,7 +113,7 @@ class MueblesController extends Controller
             $val = $val - $movimiento->depreciacion;
         }
 
-        return view('Administrativo.Almacen.Muebles.show',compact('movimiento','años','values'));
+        return view('administrativo.almacen.muebles.show',compact('movimiento','años','values'));
     }
 
     /**

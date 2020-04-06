@@ -247,6 +247,11 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //CONTABILIDAD
 
+
+            //Configuración
+
+        Route::resource('contabilidad/config','Administrativo\Contabilidad\ContaConfigController');
+
             //Retención en la Fuente
 
         Route::resource('contabilidad/retefuente','Administrativo\OrdenPago\RetencionFuente\RetencionFuenteController');

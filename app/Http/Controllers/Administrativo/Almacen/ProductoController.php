@@ -21,7 +21,7 @@ class ProductoController extends Controller
     public function index()
     {
         $items = producto::all();
-        return view('Administrativo.Almacen.Producto.index', compact('items'));
+        return view('administrativo.almacen.producto.index', compact('items'));
     }
 
     /**
@@ -62,7 +62,7 @@ class ProductoController extends Controller
                 }
             }
         }
-        return view('Administrativo.Almacen.Producto.create', compact('codigos'));
+        return view('administrativo.almacen.producto.create', compact('codigos'));
     }
 
     /**
@@ -158,7 +158,7 @@ class ProductoController extends Controller
             $finEntrada = $item->valor_inicial;
         }
 
-        return view('Administrativo.Almacen.Producto.show', compact('item', 'data', 'saldos','finEntrada','finSalida','finSaldo'));
+        return view('administrativo.almacen.producto.show', compact('item', 'data', 'saldos','finEntrada','finSalida','finSaldo'));
 
     }
 
@@ -204,7 +204,7 @@ class ProductoController extends Controller
             }
         }
 
-        return view('Administrativo.Almacen.Producto.edit', compact('item', 'codigos'));
+        return view('administrativo.almacen.producto.edit', compact('item', 'codigos'));
     }
 
     /**
