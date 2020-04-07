@@ -35,7 +35,7 @@ class SalidaController extends Controller
             Session::flash('error','No hay productos almacenados en la plataforma');
             return redirect('administrativo/productos');
         } else {
-            return view('Administrativo.almacen.salida',compact('productos'));
+            return view('administrativo.almacen.salida',compact('productos'));
         }
     }
 

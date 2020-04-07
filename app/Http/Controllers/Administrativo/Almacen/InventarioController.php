@@ -21,7 +21,7 @@ class InventarioController extends Controller
     public function index()
     {
         $items = Inventario::all();
-        return view('Administrativo.Almacen.Inventario.index', compact('items'));
+        return view('administrativo.almacen.inventario.index', compact('items'));
     }
 
     /**
@@ -36,7 +36,7 @@ class InventarioController extends Controller
             Session::flash('error','No hay productos almacenados en la plataforma con el tipo de consumo.');
             return redirect('administrativo/inventario');
         } else {
-            return view('Administrativo.Almacen.Inventario.create',compact('productos'));
+            return view('administrativo.almacen.inventario.create',compact('productos'));
         }
     }
 
@@ -99,7 +99,7 @@ class InventarioController extends Controller
     {
         $movimiento = inventario::findOrFail($id);
 
-        return view('Administrativo.Almacen.Inventario.show', compact('movimiento'));
+        return view('administrativo.almacen.inventario.show', compact('movimiento'));
     }
 
     /**

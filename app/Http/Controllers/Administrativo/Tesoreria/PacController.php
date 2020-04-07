@@ -129,7 +129,7 @@ class PacController extends Controller
             }
         }
 
-        return view('Administrativo.PAC.index',compact('data'));
+        return view('administrativo.pac.index',compact('data'));
     }
 
     /**
@@ -230,7 +230,7 @@ class PacController extends Controller
             return redirect('administrativo/pac');
         }
 
-        return view('Administrativo.PAC.create',compact('Rubros'));
+        return view('administrativo.pac.create',compact('Rubros'));
     }
 
     /**
@@ -354,7 +354,7 @@ class PacController extends Controller
             }
         }
 
-        return view('Administrativo.Pac.edit',compact('data','meses'));
+        return view('administrativo.pac.edit',compact('data','meses'));
     }
 
     /**
