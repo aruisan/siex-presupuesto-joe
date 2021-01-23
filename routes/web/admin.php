@@ -11,20 +11,20 @@ Auth::routes();
 //Route::get('/home', 'Cobro\HomeController@index')->name('home');
 
 Route::group([ 'middleware' => 'auth'] ,function(){
-	Route::get('dashboard', 'DashboardController@index');
+    Route::get('dashboard', 'DashboardController@index');
 
 	Route::resource('predios', 'Cobro\PredioController');
-  Route::get('predios-sin-asignar', 'Cobro\PredioController@predioSinAsignar')->name('unnassigned');
-  Route::get('predios-asignados', 'Cobro\PredioController@predioAsignado')->name('assignor');
-  Route::post('predios-asignar', 'Cobro\PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
-  Route::get('predio-expediente/{id}', 'PredioController@asignarExpediente')->name('assignor.expedient');
-  Route::get('predio-detail/{id}', 'Cobro\PredioController@show')->name('predio.detail');
+    Route::get('predios-sin-asignar', 'Cobro\PredioController@predioSinAsignar')->name('unnassigned');
+    Route::get('predios-asignados', 'Cobro\PredioController@predioAsignado')->name('assignor');
+    Route::post('predios-asignar', 'Cobro\PredioController@predioAsignarAdministrativeStore')->name('assignor.store');
+    Route::get('predio-expediente/{id}', 'PredioController@asignarExpediente')->name('assignor.expedient');
+    Route::get('predio-detail/{id}', 'Cobro\PredioController@show')->name('predio.detail');
   
-  Route::post('predio-asignar', 'Cobro\PersonaPredioController@predioAsignarPersona');
-  Route::post('importar', 'Cobro\ImportController@import')->name('importar.predios');
+    Route::post('predio-asignar', 'Cobro\PersonaPredioController@predioAsignarPersona');
+    Route::post('importar', 'Cobro\ImportController@import')->name('importar.predios');
 
-  Route::get('asignar/{id}', 'Cobro\AsignarController@index');
-  Route::resource('asignar', 'Cobro\AsignarController');
+    Route::get('asignar/{id}', 'Cobro\AsignarController@index');
+    Route::resource('asignar', 'Cobro\AsignarController');
 
 	//gestion de creacion y relacion de personas
 	Route::post('persona/relacionar', 'PersonasController@PersonafindCreate')->name('persona.relacionar');
@@ -32,10 +32,10 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::post('avatar', 'UserController@editAvatar')->name('user-avatar');
 	Route::post('password', 'UserController@editPassword')->name('user-password');
 
-  Route::resource('personas', 'PersonasController');
-  Route::get('persona-find/{identificador}', 'PersonasController@personaFind');
-  Route::post('persona/find-create', 'PersonasController@PersonafindCreate');
-  Route::resource('personas-predios', 'Cobro\PersonaPredioController');
+    Route::resource('personas', 'PersonasController');
+    Route::get('persona-find/{identificador}', 'PersonasController@personaFind');
+    Route::post('persona/find-create', 'PersonasController@PersonafindCreate');
+    Route::resource('personas-predios', 'Cobro\PersonaPredioController');
 	//Route::get('usuarios-tipo/{id}', 'UserController@userstype');
 
 	////////////////////admin//////////////////
@@ -55,23 +55,23 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
 
-    //RUTAS BOLETINES
+        //RUTAS BOLETINES
 
-    Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
-    Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
-
-
-    //RUTAS ARCHIVO
-
-    Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
-    Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
-    Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
-    Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
-    Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
-    Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+        Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
+        Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
 
 
-    //RUTAS CORRESPONDENCIA
+        //RUTAS ARCHIVO
+
+        Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
+        Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
+        Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
+        Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
+        Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
+        Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
+
+
+        //RUTAS CORRESPONDENCIA
 		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
 		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
 
@@ -159,19 +159,19 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
             //Productos
 
-            Route::resource('productos','Administrativo\Almacen\ProductoController');
+        Route::resource('productos','Administrativo\Almacen\ProductoController');
 
-            //Inventario
+        //Inventario
 
-            Route::resource('inventario','Administrativo\Almacen\InventarioController');
+        Route::resource('inventario','Administrativo\Almacen\InventarioController');
 
-            //Bienes, muebles e inmuebles
+        //Bienes, muebles e inmuebles
 
-            Route::resource('muebles','Administrativo\Almacen\MueblesController');
+        Route::resource('muebles','Administrativo\Almacen\MueblesController');
 
-            //Comprobante de Salida
+        //Comprobante de Salida
 
-            Route::resource('salida','Administrativo\Almacen\SalidaController');
+        Route::resource('salida','Administrativo\Almacen\SalidaController');
 
 
 
@@ -347,11 +347,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
     //// HISTORICO
     Route::get('presupuesto/historico/{id}', 'Hacienda\Presupuesto\VigenciaController@historico');
-
-
-
-
-
     Route::Resource('presupuesto', 'Hacienda\Presupuesto\PresupuestoController');
 	Route::get('presupuesto/vigencia/create/{tipo}', 'Hacienda\Presupuesto\VigenciaController@create');
 	Route::resource('presupuesto/vigencia', 'Hacienda\Presupuesto\VigenciaController');
@@ -366,24 +361,24 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosMovController@movimiento');
 	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
 	Route::resource('presupuesto/FontRubro/saldo', 'Hacienda\Presupuesto\FontRubroController@saldoFont');
-        //INFORMES PRESUPUESTO EGRESOS
-            Route::resource('presupuesto/informes','Hacienda\Presupuesto\Informes\ReportsController');
-            Route::get('presupuesto/informes/lvl/{id}/{vigencia}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
-            Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
-            Route::get('presupuesto/informes/contractual/homologar/{id}','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@index');
-            Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
-            Route::get('presupuesto/informes/contractual/homologar/{id}/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
-            Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
-            Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
-            Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
-                    // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
-                    Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
+    //INFORMES PRESUPUESTO EGRESOS
+    Route::resource('presupuesto/informes','Hacienda\Presupuesto\Informes\ReportsController');
+    Route::get('presupuesto/informes/lvl/{id}/{vigencia}','Hacienda\Presupuesto\Informes\ReportsController@lvl');
+    Route::get('presupuesto/informes/rubros/{id}','Hacienda\Presupuesto\Informes\ReportsController@rubros');
+    Route::get('presupuesto/informes/contractual/homologar/{id}','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@index');
+    Route::resource('presupuesto/informes/contractual/homologar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController');
+    Route::get('presupuesto/informes/contractual/homologar/{id}/create','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@create');
+    Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
+    Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
+    Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
+    // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
+    Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
 
 
-            ////// RUTAS PRESUPUESTO INGRESOS
-            Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
-            ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
-            Route::get('newPreIng/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPreIng');
+    ////// RUTAS PRESUPUESTO INGRESOS
+    Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
+    ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
+    Route::get('newPreIng/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPreIng');
 
 
     ////// RUTAS PLAN DE DESARROLLO
