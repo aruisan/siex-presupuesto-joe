@@ -6,7 +6,6 @@
    </a>
    <ul class="dropdown-menu">
       <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Correspondencia</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/archivo')}}">Archivo</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Acuerdos</a></li>
    </ul>
@@ -23,12 +22,15 @@
    </ul>
 </li>
 --}}
+
+<li>
+   <a class="btn btn-default btn-sm item-menu" href="{{url('/dashboard/archivo')}}">ARCHIVO</a>
+</li>
 <li >
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/contractual') }}">
     CONTRATACIÓN
    </a>
 </li>
-
 <li >
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/presupuesto') }}">
     PRESUPUESTO
