@@ -30,21 +30,30 @@
 
 
             </ul>
+            
+    <div class="tab-content col-sm-12" >   <br>
+    <hr>
+    {!! Form::open(array('route' => 'plan.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-5">
+            <label>Fecha: </label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                <input type="date" name="ff_doc" class="form-control" required>
+                <input type="hidden" name="id_resp" value="{{ $idResp }}">
+            </div>
+            <small class="form-text text-muted">Fecha de la elaboración del plan de adquisición</small>
+        </div>
+    </div>
 
-            <div class="tab-content col-sm-12" >   <br>
-                <hr>
-                {!! Form::open(array('route' => 'plan.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
-                <div class="row">
-                    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-5">
-                        <label>Fecha: </label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                            <input type="date" name="ff_doc" class="form-control" required>
-                            <input type="hidden" name="id_resp" value="{{ $idResp }}">
-                        </div>
-                        <small class="form-text text-muted">Fecha de la elaboración del plan de adquisición</small>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label>Subir Archivo: </label>
+            <div class="input-group">
+                <input type="file" name="filePlanA" accept="application/pdf" class="form-control" required>
+            </div>
+        </div>
+    </div>
 
                 <div class="row">
                     <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">

@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Descuentos de Orden de Pago
+    Orden de Pago
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/ordenPagos/'.$ordenPago->id) }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/ordenPagos/'.$vigencia) }}" class="btn btn-success">
             <span class="hide-menu">Orden de Pago</span></a>
     </li>
     <br>

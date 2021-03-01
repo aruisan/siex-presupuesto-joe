@@ -36,9 +36,15 @@
         <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#tabTareas">TAREAS</a>
         </li>
+        @if(count($cdProcess) > 0)
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#tabProcess">EN PROCESO</a>
+            </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
+       
 
         @if( $rol == 2)
             <li class="nav-item">
@@ -70,15 +76,14 @@
                                 <th class="text-center"><i class="fa fa-usd"></i></th>
                                 <th class="text-center"><i class="fa fa-edit"></i></th>
                             @elseif ($rol == 3)
-                                <th class="text-center">Aprobar</th>
                                 <th class="text-center">Ver</th>
                             @endif
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($cdpTarea as $cdp)
+                        @foreach($cdpTarea as $index => $cdp)
                             <tr>
-                                <td class="text-center">{{ $cdp->id }}</td>
+                                <td class="text-center">{{ $cdp->code }}</td>
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
@@ -118,9 +123,6 @@
                                     </td>
                                 @elseif($rol == 3)
                                     <td class="text-center">
-                                        <input type="checkbox" class="form-group">
-                                    </td>
-                                    <td class="text-center">
                                         <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                     </td>
                                 @endif
@@ -135,6 +137,67 @@
                             No hay CDP's pendientes.
                         </center>
                     </div>
+                @endif
+            </div>
+        </div>
+        <div id="tabProcess" class="tab-pane fade"><br>
+            <br>
+            <div class="table-responsive">
+                @if(count($cdProcess) > 0)
+                    <table class="table table-bordered" id="tabla_Process">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="text-center">Objeto</th>
+                            <th class="text-center">Estado Secretaria</th>
+                            <th class="text-center">Fecha Envio Secretaria</th>
+                            <th class="text-center">Estado Jefe</th>
+                            <th class="text-center">Valor</th>
+                            <th class="text-center">Ver CDP</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($cdProcess as $cdp)
+                            <tr>
+                                <td class="text-center">{{ $cdp->code }}</td>
+                                <td class="text-center">{{ $cdp->name }}</td>
+                                <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($cdp->secretaria_e == "0")
+                                            Pendiente
+                                        @elseif($cdp->secretaria_e == "1")
+                                            Rechazado
+                                        @elseif($cdp->secretaria_e == "2")
+                                            Anulado
+                                        @else
+                                            Enviado
+                                        @endif
+                                    </span>
+                                </td>
+                                <td class="text-center">{{ $cdp->ff_secretaria_e }}</td>
+                                <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($cdp->jefe_e == "0")
+                                            Pendiente
+                                        @elseif($cdp->jefe_e == "1")
+                                            Rechazado
+                                        @elseif($cdp->jefe_e == "2")
+                                            Anulado
+                                        @elseif($cdp->jefe_e == "3")
+                                            Aprobado
+                                        @else
+                                            En Espera
+                                        @endif
+                                    </span>
+                                </td>
+                                <td class="text-center">$<?php echo number_format($cdp->rubrosCdpValor->sum('valor_disp'),0) ?></td>
+                                <td class="text-center">
+                                    <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 @endif
             </div>
         </div>
@@ -156,7 +219,7 @@
                         <tbody>
                         @foreach($cdps as $cdp)
                             <tr>
-                                <td class="text-center">{{ $cdp->id }}</td>
+                                <td class="text-center">{{ $cdp->code }}</td>
                                 <td class="text-center">{{ $cdp->name }}</td>
                                 <td class="text-center">
                                     <span class="badge badge-pill badge-danger">
@@ -220,6 +283,15 @@
         } );
 
         $('#tabla_Historico').DataTable( {
+            responsive: true,
+            "searching": true,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'print'
+            ]
+        } );
+
+        $('#tabla_Process').DataTable( {
             responsive: true,
             "searching": true,
             dom: 'Bfrtip',

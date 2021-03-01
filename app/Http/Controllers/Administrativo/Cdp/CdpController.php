@@ -17,6 +17,7 @@ use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Register;
 use PDF;
 use Carbon\Carbon;
+Use App\Traits\ConteoTraits;
 
 
 use Session;
@@ -37,6 +38,7 @@ class CdpController extends Controller
         if ($rol == 2)
         {
             $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('secretaria_e', '0')->orWhere('jefe_e','1')->get();
+            $cdProcess = Cdp::where('vigencia_id', $vigencia_id)->where('secretaria_e', '3')->where('jefe_e','0')->get();
             $cdps = Cdp::where('vigencia_id', $id)
                 ->where(function ($query) {
                     $query->where('jefe_e','3')
@@ -47,6 +49,7 @@ class CdpController extends Controller
         }elseif ($rol == 3)
         {
             $cdpTarea = Cdp::where('vigencia_id', $vigencia_id)->where('jefe_e','0')->get();
+            $cdProcess = null;
             $cdps = Cdp::where('vigencia_id', $id)
                 ->where(function ($query) {
                     $query->where('jefe_e','3')
@@ -56,6 +59,7 @@ class CdpController extends Controller
         {
             $cdpTarea = null;
             $cdps = null;
+            $cdProcess = null;
         }
         //this change fix the problem with the count
         if ($cdpTarea == null){
@@ -64,7 +68,10 @@ class CdpController extends Controller
         if ($cdps == null){
             $cdps = [];
         }
-        return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea','vigencia_id'));
+        if ($cdProcess == null){
+            $cdProcess = [];
+        }
+        return view('administrativo.cdp.index', compact('cdps','rol', 'cdpTarea','vigencia_id','cdProcess'));
     }
 
     /**
@@ -113,8 +120,15 @@ class CdpController extends Controller
     public function store(Request $request)
     {
 
+        $countCdps = Cdp::where('vigencia_id', $request->vigencia_id)->orderBy('id')->get()->last();
+        if ($countCdps == null){
+            $count = 0;
+        }else{
+            $count = $countCdps->code;
+        }
         $cdp = new Cdp();
         $cdp->name = $request->name;
+        $cdp->code = $count + 1;
         $cdp->valor = 0;
         $cdp->fecha = $request->fecha;
         $cdp->dependencia_id = $request->dependencia_id;
@@ -155,6 +169,9 @@ class CdpController extends Controller
         $vigens = Vigencia::findOrFail($vigencia);
         $V = $vigens->id;
         $vigencia_id = $V;
+
+        $conteoTraits = new ConteoTraits;
+        $conteo = $conteoTraits->conteoCdps($vigens, $cdp->id);
 
         $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
         $registers = Register::where('level_id', $ultimoLevel->id)->get();
@@ -204,7 +221,7 @@ class CdpController extends Controller
                 $codigoLast = $codigoEnd;
             }
         }
-        return view('administrativo.cdp.show', compact('cdp','rubros','valores','rol','infoRubro'));
+        return view('administrativo.cdp.show', compact('cdp','rubros','valores','rol','infoRubro', 'conteo'));
     }
 
     /**
@@ -324,78 +341,82 @@ class CdpController extends Controller
             $rol= $role->id;
         }
         $cdp = Cdp::findOrFail($id);
-        $all_rubros = Rubro::all();
-        foreach ($all_rubros as $rubro){
-            if ($rubro->fontsRubro->sum('valor_disp') != 0){
-                $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
-                $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
-                $rubros[] = collect(['id' => $rubro->id, 'name' => $rubro->name]);
+        if ($cdp->secretaria_e == 3 and $cdp->jefe_e == 3 ){
+            $all_rubros = Rubro::all();
+            foreach ($all_rubros as $rubro){
+                if ($rubro->fontsRubro->sum('valor_disp') != 0){
+                    $valFuente = FontsRubro::where('rubro_id', $rubro->id)->sum('valor_disp');
+                    $valores[] = collect(['id_rubro' => $rubro->id, 'name' => $rubro->name, 'dinero' => $valFuente]);
+                    $rubros[] = collect(['id' => $rubro->id, 'name' => $rubro->name]);
+                }
             }
-        }
 
-        //codigo de rubros
+            //codigo de rubros
 
-        $V = $vigen;
+            $V = $vigen;
+            $vigencia_id = $V;
+            $vigencia = Vigencia::find($vigencia_id);
 
-        $vigencia_id = $V;
-        $vigencia = Vigencia::find($vigencia_id);
+            $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+            $registers = Register::where('level_id', $ultimoLevel->id)->get();
+            $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
+            $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
+            $rubroz = Rubro::where('vigencia_id', $vigencia_id)->get();
 
-        $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
-        $registers = Register::where('level_id', $ultimoLevel->id)->get();
-        $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
-        $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
-        $rubroz = Rubro::where('vigencia_id', $vigencia_id)->get();
+            global $lastLevel;
+            $lastLevel = $ultimoLevel->id;
+            $lastLevel2 = $ultimoLevel2->level_id;
+            foreach ($registers2 as $register2) {
+                global $codigoLast;
+                if ($register2->register_id == null) {
+                    $codigoEnd = $register2->code;
+                } elseif ($codigoLast > 0) {
+                    if ($lastLevel2 == $register2->level_id) {
+                        $codigo = $register2->code;
+                        $codigoEnd = "$codigoLast$codigo";
+                        foreach ($registers as $register) {
+                            if ($register2->id == $register->register_id) {
+                                $register_id = $register->code_padre->registers->id;
+                                $code = $register->code_padre->registers->code . $register->code;
+                                $ultimo = $register->code_padre->registers->level->level;
+                                while ($ultimo > 1) {
+                                    $registro = Register::findOrFail($register_id);
+                                    $register_id = $registro->code_padre->registers->id;
+                                    $code = $registro->code_padre->registers->code . $code;
 
-        global $lastLevel;
-        $lastLevel = $ultimoLevel->id;
-        $lastLevel2 = $ultimoLevel2->level_id;
-        foreach ($registers2 as $register2) {
-            global $codigoLast;
-            if ($register2->register_id == null) {
-                $codigoEnd = $register2->code;
-            } elseif ($codigoLast > 0) {
-                if ($lastLevel2 == $register2->level_id) {
-                    $codigo = $register2->code;
-                    $codigoEnd = "$codigoLast$codigo";
-                    foreach ($registers as $register) {
-                        if ($register2->id == $register->register_id) {
-                            $register_id = $register->code_padre->registers->id;
-                            $code = $register->code_padre->registers->code . $register->code;
-                            $ultimo = $register->code_padre->registers->level->level;
-                            while ($ultimo > 1) {
-                                $registro = Register::findOrFail($register_id);
-                                $register_id = $registro->code_padre->registers->id;
-                                $code = $registro->code_padre->registers->code . $code;
-
-                                $ultimo = $registro->code_padre->registers->level->level;
-                            }
-                            if ($register->level_id == $lastLevel) {
-                                foreach ($rubroz as $rub) {
-                                    if ($register->id == $rub->register_id) {
-                                        $newCod = "$code$rub->cod";
-                                        $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code]);
+                                    $ultimo = $registro->code_padre->registers->level->level;
+                                }
+                                if ($register->level_id == $lastLevel) {
+                                    foreach ($rubroz as $rub) {
+                                        if ($register->id == $rub->register_id) {
+                                            $newCod = "$code$rub->cod";
+                                            $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code]);
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                }else {
+                    $codigo = $register2->code;
+                    $newRegisters = Register::findOrFail($register2->register_id);
+                    $codigoNew = $newRegisters->code;
+                    $codigoEnd = "$codigoNew$codigo";
+                    $codigoLast = $codigoEnd;
                 }
-            }else {
-                $codigo = $register2->code;
-                $newRegisters = Register::findOrFail($register2->register_id);
-                $codigoNew = $newRegisters->code;
-                $codigoEnd = "$codigoNew$codigo";
-                $codigoLast = $codigoEnd;
             }
+
+            $fecha = Carbon::createFromTimeString($cdp->created_at);
+
+
+            $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+            $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+            $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia', 'dias', 'meses', 'fecha'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+            return $pdf->stream();
+        } else {
+            Session::flash('error','El CDP no ha sido finalizado, debe finalizarse para poder generar el PDF');
+            return back();
         }
-
-        $fecha = Carbon::createFromTimeString($cdp->created_at);
-
-
-        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-
-        $pdf = PDF::loadView('administrativo.cdp.pdf', compact('cdp','rubros','valores','rol','infoRubro', 'vigencia', 'dias', 'meses', 'fecha'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
-        return $pdf->stream();
     }
 }

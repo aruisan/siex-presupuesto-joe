@@ -124,7 +124,7 @@ class RegistersPucController extends Controller
         $register->save();
 
         if($level > 1){
-            $codePadre = CodePadrePuc::where('register_puc_id', $id)->first();
+            $codePadre = CodePadrePuc::where('registers_puc_id', $id)->first();
             $codePadre->register2_puc_id = $padre;
             $codePadre->save();
         }
@@ -150,7 +150,7 @@ class RegistersPucController extends Controller
      */
     public function destroy($id)
     {
-        $clienteplus = CodePadrePuc::where('register_puc_id', $id)->delete();
+        $clienteplus = CodePadrePuc::where('registers_puc_id', $id)->delete();
         $registro = RegistersPuc::find($id);
         $registro->delete();
     }

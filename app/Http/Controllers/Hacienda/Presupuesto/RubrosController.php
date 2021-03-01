@@ -65,7 +65,6 @@ class RubrosController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $id         = $request->rubro_id;
         $name       = $request->nombre;
         $subProy    = $request->subproyecto_id;
@@ -109,7 +108,6 @@ class RubrosController extends Controller
         $fuentesR = $rubro->Fontsrubro;
         $add = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','2']])->get();
         $red = rubrosMov::where([['rubro_id','=',$id],['movimiento','=','3']])->get();
-        $añoActual = Carbon::now()->year;
         $vigens = Vigencia::findOrFail($rubro->vigencia_id);
         $fuentesAll = FontsVigencia::where('vigencia_id', $vigens->id)->get();
         $valor = $fuentesR->sum('valor');
@@ -176,8 +174,15 @@ class RubrosController extends Controller
             }
         }
 
+        $contadorRubDisp = 0;
+        foreach ($rubros as $rub){
+            if ($rub->fontsRubro->sum('valor_disp') > 0){
+                $contadorRubDisp = $contadorRubDisp + 1;
+            }
+        }
 
-        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files','add','red'));
+
+        return view('hacienda.presupuesto.rubro.show', compact('rubro','fuentesR','valor','valorDisp','rol','rubros','fuentesAll','valores','files','add','red','contadorRubDisp','vigens'));
 
     }
 
@@ -201,7 +206,6 @@ class RubrosController extends Controller
      */
     public function update($id, $name, $code, $register, $subproyecto_id)
     {
-        //dd($name);
         $rubro = Rubro::findOrFail($id);
         $rubro->name = $name;
         $rubro->cod = $code;

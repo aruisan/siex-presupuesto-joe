@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Administrativo\GestionDocumental;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Resource;
-use App\Traits\ResourceTraits;
-use App\Model\Administrativo\GestionDocumental\Documents;
-use Illuminate\Support\Facades\Storage;
 use Session;
+use App\Carpeta;
+use App\Resource;
+use Illuminate\Http\Request;
+use App\Traits\ResourceTraits;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Model\Administrativo\GestionDocumental\Documents;
 
 class BoletinesController extends Controller
 {
@@ -26,7 +27,7 @@ class BoletinesController extends Controller
      */
     public function index()
     {
-        $Boletines = Documents::where('type','=','Boletines')->get();
+        $Boletines = Carpeta::where('tipo', 'Boletines')->get();
         return view('administrativo.gestiondocumental.boletines.index', compact('Boletines'));
     }
 

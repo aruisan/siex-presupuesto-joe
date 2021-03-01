@@ -18,21 +18,18 @@
                     <hr>
                     {{ csrf_field() }}
                     <div class="col-md-12 text-center">
-                        <h2 class="tituloOrden">Seleccione el registro correspondiente:</h2>
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <br>
                         <div class="table-responsive">
-                          <div class="box">
+                            <div class="box">
                                 <div class="box-header">
-                                <h3 class="box-title"></h3>
+                                    <h3 class="box-title">Seleccione el registro correspondiente:</h3>
                                 </div><!-- /.box-header -->
                                 <div class="box-body">
                             @if(count($Registros) >= 1)
                                 <br>
-                                <table class="display" id="tabla_Registros">
+                                <table class="display" width="100%" id="tabla_Registros">
                                     <thead>
                                     <tr>
+                                        <th class="text-center hidden"><i class="fa fa-hashtag"></i></th>
                                         <th class="text-center"><i class="fa fa-hashtag"></i></th>
                                         <th class="text-center">Objeto</th>
                                         <th class="text-center">Tercero</th>
@@ -48,7 +45,8 @@
                                     <tbody>
                                     @foreach ($Registros as $key => $data)
                                         <tr onclick="ver('col{{$data['info']->id}}','Obj{{$data['info']->objeto}}','Name{{$data['info']->persona->nombre}}','Cc{{$data['info']->persona->num_dc}}','Sal{{$data['info']->saldo}}','Val{{$data['info']->valor}}','Iva{{$data['info']->iva}}','ValTo{{ $data['info']->val_total}}');" style="cursor:pointer">
-                                            <td id="col{{$data['info']->id}}" class="text-center">{{ $data['info']->id }}</td>
+                                            <td id="col{{$data['info']->id}}" class="text-center hidden">{{ $data['info']->id }}</td>
+                                            <td class="text-center">{{ $data['info']->code }}</td>
                                             <td id="Obj{{$data['info']->objeto}}" class="text-center">{{ $data['info']->objeto }}</td>
                                             <td id="Name{{$data['info']->persona->nombre}}" class="text-center">{{ $data['info']->persona->nombre }}</td>
                                             <td id="Cc{{$data['info']->persona->num_dc}}" class="text-center hidden">{{ $data['info']->persona->num_dc }}</td>
@@ -189,6 +187,7 @@
                             <div class="col-md-6">
                                 <br>
                                 <input type="number" style="text-align: center" class="form-control formularioOrdenLabel" value="{{ $numOP + 1 }}" disabled name="num_OP">
+                                <input type="hidden"  class="form-control" name="next" value="{{ $numOP + 1 }}">
                                 <input type="hidden"  class="form-control" name="IdR" id="IdR">
                             </div>
                             </div>
@@ -362,7 +361,7 @@
                 $("#IdR").val(content.innerHTML);
                 $("#ValTOP").val(Sal.innerHTML);
                 $("#ValS").val(Val.innerHTML);
-                  
+
                 document.getElementById("concepto").focus(); 
                 
                } else {

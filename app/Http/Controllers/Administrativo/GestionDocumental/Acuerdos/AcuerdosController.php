@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Administrativo\GestionDocumental\Acuerdos;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Model\Administrativo\GestionDocumental\Comisiones;
-use App\Resource;
-use App\Traits\ResourceTraits;
-use App\Model\Administrativo\GestionDocumental\Documents;
-use Illuminate\Support\Facades\Storage;
 use Session;
+use App\Carpeta;
+use App\Resource;
+use Illuminate\Http\Request;
+use App\Traits\ResourceTraits;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\Model\Administrativo\GestionDocumental\Documents;
+use App\Model\Administrativo\GestionDocumental\Comisiones;
 
 class AcuerdosController extends Controller
 {
@@ -27,10 +28,10 @@ class AcuerdosController extends Controller
      */
     public function index()
     {
-        $Acuerdos = Documents::where('type','=','Acuerdos')->get();
-        $ProyAcuerdos = Documents::where('type','=','Proyectos de acuerdo')->get();
-        $Actas = Documents::where('type','=','Actas')->get();
-        $Resoluciones = Documents::where('type','=','Resoluciones')->get();
+        $Acuerdos = Carpeta::where('typo','Acuerdos')->get();
+        $ProyAcuerdos = Carpeta::where('typo','Proyectos de acuerdo')->get();
+        $Actas = Carpeta::where('typo','Actas')->get();
+        $Resoluciones = Carpeta::where('typo','Resoluciones')->get();
         return view('administrativo.gestiondocumental.acuerdos.index', compact('Acuerdos','ProyAcuerdos','Actas','Resoluciones'));
     }
 

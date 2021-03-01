@@ -8,11 +8,11 @@
 					<td><?=$dias[$fecha->format('w')]." ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " del ".$fecha->format('Y')?></td>
 				</tr>
 				<tr class="text-center">
-					<td>Beneficiario: {{$OrdenPago->registros->persona->nombre}}</td>
-					<td>Nit o Cedula: {{ $OrdenPago->registros->persona->num_dc }}</td>
+					<td>Beneficiario: {{$OrdenPago->pago->persona->nombre}}</td>
+					<td>Nit o Cedula: {{ $OrdenPago->pago->persona->num_dc }}</td>
 				</tr>
 				<tr class="text-center">
-					<td>Orden de Pago No: {{$OrdenPago->id}}</td>
+					<td>Orden de Pago No: {{$OrdenPago->code}}</td>
 					<td>Fecha Orden de Pago: <?=$dias[$fechaO->format('w')]." ".$fechaO->format('d')." ".$meses[$fechaO->format('n')-1]. " ".$fechaO->format('Y')?></td>
 				</tr>
 			</table>
@@ -21,7 +21,7 @@
 			<center>
 				<h4>CONCEPTO</h4>
 				<p>
-					<h5>{{ $OrdenPago->nombre }}</h5>
+					<h5>{{ $OrdenPago->pago->concepto }}</h5>
 				</p>
 			</center>
 		</div>
@@ -121,7 +121,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaDesc">
+			<table class="table-bordered" id="tablaDesc" style="width: 100%">
 				<thead>
 				<tr>
 					<th colspan="4" class="text-center" style="background-color: rgba(19,165,255,0.14)"> DESCUENTOS</th>
@@ -158,7 +158,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaP">
+			<table class="table-bordered" id="tablaP" style="width: 100%">
 				<thead>
 				<tr>
 					<th class="text-center" colspan="5" style="background-color: rgba(19,165,255,0.14)">CONTABILIZACIÓN</th>

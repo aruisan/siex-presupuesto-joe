@@ -15,6 +15,7 @@ class CreateCdpsTable extends Migration
     {
         Schema::create('cdps', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('code');
             $table->text('name');
             $table->integer('valor');
             $table->date('fecha');
@@ -27,7 +28,7 @@ class CreateCdpsTable extends Migration
             $table->enum('jefe_e', [0, 1, 2, 3])->nullable();
             $table->date('ff_jefe_e')->nullable();
             $table->text('motivo')->nullable();
-            $table->text('observacion');
+            $table->text('observacion')->nullable();
             $table->integer('saldo');
 
             $table->string('ruta')->nullable();

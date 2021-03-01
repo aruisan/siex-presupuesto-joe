@@ -2,21 +2,6 @@
 @section('titulo')
     Ordenes de Pago
 @stop
-@section('sidebar')
-    <li>
-        <a href="{{ url('/administrativo/ordenPagos/create/'.$id) }}" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-            <span class="hide-menu"> Crear Orden de Pago</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/administrativo/pagos/'.$id) }}" class="btn btn-primary">
-            <span class="hide-menu"> Pagos</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/administrativo/registros/'.$id) }}" class="btn btn-primary">
-            <span class="hide-menu"> Registros</span></a>
-    </li>
-@stop
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
@@ -24,14 +9,25 @@
         </strong>
     </div>
     <ul class="nav nav-pills">
-        <li class="nav-item">
+        <li class="nav-item regresar">
+            <a class="nav-link" href="{{ url('/presupuesto') }}" >PRESUPUESTO</a>
+        </li>
+        <li class="nav-item active">
             <a class="nav-link" data-toggle="pill" href="#tabTareas">TAREAS</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="pill" href="#tabHistorico">HISTORICO</a>
         </li>
+        <li class="nav-item">
+            <a class="tituloTabs" href="{{ url('/administrativo/ordenPagos/create/'.$id) }}">NUEVA ORDEN DE PAGO</a>
+        </li>
+        <li class="nav-item pillPri">
+            <a class="tituloTabs" href="{{ url('/administrativo/pagos/'.$id) }}">PAGOS</a>
+        </li>
+        <li class="nav-item pillPri">
+            <a class="tituloTabs" href="{{ url('/administrativo/registros/'.$id) }}">REGISTROS</a>
+        </li>
     </ul>
-    <br>
     <div class="tab-content" style="background-color: white">
         <div id="tabTareas" class="tab-pane active"><br>
             <div class="table-responsive">
@@ -51,7 +47,7 @@
                         <tbody>
                         @foreach($ordenPagoTarea as $ordenPagoT)
                             <tr class="text-center">
-                                <td>{{ $ordenPagoT['info']->id }}</td>
+                                <td>{{ $ordenPagoT['info']->code }}</td>
                                 <td>{{ $ordenPagoT['info']->nombre }}</td>
                                 <td>$<?php echo number_format($ordenPagoT['info']->valor,0) ?></td>
                                 <td>
@@ -104,7 +100,7 @@
                         <tbody>
                         @foreach($ordenPagos as $ordenPago)
                             <tr class="text-center">
-                                <td>{{ $ordenPago['id'] }}</td>
+                                <td>{{ $ordenPago['code'] }}</td>
                                 <td>{{ $ordenPago['nombre'] }}</td>
                                 <td>$<?php echo number_format($ordenPago['valor'],0) ?></td>
                                 <td>
@@ -120,6 +116,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ url('administrativo/ordenPagos/show/'.$ordenPago['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/pdf/'.$ordenPago['id']) }}" title="Orden de Pago" class="btn-sm btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

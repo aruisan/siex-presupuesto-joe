@@ -24,7 +24,7 @@ class PagosController extends Controller
         $pT = Pagos::where('estado', '0')->get();
         foreach ($pT as $data){
             if ($data->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
-                $pagosTarea[] = collect(['info' => $data, 'persona' => $data->orden_pago->registros->persona->nombre]);
+                $pagosTarea[] = collect(['info' => $data, 'persona' => $data->persona->nombre]);
             }
         }
 
@@ -43,8 +43,6 @@ class PagosController extends Controller
             unset($pagos[0]);
         }
 
-        //dd($pagosTarea, $pagos);
-
         return view('administrativo.pagos.index', compact('pagos','pagosTarea','id'));
     }
 
@@ -61,11 +59,23 @@ class PagosController extends Controller
                 $ordenPagos[] = collect(['info' => $data]);
             }
         }
+        $pagos = Pagos::orderBy('code','ASC')->get();
+        foreach ($pagos as $data){
+            if ($data->orden_pago->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
+                $pagosAll[] = collect(['info' => $data, 'persona' => $data->orden_pago->registros->persona->nombre]);
+            }
+        }
         if (!isset($ordenPagos)){
             Session::flash('warning', 'No hay ordenes de pago disponibles para crear el pago. ');
             return redirect('/administrativo/pagos/'.$id);
         } else {
-            return view('administrativo.pagos.create', compact('ordenPagos','id'));
+            if (isset($pagosAll)){
+                $last2 = array_last($pagosAll);
+                $numP = $last2['info']->code;
+            }else{
+                $numP = 0;
+            }
+            return view('administrativo.pagos.create', compact('ordenPagos','id','numP'));
         }
     }
 
@@ -81,9 +91,14 @@ class PagosController extends Controller
 
             Session::flash('warning','El valor que va a pagar: $'.$request->Monto.' es mayor al valor disponible de la orden de pago: $'.$request->SaldoOP);
             return back();
+
         } else {
 
+            $OrdenPago = OrdenPagos::findOrFail($request->IdOP);
             $Pago = new Pagos();
+            $Pago->code = $request->numPago;
+            $Pago->concepto = $request->Objeto;
+            $Pago->persona_id = $OrdenPago->registros->persona_id;
             $Pago->orden_pago_id = $request->IdOP;
             $Pago->valor = $request->Monto;
             $Pago->estado = "0";
@@ -147,7 +162,6 @@ class PagosController extends Controller
             Session::flash('warning','El valor tomado de los rubros debe ser igual al valor a pagar: $'.$pago->valor);
             return back();
         }
-
     }
 
     public function asignacionDelete(Request $request){
@@ -170,7 +184,6 @@ class PagosController extends Controller
             Session::flash('warning','El pago no ha recibido la asignación del monto, por favor realizarla');
             return redirect('administrativo/pagos/asignacion/'.$pago->id);
         }
-
     }
 
     public function bankStore(Request $request){

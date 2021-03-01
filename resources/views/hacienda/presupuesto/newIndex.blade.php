@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Vigencia: {{ $añoActual }}
+    Vigencia: {{ $vigencia[0]->vigencia }}
 @stop
 @section('sidebar')
     {{-- @if($V != "Vacio")
@@ -113,7 +113,6 @@
                     </li>
                 @endif
          </ul>
-
     <div class="col-md-12 align-self-center" style="background-color:#fff;">
         @if($V != "Vacio")
             {{-- <div class="breadcrumb col-md-2 text-center">
@@ -126,7 +125,6 @@
              <div class="row" >
             <div class="breadcrumb col-md-12 text-center" >
                 <strong>
-               
                     <h4><b> <br>Presupuesto de Egresos {{ $vigencia[0]->vigencia }}</b></h4>
                 </strong>
             </div>
@@ -517,7 +515,7 @@
                                 <tbody>
                                 @foreach($cdps as $cdp)
                                     <tr>
-                                        <td class="text-center">{{ $cdp['id'] }}</td>
+                                        <td class="text-center">{{ $cdp['code'] }}</td>
                                         <td class="text-center">{{ $cdp['name'] }}</td>
                                         <td class="text-center">$ <?php echo number_format($cdp['valor'],0);?>.00</td>
                                         <td class="text-center">
@@ -552,8 +550,9 @@
                                             <a href="{{ url('administrativo/cdp/'.$V.'/'.$cdp['id']) }}" title="Ver" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$V) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
-                                        </td>
+                                            @if($cdp->secretaria_e == 3 and $cdp->jefe_e == 3)
+                                                <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$V) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            @endif                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -593,7 +592,7 @@
                                 <tbody>
                                 @foreach ($registros as $key => $data)
                                     <tr>
-                                        <td class="text-center">{{ $data['id'] }}</td>
+                                        <td class="text-center">{{ $data['code'] }}</td>
                                         <td class="text-center">{{ $data['objeto'] }}</td>
                                         <td class="text-center">{{ $data['nombre'] }}</td>
                                         <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
@@ -614,7 +613,9 @@
                                             <a href="{{ url('administrativo/registros/show',$data['id']) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ url('administrativo/registro/pdf/'.$data['id'].'/'.$V) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            @if($data['estado'] == 3)
+                                                <a href="{{ url('administrativo/registro/pdf/'.$data['id'].'/'.$V) }}" target="_blank" title="certificado-registro" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

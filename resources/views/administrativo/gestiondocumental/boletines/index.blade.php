@@ -21,8 +21,9 @@
                         <tr>
                             <th class="text-center">Id</th>
                             <th class="text-center">Nombre</th>
-                            <th class="text-center">Fecha del Documento</th>
-                            <th class="text-center">Consecutivo</th>
+                            <th class="text-center">Ubicacion Fisica</th>
+                            <th class="text-center">Fecha de creación</th>
+                            <th class="text-center">Cuantia</th>
                             <th class="text-center">Responsable</th>
                             <th class="text-center">Acciones</th>
                         </tr>
@@ -31,13 +32,27 @@
                         @foreach ($Boletines as $key => $data)
                             <tr class="text-center">
                                 <td>{{ $data->id }}</td>
-                                <td>{{ $data->name }}</td>
-                                <td>{{ $data->ff_document }}</td>
-                                <td>{{ $data->cc_id }}</td>
-                                <td>{{ $data->user->name }}</td>
                                 <td>
-                                    <a href="{{Storage::url($data->resource->ruta)}}" target="_blank" title="Ver" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
-                                    <a href="{{ url('dashboard/boletines/'.$data->id.'/edit') }}" title="Editar" class="btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                    <a href="{{route('carpetas.show', $data->id)}}" class="btn btn-link">
+                                        {{ $data->nombre }}
+                                    </a>
+                                </td>
+                                <td>{{ $data->ubicacion_fisica }}</td>
+                                <td>{{ $data->created_at }}</td>
+                                <td>{{ $data->cuantia }}</td>
+                                <td>{{ $data->owner->name }}</td>
+                                <td>
+                                    <button class="btn-sm btn-primary" 
+                                            onclick="editar('{{route('carpetas.edit', $data->id)}}', 'Boletines')">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn-sm btn-primary" onclick="borrar('delete{{$data->id}}')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>
+                                    <form action="{{route('carpetas.destroy', $data->id)}}" method="post" id="delete{{$data->id}}">
+                                        <input type="hidden" name="_method" value="delete" />
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -52,14 +67,33 @@
                     @endif
                 </div>
                 <center>
-                    <a href="{{ url('/dashboard/boletines/create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>&nbsp; Nuevo Boletin</a>
+                    <button class="btn btn-primary" onclick="nuevo('Boletines')">
+                        <i class="fa fa-plus"></i>&nbsp; Nuevo Boletin
+                    </button>
                 </center>
             </div>
 @stop
 
 @section('js')
     <script>
-         
+
+    function nuevo(tipo){
+        localStorage.setItem("tipoCarpeta", tipo);
+        localStorage.setItem("rutaIndexCarpeta", "{{Request::url()}}");
+        window.location.href = "{{route('carpetas.create')}}";
+    }
+
+    function editar(url, tipo){
+        localStorage.setItem("tipoCarpeta", tipo);
+        localStorage.setItem("rutaIndexCarpeta", "{{Request::url()}}");
+        window.location.href = url;
+    }
+
+    function borrar(formId){
+        $(`#${formId}`).submit();
+    }
+
+
 
                $('#tabla_corrE').DataTable({
 	language: {

@@ -10,7 +10,7 @@
         "barryvdh/laravel-dompdf": "^0.8.3",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "~3.3",
-        "intervention/image": "2.4",
+        "intervention/image": "^2.5",
         "jeroennoten/laravel-adminlte": "^1.23",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",

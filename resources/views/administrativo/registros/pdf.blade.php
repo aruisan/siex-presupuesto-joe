@@ -6,11 +6,11 @@
 		</div>
 		<div style="border:1px solid black;">
 			<div style="width: 78%;   display: inline-block; margin-left: 3%">
-				<h4>Fecha: <?=$dias[$fecha->format('w')]." ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " del ".$fecha->format('Y').'  Hora:'.$fecha->format('h:i:s')?></h4>
+				<h4><?=$dias[$fecha->format('w')]." ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " del ".$fecha->format('Y')?></h4>
 			</div>
 			
 			<div style="width: 12%;  display: inline-block; border:1px solid black; margin: 6px 0px 0px 0px;" class="col-md-2">
-				<h4>Número {{$registro->id}}</h4>
+				<h4>Número {{$registro->code}}</h4>
 			</div> 
 		</div>
 		<div class="br-black-1">
@@ -51,6 +51,17 @@
 				</tbody>
 			</table>
 		</div>
+	<div class="br-black-1">
+		<div class="text-center">
+			<h4>CDP's Asignados al Registro Presupuestal</h4>
+		</div>
+		<h4 class="text-center">
+			@foreach($registro->cdpsRegistro as $data)
+				CDP {{ $data->cdp->code }} &nbsp;
+			@endforeach
+		</h4>
+	</div>
+
 @stop
 		
 	

@@ -36,16 +36,37 @@ class VisitanteController extends Controller
         $añoActual = Carbon::now()->year;
         $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 0)->where('estado', '0')->get();
         $Concejales = Concejal::all();
+        $documents = Documents::all();
+
+         //MODAL DE BOLETINES
+        $Boletines =$documents->filter(function($item){
+           return  $item->carpeta->tipo == 'Boletines';
+        });
+
+        //MODAL DE ACUERDOS
+        $Acuerdos =$documents->filter(function($item){
+           return $item->carpeta->tipo == 'Acuerdos';
+        });
+
+        //MODAL DE ACTAS
+        $Actas = $documents->filter(function($item){
+            $item->carpeta->tipo == 'Actas';
+        });
+        //MODAL DE RESOLUCIONES
+        $Resoluciones = $documents->filter(function($item){
+            $item->carpeta->tipo == 'Resoluciones';
+        });
+        //MODAL MANUAL DE CONTRATACIÓN
+        $ManualC = $documents->filter(function($item){
+            $item->carpeta->tipo == 'Manual de contratación';
+        });
+        //MODAL PLAN DE ADQUISICIONES
+        $PlanA = $documents->filter(function($item){
+            $item->carpeta->tipo == 'Plan de adquisiones';
+        });
 
         if ($vigens->count() == 0){
             $V = "Vacio";
-
-            $Boletines = Documents::where('type','=','Boletines')->get();
-            $Acuerdos = Documents::where('type','=','Acuerdos')->get();
-            $Actas = Documents::where('type','=','Actas')->get();
-            $Resoluciones = Documents::where('type','=','Resoluciones')->get();
-            $ManualC = Documents::where('type','=','Manual de contratación')->get();
-            $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
 
             return view('visitante.index', compact('V', 'Concejales', 'añoActual','Boletines','Actas','Acuerdos','Resoluciones','ManualC','PlanA'));
 
@@ -555,34 +576,6 @@ class VisitanteController extends Controller
                 $registros[] = collect(['id' => $reg->id, 'objeto' => $reg->objeto, 'nombre' => $reg->persona->nombre, 'valor' => $reg->valor, 'estado' => $reg->secretaria_e]);
             }
         }
-
-        //MODAL DE CONCEJALES
-
-        $Concejales = Concejal::all();
-
-        //MODAL DE BOLETINES
-
-        $Boletines = Documents::where('type','=','Boletines')->get();
-
-        //MODAL DE ACUERDOS
-
-        $Acuerdos = Documents::where('type','=','Acuerdos')->get();
-
-        //MODAL DE ACTAS
-
-        $Actas = Documents::where('type','=','Actas')->get();
-
-        //MODAL DE RESOLUCIONES
-
-        $Resoluciones = Documents::where('type','=','Resoluciones')->get();
-
-        //MODAL MANUAL DE CONTRATACIÓN
-
-        $ManualC = Documents::where('type','=','Manual de contratación')->get();
-
-        //MODAL PLAN DE ADQUISICIONES
-
-        $PlanA = Documents::where('type','=','Plan de adquisiones')->get();
 
         return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro','añoActual'));
 

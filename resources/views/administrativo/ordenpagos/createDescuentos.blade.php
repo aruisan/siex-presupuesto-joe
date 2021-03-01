@@ -4,7 +4,7 @@
 @stop
 @section('sidebar')
     <li>
-        <a href="{{ url('/administrativo/ordenPagos') }}" class="btn btn-success">
+        <a href="{{ url('/administrativo/ordenPagos/'.$vigencia) }}" class="btn btn-success">
             <span class="hide-menu">Ordenes de Pago</span></a>
     </li>
     <br>
@@ -131,7 +131,7 @@
                             @for($i=0;$i< count($desMun); $i++)
                                 <tr>
                                     @if( $desMun[$i]->concepto == "Otras Contribuciones" or $desMun[$i]->concepto == "Otros Descuentos")
-                                        <input type="hidden" value="{{$i + 1}}" name="idDesOther[]">
+                                        <input type="hidden" value="{{ $desMun[$i]->id }}" name="idDesOther[]">
                                         <td class="text-center">{{ $desMun[$i]->id }}</td>
                                         <td>
                                             <input type="text" style="text-align:center" placeholder="{{ $desMun[$i]->concepto}}" name="concepto[]" required>
@@ -144,12 +144,12 @@
                                         </td>
                                         <td class="text-center"><input type="button" class="borrar btn-sm btn-danger" value=" - " /></td>
                                     @else
-                                        <input type="hidden" value="{{$i + 1}}" name="idDes[]">
+                                        <input type="hidden" value="{{$desMun[$i]->id}}" name="idDes[]">
                                         <td class="text-center">{{ $desMun[$i]->id }}</td>
                                         <td class="text-center">{{ $desMun[$i]->concepto }}</td>
                                         <td class="text-center">{{ $desMun[$i]->tarifa }}%</td>
                                         <?php
-                                        $valorMulti = $ordenPago->registros->valor * $desMun[$i]->tarifa;
+                                        $valorMulti = $ordenPago->valor * $desMun[$i]->tarifa;
                                         $value = $valorMulti / 100;
                                         ?>
                                         <td class="text-center">
@@ -175,9 +175,9 @@
     <script>
         var Data = {
             @foreach($retenF as $key => $data)
-                @if($ordenPago->registros->valor >= $data->base)
+                @if($ordenPago->valor >= $data->base)
                     <?php
-                        $valorM = $ordenPago->registros->valor * $data->tarifa;
+                        $valorM = $ordenPago->valor * $data->tarifa;
                         $val = $valorM / 100;
                     ?>
                     "{{$data->id}}":["{{$data->tarifa}}","{{$data->base}}","{{$val}}"],

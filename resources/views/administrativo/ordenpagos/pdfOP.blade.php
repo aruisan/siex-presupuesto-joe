@@ -4,7 +4,7 @@
 		<div class="table-responsive br-black-1">
 			<table class="table table-borderless">
 				<tr class="text-center">
-					<td>ORDEN DE PAGO No: {{ $OrdenPago->id }}</td>
+					<td>ORDEN DE PAGO No: {{ $OrdenPago->code }}</td>
 					<td><?=$dias[$fecha->format('w')]." ".$fecha->format('d')." de ".$meses[$fecha->format('n')-1]. " del ".$fecha->format('Y')?></td>
 				</tr>
 				<tr class="text-center">
@@ -86,7 +86,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaDesc">
+			<table class="table-bordered" id="tablaDesc" style="width: 100%">
 				<thead>
 				<tr>
 					<th colspan="4" class="text-center" style="background-color: rgba(19,165,255,0.14)"> DESCUENTOS</th>
@@ -124,7 +124,7 @@
 		</div>
 		<br>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaP">
+			<table class="table-bordered" id="tablaP" style="width: 100%">
 				<thead>
 				<tr>
 					<th class="text-center" colspan="5" style="background-color: rgba(19,165,255,0.14)">PRESUPUESTO</th>
@@ -148,7 +148,7 @@
 							@endfor
 						</td>
 						<td>{{ $R->cdpRegistroValor[$i]->fontRubro->rubro->name}}</td>
-						<td>{{ $R->cdpRegistroValor[$i]->fontRubro->font->code }} - {{ $R->cdpRegistroValor[$i]->fontRubro->font->name }}</td>
+						<td>{{ $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->font->code }} - {{ $R->cdpRegistroValor[$i]->fontRubro->fontVigencia->font->name }}</td>
 						<td>{{ $OrdenPago->registros->objeto }}</td>
 						<td>$ <?php echo number_format($OrdenPago->registros->valor,0);?></td>
 					</tr>
@@ -157,7 +157,7 @@
 			</table>
 		</div>
 		<div class="table-responsive br-black-1">
-			<table class="table table-bordered" id="tablaP">
+			<table class="table-bordered" id="tablaP" style="width: 100%">
 				<thead>
 				<tr>
 					<th class="text-center" colspan="5" style="background-color: rgba(19,165,255,0.14)">CONTABILIZACIÓN</th>

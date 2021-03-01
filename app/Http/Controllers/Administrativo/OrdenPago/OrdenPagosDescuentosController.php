@@ -33,6 +33,7 @@ class OrdenPagosDescuentosController extends Controller
     {
         $retenF = RetencionFuente::all();
         $ordenPago = OrdenPagos::findOrFail($id);
+        $vigencia = $ordenPago->registros->cdpsRegistro[0]->cdp->vigencia_id;
         if ($ordenPago->rubros->count() == 0){
             Session::flash('warning',' Se debe realizar primero la asignación del monto antes de realizar los descuentos.');
             return redirect('administrativo/ordenPagos/monto/create/'.$ordenPago->id);
@@ -42,7 +43,7 @@ class OrdenPagosDescuentosController extends Controller
             } else {
                 $desMun = DescMunicipales::where('id','!=','4')->get();
             }
-            return view('administrativo.ordenpagos.createDescuentos', compact('ordenPago','retenF','desMun'));
+            return view('administrativo.ordenpagos.createDescuentos', compact('ordenPago','retenF','desMun','vigencia'));
         }
     }
 

@@ -1,14 +1,35 @@
+<li class="dropdown ">
+   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
+   SECRETARIA
+   <span class="caret"></span>
+   </a>
 
+   <ul class="dropdown-menu">
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Correspondencia</a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{url('/administrativo/muebles/create')}}">Entrada</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/inventario/create')}}">Salida</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Boletines')}}">Boletines</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Acuerdos')}}">Acuerdos</a></li>
+   </ul>
+</li>
 <li class="page-scroll ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
-    SECRETARIA
+    ARCHIVOS
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Correspondencia</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/archivo')}}">Archivo</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Acuerdos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Archivos')}}">Archivos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Contratos')}}">Contratos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Hojas de Vida')}}">Hojas de Vida</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Expedientes')}}">Expedientes</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Manuales')}}">Manuales</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Planes')}}">Planes</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Publicaciones')}}">Publicaciones</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Otros')}}">Otros</a></li>
    </ul>
 </li>
 {{-- 
@@ -28,7 +49,6 @@
     CONTRATACIÓN
    </a>
 </li>
-
 <li >
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/presupuesto') }}">
     PRESUPUESTO
@@ -69,6 +89,35 @@
    CONCEJALES
    </a>
 </li>
+<li class="dropdown ">
+   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
+   ALMACEN
+   <span class="caret"></span>
+   </a>
+
+   <ul class="dropdown-menu">
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/muebles')}}">Bienes, Muebles e Inmuebles</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobantes de Entrada </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{url('/administrativo/muebles/create')}}">Bienes, Muebles e Inmuebles</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/inventario/create')}}">Inventario</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/salida/create')}}">Comprobante de Salida</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobantes</a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="#">Baja de Inmueble</a></li>
+            <li><a class="item-menu" href="#">Asignación</a></li>
+            <li><a class="item-menu" href="#">Devolución</a></li>
+            <li><a class="item-menu" href="#">Corrección</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/productos')}}">Productos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/inventario')}}">Inventario</a></li>
+   </ul>
+</li>
 
 <li class="dropdown ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
@@ -77,8 +126,6 @@
    </a>
 
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
-      
       {{-- <li class="dropdown-submenu">
          <a class="dropdown-item item-menu" href="#" >PUC</a>
          <ul class="dropdown-menu">
@@ -87,10 +134,21 @@
             <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc/pucIndexAct')}}">PUC de vigencia</a></li>
          </ul>
       </li> --}}
-     
+      <li><a class="item-menu" tabindex="-1" href="#">Comprobantes de Contabilidad</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Estado de Resultados</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">Notas al Balance</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/config')}}">Configuración</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Balances </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="#">Prueba</a></li>
+            <li><a class="item-menu" href="#">Terceros</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">General</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="#">Libros</a></li>
+      <li><a class="item-menu" tabindex="-1" href="#">NICP</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/puc')}}">PUC</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/informes/lvl/1')}}">Informes</a></li>
    </ul>
 </li>
 
@@ -100,11 +158,23 @@
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="#">Comprobante de Ingresos</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">Comprobante de Egresos</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobante de Ingresos </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{ url('/administrativo/CIngresos/4') }}">2020</a></li>
+         </ul>
+      </li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Comprobante de Egresos </a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{ url('/administrativo/ordenPagos/3') }}">2020</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/retefuente')}}">Retención en la Fuente</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{url('/administrativo/contabilidad/impumuni')}}">Impuestos Municipales</a></li>
       <li><a class="item-menu" tabindex="-1" href="#">Informes</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">Bancos</a></li>
-      <li><a class="item-menu" tabindex="-1" href="#">PAC</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/bancos') }}">Bancos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/pac') }}">PAC</a></li>
    </ul>
 </li>
 

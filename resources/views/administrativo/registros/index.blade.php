@@ -64,7 +64,7 @@
                         <tbody>
                         @foreach ($registros as $data)
                             <tr>
-                                <td class="text-center">{{ $data['id'] }}</td>
+                                <td class="text-center">{{ $data['code'] }}</td>
                                 <td class="text-center">{{ $data['objeto'] }}</td>
                                 <td class="text-center">{{ $data['nombre'] }}</td>
                                 <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
@@ -128,7 +128,7 @@
                         <tbody>
                         @foreach ($registrosHistorico as $data)
                             <tr>
-                                <td class="text-center">{{ $data['id'] }}</td>
+                                <td class="text-center">{{ $data['code'] }}</td>
                                 <td class="text-center">{{ $data['objeto'] }}</td>
                                 <td class="text-center">{{ $data['nombre'] }}</td>
                                 <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>

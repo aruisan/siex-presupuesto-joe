@@ -24,7 +24,6 @@
         <div class="row justify-content-center">
             <br>
             <h2><center>Creación de Rubros para el PUC</center></h2><br>
-            <hr>
         		<form action="{{ url('/administrativo/contabilidad/puc/rubro') }}" method="POST"  class="form">
                     {{ csrf_field() }}
 	        			<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{ $vigencia_id }}">
@@ -43,7 +42,7 @@
 		        				<th class="text-center"><i class="fa fa-trash-o"></i></th>
 		        			</thead>
 		        			<tbody>
-		        				@foreach($vigencia->rubros as $dato)
+		        				@foreach($rubros as $dato)
 		        				<tr>
 		        					<td>
 		        						<input type="hidden" name="rubro_id[]" value="{{ $dato->id }}">
@@ -74,38 +73,13 @@
 		        					<td class="text-center" style="vertical-align:middle;"><button type="button" class="btn-sm btn-danger borrar" v-on:click.prevent="eliminarDatos({{ $dato->id }})" ><i class="fa fa-trash-o"></i></button></td>
 		        				</tr>
 		        				@endforeach
-								<tr>
-		        					<td>
-		        						<select name="register_id[]" class="form-control">
-		        							@foreach($registers as $register)
-		        								<option value="{{ $register->id }}">
-												@foreach($codigos as $codigo)
-													@if($codigo['id'] == $register->id)
-														{{$codigo['codigo'] }}
-													@endif
-												@endforeach
-		        								 - {{ $register->name }}</option>
-		        							@endforeach
-		        						</select>
-		        					</td>
-		        					<td><input type="hidden" name="rubro_id[]"><input type="text" pattern=".{4,4}" title="Recuerde que el codigo debe ser de 4 cifras" name="code[]" required></td>
-		        					<td><input type="text" name="nombre[]" required></td>
-		        					<td><input type="number" name="codigoNIPS[]"></td>
-		        					<td><input type="text" name="nombreNIPS[]"></td>
-		        					<td><input type="number" name="naturaleza[]" required></td>
-		        					<td>
-										<select name="tercero_id[]" class="form-control">
-											@foreach($terceros as $tercero)
-												<option value="{{ $tercero->id }}">{{ $tercero->nombre }}</option>
-											@endforeach
-										</select>
-									</td>
-									<td style="vertical-align:middle;"><input type="button" class="borrar btn-sm btn-danger" value="-" /></td>
-		        				</tr>
 		        			</tbody>
 	        			</table>
+							<center>
+								{{ $rubros->links() }}
+							</center>
 	        			</div><br><center>
-        			<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Fila</button>
+        			<button type="button" v-on:click.prevent="nuevaFila" class="btn btn-success">Nueva Cuenta</button>
         			<button type="submit" class="btn btn-primary">Guardar</button>
 					</center>
         		</form>
@@ -120,6 +94,8 @@
         $('#tabla').DataTable( {
             responsive: true,
 			ordering: false,
+			"paging":   false,
+			"info":     false,
              "searching": false,
             "oLanguage": {
                 "sZeroRecords": "", 

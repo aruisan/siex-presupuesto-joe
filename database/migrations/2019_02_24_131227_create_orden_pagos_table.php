@@ -16,6 +16,7 @@ class CreateOrdenPagosTable extends Migration
         Schema::create('orden_pagos', function (Blueprint $table) {
 
             $table->increments('id');
+            $table->integer('code');
 
             $table->text('nombre');
             $table->integer('valor');
