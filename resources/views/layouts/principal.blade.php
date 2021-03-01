@@ -190,7 +190,7 @@ background: rgb(149, 8, 8) !important;
         <div class="lema">
             <marquee class="col-12">
                 <h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: Léri Aniseto Henry Taylor  - Primer Vicepresidente: Javier Rafael Rodriguez Archbold  - Segundo Vicepresidente: Evis Livingston Howard
+                    Mesa Directiva: Presidente: Arturo Newball Britton  - Primer Vicepresidente: Javier Rafael Rodriguez Archbold  - Segundo Vicepresidente: Evis Livingston Howard
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     Mesa Directiva: Presidente: Léri Aniseto Henry Taylor  - Primer Vicepresidente: Javier Rafael Rodriguez Archbold  - Segundo Vicepresidente: Evis Livingston Howard
                 </h4>
