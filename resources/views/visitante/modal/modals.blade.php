@@ -10,7 +10,7 @@
              </div>
              <div class="modal-body">
                  <li>Presidente: <b></b> </li> 
-                 Léri Aniseto Henry Taylor
+                 Arturo Newball Britton
                  <li>Vicepresidente Primero: <b></b> </li>
                  Javier Rafael Rodriguez Archbold
                  <li>Vicepresidenta Segunda: <b> </b> </li>
