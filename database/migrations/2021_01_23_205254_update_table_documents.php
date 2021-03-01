@@ -16,8 +16,6 @@ class UpdateTableDocuments extends Migration
         Schema::table('documents', function (Blueprint $table) {
             $table->integer('carpeta_id')->after('tercero_id');
             $table->dropColumn('type');
-            $table->dropColumn('estado');
-            $table->enum('estado', ['0','1','2','3'])->default('1')->after('carpeta_id');
         });
     }
 
