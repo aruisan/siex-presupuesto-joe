@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 @section('titulo')
-    Boletines
+    {{$tipo}}
 @stop
 @section('sidebar')
     <li> <a data-toggle="modal" data-target="#modal-busquedaBoletines" class="btn btn-primary hidden"><i class="fa fa-search"></i><span class="hide-menu">&nbsp; Buscar</span></a></li>
@@ -9,13 +9,13 @@
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">
             <strong>
-                <h4><b>Boletines</b></h4>
+                <h4><b>{{$tipo}}</b></h4>
             </strong>
         </div>
             <br>
                 <div class="table-responsive">
                     <br>
-                    @if(count($Boletines) > 0)
+                    @if(count($carpetas) > 0)
                     <table class="table table-hover table-bordered" align="100%" id="tabla_corrE">
                         <thead>
                         <tr>
@@ -29,13 +29,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($Boletines as $key => $data)
+                        @foreach ($carpetas as $key => $data)
                             <tr class="text-center">
                                 <td>{{ $data->id }}</td>
                                 <td>
-                                    <a href="{{route('carpetas.show', $data->id)}}" class="btn btn-link">
+                                    <button class="btn btn-link" onclick="show('{{route('carpetas.show', $data->id)}}')">
                                         {{ $data->nombre }}
-                                    </a>
+                                    </button>
                                 </td>
                                 <td>{{ $data->ubicacion_fisica }}</td>
                                 <td>{{ $data->created_at }}</td>
@@ -43,7 +43,7 @@
                                 <td>{{ $data->owner->name }}</td>
                                 <td>
                                     <button class="btn-sm btn-primary" 
-                                            onclick="editar('{{route('carpetas.edit', $data->id)}}', 'Boletines')">
+                                            onclick="editar('{{route('carpetas.edit', $data->id)}}', '{{$tipo}}')">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button class="btn-sm btn-primary" onclick="borrar('delete{{$data->id}}')">
@@ -61,14 +61,14 @@
                     @else
                         <div class="col-md-12 align-self-center">
                             <div class="alert alert-danger text-center">
-                                Actualmente no hay boletines almacenados.
+                                Actualmente no hay {{$tipo}} almacenados.
                             </div>
                         </div>
                     @endif
                 </div>
                 <center>
-                    <button class="btn btn-primary" onclick="nuevo('Boletines')">
-                        <i class="fa fa-plus"></i>&nbsp; Nuevo Boletin
+                    <button class="btn btn-primary" onclick="nuevo('{{$tipo}}')">
+                        <i class="fa fa-plus"></i>&nbsp; Nuevo {{$tipo}}
                     </button>
                 </center>
             </div>
@@ -89,6 +89,10 @@
         window.location.href = url;
     }
 
+    function show(url){
+        window.location.href = url;
+    }
+
     function borrar(formId){
         $(`#${formId}`).submit();
     }
@@ -96,57 +100,57 @@
 
 
                $('#tabla_corrE').DataTable({
-	language: {
-			  "lengthMenu": "Mostrar _MENU_ registros",
-			  "zeroRecords": "No se encontraron resultados",
-			  "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			  "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-			  "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-			  "sSearch": "Buscar:",
-			  "oPaginate": {
-				  "sFirst": "Primero",
-				  "sLast":"Último",
-				  "sNext":"Siguiente",
-				  "sPrevious": "Anterior"
-			   },
-			   "sProcessing":"Procesando...",
-		  },
-	  //para usar los botones
-	  "pageLength": 5,   
-	  responsive: "true",
-	  dom: 'Bfrtilp',       
-	  buttons:[ 
-			  {
-			  extend:    'copyHtml5',
-			  text:      '<i class="fa fa-clone"></i> ',
-			  titleAttr: 'Copiar',
-			  className: 'btn btn-primary'
-		  },
-		  {
-			  extend:    'excelHtml5',
-			  text:      '<i class="fa fa-file-excel-o"></i> ',
-			  titleAttr: 'Exportar a Excel',
-			  className: 'btn btn-primary'
-		  },
-		  {
-			  extend:    'pdfHtml5',
-			  text:      '<i class="fa fa-file-pdf-o"></i> ',
-			  titleAttr: 'Exportar a PDF',     
-			  message : 'SIEX-Providencia',
-			  header :true,
-			  orientation : 'landscape',
-			  pageSize: 'LEGAL',
-			  className: 'btn btn-primary',
-			   },
-		  {
-			  extend:    'print',
-			  text:      '<i class="fa fa-print"></i> ',
-			  titleAttr: 'Imprimir',
-			  className: 'btn btn-primary'
-		  },
-	  ]	             
+  language: {
+        "lengthMenu": "Mostrar _MENU_ registros",
+        "zeroRecords": "No se encontraron resultados",
+        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sSearch": "Buscar:",
+        "oPaginate": {
+          "sFirst": "Primero",
+          "sLast":"Último",
+          "sNext":"Siguiente",
+          "sPrevious": "Anterior"
+         },
+         "sProcessing":"Procesando...",
+      },
+    //para usar los botones
+    "pageLength": 5,   
+    responsive: "true",
+    dom: 'Bfrtilp',       
+    buttons:[ 
+        {
+        extend:    'copyHtml5',
+        text:      '<i class="fa fa-clone"></i> ',
+        titleAttr: 'Copiar',
+        className: 'btn btn-primary'
+      },
+      {
+        extend:    'excelHtml5',
+        text:      '<i class="fa fa-file-excel-o"></i> ',
+        titleAttr: 'Exportar a Excel',
+        className: 'btn btn-primary'
+      },
+      {
+        extend:    'pdfHtml5',
+        text:      '<i class="fa fa-file-pdf-o"></i> ',
+        titleAttr: 'Exportar a PDF',     
+        message : 'SIEX-Providencia',
+        header :true,
+        orientation : 'landscape',
+        pageSize: 'LEGAL',
+        className: 'btn btn-primary',
+         },
+      {
+        extend:    'print',
+        text:      '<i class="fa fa-print"></i> ',
+        titleAttr: 'Imprimir',
+        className: 'btn btn-primary'
+      },
+    ]              
 
-		 });
+     });
 
     </script>
 @stop

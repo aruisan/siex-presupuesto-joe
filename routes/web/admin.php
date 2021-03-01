@@ -46,7 +46,6 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::get('notificaciones/{id}', 'NotificationController@read')->name('notifications.read');
 		Route::delete('notificaciones/{id}', 'NotificationController@destroy')->name('notifications.destroy');
 		Route::get('notificaciones-visibilidad/{id}', 'NotificationController@visibilidad')->name('notification.visibilidad');
-
 		
 		Route::resource('terceros', 'Administrativo\TercerosController');
 		Route::resource('contractual', 'Administrativo\Contractual\ContractualController');
@@ -55,40 +54,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 		Route::resource('comiteconciliacion', 'Judicial\ComiteConsiliacionController');
 		Route::resource('comparendos', 'Convivencia\ComparendoController');
 
-        //RUTAS BOLETINES
-
-        Route::Resource('boletines','Administrativo\GestionDocumental\BoletinesController');
-        Route::get('/boletines/create','Administrativo\GestionDocumental\BoletinesController@create');
-
-
-        //RUTAS ARCHIVO
-
-        Route::get('/archivo/create','Administrativo\GestionDocumental\ArchivoController@create');
-        Route::Resource('archivo','Administrativo\GestionDocumental\ArchivoController');
-        Route::Resource('/archivo/manual','Administrativo\GestionDocumental\ManualContratController');
-        Route::get('/archivo/manual/create','Administrativo\GestionDocumental\ManualContratController@create');
-        Route::Resource('/archivo/plan','Administrativo\GestionDocumental\PlanAdquiController');
-        Route::get('/archivo/plan/create','Administrativo\GestionDocumental\PlanAdquiController@create');
-
-
-        //RUTAS CORRESPONDENCIA
-		Route::get('correspondencia/create/{id}','Administrativo\GestionDocumental\CorrespondenciaController@create');
-		Route::resource('correspondencia', 'Administrativo\GestionDocumental\CorrespondenciaController');
-
-		//RUTAS ACUERDOS
-
-        Route::Resource('acuerdos','Administrativo\GestionDocumental\Acuerdos\AcuerdosController');
-        Route::get('/acuerdos/create','Administrativo\GestionDocumental\Acuerdos\AcuerdosController@create');
-        Route::Resource('/acuerdos/proyectos','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController');
-        Route::get('/acuerdos/proyectos/create','Administrativo\GestionDocumental\Acuerdos\ProyectosAcuerdoController@create');
-        Route::Resource('/acuerdos/actas','Administrativo\GestionDocumental\Acuerdos\ActasController');
-        Route::get('/acuerdos/actas/create','Administrativo\GestionDocumental\Acuerdos\ActasController@create');
-        Route::Resource('/acuerdos/resoluciones','Administrativo\GestionDocumental\Acuerdos\ResolucionesController');
-        Route::get('/acuerdos/resoluciones/create','Administrativo\GestionDocumental\Acuerdos\ResolucionesController@create');
-
-
         //RUTAS COMISIONES
-
         Route::get('/comision/{id}/','Administrativo\GestionDocumental\Comisiones\ComisionesController@index');
 
         //RUTAS alcaldia

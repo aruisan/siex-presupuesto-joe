@@ -1,13 +1,35 @@
+<li class="dropdown ">
+   <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
+   SECRETARIA
+   <span class="caret"></span>
+   </a>
 
+   <ul class="dropdown-menu">
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Correspondencia</a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{url('/administrativo/muebles/create')}}">Entrada</a></li>
+            <li><a class="item-menu" href="{{url('/administrativo/inventario/create')}}">Salida</a></li>
+         </ul>
+      </li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Boletines')}}">Boletines</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Acuerdos')}}">Acuerdos</a></li>
+   </ul>
+</li>
 <li class="page-scroll ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
-    SECRETARIA
+    ARCHIVOS
    <span class="caret"></span>
    </a>
    <ul class="dropdown-menu">
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/correspondencia')}}">Correspondencia</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/boletines')}}">Boletines</a></li>
-      <li><a class="item-menu" tabindex="-1" href="{{url('/dashboard/acuerdos')}}">Acuerdos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Archivos')}}">Archivos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Contratos')}}">Contratos</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Hojas de Vida')}}">Hojas de Vida</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Expedientes')}}">Expedientes</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Manuales')}}">Manuales</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Planes')}}">Planes</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Publicaciones')}}">Publicaciones</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{route('carpetas.listar', 'Otros')}}">Otros</a></li>
    </ul>
 </li>
 {{-- 
@@ -22,10 +44,6 @@
    </ul>
 </li>
 --}}
-
-<li>
-   <a class="btn btn-default btn-sm item-menu" href="{{url('/dashboard/archivo')}}">ARCHIVO</a>
-</li>
 <li >
    <a class="btn btn-default btn-sm item-menu" href="{{ url('/contractual') }}">
     CONTRATACIÓN
