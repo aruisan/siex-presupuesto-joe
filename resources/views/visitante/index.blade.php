@@ -16,8 +16,7 @@
                     REPUBLICA DE COLOMBIA
                     <br>
                     <br>
-                    <font size="5" face="Matura MT Script Capitals">
-                        Un Concejo Moderno al Servicio de las Islas</font>
+                    <font size="5" face="Matura MT Script Capitals">{!!Instituto::lema()!!}</font>
                 </b>
             </h4>
         </div>
