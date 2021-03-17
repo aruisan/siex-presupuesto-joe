@@ -245,6 +245,7 @@ return [
 
         //Imagen
         'Image' => Intervention\Image\Facades\Image::class,
+        'Instituto' => App\Helpers\InstitutoHelper::class,
 
 
     ],
