@@ -65,7 +65,7 @@
                 @foreach($carpeta->documentos as $documento)
                     <tr>
                         <td>
-                            <a href="{{$documento->resource->ruta}}" target="blank" >
+                            <a href="{{Storage::url($documento->resource->ruta)}}" target="blank" >
                                 {{$documento->name}}
                             </a>
                         </td>
