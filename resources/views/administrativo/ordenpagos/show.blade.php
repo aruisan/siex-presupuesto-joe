@@ -42,7 +42,7 @@
                                     <div class="form-group">
                                         <label class="control-label text-right col-md-4" for="valor">Registro:</label>
                                         <div class="col-lg-6">
-                                            <input type="text" disabled class="form-control" style="text-align:center" name="valor" value="{{ $OrdenPago->registros->objeto }}">
+                                            <input type="text" disabled class="form-control" style="text-align:center" name="valor" value="#{{$OrdenPago->registros->code}} - {{ $OrdenPago->registros->objeto }}">
                                         </div>
                                     </div>
                                 </div>

@@ -242,7 +242,11 @@
                                     <a href="{{ url('administrativo/cdp/'.$vigencia_id.'/'.$cdp->id) }}" title="Ver CDP" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$vigencia_id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    @if($cdp->jefe_e == "2")
+                                        <span class="badge badge-pill badge-danger">Anulado</span>
+                                    @else
+                                        <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$vigencia_id) }}" title="File" class="btn-sm btn-primary"><i class="fa fa-file-pdf-o"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

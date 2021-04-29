@@ -99,7 +99,7 @@
                         @foreach($pagos as $pago)
                             <tr class="text-center">
                                 <td>{{ $pago['info']->code }}</td>
-                                <td><a href="{{ url('administrativo/ordenPagos/show/'.$pago['info']->orden_pago_id) }}" title="Ver Orden de Pago" class="btn-sm btn-success">Ver Orden de Pago</a></td>
+                                <td><a href="{{ url('administrativo/ordenPagos/show/'.$pago['info']->orden_pago_id) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a></td>
                                 <td>{{ $pago['info']->concepto }}</td>
                                 <td>$<?php echo number_format($pago['info']->valor,0) ?></td>
                                 <td>{{ $pago['info']->persona->nombre }}</td>

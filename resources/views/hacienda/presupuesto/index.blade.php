@@ -520,6 +520,8 @@
                                             <td class="text-center">
                                                 @if($cdp->secretaria_e == 3 and $cdp->jefe_e == 3)
                                                     <a href="{{ url('administrativo/cdp/pdf/'.$cdp['id'].'/'.$V) }}" target="_blank" title="certificado" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                                @elseif($cdp['jefe_e'] == "2")
+                                                    <span class="badge badge-pill badge-danger">Anulado</span>
                                                 @endif
                                             </td>
                                         </tr>
