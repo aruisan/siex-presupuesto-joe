@@ -162,6 +162,8 @@
                                         @endforeach
                                         @if($codigo['valor'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
+                                        @elseif($codigo['valor'] == 0 and $codigo['id_rubro'] != "")
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                         @endif
                                     <!-- ADICIÓN -->
                                         @foreach($valoresFinAdd as $valorFinAdd)
@@ -464,7 +466,7 @@
                             @if(isset($cdps))
                                 <div class="row">
                                      <div style="position:left;">
-                                <a href="{{ url('administrativo/cdp/'.$V) }}" class="btn btn-primary m-b-12" style="position:left;">Otras acciones de CDP's</a>
+                                <a href="{{ url('administrativo/cdp/'.$V) }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
                                 <br>
                                  </div>
                                   </div>
@@ -545,7 +547,6 @@
                     <div id="tabReg" class=" tab-pane fade"><br>
                         <div class="table-responsive">
                             @if(count($registros) >= 1)
-                                <br>
                                 <a href="{{ url('administrativo/registros/'.$V) }}" class="btn btn-primary btn-block m-b-12">Registros</a>
                                 <br>
                                 <table class="table table-bordered" id="tabla_Registros">

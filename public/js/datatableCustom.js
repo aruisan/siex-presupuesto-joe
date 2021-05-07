@@ -18,8 +18,7 @@ $(document).ready(function() {
 			   "sProcessing":"Procesando...",
 		  },
 	  //para usar los botones
-	  
-	  "pageLength": 5,   
+
 	  responsive: "true",
 	   "ordering": false,
 	  dom: 'Bfrtilp',       
