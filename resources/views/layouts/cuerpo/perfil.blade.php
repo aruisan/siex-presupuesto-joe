@@ -1,34 +1,40 @@
-
-
 <button class="btn btn-raised  dropdown-toggle item-perfil" type="button" data-toggle="dropdown">
-    <img class="img-circle-mn"    src="{{Storage::url(Auth::user()->avatar)}}">
+    @if(Auth::user()->avatar == "public/avatar/default.png")
+        <img class="img-circle-mn" src="{{ asset('/img/user.png') }}">
+    @else
+        <img class="img-circle-mn" src="{{Storage::url(Auth::user()->avatar)}}">
+    @endif
     {!! str_limit(Auth::user()->name, 10) !!}
     <span class="caret"></span>
 </button>
-
-<ul class="dropdown-menu pull-left item-perfil">
+<ul class="dropdown-menu pull-left">
     <form action="{{ route('user-avatar')}}" id="avatarForm" enctype="multipart/form-data" method="POST">
         {{ csrf_field() }}
         <input type="file" style="display: none" name="avatar" id="avatarInput" accept="image/*">
     </form>
     <li >
         <div class="avatarThumbnail">
-            <img class="img-circle img-responsive text-center " src="{{Storage::url(Auth::user()->avatar)}}">
-            <div class="avatarCaption"><br><br>
+            @if(Auth::user()->avatar == "public/avatar/default.png")
+                <img class="img-circle img-responsive text-center " src="{{ asset('/img/user.png') }}">
+            @else
+                <img class="img-circle img-responsive text-center " src="{{Storage::url(Auth::user()->avatar)}}">
+            @endif
+            <div class="avatarCaption"><br>
                 <button class="btn btn-primary btn-sm" id="avatarImagenDefault"><i class="fa fa-cloud-upload"></i></button>
             </div>
         </div>
     </li>
-    <br>
-   <li class="item-perfil" style="margin-left:20px;">
-        <i class="fa fa-suitcase" aria-hidden="true"></i>
-       <label> Tipo:</label>
-        @foreach(Auth::user()->roles as $rol)
-            {{ $rol->name }}
-        @endforeach
+   <li class="item-perfil">
+       <a class="item-perfil">
+            <i class="fa fa-suitcase" aria-hidden="true"></i>
+           <label> Tipo:</label>
+            @foreach(Auth::user()->roles as $rol)
+                {{ $rol->name }}
+            @endforeach
+       </a>
     </li>
     <li class="item-perfil">
-        <a class="item-perfil" href="#" data-toggle="modal" data-target="#cambiarPasword">
+        <a class="item-perfil" href="" data-toggle="modal" data-target="#cambiarPasword">
             <i class="fa fa-unlock-alt" aria-hidden="true"></i>
             Cambiar clave 
         </a>
