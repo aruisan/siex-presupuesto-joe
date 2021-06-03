@@ -238,7 +238,8 @@ class RegistrosController extends Controller
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        return view('administrativo.registros.show', compact('registro','rol','cdps','vigencia'));
+        $ordenesPago = $registro->ordenPagos;
+        return view('administrativo.registros.show', compact('registro','rol','cdps','vigencia','ordenesPago'));
     }
 
     public function update(Request $request, $id)

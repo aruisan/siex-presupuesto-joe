@@ -310,6 +310,52 @@
                         @endif
                     @endif
                 </div>
+                @if($ordenesPago->count() >= 1)
+                    <hr><center><h3>Ordenes de Pago del Registro </h3></center><br>
+                    <table class="table table-bordered" id="tabla_OrdenPago">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Id</th>
+                            <th class="text-center">Concepto</th>
+                            <th class="text-center">Valor</th>
+                            <th class="text-center">Tercero</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center"><i class="fa fa-eye"></i></th>
+                            <th class="text-center">Archivo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($ordenesPago as $key => $data)
+                            <tr>
+                                <td class="text-center">{{ $data['code'] }}</td>
+                                <td class="text-center">{{ $data['nombre'] }}</td>
+                                <td class="text-center">$<?php echo number_format($data['valor'],0) ?></td>
+                                <td class="text-center">{{ $data->registros->persona->nombre }}</td>
+                                <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data['estado'] == "0")
+                                            Pendiente
+                                        @elseif($data['estado'] == "1")
+                                            Pagado
+                                        @else
+                                            Anulado
+                                        @endif
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ url('administrativo/ordenPagos/show',$data['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ url('administrativo/ordenPagos/pdf',$data['id']) }}" target="_blank" title="Orden de Pago" class="btn-sm btn-danger"><i class="fa fa-file-pdf-o"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <br>
+                @else
+                    <br><div class="alert alert-danger"><center>El Registro no tiene ordenes de pago asignadas</center></div><br>
+                @endif
             </div>
             <div id="valor" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">
                 <br>
@@ -352,6 +398,12 @@
         }
 
         $(document).ready(function() {
+
+            $('#tabla_OrdenPago').DataTable( {
+                responsive: true,
+                "searching": false,
+                "ordering" : false
+            } );
 
             $('#tabla_rubrosCdp').DataTable( {
                 responsive: true,
