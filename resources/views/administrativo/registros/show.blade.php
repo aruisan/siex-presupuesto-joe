@@ -61,6 +61,18 @@
                             $<?php echo number_format($registro->val_total,0) ?>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                        <center>
+                            <h4><b>Saldo del Registro</b></h4>
+                            <h5>Dinero Disponible del Registro</h5>
+                        </center>
+                        <div class="text-center">
+                            $<?php echo number_format($registro->saldo,0) ?>
+                        </div>
+                        <br>
+                    </div>
                 </div>
                 <div class="form-validation">
                     <div class="row">
