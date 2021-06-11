@@ -344,7 +344,7 @@
                                     </center>
                                 </form>
                             </div>
-                            @if($cdp->jefe_e == 3)
+                            @if($cdp->jefe_e == 3 and $cdp->cdpsRegistro->count() >= 1)
                                 <br><br>
                                 <hr>
                                 <center>
@@ -397,8 +397,10 @@
                                         </tbody>
                                     </table>
                                 </div>
+                            @else
+                                <br><div class="alert alert-danger"><center>El CDP no tiene registros asignados</center></div><br>
                             @endif
-                            @if($cdp->jefe_e == "3" and $cdp->secretaria_e == "3")
+                            @if($cdp->jefe_e == "3" and $cdp->secretaria_e == "3" and $cdp->saldo == $cdp->valor and $cdp->cdpsRegistro->count() == 0)
 
                                 <form action="{{url('/administrativo/cdp/'.$cdp->id.'/anular/'.$cdp->vigencia_id)}}" method="POST" class="form">
                                     {{method_field('POST')}}
