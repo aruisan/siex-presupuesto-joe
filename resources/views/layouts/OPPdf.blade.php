@@ -80,7 +80,8 @@
 							<td>
 								<center>
 									_____________________ <br>
-									Léri Aniseto Henry Taylor<br>
+									<!-- Presidente 2020 Léri Aniseto Henry Taylor  -->
+									Arturo Newball Britton<br>
 									Presidente
 								</center>
 							</td>
