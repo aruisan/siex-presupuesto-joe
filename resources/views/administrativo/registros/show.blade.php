@@ -166,12 +166,16 @@
                                     @php($cdpsRegistroData = $registro->cdpsRegistro[$i] )
                                     <tr>
                                         <td class="text-center">
-                                            <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
+                                            @if($registro->secretaria_e != 2)
+                                                <button type="button" class="btn-sm btn-success" onclick="ver('fuente{{$i}}')" ><i class="fa fa-arrow-down"></i></button>
+                                            @endif
                                         </td>
                                         <td class="text-center">
                                             <div class="col-lg-6">
                                                 <h4>
-                                                    <b>CDP : {{ $cdpsRegistroData->cdp->name }}</b>
+                                                    <b>CDP :
+                                                        <a href="{{ url('administrativo/cdp/'.$cdpsRegistroData->cdp->vigencia_id.'/'.$cdpsRegistroData->cdp->id) }}" title="Ver CDP">{{ $cdpsRegistroData->cdp->name }}</a>
+                                                        </b>
                                                 </h4>
                                             </div>
                                             <div class="col-lg-6">
@@ -268,7 +272,7 @@
                                                     $0.00
                                                 @endif
                                             </b><br>&nbsp;<br>
-                                            @if($rol == 2 and $registro->secretaria_e != 3)
+                                            @if($rol == 2 and $registro->secretaria_e != 3 and $registro->secretaria_e != 2)
                                                 @if($cdpsRegistroData->cdpRegistroValor->count() > 0)
                                                     <b>Liberar Dinero</b>
                                                     <br>
@@ -281,7 +285,7 @@
                                 @endfor
                                 </tbody>
                             </table>
-                            @if($registro->secretaria_e != 3)
+                            @if($registro->secretaria_e != 3 and $registro->secretaria_e != 2)
                                 <center>
                                     <div class="row">
                                         <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -297,7 +301,7 @@
                             @endif
                             <br>
                             <center>
-                                @if($rol == 2 and $registro->secretaria_e != 3)
+                                @if($rol == 2 and $registro->secretaria_e != 3 and $registro->secretaria_e != 2)
                                     @if($registro->cdpsRegistro->count() == 0)
                                         <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
                                     @endif
@@ -365,8 +369,19 @@
                         </tbody>
                     </table>
                     <br>
-                @else
+                @elseif($registro->secretaria_e == 3)
                     <br><div class="alert alert-danger"><center>El Registro no tiene ordenes de pago asignadas</center></div><br>
+                @elseif($registro->secretaria_e == 2)
+                    <br><div class="alert alert-danger"><center>El Registro ha sido anulado</center></div><br>
+                @endif
+                @if($ordenesPago->count() == 0 and $rol == 2 and $registro->secretaria_e == 3)
+                    <form action="{{url('/administrativo/registros/'.$registro->id.'/anular')}}" method="POST" class="form">
+                        {{method_field('POST')}}
+                        {{ csrf_field() }}
+                        <div class="row text-center">
+                            <button class="btn btn-success text-center" type="submit" title="Al anular el Registro se retorna el dinero al CDP">Anular Registro</button>
+                        </div>
+                    </form>
                 @endif
             </div>
             <div id="valor" class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2 tab-pane">

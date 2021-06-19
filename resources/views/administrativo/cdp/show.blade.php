@@ -383,7 +383,7 @@
                                                     </span>
                                                 </td>
                                                 <td>$ <?php echo number_format($data->registro->valor,0);?>.00</td>
-                                                <td>$ <?php echo number_format( $data->registro->valor_disp,0);?>.00</td>
+                                                <td>$ <?php echo number_format( $data->registro->saldo,0);?>.00</td>
                                                 <td class="text-center">
                                                     <a href="{{ url('administrativo/registros/show',$data->registro_id) }}" title="Ver Registro" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
                                                 </td>
@@ -397,7 +397,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            @else
+                            @elseif($cdp->jefe_e != "2")
                                 <br><div class="alert alert-danger"><center>El CDP no tiene registros asignados</center></div><br>
                             @endif
                             @if($cdp->jefe_e == "3" and $cdp->secretaria_e == "3" and $cdp->saldo == $cdp->valor and $cdp->cdpsRegistro->count() == 0)

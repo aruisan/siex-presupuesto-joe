@@ -39,13 +39,13 @@ class RegistrosController extends Controller
         foreach ($roles as $role){
             $rol= $role->id;
         }
-        $regT = Registro::where('secretaria_e','!=','3')->orderBy('id','DESC')->get();
+        $regT = Registro::where('secretaria_e','0')->orderBy('id','DESC')->get();
         foreach ($regT as $dataT){
             if ($dataT->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
                 $registros[] = collect(['id' => $dataT->id, 'code' => $dataT->code , 'objeto' => $dataT->objeto, 'nombre' => $dataT->persona->nombre, 'valor' => $dataT->val_total, 'saldo' => $dataT->saldo, 'estado' => $dataT->secretaria_e]);
             }
         }
-        $regH = Registro::where('secretaria_e','3')->orderBy('id','DESC')->get();
+        $regH = Registro::where('secretaria_e','!=','0')->orderBy('id','DESC')->get();
         foreach ($regH as $data){
             if ($data->cdpsRegistro[0]->cdp->vigencia_id == $vigencia){
                 $registrosHistorico[] = collect(['id' => $data->id, 'code' => $data->code, 'objeto' => $data->objeto, 'nombre' => $data->persona->nombre, 'valor' => $data->val_total, 'saldo' => $data->saldo, 'estado' => $data->secretaria_e]);
@@ -325,6 +325,27 @@ class RegistrosController extends Controller
                 return redirect('/administrativo/registros');
             }
         }
+    }
+
+    public function anular($id){
+        $registro = Registro::findOrFail($id);
+        foreach ($registro->cdpRegistroValor as $valCDPR){
+            $valor = $valCDPR->valor;
+            $cdp_id = $valCDPR->cdp_id;
+            $registro_id = $valCDPR->registro_id;
+
+            $registro = Registro::findOrFail($registro_id);
+            $registro->secretaria_e = "2";
+            $registro->saldo = 0;
+            $registro->save();
+
+            $cdp = Cdp::findOrFail($cdp_id);
+            $cdp->saldo = $cdp->saldo + $valor;
+            $cdp->save();
+        }
+
+        Session::flash('error','El Registro ha sido anulado');
+        return redirect('/administrativo/registros/show/'.$id);
     }
 
     public function pdf($id, $vigen){
