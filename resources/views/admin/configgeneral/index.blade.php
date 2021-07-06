@@ -57,7 +57,7 @@
 									<td><a href="{{ route("configGeneral.edit", $firma->id)}}" class="btn btn-xs btn-danger">
 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
 									<td>
-										@include('admin.configGeneral.delete', ['firma' => $firma])
+										@include('admin.configgeneral.delete', ['firma' => $firma])
 									</td>
 								</tr>
 							@endforeach
