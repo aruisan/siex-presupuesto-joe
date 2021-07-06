@@ -215,7 +215,7 @@
       
       <li><a class="item-menu" id="google_translate_element"></a></li>
       
-      <li class="disabled item-menu" ><a tabindex="-1" href="#">Configuración basica</a></li>
+      <li><a class="item-menu" tabindex="-1" href="{{ route('configGeneral.index') }}">Configuración General</a></li>
      
       <li><a class="item-menu" tabindex="-1" href="{{ route('dependencias.index') }}">Gestión de Dependencias</a></li>
      

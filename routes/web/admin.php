@@ -258,7 +258,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::group(['prefix' => 'admin'] ,function () 
 	{
 
-
+        //crud Configuración General
+        Route::resource('configGeneral','Admin\ConfigGeneralController');
 
         //crud Entidades
         Route::resource('entidades','Admin\EntidadesController');
