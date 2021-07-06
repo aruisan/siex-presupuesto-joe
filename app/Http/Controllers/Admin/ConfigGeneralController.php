@@ -84,7 +84,7 @@ class ConfigGeneralController extends Controller
     {
         $firma = ConfigGeneral::findOrFail($id);
 
-        return view('admin.configGeneral.edit', ['firma' => $firma]);
+        return view('admin.configgeneral.edit', ['firma' => $firma]);
     }
 
     /**
