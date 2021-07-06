@@ -20,7 +20,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
-        				@include('admin.configGeneral.partials._form', ['firma' => $firma, 'route' => ['configGeneral.update', $firma->id], 'method' => 'PATCH'])
+        				@include('admin.configgeneral.partials._form', ['firma' => $firma, 'route' => ['configGeneral.update', $firma->id], 'method' => 'PATCH'])
 					</div>
 				</div>
 			</div>
