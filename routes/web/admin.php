@@ -339,6 +339,12 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::put('presupuesto/informes/contractual/reporte','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@report');
     Route::get('presupuesto/informes/contractual/asignar','Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubros');
     Route::put('presupuesto/informes/contractual/asignar/store', 'Hacienda\Presupuesto\Informes\Contractual\CodeContractualesController@rubroStore');
+
+    //// EJECUCION PRESUPUESTAL
+
+    Route::get('presupuesto/ejecucion/gastos/{id}/{vigencia}','Hacienda\Presupuesto\Informes\ReportsController@ejecuTrimG');
+
+
     // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
     Route::get('newPre/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPre');
 

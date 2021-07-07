@@ -81,6 +81,7 @@ class VigenciaController extends Controller
             $vigencia_id = $V;
             $añoActual = Carbon::now()->year;
             $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+            $mesActual = 12;
             $primerLevel = Level::where('vigencia_id', $vigencia_id)->get()->first();
             $registers = Register::where('level_id', $ultimoLevel->id)->get();
             $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
@@ -950,7 +951,7 @@ class VigenciaController extends Controller
                 unset($cdps[0]);
             }
 
-            return view('hacienda.presupuesto.historicoEgr', compact('vigencia','codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','primerLevel','years'));
+            return view('hacienda.presupuesto.historicoEgr', compact('vigencia','codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','primerLevel','years','mesActual'));
 
         } else {
 

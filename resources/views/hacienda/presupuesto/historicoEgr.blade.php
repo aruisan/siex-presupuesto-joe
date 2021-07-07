@@ -21,6 +21,31 @@
                     @endforeach
                 </ul>
             </li>
+            @if($mesActual >= 4)
+                <li class="dropdown">
+                    <a class="nav-item dropdown-toggle pillPri" href="" data-toggle="dropdown">Ejecución Trimestral&nbsp;<i class="fa fa-caret-down"></i></a>
+                    <ul class="dropdown-menu ">
+                        <li>
+                            <a href="{{ url('/presupuesto/ejecucion/gastos/1/'.$V) }}" class="btn btn-drop text-left">Enero - Marzo</a>
+                        </li>
+                        @if($mesActual >= 7)
+                            <li>
+                                <a href="{{ url('/presupuesto/ejecucion/gastos/2/'.$V) }}" class="btn btn-drop text-left">Abril - Junio</a>
+                            </li>
+                        @endif
+                        @if($mesActual >= 10)
+                            <li>
+                                <a href="{{ url('/presupuesto/ejecucion/gastos/3/'.$V) }}" class="btn btn-drop text-left">Julio - Septiembre</a>
+                            </li>
+                        @endif
+                        @if($mesActual >= 12)
+                            <li>
+                                <a href="{{ url('/presupuesto/ejecucion/gastos/4/'.$V) }}" class="btn btn-drop text-left">Octubre - Diciembre</a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+            @endif
         </ul>
         <div class="col-md-12 align-self-center" style="background-color:#fff;">
             <div class="row" >
