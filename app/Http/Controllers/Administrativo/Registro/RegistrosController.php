@@ -10,6 +10,7 @@ use App\Model\Administrativo\Registro\Registro;
 use App\Model\Administrativo\Registro\CdpsRegistro;
 use App\Model\Administrativo\Registro\CdpsRegistroValor;
 use App\Model\Administrativo\Cdp\Cdp;
+use App\Model\Administrativo\Cdp\RubrosCdpValor;
 use App\Model\Administrativo\Contractuall\Contractual;
 use App\Traits\FileTraits;
 use Illuminate\Http\Response;
@@ -342,6 +343,10 @@ class RegistrosController extends Controller
             $cdp = Cdp::findOrFail($cdp_id);
             $cdp->saldo = $cdp->saldo + $valor;
             $cdp->save();
+
+            $rubrosCdpValor = RubrosCdpValor::where('cdp_id',$cdp_id)->first();
+            $rubrosCdpValor->valor_disp = $rubrosCdpValor->valor_disp + $valor;
+            $rubrosCdpValor->save();
         }
 
         Session::flash('error','El Registro ha sido anulado');
