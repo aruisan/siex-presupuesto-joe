@@ -689,6 +689,7 @@ class ReportsController extends Controller
                 }
                 if (isset($valRR)){
                     $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => array_sum($valRR)]);
+                    unset($valRR);
                 }else{
                     $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0]);
                 }
