@@ -184,4 +184,39 @@
 			</table>
 		</div>
 	</div>
+	<div style="margin-top: 50px; font-size: 13px;">
+		<div class="col-md-12 align-self-center">
+			<div class="table-borderless">
+				<table class="table table-borderless" style="border: hidden">
+					<tr class="text-center">
+						<td>
+							<center>
+								_____________________ <br>
+								<!-- Presidente 2020 Léri Aniseto Henry Taylor  -->
+								{{ $name_pres }}<br>
+								Presidente
+							</center>
+						</td>
+						<td>
+							<center>
+								_____________________ <br>
+								{{ $name_contador }}<br>
+								Contador
+							</center>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="text-center">
+				Documento Generado por el Software
+			</div>
+		</div>
+		<br>
+		<div class="text-center">
+			<img src="{{ public_path('img/logoSiex.png') }}"  height="50">
+		</div>
+	</div>
 @stop

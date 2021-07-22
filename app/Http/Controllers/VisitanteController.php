@@ -8,6 +8,7 @@ use App\Model\Administrativo\Pago\PagoRubros;
 use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Hacienda\Presupuesto\FontsVigencia;
 use App\Model\Hacienda\Presupuesto\Informes\CodeContractuales;
+use App\Model\Admin\ConfigGeneral;
 use Illuminate\Http\Request;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use Illuminate\Support\Facades\DB;
@@ -577,73 +578,53 @@ class VisitanteController extends Controller
             }
         }
 
-        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC','Boletines','valoresRubro','añoActual'));
+        $diaActual = Carbon::now()->format('Y-m-d');
 
-    }
+        $presidentes = ConfigGeneral::where('tipo','PRESIDENTE')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        foreach ($presidentes as $president){
+            if ($president->fecha_inicio <= $diaActual){
+                if ($president->fecha_fin >= $diaActual){
+                    $name_pres = $president->nombres;
+                }
+            }
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if (!isset($name_pres)){
+            $name_pres = "POR DEFINIR";
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $first_vices = ConfigGeneral::where('tipo','PRIMER VICEPRESIDENTE')->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        foreach ($first_vices as $first_vice){
+            if ($first_vice->fecha_inicio <= $diaActual){
+                if ($first_vice->fecha_fin >= $diaActual){
+                    $name_first_vice = $first_vice->nombres;
+                }
+            }
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if (!isset($name_first_vice)){
+            $name_first_vice = "POR DEFINIR";
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $sec_vices = ConfigGeneral::where('tipo','SEGUNDO VICEPRESIDENTE')->get();
+
+        foreach ($sec_vices as $sec_vice){
+            if ($sec_vice->fecha_inicio <= $diaActual){
+                if ($sec_vice->fecha_fin >= $diaActual){
+                    $name_sec_vice = $sec_vice->nombres;
+                }
+            }
+        }
+
+        if (!isset($name_sec_vice)){
+            $name_sec_vice = "POR DEFINIR";
+        }
+
+        return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp',
+            'valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','valoresCred', 'valoresCcred','valoresCyC','Concejales','Acuerdos','Actas','Resoluciones','PlanA','ManualC',
+            'Boletines','valoresRubro','añoActual','name_pres', 'name_first_vice','name_sec_vice'));
+
     }
 }

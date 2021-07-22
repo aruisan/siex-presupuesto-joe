@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Administrativo\OrdenPago;
 
+use App\Model\Admin\ConfigGeneral;
 use App\Model\Administrativo\Contabilidad\LevelPUC;
 use App\Model\Administrativo\Contabilidad\RegistersPuc;
 use App\Model\Administrativo\OrdenPago\OrdenPagos;
@@ -509,7 +510,35 @@ class OrdenPagosController extends Controller
         $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
-        $pdf = PDF::loadView('administrativo.ordenpagos.pdfOP', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro', 'dias', 'meses', 'fecha','fechaR'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+        $presidentes = ConfigGeneral::where('tipo','PRESIDENTE')->get();
+
+        foreach ($presidentes as $president){
+            if ($president->fecha_inicio <= $fecha){
+                if ($president->fecha_fin >= $fecha){
+                    $name_pres = $president->nombres;
+                }
+            }
+        }
+
+        if (!isset($name_pres)){
+            $name_pres = "POR DEFINIR";
+        }
+
+        $contadores = ConfigGeneral::where('tipo','CONTADOR')->get();
+
+        foreach ($contadores as $contador){
+            if ($contador->fecha_inicio <= $fecha){
+                if ($contador->fecha_fin >= $fecha){
+                    $name_contador = $contador->nombres;
+                }
+            }
+        }
+
+        if (!isset($name_contador)){
+            $name_contador = "POR DEFINIR";
+        }
+
+        $pdf = PDF::loadView('administrativo.ordenpagos.pdfOP', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro', 'dias', 'meses', 'fecha','fechaR','name_pres', 'name_contador'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
         return $pdf->stream();
     }
 
@@ -592,7 +621,21 @@ class OrdenPagosController extends Controller
         $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 
-        $pdf = PDF::loadView('administrativo.ordenpagos.pdfCE', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro', 'dias', 'meses', 'fecha','fechaO','Egreso_id'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+        $contadores = ConfigGeneral::where('tipo','CONTADOR')->get();
+
+        foreach ($contadores as $contador){
+            if ($contador->fecha_inicio <= $fecha){
+                if ($contador->fecha_fin >= $fecha){
+                    $name_contador = $contador->nombres;
+                }
+            }
+        }
+
+        if (!isset($name_contador)){
+            $name_contador = "POR DEFINIR";
+        }
+
+        $pdf = PDF::loadView('administrativo.ordenpagos.pdfCE', compact('OrdenPago','OrdenPagoDescuentos','R','infoRubro', 'dias', 'meses', 'fecha','fechaO','Egreso_id','name_contador'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
         return $pdf->stream();
     }
 }
