@@ -1,3 +1,4 @@
+@include('modal.updateSoftware')
 <li class="dropdown ">
    <a class="btn btn-default btn-sm dropdown-toggle item-menu" type="button" data-toggle="dropdown">
    SECRETARIA
@@ -214,7 +215,9 @@
    <ul class="dropdown-menu">
       
       <li><a class="item-menu" id="google_translate_element"></a></li>
-      
+
+      <li><a class="item-menu" style="cursor: pointer" tabindex="-1" data-toggle="modal" data-target="#updateSoftware">Actualizaciones a la Plataforma</a></li>
+
       <li><a class="item-menu" tabindex="-1" href="{{ route('configGeneral.index') }}">Configuración General</a></li>
      
       <li><a class="item-menu" tabindex="-1" href="{{ route('dependencias.index') }}">Gestión de Dependencias</a></li>
@@ -240,6 +243,6 @@
 </li>
  <li class="dropdown messages-menu">
                
-                 @include('layouts.cuerpo.perfil') 
+    @include('layouts.cuerpo.perfil')
 </li>
 
