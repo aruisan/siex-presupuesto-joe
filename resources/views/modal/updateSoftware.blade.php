@@ -15,6 +15,18 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>27 de Julio del 2021</td>
+                        <td>Se realiza el ajuste cuando se excede el tiempo de la sesión del usuario. Cuando se
+                            excedia ese tiempo se redireccionaba el usuario a una interfaz de acceso con un diseño
+                            no acorde a la plataforma, se realiza el ajuste para que sea el usuario redireccionado
+                            a la interfaz principal de la plataforma.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Inicio de Sesión</span><br><br>
+                            <span class="badge badge-pill badge-danger">General</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>23 de Julio del 2021</td>
                         <td>Se agrega al menú de configuración la opcion para desplegar el listado de los
                             cambios que han realizado a la plataforma. En este listado saldran todas las
