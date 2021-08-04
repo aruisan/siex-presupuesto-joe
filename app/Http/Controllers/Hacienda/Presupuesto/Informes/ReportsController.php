@@ -380,7 +380,7 @@ class ReportsController extends Controller
                         foreach ($rubrosReg->fontsRubro as $FR){
                             foreach ($FR->rubrosMov as $movR){
                                 if ($movR->movimiento == 1){
-                                    $fecha = $movR->created_at->format('Y/m/d');
+                                    $fecha = $movR->created_at->format('Y-m-d');
                                     if ($fecha <= $fecha_final and $fecha >= $fecha_inicio){
                                         $ArraytotalCCred[] = $movR->valor;
                                     }
@@ -461,12 +461,12 @@ class ReportsController extends Controller
                             $ArraytotalReg[] =  0 ;
                         }elseif ($rubro->cdpRegistroValor->count() > 1){
                             foreach ($rubro->cdpRegistroValor as $item){
-                                if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y/m/d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
+                                if (date('Y-m-d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y-m-d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
                                     $ArraytotalReg[] = $item->valor;
                                 }
                             }
                         }else{
-                            $reg = $rubro->cdpRegistroValor->first()->registro->created_at->format('Y/m/d');
+                            $reg = $rubro->cdpRegistroValor->first()->registro->created_at->format('Y-m-d');
                             if ($reg <= $fecha_final and $reg >= $fecha_inicio){
                                 $ArraytotalReg[] = $rubro->cdpRegistroValor->first()->valor;
                             }
@@ -507,7 +507,7 @@ class ReportsController extends Controller
                         if ($R3->cdps->jefe_e == "2" or $R3->cdps->jefe_e == "1"){
                             $suma2[] = 0;
                         } else{
-                            if ($R3->cdps->created_at->format('Y/m/d') <= $fecha_final and $R3->cdps->created_at->format('Y/m/d') >= $fecha_inicio){
+                            if ($R3->cdps->created_at->format('Y-m-d') <= $fecha_final and $R3->cdps->created_at->format('Y-m-d') >= $fecha_inicio){
                                 $suma2[] = $R3->cdps->valor;
                             }
                         }
@@ -525,7 +525,7 @@ class ReportsController extends Controller
                         if ($R2->cdps->jefe_e == "2" or $R2->cdps->jefe_e == "1") {
                             $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
                         } else {
-                            if ($R2->cdps->created_at->format('Y/m/d') <= $fecha_final and $R2->cdps->created_at->format('Y/m/d') >= $fecha_inicio) {
+                            if ($R2->cdps->created_at->format('Y-m-d') <= $fecha_final and $R2->cdps->created_at->format('Y-m-d') >= $fecha_inicio) {
                                 $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => $R2->cdps->valor]);
                             } else{
                                 $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
@@ -546,7 +546,7 @@ class ReportsController extends Controller
             }elseif ($rub->cdpRegistroValor->count() > 1){
                 foreach ($rub->cdpRegistroValor as $item){
                     if ($item->cdps->vigencia_id == $vigencia_id){
-                        if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y/m/d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
+                        if (date('Y-m-d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y-m-d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
                             $valRR[] = $item->valor;
                         }
                     }
@@ -559,7 +559,7 @@ class ReportsController extends Controller
                 }
             }else{
                 $reg = $rub->cdpRegistroValor->first();
-                $fechaReg = $rub->cdpRegistroValor->first()->registro->created_at->format('Y/m/d');
+                $fechaReg = $rub->cdpRegistroValor->first()->registro->created_at->format('Y-m-d');
                 if ($rub->cdpRegistroValor->first()->cdps->vigencia_id == $vigencia_id) {
                     if ($fechaReg <= $fecha_final and $fechaReg >= $fecha_inicio) {
                         $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]);
@@ -664,7 +664,7 @@ class ReportsController extends Controller
         $pagos2 = PagoRubros::all();
         if ($pagos2->count() != 0) {
             foreach ($pagos2 as $val) {
-                if ($val->pago->created_at->format('Y/m/d') <= $fecha_final and $val->pago->created_at->format('Y/m/d') >= $fecha_inicio and $val->pago->estado == 1){
+                if ($val->pago->created_at->format('Y-m-d') <= $fecha_final and $val->pago->created_at->format('Y-m-d') >= $fecha_inicio and $val->pago->estado == 1){
                     $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
                 }
             }
@@ -776,7 +776,7 @@ class ReportsController extends Controller
             foreach ($R5->fontsRubro as $FR){
                 foreach ($FR->rubrosMov as $movR) {
                     if ($movR->movimiento == 1){
-                        if ($movR->created_at->format('Y/m/d') <= $fecha_final and $movR->created_at->format('Y/m/d') >= $fecha_inicio){
+                        if ($movR->created_at->format('Y-m-d') <= $fecha_final and $movR->created_at->format('Y-m-d') >= $fecha_inicio){
                             $suma[] = $movR->valor;
                         }
                     }
