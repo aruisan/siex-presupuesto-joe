@@ -16,7 +16,10 @@ use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Hacienda\Presupuesto\Vigencia;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 use App\Exports\EjecTrimesExport;
+use Illuminate\Http\Request;
+use Session;
 
 class ReportsController extends Controller
 {
@@ -61,7 +64,15 @@ class ReportsController extends Controller
         return view('hacienda.presupuesto.informes.indexR', compact('values', 'levels','id'));
     }
 
-    public function ejecuTrimG($idEjec, $vigencia){
+    public function ejecuTrimG(Request $request){
+        $vigencia = $request->vigencia;
+        $fecha_inicio = $request->f_inicio;
+        $fecha_final = $request->f_final;
+
+        if($fecha_inicio >= $fecha_final){
+            Session::flash('error','La fecha inicial del reporte no puede ser mayor o igual que la fecha final. Revise las fechas y genere la ejecución presupuestal nuevamente.');
+            return redirect('/presupuesto');
+        }
 
         $vigen = Vigencia::findOrFail($vigencia);
         $año = $vigen->vigencia;
@@ -77,15 +88,7 @@ class ReportsController extends Controller
         $fontsRubros = FontsRubro::orderBy('font_vigencia_id')->get();
         $allRegisters = Register::orderByDesc('level_id')->get();
 
-        if ($idEjec  == "1"){
-            $ordenP = OrdenPagos::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->get();
-        } elseif ($idEjec == "2"){
-            $ordenP = OrdenPagos::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->get();
-        } elseif ($idEjec == "3"){
-            $ordenP = OrdenPagos::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->get();
-        }else{
-            $ordenP = OrdenPagos::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->get();
-        }
+        $ordenP = OrdenPagos::whereBetween('created_at',array($fecha_inicio, $fecha_final))->get();
 
         foreach ($ordenP as $ord){
             if ($ord->registros->cdpsRegistro[0]->cdp->vigencia_id == $V){
@@ -271,19 +274,8 @@ class ReportsController extends Controller
                 if ($allRegister->level_id == $lastLevel) {
                     $rubrosRegs = Rubro::where('register_id', $allRegister->id)->get();
                     foreach ($rubrosRegs as $rubrosReg) {
-                        if ($idEjec  == "1"){
-                            $valAdd = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"2")->sum('valor');
-                            $ArraytotalAdd[] = $valAdd;
-                        } elseif ($idEjec == "2"){
-                            $valAdd = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"2")->sum('valor');
-                            $ArraytotalAdd[] = $valAdd;
-                        } elseif ($idEjec == "3"){
-                            $valAdd = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"2")->sum('valor');
-                            $ArraytotalAdd[] = $valAdd;
-                        }else{
-                            $valAdd = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"2")->sum('valor');
-                            $ArraytotalAdd[] = $valAdd;
-                        }
+                        $valAdd = RubrosMov::whereBetween('created_at',array($fecha_inicio, $fecha_final))->where('rubro_id', $rubrosReg->id)->where('movimiento',"2")->sum('valor');
+                        $ArraytotalAdd[] = $valAdd;
                     }
                     if (isset($ArraytotalAdd)) {
                         $totalAdd = array_sum($ArraytotalAdd);
@@ -316,19 +308,9 @@ class ReportsController extends Controller
                 if ($allRegister->level_id == $lastLevel) {
                     $rubrosRegs = Rubro::where('register_id', $allRegister->id)->get();
                     foreach ($rubrosRegs as $rubrosReg) {
-                        if ($idEjec  == "1"){
-                            $valRed = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"3")->sum('valor');
-                            $ArraytotalRed[] = $valRed;
-                        } elseif ($idEjec == "2"){
-                            $valRed = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"3")->sum('valor');
-                            $ArraytotalRed[] = $valRed;
-                        } elseif ($idEjec == "3"){
-                            $valRed = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"3")->sum('valor');
-                            $ArraytotalRed[] = $valRed;
-                        }else{
-                            $valRed = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"3")->sum('valor');
-                            $ArraytotalRed[] = $valRed;
-                        }
+                        $valRed = RubrosMov::whereBetween('created_at',array($fecha_inicio, $fecha_final))->where('rubro_id', $rubrosReg->id)->where('movimiento',"3")->sum('valor');
+                        $ArraytotalRed[] = $valRed;
+
                     }
                     if (isset($ArraytotalRed)) {
                         $totalRed = array_sum($ArraytotalRed);
@@ -361,19 +343,8 @@ class ReportsController extends Controller
                 if ($allRegister->level_id == $lastLevel) {
                     $rubrosRegs = Rubro::where('register_id', $allRegister->id)->get();
                     foreach ($rubrosRegs as $rubrosReg) {
-                        if ($idEjec  == "1"){
-                            $valCred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"1")->sum('valor');
-                            $ArraytotalCred[] = $valCred;
-                        } elseif ($idEjec == "2"){
-                            $valCred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"1")->sum('valor');
-                            $ArraytotalCred[] = $valCred;
-                        } elseif ($idEjec == "3"){
-                            $valCred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"1")->sum('valor');
-                            $ArraytotalCred[] = $valCred;
-                        }else{
-                            $valCred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->where('rubro_id', $rubrosReg->id)->where('movimiento',"1")->sum('valor');
-                            $ArraytotalCred[] = $valCred;
-                        }
+                        $valCred = RubrosMov::whereBetween('created_at',array($fecha_inicio, $fecha_final))->where('rubro_id', $rubrosReg->id)->where('movimiento',"1")->sum('valor');
+                        $ArraytotalCred[] = $valCred;
                     }
                     if (isset($ArraytotalCred)) {
                         $totalCred = array_sum($ArraytotalCred);
@@ -410,22 +381,8 @@ class ReportsController extends Controller
                             foreach ($FR->rubrosMov as $movR){
                                 if ($movR->movimiento == 1){
                                     $fecha = $movR->created_at->format('Y/m/d');
-                                    if ($idEjec  == "1"){
-                                        if ($fecha <= $año."/03/31" and $fecha >= $año."/01/01"){
-                                            $ArraytotalCCred[] = $movR->valor;
-                                        }
-                                    } elseif ($idEjec == "2"){
-                                        if ($fecha <= $año."/06/30" and $fecha >= $año."/01/01"){
-                                            $ArraytotalCCred[] = $movR->valor;
-                                        }
-                                    } elseif ($idEjec == "3"){
-                                        if ($fecha <= $año."/09/31" and $fecha >= $año."/01/01"){
-                                            $ArraytotalCCred[] = $movR->valor;
-                                        }
-                                    }else{
-                                        if ($fecha <= $año."/12/31" and $fecha >= $año."/01/01"){
-                                            $ArraytotalCCred[] = $movR->valor;
-                                        }
+                                    if ($fecha <= $fecha_final and $fecha >= $fecha_inicio){
+                                        $ArraytotalCCred[] = $movR->valor;
                                     }
                                 }
                             }
@@ -463,26 +420,9 @@ class ReportsController extends Controller
                     $rubrosRegs = Rubro::where('register_id', $allRegister->id)->get();
                     foreach ($rubrosRegs as $rubrosReg) {
                         foreach ($rubrosReg->rubrosCdp as $Rcdp){
-                            if ($idEjec  == "1"){
-                                $cdpInfo = Cdp::whereBetween('fecha',array($año."/01/01", $año."/03/31"))->where('id', $Rcdp->cdps->id)->where('jefe_e', '!=', 3)->get();
-                                if ($cdpInfo->count() > 0 and $cdpInfo[0]->id == $Rcdp->cdps->id){
-                                    $ArraytotalCdp[] = $Rcdp->cdps->valor;
-                                }
-                            } elseif ($idEjec == "2"){
-                                $cdpInfo = Cdp::whereBetween('fecha',array($año."/01/01", $año."/06/30"))->where('id', $Rcdp->cdps->id)->where('jefe_e', '!=', 3)->get();
-                                if ($cdpInfo->count() > 0 and $cdpInfo[0]->id == $Rcdp->cdps->id){
-                                    $ArraytotalCdp[] = $Rcdp->cdps->valor;
-                                }
-                            } elseif ($idEjec == "3"){
-                                $cdpInfo = Cdp::whereBetween('fecha',array($año."/01/01", $año."/09/30"))->where('id', $Rcdp->cdps->id)->where('jefe_e', '!=', 3)->get();
-                                if ($cdpInfo->count() > 0 and $cdpInfo[0]->id == $Rcdp->cdps->id){
-                                    $ArraytotalCdp[] = $Rcdp->cdps->valor;
-                                }
-                            }else{
-                                $cdpInfo = Cdp::whereBetween('fecha',array($año."/01/01", $año."/12/31"))->where('id', $Rcdp->cdps->id)->where('jefe_e', '!=', 3)->get();
-                                if ($cdpInfo->count() > 0 and $cdpInfo[0]->id == $Rcdp->cdps->id){
-                                    $ArraytotalCdp[] = $Rcdp->cdps->valor;
-                                }
+                            $cdpInfo = Cdp::whereBetween('fecha',array($fecha_inicio, $fecha_final))->where('id', $Rcdp->cdps->id)->where('jefe_e', '!=', 3)->get();
+                            if ($cdpInfo->count() > 0 and $cdpInfo[0]->id == $Rcdp->cdps->id){
+                                $ArraytotalCdp[] = $Rcdp->cdps->valor;
                             }
                         }
                     }
@@ -521,42 +461,14 @@ class ReportsController extends Controller
                             $ArraytotalReg[] =  0 ;
                         }elseif ($rubro->cdpRegistroValor->count() > 1){
                             foreach ($rubro->cdpRegistroValor as $item){
-                                if ($idEjec  == "1"){
-                                    if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/03/31" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                        $ArraytotalReg[] = $item->valor;
-                                    }
-                                } elseif ($idEjec == "2"){
-                                    if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/06/30" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                        $ArraytotalReg[] = $item->valor;
-                                    }
-                                } elseif ($idEjec == "3"){
-                                    if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/09/30" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                        $ArraytotalReg[] = $item->valor;
-                                    }
-                                }else{
-                                    if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/12/31" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                        $ArraytotalReg[] = $item->valor;
-                                    }
+                                if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y/m/d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
+                                    $ArraytotalReg[] = $item->valor;
                                 }
                             }
                         }else{
                             $reg = $rubro->cdpRegistroValor->first()->registro->created_at->format('Y/m/d');
-                            if ($idEjec  == "1"){
-                                if ($reg <= $año."/03/31" and $reg >= $año."/01/01"){
-                                    $ArraytotalReg[] = $rubro->cdpRegistroValor->first()->valor;
-                                }
-                            } elseif ($idEjec == "2"){
-                                if ($reg <= $año."/06/30" and $reg >= $año."/01/01"){
-                                    $ArraytotalReg[] = $rubro->cdpRegistroValor->first()->valor;
-                                }
-                            } elseif ($idEjec == "3"){
-                                if ($reg <= $año."/09/30" and $reg >= $año."/01/01"){
-                                    $ArraytotalReg[] = $rubro->cdpRegistroValor->first()->valor;
-                                }
-                            }else{
-                                if ($reg <= $año."/12/31" and $reg >= $año."/01/01"){
-                                    $ArraytotalReg[] = $rubro->cdpRegistroValor->first()->valor;
-                                }
+                            if ($reg <= $fecha_final and $reg >= $fecha_inicio){
+                                $ArraytotalReg[] = $rubro->cdpRegistroValor->first()->valor;
                             }
                         }
                     }
@@ -595,22 +507,8 @@ class ReportsController extends Controller
                         if ($R3->cdps->jefe_e == "2" or $R3->cdps->jefe_e == "1"){
                             $suma2[] = 0;
                         } else{
-                            if ($idEjec  == "1"){
-                                if ($R3->cdps->created_at->format('Y/m/d') <= $año."/03/31" and $R3->cdps->created_at->format('Y/m/d') >= $año."/01/01"){
-                                    $suma2[] = $R3->cdps->valor;
-                                }
-                            } elseif ($idEjec == "2"){
-                                if ($R3->cdps->created_at->format('Y/m/d') <= $año."/06/30" and $R3->cdps->created_at->format('Y/m/d') >= $año."/01/01"){
-                                    $suma2[] = $R3->cdps->valor;
-                                }
-                            } elseif ($idEjec == "3"){
-                                if ($R3->cdps->created_at->format('Y/m/d') <= $año."/09/31" and $R3->cdps->created_at->format('Y/m/d') >= $año."/01/01"){
-                                    $suma2[] = $R3->cdps->valor;
-                                }
-                            }else{
-                                if ($R3->cdps->created_at->format('Y/m/d') <= $año."/12/31" and $R3->cdps->created_at->format('Y/m/d') >= $año."/01/01"){
-                                    $suma2[] = $R3->cdps->valor;
-                                }
+                            if ($R3->cdps->created_at->format('Y/m/d') <= $fecha_final and $R3->cdps->created_at->format('Y/m/d') >= $fecha_inicio){
+                                $suma2[] = $R3->cdps->valor;
                             }
                         }
                     }
@@ -627,30 +525,10 @@ class ReportsController extends Controller
                         if ($R2->cdps->jefe_e == "2" or $R2->cdps->jefe_e == "1") {
                             $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
                         } else {
-                            if ($idEjec == "1") {
-                                if ($R2->cdps->created_at->format('Y/m/d') <= $año."/03/31" and $R2->cdps->created_at->format('Y/m/d') >= $año."/01/01") {
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => $R2->cdps->valor]);
-                                } else{
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
-                                }
-                            } elseif ($idEjec == "2") {
-                                if ($R2->cdps->created_at->format('Y/m/d') <= $año."/06/30" and $R2->cdps->created_at->format('Y/m/d') >= $año."/01/01") {
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => $R2->cdps->valor]);
-                                }else{
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
-                                }
-                            } elseif ($idEjec == "3") {
-                                if ($R2->cdps->created_at->format('Y/m/d') <= $año."/09/31" and $R2->cdps->created_at->format('Y/m/d') >= $año."/01/01") {
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => $R2->cdps->valor]);
-                                }else{
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
-                                }
-                            } elseif ($idEjec == "4") {
-                                if ($R2->cdps->created_at->format('Y/m/d') <= $año."/12/31" and $R2->cdps->created_at->format('Y/m/d') >= $año."/01/01") {
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => $R2->cdps->valor]);
-                                }else{
-                                    $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
-                                }
+                            if ($R2->cdps->created_at->format('Y/m/d') <= $fecha_final and $R2->cdps->created_at->format('Y/m/d') >= $fecha_inicio) {
+                                $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => $R2->cdps->valor]);
+                            } else{
+                                $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0]);
                             }
                         }
                     } else{
@@ -668,22 +546,8 @@ class ReportsController extends Controller
             }elseif ($rub->cdpRegistroValor->count() > 1){
                 foreach ($rub->cdpRegistroValor as $item){
                     if ($item->cdps->vigencia_id == $vigencia_id){
-                        if ($idEjec  == "1"){
-                            if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/03/31" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                $valRR[] = $item->valor;
-                            }
-                        } elseif ($idEjec == "2"){
-                            if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/06/30" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                $valRR[] = $item->valor;
-                            }
-                        } elseif ($idEjec == "3"){
-                            if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/09/31" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                $valRR[] = $item->valor;
-                            }
-                        }else{
-                            if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $año."/12/31" and date('Y/m/d', strtotime($item->registro['created_at'])) >= $año."/01/01"){
-                                $valRR[] = $item->valor;
-                            }
+                        if (date('Y/m/d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y/m/d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
+                            $valRR[] = $item->valor;
                         }
                     }
                 }
@@ -697,30 +561,10 @@ class ReportsController extends Controller
                 $reg = $rub->cdpRegistroValor->first();
                 $fechaReg = $rub->cdpRegistroValor->first()->registro->created_at->format('Y/m/d');
                 if ($rub->cdpRegistroValor->first()->cdps->vigencia_id == $vigencia_id) {
-                    if ($idEjec == "1") {
-                        if ($fechaReg <= $año . "/03/31" and $fechaReg >= $año . "/01/01") {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]);
-                        } else {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0]);
-                        }
-                    } elseif ($idEjec == "2") {
-                        if ($fechaReg <= $año . "/06/30" and $fechaReg >= $año . "/01/01") {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]);
-                        }else {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0]);
-                        }
-                    } elseif ($idEjec == "3") {
-                        if ($fechaReg <= $año . "/09/31" and $fechaReg >= $año . "/01/01") {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]);
-                        }else {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0]);
-                        }
+                    if ($fechaReg <= $fecha_final and $fechaReg >= $fecha_inicio) {
+                        $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]);
                     } else {
-                        if ($fechaReg <= $año . "/12/31" and $fechaReg >= $año . "/01/01") {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]);
-                        }else {
-                            $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0]);
-                        }
+                        $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0]);
                     }
                 }
             }
@@ -740,16 +584,8 @@ class ReportsController extends Controller
 
 
         //ORDEN DE PAGO
+        $OP = OrdenPagosRubros::whereBetween('created_at',array($fecha_inicio, $fecha_final))->get();
 
-        if ($idEjec  == "1"){
-            $OP = OrdenPagosRubros::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->get();
-        } elseif ($idEjec == "2"){
-            $OP = OrdenPagosRubros::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->get();
-        } elseif ($idEjec == "3"){
-            $OP = OrdenPagosRubros::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->get();
-        }else{
-            $OP = OrdenPagosRubros::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->get();
-        }
 
         if ($OP->count() != 0){
             foreach ($OP as $val){
@@ -828,22 +664,8 @@ class ReportsController extends Controller
         $pagos2 = PagoRubros::all();
         if ($pagos2->count() != 0) {
             foreach ($pagos2 as $val) {
-                if ($idEjec  == "1"){
-                    if ($val->pago->created_at->format('Y/m/d') <= $año."/03/31" and $val->pago->created_at->format('Y/m/d') >= $año."/01/01" and $val->pago->estado == 1){
-                        $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
-                    }
-                } elseif ($idEjec == "2"){
-                    if ($val->pago->created_at->format('Y/m/d') <= $año."/06/30" and $val->pago->created_at->format('Y/m/d') >= $año."/01/01" and $val->pago->estado == 1){
-                        $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
-                    }
-                } elseif ($idEjec == "3"){
-                    if ($val->pago->created_at->format('Y/m/d') <= $año."/09/31" and $val->pago->created_at->format('Y/m/d') >= $año."/01/01" and $val->pago->estado == 1){
-                        $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
-                    }
-                }else{
-                    if ($val->pago->created_at->format('Y/m/d') <= $año."/12/31" and $val->pago->created_at->format('Y/m/d') >= $año."/01/01" and $val->pago->estado == 1){
-                        $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
-                    }
+                if ($val->pago->created_at->format('Y/m/d') <= $fecha_final and $val->pago->created_at->format('Y/m/d') >= $fecha_inicio and $val->pago->estado == 1){
+                    $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
                 }
             }
             if (isset($valores1)){
@@ -921,101 +743,31 @@ class ReportsController extends Controller
 
         //ADICION
         foreach ($rubros as $R2){
-            if ($idEjec  == "1"){
-                $ad = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
-                if ($ad->count() > 0){
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $ad->sum('valor')]) ;
-                } else{
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => 0]) ;
-                }
-            } elseif ($idEjec == "2"){
-                $ad = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
-                if ($ad->count() > 0){
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $ad->sum('valor')]) ;
-                } else{
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => 0]) ;
-                }
-            } elseif ($idEjec == "3"){
-                $ad = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
-                if ($ad->count() > 0){
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $ad->sum('valor')]) ;
-                } else{
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => 0]) ;
-                }
-            }else{
-                $ad = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
-                if ($ad->count() > 0){
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $ad->sum('valor')]) ;
-                } else{
-                    $valoresAdd[] = collect(['id' => $R2->id, 'valor' => 0]) ;
-                }
+            $ad = RubrosMov::whereBetween('created_at',array($fecha_inicio, $fecha_final))->where([['rubro_id', $R2->id],['movimiento', '=', '2']])->get();
+            if ($ad->count() > 0){
+                $valoresAdd[] = collect(['id' => $R2->id, 'valor' => $ad->sum('valor')]) ;
+            } else{
+                $valoresAdd[] = collect(['id' => $R2->id, 'valor' => 0]) ;
             }
         }
 
         //REDUCCIÓN
         foreach ($rubros as $R3){
-            if ($idEjec  == "1"){
-                $red = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->where([['rubro_id', $R3->id],['movimiento', '=', '3']])->get();
-                if ($red->count() > 0){
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => $red->sum('valor')]) ;
-                } else{
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => 0]) ;
-                }
-            } elseif ($idEjec == "2"){
-                $red = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->where([['rubro_id', $R3->id],['movimiento', '=', '3']])->get();
-                if ($red->count() > 0){
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => $red->sum('valor')]) ;
-                } else{
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => 0]) ;
-                }
-            } elseif ($idEjec == "3"){
-                $red = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->where([['rubro_id', $R3->id],['movimiento', '=', '3']])->get();
-                if ($red->count() > 0){
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => $red->sum('valor')]) ;
-                } else{
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => 0]) ;
-                }
-            }else{
-                $red = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->where([['rubro_id', $R3->id],['movimiento', '=', '3']])->get();
-                if ($red->count() > 0){
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => $red->sum('valor')]) ;
-                } else{
-                    $valoresRed[] = collect(['id' => $R3->id, 'valor' => 0]) ;
-                }
+            $red = RubrosMov::whereBetween('created_at',array($fecha_inicio, $fecha_final))->where([['rubro_id', $R3->id],['movimiento', '=', '3']])->get();
+            if ($red->count() > 0){
+                $valoresRed[] = collect(['id' => $R3->id, 'valor' => $red->sum('valor')]) ;
+            } else{
+                $valoresRed[] = collect(['id' => $R3->id, 'valor' => 0]) ;
             }
         }
 
-
         //CREDITO
         foreach ($rubros as $R4){
-            if ($idEjec  == "1"){
-                $cred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/03/31"))->where([['rubro_id', $R4->id],['movimiento', '=', '1']])->get();
-                if ($cred->count() > 0){
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => $cred->sum('valor')]) ;
-                }else{
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => 0]) ;
-                }
-            } elseif ($idEjec == "2"){
-                $cred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/06/30"))->where([['rubro_id', $R4->id],['movimiento', '=', '1']])->get();
-                if ($cred->count() > 0){
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => $cred->sum('valor')]) ;
-                }else{
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => 0]) ;
-                }
-            } elseif ($idEjec == "3"){
-                $cred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/09/31"))->where([['rubro_id', $R4->id],['movimiento', '=', '1']])->get();
-                if ($cred->count() > 0){
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => $cred->sum('valor')]) ;
-                }else{
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => 0]) ;
-                }
+            $cred = RubrosMov::whereBetween('created_at',array($fecha_inicio, $fecha_final))->where([['rubro_id', $R4->id],['movimiento', '=', '1']])->get();
+            if ($cred->count() > 0){
+                $valoresCred[] = collect(['id' => $R4->id, 'valor' => $cred->sum('valor')]) ;
             }else{
-                $cred = RubrosMov::whereBetween('created_at',array($año."/01/01", $año."/12/31"))->where([['rubro_id', $R4->id],['movimiento', '=', '1']])->get();
-                if ($cred->count() > 0){
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => $cred->sum('valor')]) ;
-                }else{
-                    $valoresCred[] = collect(['id' => $R4->id, 'valor' => 0]) ;
-                }
+                $valoresCred[] = collect(['id' => $R4->id, 'valor' => 0]) ;
             }
         }
 
@@ -1024,22 +776,8 @@ class ReportsController extends Controller
             foreach ($R5->fontsRubro as $FR){
                 foreach ($FR->rubrosMov as $movR) {
                     if ($movR->movimiento == 1){
-                        if ($idEjec  == "1"){
-                            if ($movR->created_at->format('Y/m/d') <= $año."/03/31" and $movR->created_at->format('Y/m/d') >= $año."/01/01"){
-                                $suma[] = $movR->valor;
-                            }
-                        } elseif ($idEjec == "2"){
-                            if ($movR->created_at->format('Y/m/d') <= $año."/06/30" and $movR->created_at->format('Y/m/d') >= $año."/01/01"){
-                                $suma[] = $movR->valor;
-                            }
-                        } elseif ($idEjec == "3"){
-                            if ($movR->created_at->format('Y/m/d') <= $año."/09/31" and $movR->created_at->format('Y/m/d') >= $año."/01/01"){
-                                $suma[] = $movR->valor;
-                            }
-                        }else{
-                            if ($movR->created_at->format('Y/m/d') <= $año."/12/31" and $movR->created_at->format('Y/m/d') >= $año."/01/01"){
-                                $suma[] = $movR->valor;
-                            }
+                        if ($movR->created_at->format('Y/m/d') <= $fecha_final and $movR->created_at->format('Y/m/d') >= $fecha_inicio){
+                            $suma[] = $movR->valor;
                         }
                     }
                 }
@@ -1196,22 +934,13 @@ class ReportsController extends Controller
             $valoresFinRes[] = collect(['id' => $valoresFinOp[$i]['id'], 'valor' => $valoresFinReg[$i]['valor'] - $valoresFinOp[$i]['valor']]);
         }
 
-        if ($idEjec  == "1"){
-            return Excel::download(new EjecTrimesExport($idEjec, $año, $codigos, $valoresIniciales, $valoresFinAdd, $valoresAdd, $valoresFinRed, $valoresRed, $valoresFinCred, $valoresCred,
-                $valoresFinCCred, $valoresCcred, $valoresDisp, $ArrayDispon, $valoresFinCdp, $valoresCdp, $valoresFinReg, $valoresRubro, $valorDisp, $saldoDisp, $valorFcdp,$valorDcdp,
-                $valoresFinOp, $valOP, $valoresFinP, $valP, $valoresFinC, $valCP, $valoresFinRes, $valR), 'Ejecución Trimestral Enero - Marzo '.$año.'.xlsx');
-        } elseif ($idEjec == "2"){
-            return Excel::download(new EjecTrimesExport($idEjec, $año, $codigos, $valoresIniciales, $valoresFinAdd, $valoresAdd, $valoresFinRed, $valoresRed, $valoresFinCred, $valoresCred,
-                $valoresFinCCred, $valoresCcred, $valoresDisp, $ArrayDispon, $valoresFinCdp, $valoresCdp, $valoresFinReg, $valoresRubro, $valorDisp, $saldoDisp, $valorFcdp,$valorDcdp,
-                $valoresFinOp, $valOP, $valoresFinP, $valP, $valoresFinC, $valCP, $valoresFinRes, $valR), 'Ejecución Trimestral Abril - Junio '.$año.'.xlsx');
-        } elseif ($idEjec == "3"){
-            return Excel::download(new EjecTrimesExport($idEjec, $año, $codigos, $valoresIniciales, $valoresFinAdd, $valoresAdd, $valoresFinRed, $valoresRed, $valoresFinCred, $valoresCred,
-                $valoresFinCCred, $valoresCcred, $valoresDisp, $ArrayDispon, $valoresFinCdp, $valoresCdp, $valoresFinReg, $valoresRubro, $valorDisp, $saldoDisp, $valorFcdp,$valorDcdp,
-                $valoresFinOp, $valOP, $valoresFinP, $valP, $valoresFinC, $valCP, $valoresFinRes, $valR), 'Ejecución Trimestral Julio - Septiembre '.$año.'.xlsx');
-        }else{
-            return Excel::download(new EjecTrimesExport($idEjec, $año, $codigos, $valoresIniciales, $valoresFinAdd, $valoresAdd, $valoresFinRed, $valoresRed, $valoresFinCred, $valoresCred,
-                $valoresFinCCred, $valoresCcred, $valoresDisp, $ArrayDispon, $valoresFinCdp, $valoresCdp, $valoresFinReg, $valoresRubro, $valorDisp, $saldoDisp, $valorFcdp,$valorDcdp,
-                $valoresFinOp, $valOP, $valoresFinP, $valP, $valoresFinC, $valCP, $valoresFinRes, $valR), 'Ejecución Trimestral Octubre - Diciembre '.$año.'.xlsx');
-        }
+        $carbon_fi = Carbon::createFromFormat('Y-m-d', $fecha_inicio);
+        $carbon_ff = Carbon::createFromFormat('Y-m-d', $fecha_final);
+
+        return Excel::download(new EjecTrimesExport($año, $codigos, $valoresIniciales, $valoresFinAdd, $valoresAdd, $valoresFinRed, $valoresRed, $valoresFinCred, $valoresCred,
+            $valoresFinCCred, $valoresCcred, $valoresDisp, $ArrayDispon, $valoresFinCdp, $valoresCdp, $valoresFinReg, $valoresRubro, $valorDisp, $saldoDisp, $valorFcdp,$valorDcdp,
+            $valoresFinOp, $valOP, $valoresFinP, $valP, $valoresFinC, $valCP, $valoresFinRes, $valR, $carbon_fi->toFormattedDateString(), $carbon_ff->toFormattedDateString()),
+            'Ejecución Trimestral '.$carbon_fi->toFormattedDateString().' - '.$carbon_ff->toFormattedDateString().'.xlsx');
+
     }
 }

@@ -22,6 +22,7 @@ use App\Model\Administrativo\Cdp\Cdp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use function Complex\add;
 
 
 class PresupuestoController extends Controller
@@ -426,7 +427,13 @@ class PresupuestoController extends Controller
                             if ($rubro->cdpRegistroValor->count() == 0){
                                 $ArraytotalReg[] =  0 ;
                             }elseif ($rubro->cdpRegistroValor->count() > 1){
-                                $ArraytotalReg[] = $rubro->cdpRegistroValor->sum('valor');
+                                foreach ($rubro->cdpRegistroValor as $cdpRV){
+                                    if ($cdpRV->registro->secretaria_e == "3"){
+                                        $sumaValores[] = $cdpRV->registro->val_total;
+                                    }
+                                }
+                                $ArraytotalReg[] = array_sum($sumaValores);
+                                unset($sumaValores);
                             }else{
                                 $reg = $rubro->cdpRegistroValor->first();
                                 $ArraytotalReg[] = $reg['valor'];
@@ -522,7 +529,13 @@ class PresupuestoController extends Controller
             if ($rub->cdpRegistroValor->count() == 0){
                 $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0 ]) ;
             }elseif ($rub->cdpRegistroValor->count() > 1){
-                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $rub->cdpRegistroValor->sum('valor')]);
+                foreach ($rub->cdpRegistroValor as $cdpRV){
+                    if ($cdpRV->registro->secretaria_e == "3"){
+                        $sumaValores[] = $cdpRV->registro->val_total;
+                    }
+                }
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => array_sum($sumaValores)]);
+                unset($sumaValores);
             }else{
                 $reg = $rub->cdpRegistroValor->first();
                 $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]) ;
@@ -928,7 +941,14 @@ class PresupuestoController extends Controller
             unset($pacs[0]);
         }
 
-        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro','valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg','valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','years','pacs'));
+        $day = Carbon::now();
+        $lastDay = $day->subDay()->toDateString();
+        $actuallyDay = Carbon::now()->toDateString();
+
+        return view('hacienda.presupuesto.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp',
+            'registros','valorDisp','valoresAdd','valoresRed','valoresDisp','ArrayDispon', 'saldoDisp','rol','valoresCred', 'valoresCcred','valoresCyC','ordenPagos','valoresRubro'
+            ,'valorDcdp','valOP','pagos','valP','valCP','valR','codeCon','añoActual','valoresFinAdd','valoresFinRed','valoresFinCred','valoresFinCCred','valoresFinCdp','valoresFinReg'
+            ,'valorFcdp','valoresFinOp','valoresFinP','valoresFinC','valoresFinRes','mesActual','primerLevel','years','pacs','lastDay','actuallyDay'));
     }
 
 

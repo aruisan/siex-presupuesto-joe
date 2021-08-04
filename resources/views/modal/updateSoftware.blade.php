@@ -15,6 +15,21 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>03 de Agosto del 2021</td>
+                        <td>Se realiza una mejora a la generación de los reportes de la ejecución presupuestal.
+                            Anteriormente el usuario seleccionaba los meses de los que deseaba obtener la
+                            ejecución presupuestal. Ahora el usuario tiene la posibilidad de obtener el
+                            informe dando el rango de fechas de los que el desee obtener la ejecución.
+                            <br><br>
+                            De esta forma el usuario tiene la posibilidad de seleccionar el rango de ejecución
+                            que requiere.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span><br><br>
+                            <span class="badge badge-pill badge-danger">Reportes</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>27 de Julio del 2021</td>
                         <td>Se realiza el ajuste cuando se excede el tiempo de la sesión del usuario. Cuando se
                             excedia ese tiempo se redireccionaba el usuario a una interfaz de acceso con un diseño

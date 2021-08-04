@@ -342,7 +342,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
     //// EJECUCION PRESUPUESTAL
 
-    Route::get('presupuesto/ejecucion/gastos/{id}/{vigencia}','Hacienda\Presupuesto\Informes\ReportsController@ejecuTrimG');
+    Route::put('presupuesto/ejecucion/gastos/{vigencia}','Hacienda\Presupuesto\Informes\ReportsController@ejecuTrimG');
 
 
     // RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO

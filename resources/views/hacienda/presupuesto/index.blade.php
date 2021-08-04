@@ -5,6 +5,7 @@
 @section('content')
     @if($V != "Vacio")
         @include('modal.Informes.reporte')
+        @include('modal.Informes.ejecucionPresupuestal')
     @endif
     <div class="row inputCenter">
         <ul class="nav nav-pills">
@@ -26,6 +27,9 @@
                 @if($V != "Vacio")
                     <li class="nav-item pillPri"> <a class="nav-link "href="{{ url('/presupuesto/level/create/'.$V) }}" class="btn btn-success"><i class="fa fa-edit"></i><span class="hide-menu">&nbsp;Editar Presupuesto</span></a></li>
                 @endif
+                <li class="nav-item pillPri">
+                    <a data-toggle="modal" data-target="#ejecucionPresupuestal" class="nav-link" style="cursor: pointer">Ejecución Presupuestal</a>
+                </li>
                 @if($V != "Vacio")
                     <li class="dropdown">
                         <a class="nav-item dropdown-toggle pillPri" href="" data-toggle="dropdown">Informes&nbsp;<i class="fa fa-caret-down"></i></a>
@@ -61,31 +65,6 @@
                             @endforeach
                         </ul>
                     </li>
-                    @if($mesActual >= 4)
-                        <li class="dropdown">
-                            <a class="nav-item dropdown-toggle pillPri" href="" data-toggle="dropdown">Ejecución Trimestral&nbsp;<i class="fa fa-caret-down"></i></a>
-                            <ul class="dropdown-menu ">
-                                <li>
-                                    <a href="{{ url('/presupuesto/ejecucion/gastos/1/'.$V) }}" class="btn btn-drop text-left">Enero - Marzo</a>
-                                </li>
-                                @if($mesActual >= 7)
-                                    <li>
-                                        <a href="{{ url('/presupuesto/ejecucion/gastos/2/'.$V) }}" class="btn btn-drop text-left">Abril - Junio</a>
-                                    </li>
-                                @endif
-                                @if($mesActual >= 10)
-                                    <li>
-                                        <a href="{{ url('/presupuesto/ejecucion/gastos/3/'.$V) }}" class="btn btn-drop text-left">Julio - Septiembre</a>
-                                    </li>
-                                @endif
-                                @if($mesActual >= 12)
-                                    <li>
-                                        <a href="{{ url('/presupuesto/ejecucion/gastos/4/'.$V) }}" class="btn btn-drop text-left">Octubre - Diciembre</a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </li>
-                    @endif
                 @endif
                 @if($V == "Vacio")
                     <li class="nav-item pillPri">
