@@ -302,9 +302,6 @@
                             <br>
                             <center>
                                 @if($rol == 2 and $registro->secretaria_e != 3 and $registro->secretaria_e != 2)
-                                    @if($registro->cdpsRegistro->count() == 0)
-                                        <button type="button" v-on:click.prevent="nuevaFilaPrograma" class="btn btn-success">Agregar Fila</button>
-                                    @endif
                                     <button type="submit" class="btn btn-danger">Actualizar Registro</button>
                                     @if($registro->cdpRegistroValor->sum('valor') > 0 )
                                         @php($valTot = $registro->iva + $registro->cdpRegistroValor->sum('valor'))
@@ -412,7 +409,7 @@
 @stop
 @section('js')
 
-    <script>
+    <script type="text/javascript">
 
         var visto = null;
 
@@ -438,14 +435,6 @@
                 "ordering" : false
             } );
 
-            $('#tabla_rubrosCdpFin').DataTable( {
-                responsive: true,
-                "searching": false,
-                dom: 'Bfrtip',
-                buttons: [
-                    'pdf' ,'copy', 'csv', 'excel', 'print'
-                ]
-            } );
 
             $(document).on('click', '.borrar', function (event) {
                 event.preventDefault();
@@ -471,22 +460,7 @@
                         });
                     },
 
-                    nuevaFilaPrograma: function(){
-                        var nivel=parseInt($("#tabla_rubrosCdp tr").length);
-                        $('#tabla_rubrosCdp tbody tr:last').after('<tr>\n' +
-                            '                                <td>&nbsp;</td>\n' +
-                            '                                <td class="text-center">\n' +
-                            '                                    <input type="hidden" name="registro_id" value="{{ $registro->id }}">\n' +
-                            '                                    <select name="cdp_id[]" class="form-group-lg" required>\n' +
-                            '                                        @foreach($cdps as $cdp)\n' +
-                            '                                            <option value="{{ $cdp["id"] }}">{{ $cdp["name"] }}</option>\n' +
-                            '                                        @endforeach\n' +
-                            '                                    </select>\n' +
-                            '                                </td>\n' +
-                            '                                <td class="text-center"><button type="button" class="btn-sm btn-danger borrar">&nbsp;-&nbsp; </button></td>\n' +
-                            '                            </tr>');
 
-                    }
                 }
             });
         } );

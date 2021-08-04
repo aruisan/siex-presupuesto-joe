@@ -15,6 +15,19 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>04 de Agosto del 2021</td>
+                        <td>Se detecta un problema con Chrome tras su ultima actualziacion que causaba que
+                            las librerias de VueJs no se ejecutaran correctamente y afectaba el funcionamiento
+                            de la plataforma.
+                            <br><br>
+                            Se realiza la respectiva corrección de la ejecucion de las librerias de VueJs para
+                            que no se vean afectadas tras la ultima actualización de Chrome.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">General</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>03 de Agosto del 2021</td>
                         <td>Se realiza una mejora a la generación de los reportes de la ejecución presupuestal.
                             Anteriormente el usuario seleccionaba los meses de los que deseaba obtener la
