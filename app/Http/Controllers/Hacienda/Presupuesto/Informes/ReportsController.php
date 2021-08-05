@@ -462,9 +462,13 @@ class ReportsController extends Controller
                         }elseif ($rubro->cdpRegistroValor->count() > 1){
                             foreach ($rubro->cdpRegistroValor as $item){
                                 if (date('Y-m-d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y-m-d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
-                                    $ArraytotalReg[] = $item->valor;
+                                    if($item->registro->secretaria_e == "3"){
+                                        $sumaValores[] = $item->registro->val_total;
+                                    }
                                 }
                             }
+                            $ArraytotalReg[] = array_sum($sumaValores);
+                            unset($sumaValores);
                         }else{
                             $reg = $rubro->cdpRegistroValor->first()->registro->created_at->format('Y-m-d');
                             if ($reg <= $fecha_final and $reg >= $fecha_inicio){
@@ -584,13 +588,14 @@ class ReportsController extends Controller
 
 
         //ORDEN DE PAGO
-        $OP = OrdenPagosRubros::whereBetween('created_at',array($fecha_inicio, $fecha_final))->get();
-
+        $OP = OrdenPagosRubros::all();
 
         if ($OP->count() != 0){
             foreach ($OP as $val){
                 if ($val->orden_pago->estado == "1"){
-                    $valores[] = ['id' => $val->cdps_registro->rubro->id, 'val' => $val->valor, 'idOPR' => $val->id];
+                    if (date('Y-m-d', strtotime($val->orden_pago['created_at'])) <= $fecha_final and date('Y-m-d', strtotime($val->orden_pago['created_at'])) >= $fecha_inicio){
+                        $valores[] = ['id' => $val->cdps_registro->rubro->id, 'val' => $val->valor, 'idOPR' => $val->id];
+                    }
                 }
             }
             foreach ($valores as $id){
@@ -664,7 +669,7 @@ class ReportsController extends Controller
         $pagos2 = PagoRubros::all();
         if ($pagos2->count() != 0) {
             foreach ($pagos2 as $val) {
-                if ($val->pago->created_at->format('Y-m-d') <= $fecha_final and $val->pago->created_at->format('Y-m-d') >= $fecha_inicio and $val->pago->estado == 1){
+                if ($val->pago->created_at->format('Y-m-d') <= $fecha_final and $val->pago->created_at->format('Y-m-d') >= $fecha_inicio and $val->pago->estado == "1"){
                     $valores1[] = ['id' => $val->rubro->id, 'val' => $val->valor];
                 }
             }
@@ -673,6 +678,7 @@ class ReportsController extends Controller
                     $ides[] = $id1['id'];
                 }
                 $valores3 = array_unique($ides);
+                unset($ides);
                 foreach ($valores3 as $valUni) {
                     $keys = array_keys(array_column($valores1, 'id'), $valUni);
                     foreach ($keys as $key) {
@@ -693,6 +699,7 @@ class ReportsController extends Controller
                         $valP[] = collect(['id' => $rub->id, 'valor' => 0]);
                     }
                 }
+                unset($valores3);
             } else {
                 foreach ($rubros as $rub) {
                     $valP[] = collect(['id' => $rub->id, 'valor' => 0]);
