@@ -15,6 +15,17 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>11 de Agosto del 2021</td>
+                        <td>Se realiza el mantenimiento semestral a la base de datos en el que se realiza
+                            una busqueda de errores, se revisan los índices de las tablas de la base de datos
+                            y se eliminan los registros obsoletos e innecesarios para evitar cargas altas
+                            en la base de datos y que sean optimos y rapidos los procesos realizados en ella.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Base de Datos</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>04 de Agosto del 2021</td>
                         <td>Se detecta un problema con Chrome tras su ultima actualziacion que causaba que
                             las librerias de VueJs no se ejecutaran correctamente y afectaba el funcionamiento
