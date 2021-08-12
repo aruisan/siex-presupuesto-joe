@@ -505,7 +505,8 @@ class ReportsController extends Controller
         for ($i = 0; $i < sizeof($rubros); $i++) {
             if ($rubros[$i]->rubrosCdp->count() == 0){
                 $valoresCdp[] = collect(['id' => $rubros[$i]->id, 'name' => $rubros[$i]->name, 'valor' => 0 ]) ;
-            }elseif ($rubros[$i]->rubrosCdp->count() > 1){
+            }
+            if ($rubros[$i]->rubrosCdp->count() > 1){
                 foreach ($rubros[$i]->rubrosCdp as $R3){
                     if ($R3->cdps->vigencia_id == $vigencia_id){
                         if ($R3->cdps->jefe_e == "2" or $R3->cdps->jefe_e == "1"){
@@ -898,6 +899,8 @@ class ReportsController extends Controller
                     $AD = $cod['valor'] + $valCred1 - $valCcred1;
                 }
                 $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
+            } elseif($cod['valor'] == 0 and $cod['id_rubro'] != ""){
+                $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => 0]);
             }
         }
 
@@ -908,13 +911,6 @@ class ReportsController extends Controller
                 }
             }
             $saldoDisp[] = collect(['id' => $valDisp['id'], 'valor' => $valDisp['valor'] - $valrest]);
-        }
-
-        //ROL
-
-        $roles = auth()->user()->roles;
-        foreach ($roles as $role){
-            $rol= $role->id;
         }
 
         //CUENTAS POR PAGAR
