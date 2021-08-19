@@ -241,40 +241,33 @@
             </div>
 
             <div id="registros" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-pane">
-                      
-                       
-                        <center>
-                            <h2>Registros Asignados al Rubro</h2>
-                        </center>
-                     
-                      
+                <center>
+                    <h2>Registros Asignados al Rubro</h2>
+                </center>
 
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="tablaRegistros">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Id</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Valor Inicial</th>
-                                    <th class="text-center">Valor Disponible</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($rubro->cdpRegistroValor as  $data2)
-                                    <tr class="text-center">
-                                        <td><a href="{{ url('administrativo/registros/show/'.$data2->registro_id) }}">{{ $data2->registro->code }}</a></td>
-                                        <td>{{ $data2->registro->objeto }}</td>
-                                        <td>$ <?php echo number_format($data2->valor,0);?>.00</td>
-                                        <td>$ <?php echo number_format( $data2->valor_disp,0);?>.00</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-
-
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tablaRegistros">
+                        <thead>
+                        <tr>
+                            <th class="text-center">Id</th>
+                            <th class="text-center">Nombre</th>
+                            <th class="text-center">Valor Inicial</th>
+                            <th class="text-center">Valor Disponible</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($rubro->cdpRegistroValor as  $data2)
+                            <tr class="text-center">
+                                <td><a href="{{ url('administrativo/registros/show/'.$data2->registro_id) }}">{{ $data2->registro->code }}</a></td>
+                                <td>{{ $data2->registro->objeto }}</td>
+                                <td>$ <?php echo number_format($data2->valor,0);?>.00</td>
+                                <td>$ <?php echo number_format( $data2->saldo,0);?>.00</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
      
             <div id="movimientos" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-pane">
                 <center><h2>Movimientos del Rubro</h2></center>
@@ -357,11 +350,9 @@
                         </div>
                     </div>
                 @endif
-         </div>
-    
- </div>
-     
             </div>
+        </div>
+    </div>
     @include('modal.adicionRubro')
     @include('modal.reduccionRubro')
     @include('modal.creditoRubro')

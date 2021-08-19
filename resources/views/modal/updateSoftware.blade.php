@@ -15,6 +15,30 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>20 de Agosto del 2021</td>
+                        <td>Se realiza la actualización de la vista inicial de los registros,
+                            eliminando la opción de ver el PDF de los registros que han sido anulados,
+                            de esta forma se limita ese acceso y la única forma de ver la
+                            información del registro que ha sido anulado es accediendo desde
+                            el botón de ver.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>18 de Agosto del 2021</td>
+                        <td>Se realiza la actualización de la vista del rubro en el apartado
+                            de registros, se realiza un cambio en la tabla para que muestre el
+                            valor del saldo del registro actual para que el usuario tenga la
+                            posibilidad de ver el saldo desde el listado de los registros
+                            que tiene asignado el rubro.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>11 de Agosto del 2021</td>
                         <td>Se realiza el mantenimiento semestral a la base de datos en el que se realiza
                             una busqueda de errores, se revisan los índices de las tablas de la base de datos
