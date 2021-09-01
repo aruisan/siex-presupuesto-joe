@@ -44,7 +44,7 @@ class OrdenPagosController extends Controller
         $oPH = OrdenPagos::where('estado','!=', '0')->get();
         foreach ($oPH as $data){
             if ($data->registros->cdpsRegistro[0]->cdp->vigencia_id == $id){
-                $ordenPagos[] = collect($data);
+                $ordenPagos[] = collect(['info' => $data, 'tercero' => $data->registros->persona->nombre]);
             }
         }
         if (!isset($ordenPagoTarea)){

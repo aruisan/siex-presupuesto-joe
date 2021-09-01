@@ -260,6 +260,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 
         //crud Configuración General
         Route::resource('configGeneral','Admin\ConfigGeneralController');
+        Route::post('configGeneral/imgProy','Admin\ConfigGeneralController@newImgProy');
 
         //crud Entidades
         Route::resource('entidades','Admin\EntidadesController');

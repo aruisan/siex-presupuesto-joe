@@ -92,6 +92,7 @@
                         <tr>
                             <th class="text-center">#</th>
                             <th class="text-center">Concepto</th>
+                            <th class="text-center">Tercero</th>
                             <th class="text-center">Valor</th>
                             <th class="text-center">Estado</th>
                             <th class="text-center">Acciones</th>
@@ -100,14 +101,15 @@
                         <tbody>
                         @foreach($ordenPagos as $ordenPago)
                             <tr class="text-center">
-                                <td>{{ $ordenPago['code'] }}</td>
-                                <td>{{ $ordenPago['nombre'] }}</td>
-                                <td>$<?php echo number_format($ordenPago['valor'],0) ?></td>
+                                <td>{{ $ordenPago['info']['code'] }}</td>
+                                <td>{{ $ordenPago['info']['nombre'] }}</td>
+                                <td>{{ $ordenPago['tercero'] }}</td>
+                                <td>$<?php echo number_format($ordenPago['info']['valor'],0) ?></td>
                                 <td>
                                     <span class="badge badge-pill badge-danger">
-                                        @if($ordenPago['estado'] == "0")
+                                        @if($ordenPago['info']['estado'] == "0")
                                             Pendiente
-                                        @elseif($ordenPago['estado'] == "1")
+                                        @elseif($ordenPago['info']['estado'] == "1")
                                             Finalizado
                                         @else
                                             Anulado
@@ -115,8 +117,8 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ url('administrativo/ordenPagos/show/'.$ordenPago['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
-                                    <a href="{{ url('administrativo/ordenPagos/pdf/'.$ordenPago['id']) }}" title="Orden de Pago" class="btn-sm btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/show/'.$ordenPago['info']['id']) }}" title="Ver Orden de Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a>
+                                    <a href="{{ url('administrativo/ordenPagos/pdf/'.$ordenPago['info']['id']) }}" title="Orden de Pago" class="btn-sm btn-success" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach

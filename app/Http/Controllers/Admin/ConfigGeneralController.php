@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Model\Admin\ConfigGeneral;
 use App\Http\Controllers\Controller;
+use App\Traits\FileTraits;
 
 use Session;
 
@@ -129,5 +130,26 @@ class ConfigGeneralController extends Controller
 
         Session::flash('error','Firma borrada correctamente');
         return redirect('/admin/configGeneral');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\ConfigGeneral  $configGeneral
+     * @return \Illuminate\Http\Response
+     */
+    public function newImgProy(Request $request)
+    {
+        if ($request->file()){
+            $file = new FileTraits;
+            $ruta = $file->Img($request->file('logo'), '', 'masporlasislas');
+
+            Session::flash('success','Imagen de logo actualizado');
+            return redirect('admin/configGeneral');
+        } else{
+            Session::flash('error','No se detecta imagen');
+            return redirect('/admin/configGeneral');
+        }
     }
 }

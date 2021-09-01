@@ -15,6 +15,18 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>01 de Septiembre del 2021</td>
+                        <td>Se realiza la actualización de la vista inicial de los registros,
+                            eliminando la opción de ver el PDF de los registros que han sido anulados,
+                            de esta forma se limita ese acceso y la única forma de ver la
+                            información del registro que ha sido anulado es accediendo desde
+                            el botón de ver.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">General</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>20 de Agosto del 2021</td>
                         <td>Se realiza la actualización de la vista inicial de los registros,
                             eliminando la opción de ver el PDF de los registros que han sido anulados,

@@ -14,7 +14,11 @@
                 @if($OrdenPago->estado == 1)
                     <li class="nav-item regresar"> <a class="nav-link" href="{{ url('/administrativo/ordenPagos/'.$vigencia_id) }}">Volver a Ordenes de Pago</a></li>
                     <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">Orden de Pago {{ $OrdenPago->code }}</a></li>
-                    <li class="nav-item"> <a class="tituloTabs" href="{{ url('/administrativo/pagos/create/'.$vigencia_id) }}"><i class="fa fa-credit-card"></i>&nbsp; Pagar</a></li>
+                    @if(isset($OrdenPago->pago))
+                        <li class="nav-item"> <a class="tituloTabs" href="{{ url('administrativo/pagos/show/'.$OrdenPago->pago->id) }}"><i class="fa fa-credit-card"></i>&nbsp; Ver Pago</a></li>
+                    @else
+                        <li class="nav-item"> <a class="tituloTabs" href="{{ url('/administrativo/pagos/create/'.$vigencia_id) }}"><i class="fa fa-credit-card"></i>&nbsp; Pagar</a></li>
+                    @endif
                     <li class="nav-item pillPri"> <a class="tituloTabs" target="_blank" href="{{ url('/administrativo/ordenPagos/pdf/'.$OrdenPago->id) }}"><i class="fa fa-file-pdf-o"></i>&nbsp; PDF</a></li>
                 @else
                     <li class="nav-item regresar"> <a class="nav-link" href="{{ url('/administrativo/ordenPagos/'.$vigencia_id) }}">Volver a Ordenes de Pago</a></li>
@@ -193,6 +197,46 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @if(isset($OrdenPago->pago))
+                                <hr>
+                                <center>
+                                    <h3>Pago Asignado a la Orden de Pago</h3>
+                                </center>
+                                <hr>
+                                <br>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tablaP">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">Ver Pago</th>
+                                            <th class="text-center">Concepto</th>
+                                            <th class="text-center">Valor</th>
+                                            <th class="text-center">Estado</th>
+                                            <th class="text-center">Fecha de Finalización</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="text-center">
+                                            <td><a href="{{ url('administrativo/pagos/show/'.$OrdenPago->pago->id) }}" title="Ver Pago" class="btn-sm btn-success"><i class="fa fa-eye"></i></a></td>
+                                            <td>{{$OrdenPago->pago->concepto}}</td>
+                                            <td>$<?php echo number_format($OrdenPago->pago->valor,0) ?> </td>
+                                            <td>
+                                                <span class="badge badge-pill badge-danger">
+                                                    @if($OrdenPago->pago->estado == "0")
+                                                        Pendiente
+                                                    @elseif($OrdenPago->pago->estado == "1")
+                                                        Finalizado
+                                                    @else
+                                                        Anulado
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            <td>{{$OrdenPago->pago->ff_fin}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

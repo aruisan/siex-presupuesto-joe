@@ -80,15 +80,33 @@
 			</div>
 			<div>
 				<h4 class="text-center">En esta sección el usuario tiene la posibilidad de realizar el cambio
-					del logo de la plataforma, este logo sera usado para los distintos PDF de la plataforma
-					junto con el logo de la plataforma principal.
+					del logo de la plataforma, este logo será usado para los distintos PDF de la plataforma
+					junto con el logo de la pagina principal.
 					<br><br>
 				</h4>
-			</div>
-			<div class="container-fluid">
-				<div class="row text-center">
-					<div class="col-md-12"></div>
+				<br>
+				<h3 class="text-center">Logo Actual</h3>
+				<hr>
+				<div class="text-center">
+					<img src="{{ asset('img/masporlasislas.png')}}" class="Logo" >
 				</div>
+				<br>
+				<h3 class="text-center">Cambio de Logo</h3>
+				<hr>
+				<form class="form-valide" action="{{url('/admin/configGeneral/imgProy')}}" method="POST" enctype="multipart/form-data">
+					{{ csrf_field() }}
+					<div class="col-md-4 align-self-center">
+					</div>
+					<div class="col-md-3 align-self-center">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-photo" aria-hidden="true"></i></span>
+							<input type="file" id="logo" name="logo" accept="image/png" class="form-control" required>
+						</div>
+					</div>
+					<div class="col-md-2 align-self-center">
+						<button type="submit" class="btn btn-primary">Cargar Imagen</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
