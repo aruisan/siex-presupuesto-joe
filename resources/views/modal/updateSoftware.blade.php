@@ -16,11 +16,19 @@
                     <tbody class="text-center">
                     <tr>
                         <td>01 de Septiembre del 2021</td>
-                        <td>Se realiza la actualización de la vista inicial de los registros,
-                            eliminando la opción de ver el PDF de los registros que han sido anulados,
-                            de esta forma se limita ese acceso y la única forma de ver la
-                            información del registro que ha sido anulado es accediendo desde
-                            el botón de ver.
+                        <td>Se implementa una actualización a la plataforma en la que el usuario tiene
+                            la capacidad de cambiar el logo usado en el sistema, de esta forma se puede
+                            realizar el cambio desde la misma plataforma.
+                            <br><br>
+                            Esta opción se encuentra en la interfaz de configuración general.
+                            Se debe tener en cuenta que una vez cambiado el logo se perderá el logo que
+                            se encontraba almacenado anteriormente.
+                            <br><br>
+                            Puede que el cambio de logo no se observe
+                            al recargar la pagina por el cache del navegador, para verificar el cambio puede
+                            abrir la plataforma en una ventana de incognito y observara que el cambio ha sido
+                            aplicado exitosamente.
+
                         </td>
                         <td>
                             <span class="badge badge-pill badge-danger">General</span>
