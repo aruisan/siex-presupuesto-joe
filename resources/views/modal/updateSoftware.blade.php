@@ -15,6 +15,17 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>06 de Septiembre del 2021</td>
+                        <td>Se agrega al listado histórico de las órdenes de pago la columna en la que
+                            se observa el correspondiente tercero de la orden de pago. De esta forma el
+                            usuario tiene la información del tercero desde el mismo listado de las
+                            órdenes de pago.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>01 de Septiembre del 2021</td>
                         <td>Se implementa una actualización a la plataforma en la que el usuario tiene
                             la capacidad de cambiar el logo usado en el sistema, de esta forma se puede
