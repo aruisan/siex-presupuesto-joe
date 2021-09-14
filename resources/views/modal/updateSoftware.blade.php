@@ -15,6 +15,17 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>13 de Septiembre del 2021</td>
+                        <td>Se agrega a la interfaz de la orden de pago el listado del pago que tiene asignado,
+                            de esta forma el usuario cuando accede a consultar la información de la orden de pago
+                            dispone también de la información del pago que tiene asignado y el estado en el
+                            que se encuentra.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>06 de Septiembre del 2021</td>
                         <td>Se agrega al listado histórico de las órdenes de pago la columna en la que
                             se observa el correspondiente tercero de la orden de pago. De esta forma el
