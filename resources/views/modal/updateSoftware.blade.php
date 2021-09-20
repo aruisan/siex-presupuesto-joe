@@ -15,6 +15,21 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>17 de Septiembre del 2021</td>
+                        <td>Se modifica el menú de tabs de la interfaz de la orden de pago, ahora cuando una orden
+                            de pago tenga asignado un pago el tab de pagar dirá “ver pago” y redireccionará el
+                            usuario a la interfaz del pago que tiene asignada la orden de pago.
+                            <br><br>
+                            Con esta actualización el usuario tendrá la posibilidad de acceder a la información de una
+                            manera mucho más rápida sin tener que dirigirse hasta la interfaz de los pagos o
+                            desplazarse a la parte inferior de la orden de pago donde se encuentra la información
+                            del pago.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>13 de Septiembre del 2021</td>
                         <td>Se agrega a la interfaz de la orden de pago el listado del pago que tiene asignado,
                             de esta forma el usuario cuando accede a consultar la información de la orden de pago
