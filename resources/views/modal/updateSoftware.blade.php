@@ -15,6 +15,26 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>27 de Septiembre del 2021</td>
+                        <td>Se evidencian registros en la base de datos innecesarios realizando un consumo en los
+                            procesos generales del sistema, por ende se realiza la respectiva limpieza de los mismos
+                            para evitar ese consumo innecesario y mejorar el tiempo de carga en los distintos procesos
+                            de la plataforma.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Base de Datos</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>22 de Septiembre del 2021</td>
+                        <td>Se actualiza el año de los derechos reservados de la plataforma del año 2018 al año 2021.
+                            De esta forma se muestra el año que es correctamente en toda la plataforma.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">General</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>17 de Septiembre del 2021</td>
                         <td>Se modifica el menú de tabs de la interfaz de la orden de pago, ahora cuando una orden
                             de pago tenga asignado un pago el tab de pagar dirá “ver pago” y redireccionará el
