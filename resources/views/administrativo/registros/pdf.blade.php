@@ -31,6 +31,22 @@
 						<td>{{number_format($registro->valor)}}</td>
 					</tr>
 					<tr style="font-size: 16px;">
+						<td style="width: 30px;">Programa: </td>
+						@foreach($infoRubro as $rubro)
+							@if($rubro['name'] == $rubroNameCDP)
+								<td>{{$rubro['last_code']}} - {{$rubro['register']}}</td>
+							@endif
+						@endforeach
+					</tr>
+					<tr style="font-size: 16px;">
+						<td style="width: 30px;">Sub Programa: </td>
+						@foreach($infoRubro as $rubro)
+							@if($rubro['name'] == $rubroNameCDP)
+								<td>{{$rubro['codigo']}} - {{$rubro['name']}}</td>
+							@endif
+						@endforeach
+					</tr>
+					<tr style="font-size: 16px;">
 						<td style="width: 30px;">Objeto: </td>
 						<td> {{$registro->objeto}}</td>
 					</tr>
@@ -46,7 +62,7 @@
 					</tr>
 					<tr style="font-size: 16px;">
 						<td style="width: 30px;">Beneficiario: </td>
-						<td> {{$registro->persona->nombre}}</td>
+						<td>{{$registro->persona->num_dc}} - {{$registro->persona->nombre}}</td>
 					</tr>
 				</tbody>
 			</table>

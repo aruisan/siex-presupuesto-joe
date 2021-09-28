@@ -41,6 +41,7 @@
                                     <li><a data-toggle="modal" data-target="#reporteHomologar" class="btn btn-drop text-left">Reporte</a></li>
                                 </ul>
                             </li>
+                            <!-- SE COMENTAN LOS REPORTES QUE NO TIENEN ACCESO FUNCIONAL.
                             <li>
                                 <a href="#" class="btn btn-drop text-left">FUT </a>
                             </li>
@@ -53,6 +54,8 @@
                             <li>
                                 <a href="#" class="btn btn-drop text-left">Fuentes</a>
                             </li>
+
+                            -->
                         </ul>
                     </li>
                     <li class="dropdown">

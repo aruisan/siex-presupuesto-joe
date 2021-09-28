@@ -38,12 +38,24 @@
 						<td> {{$rubrosCdp->rubros->subProyecto->name}}</td>
 					</tr>
 					<tr style="font-size: 16px;">
-						<td style="width: 30px;">Valor: </td>
-						<td> {{number_format($rubrosCdp->rubrosCdpValor->sum('valor'))}}</td>
+						<td style="width: 30px;">Programa: </td>
+						@foreach($infoRubro as $rubro)
+							@if($rubro['name'] == $rubrosCdp->rubros->name)
+								<td>{{$rubro['last_code']}} - {{$rubro['register']}}</td>
+							@endif
+						@endforeach
 					</tr>
 					<tr style="font-size: 16px;">
-						<td style="width: 30px;">Rubro: </td>
-						<td> {{$rubrosCdp->rubros->name}}</td>
+						<td style="width: 30px;">Sub Programa: </td>
+						@foreach($infoRubro as $rubro)
+							@if($rubro['name'] == $rubrosCdp->rubros->name)
+								<td>{{$rubro['codigo']}} - {{$rubro['name']}}</td>
+							@endif
+						@endforeach
+					</tr>
+					<tr style="font-size: 16px;">
+						<td style="width: 30px;">Valor: </td>
+						<td> {{number_format($rubrosCdp->rubrosCdpValor->sum('valor'))}}</td>
 					</tr>
 				</tbody>
 			</table>

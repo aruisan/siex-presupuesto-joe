@@ -390,7 +390,7 @@ class CdpController extends Controller
                                     foreach ($rubroz as $rub) {
                                         if ($register->id == $rub->register_id) {
                                             $newCod = "$code$rub->cod";
-                                            $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code]);
+                                            $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code, 'last_code' => $code, 'register' => $register->name]);
                                         }
                                     }
                                 }

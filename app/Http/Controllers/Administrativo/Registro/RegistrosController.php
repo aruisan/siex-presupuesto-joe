@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Administrativo\Registro;
 
+use App\Model\Hacienda\Presupuesto\Level;
+use App\Model\Hacienda\Presupuesto\Register;
+use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Persona;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -359,12 +362,63 @@ class RegistrosController extends Controller
         $vigencia_id = $V;
         $vigencia = Vigencia::find($vigencia_id);
 
-    $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
-    $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+        $registers = Register::where('level_id', $ultimoLevel->id)->get();
+        $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
+        $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
+        $rubroz = Rubro::where('vigencia_id', $vigencia_id)->get();
 
-    $fecha = Carbon::createFromTimeString($registro->created_at);
+        global $lastLevel;
+        $lastLevel = $ultimoLevel->id;
+        $lastLevel2 = $ultimoLevel2->level_id;
+        foreach ($registers2 as $register2) {
+            global $codigoLast;
+            if ($register2->register_id == null) {
+                $codigoEnd = $register2->code;
+            } elseif ($codigoLast > 0) {
+                if ($lastLevel2 == $register2->level_id) {
+                    $codigo = $register2->code;
+                    $codigoEnd = "$codigoLast$codigo";
+                    foreach ($registers as $register) {
+                        if ($register2->id == $register->register_id) {
+                            $register_id = $register->code_padre->registers->id;
+                            $code = $register->code_padre->registers->code . $register->code;
+                            $ultimo = $register->code_padre->registers->level->level;
+                            while ($ultimo > 1) {
+                                $registro2 = Register::findOrFail($register_id);
+                                $register_id = $registro2->code_padre->registers->id;
+                                $code = $registro2->code_padre->registers->code . $code;
 
-        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia', 'dias', 'meses', 'fecha'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
+                                $ultimo = $registro2->code_padre->registers->level->level;
+                            }
+                            if ($register->level_id == $lastLevel) {
+                                foreach ($rubroz as $rub) {
+                                    if ($register->id == $rub->register_id) {
+                                        $newCod = "$code$rub->cod";
+                                        $infoRubro[] = collect(['id_rubro' => $rub->id, 'id' => '', 'codigo' => $newCod, 'name' => $rub->name, 'code' => $rub->code, 'last_code' => $code, 'register' => $register->name]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }else {
+                $codigo = $register2->code;
+                $newRegisters = Register::findOrFail($register2->register_id);
+                $codigoNew = $newRegisters->code;
+                $codigoEnd = "$codigoNew$codigo";
+                $codigoLast = $codigoEnd;
+            }
+        }
+
+        $rubroNameCDP = $registro->cdpsRegistro->first()->cdp->rubrosCdp->first()->rubros->name;
+
+        $dias = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+        $fecha = Carbon::createFromTimeString($registro->created_at);
+
+        $pdf = \PDF::loadView('administrativo.registros.pdf', compact('registro', 'vigencia', 'dias', 'meses', 'fecha','infoRubro','rubroNameCDP'))->setOptions(['images' => true,'isRemoteEnabled' => true]);
             return $pdf->stream();
     }
 }
