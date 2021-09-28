@@ -15,6 +15,41 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>28 de Septiembre del 2021</td>
+                        <td>Se implementa una actualización a la plataforma en la sección de los PDF de los Registros
+                            debido a que se requiere mostrar el número de identificación de la persona que se encuentra
+                            asignada al registro. Este cambio es solicitado por la secretaria general Camila
+                            Nicolle Amador Hooker.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>28 de Septiembre del 2021</td>
+                        <td>Se implementa una actualización a la plataforma en la sección de los PDF de los Registros
+                            debido a que se requiere mostrar el programa y subprograma correspondiente al Registro,
+                            se muestra el nombre de ellos junto con el rubro correspondiente. Este cambio es solicitado
+                            por la secretaria general Camila Nicolle Amador Hooker debido a que la contraloría está
+                            requiriendo ese ajuste.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>28 de Septiembre del 2021</td>
+                        <td>Se implementa una actualización a la plataforma en la sección de los PDF de los CDPs debido
+                            a que se requiere mostrar el programa y subprograma correspondiente al CDP, se muestra el
+                            nombre de ellos junto con el rubro correspondiente. Este cambio es solicitado por la
+                            secretaria general Camila Nicolle Amador Hooker debido a que la contraloría está
+                            requiriendo ese ajuste.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>27 de Septiembre del 2021</td>
                         <td>Se evidencian registros en la base de datos innecesarios realizando un consumo en los
                             procesos generales del sistema, por ende se realiza la respectiva limpieza de los mismos
