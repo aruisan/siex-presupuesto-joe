@@ -15,6 +15,19 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>07 de Octubre del 2021</td>
+                        <td>Se realiza una revisión general a la plataforma debido a que se presenta un valor negativo
+                            en el presupuesto, este valor es revisado y se detecta un CDP creado incorrectamente que
+                            estaba provocando el valor erróneo en el presupuesto.
+                            <br><br>
+                            Este CDP es eliminado debido a que no contenía ninguna información y se corrige el
+                            error en el presupuesto.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>28 de Septiembre del 2021</td>
                         <td>Se implementa una actualización a la plataforma en la sección de los PDF de los Registros
                             debido a que se requiere mostrar el número de identificación de la persona que se encuentra
