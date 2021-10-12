@@ -272,84 +272,85 @@
             <div id="movimientos" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 tab-pane">
                 <center><h2>Movimientos del Rubro</h2></center>
                 <br>
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="tablaMovimientos">
-                        <thead>
-                        <tr>
-                            <th class="text-center">Id</th>
-                            <th class="text-center">Nombre Fuente</th>
-                            <th class="text-center">Valor Inicial</th>
-                            <th class="text-center">Adición</th>
-                            <th class="text-center">Reducción</th>
-                            @if($vigens->tipo != 1)
-                                <th class="text-center">Credito</th>
-                                <th class="text-center">Contra Credito</th>
-                            @endif
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($fuentesR as $fuentes)
+                <div class="col-md-8 align-self-center">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tablaMovimientos">
+                            <thead>
                             <tr>
-                                <td>{{ $fuentes->id }}</td>
-                                <td>{{ $fuentes->fontVigencia->font->name }}</td>
-                                <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
-                                <td class="text-center">
-                                    @foreach($valores as $valAdd)
-                                        @if($fuentes->font_vigencia_id == $valAdd['id'])
-                                            $ <?php echo number_format($valAdd['adicion'],0);?>.00
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td class="text-center">
-                                    @foreach($valores as $valAdd)
-                                        @if($fuentes->font_vigencia_id == $valAdd['id'])
-                                            $ <?php echo number_format($valAdd['reduccion'],0);?>.00
-                                        @endif
-                                    @endforeach
-                                </td>
+                                <th class="text-center">Id</th>
+                                <th class="text-center">Nombre Fuente</th>
+                                <th class="text-center">Valor Inicial</th>
+                                <th class="text-center">Adición</th>
+                                <th class="text-center">Reducción</th>
                                 @if($vigens->tipo != 1)
-                                    <td class="text-center">
-                                        @foreach($valores as $valAdd)
-                                            @if($fuentes->font_vigencia_id == $valAdd['id'])
-                                                $ <?php echo number_format($valAdd['credito'],0);?>.00
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        @foreach($valores as $valAdd)
-                                            @if($fuentes->font_vigencia_id == $valAdd['id'])
-                                                $ <?php echo number_format($valAdd['ccredito'],0);?>.00
-                                            @endif
-                                        @endforeach
-                                    </td>
+                                    <th class="text-center">Credito</th>
+                                    <th class="text-center">Contra Credito</th>
                                 @endif
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
-       
-                @if($files != 0)
-                    <center>
-                        <h3>Archivos Correspondientes a los Movimientos del Rubro</h3>
-                    </center>
-                    
-                    <br>
-                    <div class="input-group">
-                        <div class="row text-center">
-                            @foreach($files as $file)
-                                @if($file['mov'] == 1)
-                                    <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o"></i>&nbsp; Credito y Contracredito</a>
-                                @elseif($file['mov'] == 2)
-                                    <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Adición</i></a>
-                                @elseif($file['mov'] == 3)
-                                    <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Reducción</i></a>
-                                @endif
-
+                            </thead>
+                            <tbody>
+                            @foreach($fuentesR as $fuentes)
+                                <tr>
+                                    <td>{{ $fuentes->id }}</td>
+                                    <td>{{ $fuentes->fontVigencia->font->name }}</td>
+                                    <td class="text-center">$ <?php echo number_format($fuentes['valor'],0);?>.00</td>
+                                    <td class="text-center">
+                                        @foreach($valores as $valAdd)
+                                            @if($fuentes->font_vigencia_id == $valAdd['id'])
+                                                $ <?php echo number_format($valAdd['adicion'],0);?>.00
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td class="text-center">
+                                        @foreach($valores as $valAdd)
+                                            @if($fuentes->font_vigencia_id == $valAdd['id'])
+                                                $ <?php echo number_format($valAdd['reduccion'],0);?>.00
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    @if($vigens->tipo != 1)
+                                        <td class="text-center">
+                                            @foreach($valores as $valAdd)
+                                                @if($fuentes->font_vigencia_id == $valAdd['id'])
+                                                    $ <?php echo number_format($valAdd['credito'],0);?>.00
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">
+                                            @foreach($valores as $valAdd)
+                                                @if($fuentes->font_vigencia_id == $valAdd['id'])
+                                                    $ <?php echo number_format($valAdd['ccredito'],0);?>.00
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    @endif
+                                </tr>
                             @endforeach
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-                @endif
+                </div>
+                <div class="col-md-4 align-self-center">
+                    @if($files != 0)
+                        <center>
+                            <h3>Resoluciones del Rubro</h3>
+                        </center>
+                        <br>
+                        <div class="input-group">
+                            <div class="row text-center">
+                                @foreach($files as $file)
+                                    @if($file['mov'] == 1)
+                                        <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o"></i>&nbsp; Credito y Contracredito</a>
+                                    @elseif($file['mov'] == 2)
+                                        <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Adición</i></a>
+                                    @elseif($file['mov'] == 3)
+                                        <a href="{{Storage::url($file['ruta'])}}" title="Ver" class="btn btn-success"><i class="fa fa-file-pdf-o">&nbsp; Reducción</i></a>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

@@ -15,6 +15,18 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>13 de Octubre del 2021</td>
+                        <td>Se realiza una actualización visual a la información suministrada en los movimientos del
+                            rubro, se acortan los tamaños de la información para que sea mucho mas compacto y se
+                            cambia el titulo del listado de los archivos del rubro. De esta forma es mucho mas
+                            sencillo entender que los documentos registrados son las resoluciones que han afectado
+                            el rubro, ya sea un crédito, contra crédito, adición y reducción.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>07 de Octubre del 2021</td>
                         <td>Se realiza una revisión general a la plataforma debido a que se presenta un valor negativo
                             en el presupuesto, este valor es revisado y se detecta un CDP creado incorrectamente que
