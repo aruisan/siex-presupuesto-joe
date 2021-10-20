@@ -349,6 +349,12 @@
                                 @endforeach
                             </div>
                         </div>
+                    @else
+                        <center>
+                            <h3>El rubro no ha recibido ningun movimiento</h3>
+                            <br>
+                            <a href="{{ url('administrativo/cdp/') }}" class="btn btn-primary btn-block m-b-12 disabled">VER TODOS LOS MOVIMIENTOS</a>
+                        </center>
                     @endif
                 </div>
             </div>

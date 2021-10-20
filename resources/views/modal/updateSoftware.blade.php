@@ -15,6 +15,19 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>20 de Octubre del 2021</td>
+                        <td>Se realiza una actualización visual a la información suministrada en los movimientos del
+                            rubro, se agrega un mensaje en el que se informa si el rubro cuenta con movimientos en
+                            el espacio apartado del listado de botones con los archivos.
+                            <br><br>
+                            Se adiciona el botón que abrirá una interfaz en la que se presentará el listado de los
+                            movimientos realizados en la vigencia actual. (Se encuentra en desarrollo).
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>13 de Octubre del 2021</td>
                         <td>Se realiza una actualización visual a la información suministrada en los movimientos del
                             rubro, se acortan los tamaños de la información para que sea mucho mas compacto y se
