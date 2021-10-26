@@ -467,8 +467,12 @@ class ReportsController extends Controller
                                     }
                                 }
                             }
-                            $ArraytotalReg[] = array_sum($sumaValores);
-                            unset($sumaValores);
+                            if (isset($sumaValores)){
+                                $ArraytotalReg[] = array_sum($sumaValores);
+                                unset($sumaValores);
+                            } else {
+                                $ArraytotalReg[] = 0;
+                            }
                         }else{
                             $reg = $rubro->cdpRegistroValor->first()->registro->created_at->format('Y-m-d');
                             if ($reg <= $fecha_final and $reg >= $fecha_inicio){
