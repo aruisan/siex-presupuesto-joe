@@ -556,7 +556,11 @@ class ReportsController extends Controller
                 foreach ($rub->cdpRegistroValor as $item){
                     if ($item->cdps->vigencia_id == $vigencia_id){
                         if (date('Y-m-d', strtotime($item->registro['created_at'])) <= $fecha_final and date('Y-m-d', strtotime($item->registro['created_at'])) >= $fecha_inicio){
-                            $valRR[] = $item->valor;
+                            if ($item->registro['secretaria_e'] == "3"){
+                                $valRR[] = $item->valor;
+                            } else {
+                                $valRR[] = 0;
+                            }
                         }
                     }
                 }
