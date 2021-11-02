@@ -1,31 +1,11 @@
 @extends('layouts.dashboard')
-@section('titulo')
-    CDP's
-@stop
-@section('sidebar')
-    {{-- @if( $rol == 2)
-        <li>
-            <a href="{{ url('/administrativo/cdp/create/'.$vigencia_id) }}" class="btn btn-success">
-                <i class="fa fa-plus"></i>
-                <span class="hide-menu"> Crear CDP</span></a>
-        </li>
-    @endif --}}
-    {{-- <li>
-        <a href="{{ url('/administrativo/registros') }}" class="btn btn-primary">
-            <span class="hide-menu">Registros</span></a>
-    </li>
-    <li>
-        <a href="{{ url('/dashboard/contractual') }}" class="btn btn-primary">
-            <span class="hide-menu">Contractual</span></a>
-    </li> --}}
-@stop
+@section('titulo') CDP's @stop
 @section('content')
     <div class="breadcrumb text-center">
         <strong>
             <h4><b>CDP's</b></h4>
         </strong>
     </div>
-
 
     <ul class="nav nav-pills">
         <li class="nav-item regresar">
