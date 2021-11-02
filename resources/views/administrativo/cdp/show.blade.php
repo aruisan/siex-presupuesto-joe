@@ -1,15 +1,7 @@
 @extends('layouts.dashboard')
-@section('titulo')
-    Información del CDP {{ $cdp->code }}
-@stop
-
-@section('sidebar')
-    {{-- <li> <a href="{{ url('/administrativo/cdp') }}" class="btn btn-success"><span class="hide-menu">&nbsp; CDP's</span></a></li> --}}
-    <br>
-
-@stop
-
+@section('titulo') Información del CDP {{ $cdp->code }} @stop
 @section('content')
+    @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
     <div class="col-md-12 align-self-center">
         <div class="breadcrumb text-center">
             <strong>
@@ -21,6 +13,9 @@
                 <li class="nav-item regresar"><a class="nav-link "  href="{{ url('/administrativo/cdp/'.$cdp->vigencia_id) }}">Volver a CDP'S</a></li>
                 <li class="nav-item active"><a class="tituloTabs" data-toggle="tab" href="#info">CDP {{ $cdp->code }}</a></li>
                 <li class="nav-item "><a class="tituloTabs" data-toggle="tab" href="#rubros">Dinero en Rubros</a></li>
+                @if($cdp->secretaria_e == "3" and $cdp->jefe_e == "3")
+                    <li class="nav-item"><a class="nav-link" href="{{ url('administrativo/cdp/pdf/'.$cdp->id.'/'.$cdp->vigencia_id) }}" target="_blank" title="PDF"><i class="fa fa-file-pdf-o"></i></a></li>
+                @endif
             </ul>
         </div>
         <div class="col-lg-12 ">
@@ -221,7 +216,6 @@
                                                                     <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
                                                                     <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                                                                     <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
-                                                                    @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                                                     <li style="list-style-type: none;">
                                                                         {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                                                     </li>
@@ -231,7 +225,6 @@
                                                                     <input type="hidden" name="fuente_id[]" value="{{ $fuentesRubro->id }}">
                                                                     <input type="hidden" name="cdp_id" value="{{ $cdp->id }}">
                                                                     <input type="hidden" name="rubros_cdp_id[]" value="{{ $rubrosCdpData->id }}">
-                                                                    @php( $fechaActual = Carbon\Carbon::today()->Format('Y-m-d') )
                                                                     <li style="list-style-type: none;">
                                                                         {{ $fuentesRubro->fontVigencia->font->name }} : $<?php echo number_format( $fuentesRubro->valor_disp,0) ?>
                                                                     </li>
