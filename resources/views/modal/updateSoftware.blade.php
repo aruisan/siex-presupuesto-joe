@@ -15,6 +15,19 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>03 de Noviembre del 2021</td>
+                        <td>Se añade un nuevo botón al menú de los CDPs en el que se da la opción de acceder al PDF del
+                            CDP correspondiente que se está visualizando.
+                            <br><br>
+                            Se realiza esta mejora para que el usuario tenga acceso a él PDF cuando está revisando la
+                            información del CDP especifico sin tener que salir al listado de los CDPs para generar el
+                            correspondiente PDF.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>20 de Octubre del 2021</td>
                         <td>Se realiza una actualización visual a la información suministrada en los movimientos del
                             rubro, se agrega un mensaje en el que se informa si el rubro cuenta con movimientos en
