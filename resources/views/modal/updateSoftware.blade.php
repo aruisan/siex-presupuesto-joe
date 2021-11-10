@@ -15,6 +15,17 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>10 de Noviembre del 2021</td>
+                        <td>Se realiza un ajuste a la fuente de la tabla principal del presupuesto de egresos debido a
+                            que se estaban observando de manera incorrecta el nombre del rubro y en ciertos casos se
+                            sobreponía el nombre de un rubro con otro o directamente se salía de la tabla del
+                            presupuesto de egresos.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>03 de Noviembre del 2021</td>
                         <td>Se añade un nuevo botón al menú de los CDPs en el que se da la opción de acceder al PDF del
                             CDP correspondiente que se está visualizando.
