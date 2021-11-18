@@ -15,6 +15,18 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>17 de Noviembre del 2021</td>
+                        <td>Se realizan correcciones a la interfaz del presupuesto en dispositivos móviles, se
+                            actualiza el tamaño de la fuente para dispositivo móvil. Este cambio se ve reflejado en las
+                            pantallas de celular o dispositivos móviles con una pantalla más pequeña del tamaño
+                            general.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span><br><br>
+                            <span class="badge badge-pill badge-danger">Interfaz</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>10 de Noviembre del 2021</td>
                         <td>Se realiza un ajuste a la fuente de la tabla principal del presupuesto de egresos debido a
                             que se estaban observando de manera incorrecta el nombre del rubro y en ciertos casos se
