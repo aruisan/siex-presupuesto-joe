@@ -474,7 +474,7 @@
                                 <div class="row">
                                      <div style="position:left;">
                                 <a href="{{ url('administrativo/cdp/'.$V) }}" class="btn btn-primary btn-block m-b-12">CDP's</a>
-                                <br>
+                                <br><br>
                                  </div>
                                   </div>
                                 <table class="table table-bordered" id="tabla_CDP">
@@ -555,7 +555,7 @@
                         <div class="table-responsive">
                             @if(count($registros) >= 1)
                                 <a href="{{ url('administrativo/registros/'.$V) }}" class="btn btn-primary btn-block m-b-12">Registros</a>
-                                <br>
+                                <br><br>
                                 <table class="table table-bordered" id="tabla_Registros">
                                     <thead>
                                     <tr>
@@ -726,9 +726,8 @@
                     <div id="tabOP" class=" tab-pane fade">
                         <div class="table-responsive">
                             @if(count($ordenPagos) >= 1)
-                                <br>
                                 <a href="{{ url('administrativo/ordenPagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Ordenes de Pago</a>
-                                <br>
+                                <br><br>
                                 <table class="table table-bordered" id="tabla_OrdenPago">
                                     <thead>
                                     <tr>
@@ -786,9 +785,8 @@
                     <div id="tabP" class=" tab-pane fade">
                         <div class="table-responsive">
                             @if(count($pagos) >= 1)
-                                <br>
                                 <a href="{{ url('administrativo/pagos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Pagos</a>
-                                <br>
+                                <br><br>
                                 <table class="table table-bordered" id="tabla_Pagos">
                                     <thead>
                                     <tr>

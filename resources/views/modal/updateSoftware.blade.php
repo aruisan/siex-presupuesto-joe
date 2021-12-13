@@ -15,6 +15,21 @@
                     </tr>
                     <tbody class="text-center">
                     <tr>
+                        <td>13 de Diciembre del 2021</td>
+                        <td>Se modifica la vista principal del presupuesto, en los submenús se da un espacio entre los
+                            botones que redirigen el usuario a la interfaz principal de cada submenú, a la tabla
+                            correspondiente de ese submenú.
+                        </td>
+                        <td>
+                            Se da este espacio para mejorar la visibilidad de la información suministrada en cada
+                            submenú.
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-danger">Presupuesto</span><br><br>
+                            <span class="badge badge-pill badge-danger">Interfaz</span>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>17 de Noviembre del 2021</td>
                         <td>Se realizan correcciones a la interfaz del presupuesto en dispositivos móviles, se
                             actualiza el tamaño de la fuente para dispositivo móvil. Este cambio se ve reflejado en las
