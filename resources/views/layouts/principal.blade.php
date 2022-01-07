@@ -159,9 +159,9 @@
         <div class="lema">
             <marquee class="col-12">
                 <h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: {{ $name_pres}}  - Primer Vicepresidente: {{ $name_first_vice }}  - Segundo Vicepresidente: {{ $name_sec_vice }}
+                    Mesa Directiva: Presidente: PENDIENTE - Primer Vicepresidente: PENDIENTE  - Segundo Vicepresidente: PENDIENTE
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    Mesa Directiva: Presidente: {{ $name_pres}}  - Primer Vicepresidente: {{ $name_first_vice }}  - Segundo Vicepresidente: {{ $name_sec_vice }}
+                    Mesa Directiva: Presidente: PENDIENTE  - Primer Vicepresidente: PENDIENTE  - Segundo Vicepresidente: PENDIENTE
                 </h4>
             </marquee>
         </div>
@@ -267,7 +267,7 @@
             <div class="row">
                 <div class="col-sm-4 text-center" style="padding: 10px 0">
                     <a href="http://siex.com.co/"><img src="{{ asset('/img/logo3.png') }}" width="350"/></a>
-                    <p class="text-foo">© 2018 Copyright Derechos Reservados
+                    <p class="text-foo">© 2022 Copyright Derechos Reservados
                         <a class="text-foo" href="http://altaespecialidad.co/"> Alta Especialidad SAS</a>
                     </p>
                 </div>
