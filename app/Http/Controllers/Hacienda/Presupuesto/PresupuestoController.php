@@ -941,6 +941,11 @@ class PresupuestoController extends Controller
             unset($pacs[0]);
         }
 
+        if (!isset($registros)){
+            $registros[] = null;
+            unset($registros[0]);
+        }
+
         $day = Carbon::now();
         $lastDay = $day->subDay()->toDateString();
         $actuallyDay = Carbon::now()->toDateString();

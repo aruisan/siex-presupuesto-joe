@@ -579,11 +579,12 @@ class VisitanteController extends Controller
         }
 
         $diaActual = Carbon::now()->format('Y-m-d');
+        $añoActual = Carbon::now()->format('Y');
 
         $presidentes = ConfigGeneral::where('tipo','PRESIDENTE')->get();
 
         foreach ($presidentes as $president){
-            if ($president->fecha_inicio <= $diaActual){
+            if ($president->fecha_inicio <= $diaActual and Carbon::parse($president->fecha_inicio)->format('Y') == $añoActual){
                 if ($president->fecha_fin >= $diaActual){
                     $name_pres = $president->nombres;
                 }
@@ -620,6 +621,11 @@ class VisitanteController extends Controller
 
         if (!isset($name_sec_vice)){
             $name_sec_vice = "POR DEFINIR";
+        }
+
+        if (!isset($registros)){
+            $registros[] = null;
+            unset($registros[0]);
         }
 
         return view('visitante.index', compact('codigos','V','fuentes','FRubros','fuentesRubros','valoresIniciales','cdps', 'Rubros','valoresCdp','registros','valorDisp',

@@ -159,9 +159,9 @@
         <div class="lema">
             <marquee class="col-12">
                 <h4 class="text-center text-white">
-                    Mesa Directiva: Presidente: PENDIENTE - Primer Vicepresidente: PENDIENTE  - Segundo Vicepresidente: PENDIENTE
+                    Mesa Directiva: Presidente: {{ $name_pres}}  - Primer Vicepresidente: {{ $name_first_vice }}  - Segundo Vicepresidente: {{ $name_sec_vice }}
                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    Mesa Directiva: Presidente: PENDIENTE  - Primer Vicepresidente: PENDIENTE  - Segundo Vicepresidente: PENDIENTE
+                    Mesa Directiva: Presidente: {{ $name_pres}}  - Primer Vicepresidente: {{ $name_first_vice }}  - Segundo Vicepresidente: {{ $name_sec_vice }}
                 </h4>
             </marquee>
         </div>
