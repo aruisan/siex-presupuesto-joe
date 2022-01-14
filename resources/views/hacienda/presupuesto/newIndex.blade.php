@@ -235,7 +235,7 @@
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorInicial['valor'],0);?></td>
                                         @endif
                                     @endforeach
-                                    @if($codigo['valor'])
+                                    @if($codigo['valor'] >= "0")
                                         <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
                                     <!-- ADICIÓN -->
@@ -290,7 +290,7 @@
                                     @endforeach
                                     @foreach($ArrayDispon as $valorPD)
                                         @if($codigo['id_rubro'] == $valorPD['id'])
-                                            <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorPD['valor'],0);?></td>
+                                            <td class="text-center text-dark" style="vertical-align:middle;">$ DEF <?php echo number_format($valorPD['valor'],0);?></td>
                                         @endif
                                     @endforeach
                                     <!-- CDP'S -->

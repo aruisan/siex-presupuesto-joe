@@ -2873,6 +2873,8 @@ class PresupuestoController extends Controller
                     $AD = $cod['valor'] + $valCred1 - $valCcred1;
                 }
                 $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
+            }elseif($cod['valor'] == 0 and $cod['id_rubro'] != ""){
+                $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => 0]);
             }
         }
 
