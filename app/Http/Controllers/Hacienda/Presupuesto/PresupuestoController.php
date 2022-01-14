@@ -2463,7 +2463,13 @@ class PresupuestoController extends Controller
                             if ($rubro->cdpRegistroValor->count() == 0){
                                 $ArraytotalReg[] =  0 ;
                             }elseif ($rubro->cdpRegistroValor->count() > 1){
-                                $ArraytotalReg[] = $rubro->cdpRegistroValor->sum('valor');
+                                foreach ($rubro->cdpRegistroValor as $cdpRV){
+                                    if ($cdpRV->registro->secretaria_e == "3"){
+                                        $sumaValores[] = $cdpRV->registro->val_total;
+                                    }
+                                }
+                                $ArraytotalReg[] = array_sum($sumaValores);
+                                unset($sumaValores);
                             }else{
                                 $reg = $rubro->cdpRegistroValor->first();
                                 $ArraytotalReg[] = $reg['valor'];
@@ -2560,7 +2566,13 @@ class PresupuestoController extends Controller
             if ($rub->cdpRegistroValor->count() == 0){
                 $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => 0 ]) ;
             }elseif ($rub->cdpRegistroValor->count() > 1){
-                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $rub->cdpRegistroValor->sum('valor')]);
+                foreach ($rub->cdpRegistroValor as $cdpRV){
+                    if ($cdpRV->registro->secretaria_e == "3"){
+                        $sumaValores[] = $cdpRV->registro->val_total;
+                    }
+                }
+                $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => array_sum($sumaValores)]);
+                unset($sumaValores);
             }else{
                 $reg = $rub->cdpRegistroValor->first();
                 $valoresRubro[] = collect(['id' => $rub->id, 'name' => $rub->name, 'valor' => $reg['valor']]) ;
