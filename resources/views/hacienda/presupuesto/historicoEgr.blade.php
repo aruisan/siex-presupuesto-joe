@@ -140,6 +140,8 @@
                                     @endforeach
                                     @if($codigo['valor'])
                                         <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
+                                    @elseif($codigo['valor'] == 0 and $codigo['id_rubro'] != "")
+                                        <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                     @endif
                                 <!-- ADICIÓN -->
                                     @foreach($valoresFinAdd as $valorFinAdd)
