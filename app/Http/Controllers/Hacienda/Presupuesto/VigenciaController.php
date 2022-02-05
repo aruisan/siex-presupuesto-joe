@@ -466,7 +466,13 @@ class VigenciaController extends Controller
                             if ($rubro->cdpRegistroValor->count() == 0){
                                 $ArraytotalReg[] =  0 ;
                             }elseif ($rubro->cdpRegistroValor->count() > 1){
-                                $ArraytotalReg[] = $rubro->cdpRegistroValor->sum('valor');
+                                foreach ($rubro->cdpRegistroValor as $cdpRV){
+                                    if ($cdpRV->registro->secretaria_e == "3"){
+                                        $sumaValores[] = $cdpRV->registro->val_total;
+                                    }
+                                }
+                                $ArraytotalReg[] = array_sum($sumaValores);
+                                unset($sumaValores);
                             }else{
                                 $reg = $rubro->cdpRegistroValor->first();
                                 $ArraytotalReg[] = $reg['valor'];
