@@ -75,7 +75,7 @@
                         <a class="nav-link" data-toggle="pill" href="#tabHome"><i class="fa fa-home"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill"  href="@can('fuentes-list') #tabFuente @endcan">Fuentes</a>
+                        <a class="nav-link" data-toggle="pill"  href="@can('fuentes-list') #tabFuente @endcan">Comprobantes de Ingresos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="@can('rubros-list') #tabRubros @endcan">Rubros</a>
@@ -84,32 +84,18 @@
                         <a class="nav-link" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="@can('adiciones-list') #tabAddIng @endcan">Adiciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="@can('adiciones-list') #tabRedIng @endcan">Reducciones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="@can('creditos-list') #tabCre @endcan">Creditos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" data-toggle="pill" href="#tabApl">Aplazamientos</a>
+                        <a class="nav-link disabled" data-toggle="pill" href="#tabApl" hidden>Aplazamientos</a>
                     </li>
                 </ul>
                 <div class="tab-content" style="background-color: white">
                     <div id="tabHome" class="tab-pane active"><br>
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto" style="text-align: center">
+                            <table class="table table-hover table-bordered" align="100%" id="tabla_presupuesto1" style="text-align: center">
                                 <thead>
                                 <tr>
                                     <th class="text-center">Rubro</th>
                                     <th class="text-center">Nombre</th>
-                                    <th class="text-center">P. Inicial</th>
-                                    <th class="text-center">Adición</th>
-                                    <th class="text-center">Reducción</th>
-                                    <th class="text-center">P.Definitivo</th>
-                                    <th class="text-center">Recaudo Mes</th>
-                                    <th class="text-center">Recaudo Acumulado</th>
+                                    <th class="text-center">PPTO. Inicial</th>
                                     <th class="text-center">Total Recaudado</th>
                                     <th class="text-center">Saldo Por Recaudar</th>
                                 </tr>
@@ -132,41 +118,6 @@
                                         @if($codigo['valor'])
                                             <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($codigo['valor'],0);?></td>
                                         @endif
-                                    <!-- ADICIÓN -->
-                                        @foreach($valoresIniciales as $valorInicial)
-                                            @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach($valoresAdd as $valorAdd)
-                                            @if($codigo['id_rubro'] == $valorAdd['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorAdd['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
-                                    <!-- REDUCCIÓN -->
-                                        @foreach($valoresIniciales as $valorInicial)
-                                            @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ 0</td>
-                                            @endif
-                                        @endforeach
-                                        @foreach($valoresRed as $valorRed)
-                                            @if($codigo['id_rubro'] == $valorRed['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorRed['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
-                                    <!-- PRESUPUESTO DEFINITIVO -->
-                                        @foreach($valoresDisp as $valorDisponible)
-                                            @if($valorDisponible['id'] == $codigo['id'])
-                                                <td class="text-center" style="vertical-align:middle;">$ <?php echo number_format($valorDisponible['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
-                                        @foreach($ArrayDispon as $valorPD)
-                                            @if($codigo['id_rubro'] == $valorPD['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($valorPD['valor'],0);?></td>
-                                            @endif
-                                        @endforeach
-                                        <td class="text-center text-dark">$0</td>
-                                        <td class="text-center text-dark">$0</td>
                                     <!-- TOTAL RECAUDADO-->
                                         @foreach($valoresFinRec as $valorFinRec)
                                             @if($valorFinRec['id'] == $codigo['id'])
@@ -186,7 +137,7 @@
                                         @endforeach
                                         @foreach($saldoRecaudo as $saldoR)
                                             @if($codigo['id_rubro'] == $saldoR['id'])
-                                                <td class="text-center text-dark" style="vertical-align:middle;">$ <?php echo number_format($saldoR['valor'],0);?></td>
+                                                <td class="text-center text-dark" style="vertical-align:middle;">$0</td>
                                             @endif
                                         @endforeach
                                     </tr>
@@ -196,184 +147,23 @@
                         </div>
                     </div>
 
-                    <!-- TABLA DE FUENTES -->
+                    <!-- TABLA DE COMPROBANTES DE INGRESOS -->
 
                     <div id="tabFuente" class="tab-pane fade"><br>
-                        <div class="table-responsive">
-                            <br>
-                            <table class="table table-hover table-bordered" align="100%" id="tabla_fuente">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Rubro</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">P. Inicial</th>
-                                    @foreach($fuentes as $fuente)
-                                        <th class="text-center">{{ $fuente['name'] }}</th>
-                                    @endforeach
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($codigos as $codigo)
-                                    <tr>
-                                        <td class="text-dark">{{ $codigo['codigo']}}</td>
-                                        <td class="text-dark">{{ $codigo['name']}}</td>
-                                        @foreach($valoresIniciales as $valorInicial)
-                                            @if($valorInicial['id'] == $codigo['id'])
-                                                <td class="text-center text-dark">$ <?php echo number_format($valorInicial['valor'],0);?>.00</td>
-                                            @endif
-                                        @endforeach
-                                        @if($codigo['valor'])
-                                            <td class="text-center text-dark">$ <?php echo number_format($codigo['valor'],0);?>.00</td>
-                                        @endif
-                                        @foreach($FRubros as $FRubro)
-                                            @if($FRubro['rubro_id'] == $codigo['id_rubro'])
-                                                <td class="text-center text-dark">$ <?php echo number_format($FRubro["valor"],0);?>.00</td>
-                                            @endif
-                                        @endforeach
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <h2 class="text-center">COMPROBANTES DE INGRESOS</h2>
                     </div>
 
                     <!-- TABLA DE RUBROS -->
 
                     <div id="tabRubros" class="tab-pane fade"><br>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="tabla_Rubros">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Rubro</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Valor Inicial</th>
-                                    <th class="text-center">Valor Disponible</th>
-                                    <th class="text-center">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($Rubros as  $Rubro)
-                                    <tr>
-                                        <td>{{ $Rubro['codigo'] }}</td>
-                                        <td>{{ $Rubro['name'] }}</td>
-                                        <td class="text-center">$ <?php echo number_format($Rubro['valor'],0);?>.00</td>
-                                        <td class="text-center">$ <?php echo number_format($Rubro['valor_disp'],0);?>.00</td>
-                                        <td class="text-center">
-                                            <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <h2 class="text-center">RUBROS</h2>
+
                     </div>
 
                     <!-- TABLA DE PAC -->
 
                     <div id="tabPAC" class="tab-pane fade"><br>
                         <h2 class="text-center">PAC</h2>
-                    </div>
-
-                    <!-- TABLAS DE ADICIONES -->
-                    <div id="tabAddIng" class=" tab-pane fade"><br>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="tabla_AddE">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Rubro</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Valor Adición</th>
-                                    <th class="text-center">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($Rubros as  $Rubro)
-                                    @foreach($valoresAdd as $valAdd)
-                                        @if($valAdd['id'] == $Rubro['id_rubro'] and $valAdd['valor'] > 0)
-                                            <tr>
-                                                <td>{{ $Rubro['codigo'] }}</td>
-                                                <td>{{ $Rubro['name'] }}</td>
-                                                <td class="text-center">$ <?php echo number_format($valAdd['valor'],0);?>.00</td>
-                                                <td class="text-center">
-                                                    <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- TABLAS DE REDUCCIONES -->
-                    <div id="tabRedIng" class=" tab-pane fade"><br>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="tabla_RedE">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Rubro</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Valor Reducción</th>
-                                    <th class="text-center">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($Rubros as  $Rubro)
-                                    @foreach($valoresRed as $valRed)
-                                        @if($valRed['id'] == $Rubro['id_rubro'] and $valRed['valor'] > 0)
-                                            <tr>
-                                                <td>{{ $Rubro['codigo'] }}</td>
-                                                <td>{{ $Rubro['name'] }}</td>
-                                                <td class="text-center">$ <?php echo number_format($valRed['valor'],0);?>.00</td>
-                                                <td class="text-center">
-                                                    <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- TABLA DE CREDITOS Y CONTRACREDITOS -->
-
-                    <div id="tabCre" class=" tab-pane fade"><br>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="tabla_Cyc">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Rubro</th>
-                                    <th class="text-center">Nombre</th>
-                                    <th class="text-center">Valor Credito</th>
-                                    <th class="text-center">Valor Contracredito</th>
-                                    <th class="text-center">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($Rubros as  $Rubro)
-                                    @foreach($valoresCyC as $valCyC)
-                                        @if($valCyC['id'] == $Rubro['id_rubro'])
-                                            @if($valCyC['valorC'] == 0 and $valCyC['valorCC'] == 0)
-                                            @else
-                                                <tr>
-                                                    <td>{{ $Rubro['codigo'] }}</td>
-                                                    <td>{{ $Rubro['name'] }}</td>
-                                                    <td class="text-center">$ <?php echo number_format($valCyC['valorC'],0);?>.00</td>
-                                                    <td class="text-center">$ <?php echo number_format($valCyC['valorCC'],0);?>.00</td>
-                                                    <td class="text-center">
-                                                        <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
 
                     <!-- TABLA DE APLAZAMIENTOS  -->
@@ -399,94 +189,6 @@
     </div>
 @stop
 @section('js')
-
-    <script>
-        $('#tabla_Rubros').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_presupuesto').DataTable( {
-            responsive: true,
-            "ordering": false,
-            dom: 'Bfrtip',
-            buttons:[
-                {
-                    extend:    'copyHtml5',
-                    text:      '<i class="fa fa-clone"></i> ',
-                    titleAttr: 'Copiar',
-                    className: 'btn btn-primary'
-                },
-                {
-                    extend:    'excelHtml5',
-                    text:      '<i class="fa fa-file-excel-o"></i> ',
-                    titleAttr: 'Exportar a Excel',
-                    className: 'btn btn-primary'
-                },
-                {
-                    extend:    'pdfHtml5',
-                    orientation : 'landscape',
-                    pageSize: 'LEGAL',
-                    text:      '<i class="fa fa-file-pdf-o"></i> ',
-                    titleAttr: 'Exportar a PDF',
-                    message : 'Registros-SIEX',
-                    exportOptions: {
-                        columns: [ 0,1,2, 3 ,4]
-                    },
-                    className: 'btn btn-primary'
-
-                },
-                {
-                    extend:    'print',
-                    text:      '<i class="fa fa-print"></i> ',
-                    titleAttr: 'Imprimir',
-                    className: 'btn btn-primary'
-                },
-            ]
-        } );
-
-        $('#tabla_fuentes').DataTable( {
-            responsive: true,
-            "searching": false,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_AddE').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_RedE').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-
-        $('#tabla_Cyc').DataTable( {
-            responsive: true,
-            "searching": true,
-            "pageLength": 5,
-            dom: 'Bfrtip',
-            buttons: [
-                'pdf' ,'copy', 'csv', 'excel', 'print'
-            ]
-        } );
-    </script>
+    <!-- Datatables personalizadas buttons-->
+    <script src="{{ asset('/js/datatableCustom.js') }}"></script>
 @stop
