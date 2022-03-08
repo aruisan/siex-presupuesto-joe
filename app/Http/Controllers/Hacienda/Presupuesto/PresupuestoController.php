@@ -987,7 +987,7 @@ class PresupuestoController extends Controller
             $allRegisters = Register::orderByDesc('level_id')->get();
             $pagos = Pagos::all();
             $ordenPagos = OrdenPagos::all();
-            $comprobanteIng = ComprobanteIngresos::where('vigencia_id',$vigencia_id)->get();
+            $comprobanteIng = ComprobanteIngresos::where('vigencia_id',$vigencia_id)->where('estado','3')->get();
 
 
             global $lastLevel;
@@ -1041,7 +1041,14 @@ class PresupuestoController extends Controller
                                         $ultimo = $registro->code_padre->registers->level->level;
                                     }
                                     $codigos[] = collect(['id' => $register->id, 'codigo' => $code, 'name' => $register->name, 'code' => '', 'V' => $V, 'valor' => '', 'id_rubro' => '', 'register_id' => $register2->register_id]);
-
+                                    if ($register->level_id == $lastLevel) {
+                                        foreach ($rubros as $rubro) {
+                                            if ($register->id == $rubro->register_id) {
+                                                $newCod = "$code$rubro->cod";
+                                                $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'register_id' => $register->register_id]);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         } else {
@@ -1206,7 +1213,8 @@ class PresupuestoController extends Controller
             }
         }
 
-        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','fuentesRubros','valoresIniciales','pagos', 'codeCon','añoActual','mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald','years'));
+        return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','fuentesRubros','valoresIniciales','pagos', 'codeCon','añoActual',
+            'mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald','years', 'comprobanteIng', 'Rubros'));
     }
 
     public function newPreIng($id, $year){

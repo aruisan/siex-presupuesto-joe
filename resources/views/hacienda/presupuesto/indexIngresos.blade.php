@@ -83,9 +83,6 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="pill" href="@can('pac-list') #tabPAC @endcan">PAC</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" data-toggle="pill" href="#tabApl" hidden>Aplazamientos</a>
-                    </li>
                 </ul>
                 <div class="tab-content" style="background-color: white">
                     <div id="tabHome" class="tab-pane active"><br>
@@ -150,26 +147,91 @@
                     <!-- TABLA DE COMPROBANTES DE INGRESOS -->
 
                     <div id="tabFuente" class="tab-pane fade"><br>
-                        <h2 class="text-center">COMPROBANTES DE INGRESOS</h2>
+                        <div class="table-responsive">
+                            @if(count($comprobanteIng) >= 1)
+                                <a href="{{ url('administrativo/CIngresos/'.$V) }}" class="btn btn-primary btn-block m-b-12">Comprobantes de Ingresos</a>
+                                <br><br>
+                                <table class="table table-bordered" id="tabla_CIng">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Concepto</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Valor</th>
+                                        <th class="text-center">Ver</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($comprobanteIng as $key => $data)
+                                        <tr>
+                                            <td class="text-center">{{ $data->code }}</td>
+                                            <td class="text-center">{{ $data->concepto }}</td>
+                                            <td class="text-center">
+                                    <span class="badge badge-pill badge-danger">
+                                        @if($data->estado == "0")
+                                            Pendiente
+                                        @elseif($data->estado == "1")
+                                            Rechazado
+                                        @elseif($data->estado == "2")
+                                            Anulado
+                                        @elseif($data->estado == "3")
+                                            Aprobado
+                                        @else
+                                            En Espera
+                                        @endif
+                                    </span>
+                                            </td>
+                                            <td class="text-center">$<?php echo number_format($data->valor,0) ?></td>
+                                            <td class="text-center">
+                                                <a href="{{ url('administrativo/CIngresos/show/'.$data->id) }}" title="Ver Comprobante de Ingreso" class="btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <br>
+                                <div class="alert alert-danger">
+                                    <center>
+                                        No hay comprobantes de ingresos.<br><br>
+                                        <a href="{{ url('administrativo/CIngresos/create/'.$V) }}" class="btn btn-danger ">Crear Comprobante de Ingresos</a>
+                                    </center>
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                     <!-- TABLA DE RUBROS -->
 
                     <div id="tabRubros" class="tab-pane fade"><br>
-                        <h2 class="text-center">RUBROS</h2>
-
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="tabla_Rubros_Ingresos">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">Rubro</th>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($Rubros as  $Rubro)
+                                    <tr>
+                                        <td>{{ $Rubro['codigo'] }}</td>
+                                        <td>{{ $Rubro['name'] }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ url('presupuesto/rubro/'.$Rubro['id_rubro']) }}" class="btn-sm btn-success"><i class="fa fa-info"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- TABLA DE PAC -->
 
                     <div id="tabPAC" class="tab-pane fade"><br>
                         <h2 class="text-center">PAC</h2>
-                    </div>
-
-                    <!-- TABLA DE APLAZAMIENTOS  -->
-
-                    <div id="tabApl" class=" tab-pane fade"><br>
-                        <h2 class="text-center">Aplazamientos</h2>
                     </div>
 
                 </div>
