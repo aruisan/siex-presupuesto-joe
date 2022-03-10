@@ -231,7 +231,42 @@
                     <!-- TABLA DE PAC -->
 
                     <div id="tabPAC" class="tab-pane fade"><br>
-                        <h2 class="text-center">PAC</h2>
+                        <div class="table-responsive">
+                            @if(count($PACdata) > 0)
+                                <table class="table table-bordered" id="tabla_PAC">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Rubro</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Valor a Asignar</th>
+                                        <th class="text-center">Total Asignado</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($PACdata as $val)
+                                        <tr class="text-center">
+                                            <td>{{ $val['id'] }}</td>
+                                            <td>{{ $val['rubro'] }}</td>
+                                            <td>{{ $val['name'] }}</td>
+                                            <td>$<?php echo number_format($val['valorD'],0) ?></td>
+                                            <td>$<?php echo number_format($val['totalD'],0) ?></td>
+                                            <td><a href="{{ url('administrativo/pac/'.$val['id'].'/edit') }}" title="Editar" class="btn btn-success"><i class="fa fa-edit"></i></a></td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <br><br>
+                                <div class="alert alert-danger">
+                                    <center>
+                                        No se encuentra ningun PAC almacenado en la plataforma, para crearlo de click al siguiente link:
+                                        <a href="{{ url('administrativo/pac/create') }}" class="alert-link">Crear PAC</a>.
+                                    </center>
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                 </div>

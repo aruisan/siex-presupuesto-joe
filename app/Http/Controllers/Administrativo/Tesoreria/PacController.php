@@ -106,6 +106,122 @@ class PacController extends Controller
             }
         }
 
+        //LLENAR CON RUBROS DEL PRESUPUESTO DE INGRESOS
+
+        $añoActual = Carbon::now()->year;
+        $mesActual = Carbon::now()->month;
+        $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 1)->where('estado', '0')->get();
+        $historico = Vigencia::where('vigencia', '!=', $añoActual)->get();
+        foreach ($historico as $his) {
+            if ($his->tipo == "0"){
+                $years[] = [ 'info' => $his->vigencia." - Egresos", 'id' => $his->id];
+            }else{
+                $years[] = [ 'info' => $his->vigencia." - Ingresos", 'id' => $his->id];
+            }
+        }
+        asort($years);
+
+        if ($vigens->count() == 0){
+            $V = "Vacio";
+        } else {
+            $V = $vigens[0]->id;
+            $vigencia_id = $V;
+            $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+            $registers = Register::where('level_id', $ultimoLevel->id)->get();
+            $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
+            $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
+            $fonts = FontsVigencia::where('vigencia_id',$vigencia_id)->get();
+            $rubros = Rubro::where('vigencia_id', $vigencia_id)->get();
+            $fontsRubros = FontsRubro::orderBy('font_vigencia_id')->get();
+            $allRegisters = Register::orderByDesc('level_id')->get();
+
+            global $lastLevel;
+            $lastLevel = $ultimoLevel->id;
+            $lastLevel2 = $ultimoLevel2->level_id;
+
+            foreach ($fonts as $font){
+                $fuentes[] = collect(['id' => $font->font->id, 'name' => $font->font->name, 'code' => $font->font->code]);
+            }
+
+            foreach ($fontsRubros as $fontsRubro){
+                if ($fontsRubro->fontVigencia->vigencia_id == $vigencia_id){
+                    $fuentesRubros[] = collect(['valor' => $fontsRubro->valor, 'rubro_id' => $fontsRubro->rubro_id, 'font_vigencia_id' => $fontsRubro->font_vigencia_id]);
+                }
+            }
+            $tamFountsRubros = count($fuentesRubros);
+
+            foreach ($registers2 as $register2) {
+                if ($register2->level->vigencia_id == $vigencia_id) {
+                    global $codigoLast;
+                    if ($register2->register_id == null) {
+                        $codigoEnd = $register2->code;
+                    } elseif ($codigoLast > 0) {
+                        if ($lastLevel2 == $register2->level_id) {
+                            if ($lastLevel == $register2->level_id){
+                                $codigo = $register2->code;
+                                $codigoEnd = "$codigoLast$codigo";
+                            } else {
+                                $codigo = $register2->code;
+                                $newRegisters = Register::findOrFail($register2->register_id);
+                                $codigoNew = $newRegisters->code;
+                                $codigoEnd = "$codigoNew$codigo";
+                                $codigoLast = $codigoEnd;
+                            }
+                            foreach ($registers as $register) {
+                                if ($register2->id == $register->register_id) {
+                                    $register_id = $register->code_padre->registers->id;
+                                    $code = $register->code_padre->registers->code . $register->code;
+                                    $ultimo = $register->code_padre->registers->level->level;
+
+                                    while ($ultimo > 1) {
+                                        $registro = Register::findOrFail($register_id);
+                                        $register_id = $registro->code_padre->registers->id;
+                                        $code = $registro->code_padre->registers->code . $code;
+
+                                        $ultimo = $registro->code_padre->registers->level->level;
+                                    }
+                                    if ($register->level_id == $lastLevel) {
+                                        foreach ($rubros as $rubro) {
+                                            if ($register->id == $rubro->register_id) {
+                                                $newCod = "$code$rubro->cod";
+                                                $All[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $vigens[0]->presupuesto_inicial, 'register_id' => $register->register_id, 'valor_disp' => 0]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $codigo = $register2->code;
+                            $codigoEnd = "$codigoLast$codigo";
+                            $codigoLast = $codigoEnd;
+                        }
+                    } else {
+                        $codigo = $register2->code;
+                        $newRegisters = Register::findOrFail($register2->register_id);
+                        $codigoNew = $newRegisters->code;
+                        $codigoEnd = "$codigoNew$codigo";
+                        $codigoLast = $codigoEnd;
+
+                        foreach ($registers as $register) {
+                            if ($register2->id == $register->register_id) {
+                                $register_id = $register->code_padre->registers->id;
+                                $code = $register->code_padre->registers->code . $register->code;
+                                $ultimo = $register->code_padre->registers->level->level;
+
+                                while ($ultimo > 1) {
+                                    $registro = Register::findOrFail($register_id);
+                                    $register_id = $registro->code_padre->registers->id;
+                                    $code = $registro->code_padre->registers->code . $code;
+
+                                    $ultimo = $registro->code_padre->registers->level->level;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         return ($All);
     }
 
@@ -221,6 +337,123 @@ class PacController extends Controller
                     $codigoEnd = "$codigoNew$codigo";
                     $codigoLast = $codigoEnd;
                     $codigos[] = collect(['id' => $register2->id, 'codigo' => $codigoEnd, 'name' => $register2->name, 'code' => '', 'V' => $V, 'valor' => '', 'id_rubro' => '', 'register_id' => $register2->register_id]);
+                }
+            }
+        }
+
+        //LLENAR CON RUBROS DEL PRESUPUESTO DE INGRESOS
+
+        $añoActual = Carbon::now()->year;
+        $mesActual = Carbon::now()->month;
+        $vigens = Vigencia::where('vigencia', $añoActual)->where('tipo', 1)->where('estado', '0')->get();
+        $historico = Vigencia::where('vigencia', '!=', $añoActual)->get();
+        foreach ($historico as $his) {
+            if ($his->tipo == "0"){
+                $years[] = [ 'info' => $his->vigencia." - Egresos", 'id' => $his->id];
+            }else{
+                $years[] = [ 'info' => $his->vigencia." - Ingresos", 'id' => $his->id];
+            }
+        }
+        asort($years);
+
+        if ($vigens->count() == 0){
+            $V = "Vacio";
+        } else {
+            $V = $vigens[0]->id;
+            $vigencia_id = $V;
+            $ultimoLevel = Level::where('vigencia_id', $vigencia_id)->get()->last();
+            $registers = Register::where('level_id', $ultimoLevel->id)->get();
+            $registers2 = Register::where('level_id', '<', $ultimoLevel->id)->get();
+            $ultimoLevel2 = Register::where('level_id', '<', $ultimoLevel->id)->get()->last();
+            $fonts = FontsVigencia::where('vigencia_id',$vigencia_id)->get();
+            $rubros = Rubro::where('vigencia_id', $vigencia_id)->get();
+            $fontsRubros = FontsRubro::orderBy('font_vigencia_id')->get();
+            $allRegisters = Register::orderByDesc('level_id')->get();
+
+            global $lastLevel;
+            $lastLevel = $ultimoLevel->id;
+            $lastLevel2 = $ultimoLevel2->level_id;
+
+            foreach ($fonts as $font){
+                $fuentes[] = collect(['id' => $font->font->id, 'name' => $font->font->name, 'code' => $font->font->code]);
+            }
+
+            foreach ($fontsRubros as $fontsRubro){
+                if ($fontsRubro->fontVigencia->vigencia_id == $vigencia_id){
+                    $fuentesRubros[] = collect(['valor' => $fontsRubro->valor, 'rubro_id' => $fontsRubro->rubro_id, 'font_vigencia_id' => $fontsRubro->font_vigencia_id]);
+                }
+            }
+            $tamFountsRubros = count($fuentesRubros);
+
+            foreach ($registers2 as $register2) {
+                if ($register2->level->vigencia_id == $vigencia_id) {
+                    global $codigoLast;
+                    if ($register2->register_id == null) {
+                        $codigoEnd = $register2->code;
+                    } elseif ($codigoLast > 0) {
+                        if ($lastLevel2 == $register2->level_id) {
+                            if ($lastLevel == $register2->level_id){
+                                $codigo = $register2->code;
+                                $codigoEnd = "$codigoLast$codigo";
+                            } else {
+                                $codigo = $register2->code;
+                                $newRegisters = Register::findOrFail($register2->register_id);
+                                $codigoNew = $newRegisters->code;
+                                $codigoEnd = "$codigoNew$codigo";
+                                $codigoLast = $codigoEnd;
+                            }
+                            foreach ($registers as $register) {
+                                if ($register2->id == $register->register_id) {
+                                    $register_id = $register->code_padre->registers->id;
+                                    $code = $register->code_padre->registers->code . $register->code;
+                                    $ultimo = $register->code_padre->registers->level->level;
+
+                                    while ($ultimo > 1) {
+                                        $registro = Register::findOrFail($register_id);
+                                        $register_id = $registro->code_padre->registers->id;
+                                        $code = $registro->code_padre->registers->code . $code;
+
+                                        $ultimo = $registro->code_padre->registers->level->level;
+                                    }
+                                    if ($register->level_id == $lastLevel) {
+                                        foreach ($rubros as $rubro) {
+                                            if ($register->id == $rubro->register_id) {
+                                                $newCod = "$code$rubro->cod";
+                                                $validate = Rubro::findOrFail($rubro->id);
+                                                if ($validate->pac == null) if ($newCod == "110101") $Rubros[] = collect(['id_rubro' => $rubro->id, 'id' => '', 'codigo' => $newCod, 'name' => $rubro->name, 'code' => $rubro->code, 'V' => $V, 'valor' => $vigens[0]->presupuesto_inicial, 'register_id' => $register->register_id, 'valor_disp' => 0]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            $codigo = $register2->code;
+                            $codigoEnd = "$codigoLast$codigo";
+                            $codigoLast = $codigoEnd;
+                        }
+                    } else {
+                        $codigo = $register2->code;
+                        $newRegisters = Register::findOrFail($register2->register_id);
+                        $codigoNew = $newRegisters->code;
+                        $codigoEnd = "$codigoNew$codigo";
+                        $codigoLast = $codigoEnd;
+
+                        foreach ($registers as $register) {
+                            if ($register2->id == $register->register_id) {
+                                $register_id = $register->code_padre->registers->id;
+                                $code = $register->code_padre->registers->code . $register->code;
+                                $ultimo = $register->code_padre->registers->level->level;
+
+                                while ($ultimo > 1) {
+                                    $registro = Register::findOrFail($register_id);
+                                    $register_id = $registro->code_padre->registers->id;
+                                    $code = $registro->code_padre->registers->code . $code;
+
+                                    $ultimo = $registro->code_padre->registers->level->level;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

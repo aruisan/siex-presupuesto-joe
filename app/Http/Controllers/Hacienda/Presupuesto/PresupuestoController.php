@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Hacienda\Presupuesto;
 
+use App\Http\Controllers\Administrativo\Tesoreria\PacController;
 use App\Model\Administrativo\ComprobanteIngresos\ComprobanteIngresos;
 use App\Model\Hacienda\Presupuesto\Informes\CodeContractuales;
 use App\Model\Administrativo\ComprobanteIngresos\CIRubros;
@@ -1213,8 +1214,24 @@ class PresupuestoController extends Controller
             }
         }
 
+        $items = Pac::all();
+        if ($items->count() >= 1){
+            foreach ($items as $item){
+                foreach ($Rubros as $rubro){
+                    if ($item->rubro_id == $rubro['id_rubro']){
+                        $PACdata[] = collect(['id' => $item->id, 'rubro_id' => $rubro['id_rubro'], 'rubro' => $rubro['codigo'], 'name' => $rubro['name'], 'valorD' => $item->distribuir, 'totalD' => $item->total_distri]);
+                    }
+                }
+            }
+        } else {
+            if (!isset($PACdata)){
+                $PACdata[] = null;
+                unset($PACdata[0]);
+            }
+        }
+
         return view('hacienda.presupuesto.indexIngresos', compact('codigos','V','fuentes','fuentesRubros','valoresIniciales','pagos', 'codeCon','añoActual',
-            'mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald','years', 'comprobanteIng', 'Rubros'));
+            'mesActual','totalRecaud','saldoRecaudo','valoresFinRec','valoresFinSald','years', 'comprobanteIng', 'Rubros', 'PACdata'));
     }
 
     public function newPreIng($id, $year){
