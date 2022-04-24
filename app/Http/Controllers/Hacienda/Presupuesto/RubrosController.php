@@ -121,7 +121,7 @@ class RubrosController extends Controller
 
             if ($rubro->rubrosMov->count() > 0){
                 foreach($rubro->rubrosMov as $RM){
-                    if ($RM->font_vigencia_id == $fuente->font_vigencia_id){
+                    if ($RM->fonts_rubro_id == $fuente->id){
                         if ($RM->movimiento == 1){
                             $suma[] = $RM->valor;
                         } elseif($RM->movimiento == 2){
