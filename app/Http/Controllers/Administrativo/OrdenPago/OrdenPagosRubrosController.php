@@ -58,7 +58,7 @@ class OrdenPagosRubrosController extends Controller
                     }
                 }
             }
-            return view('administrativo.ordenPagos.createRubros', compact('cdps','ordenPago','distri'));
+            return view('administrativo.ordenpagos.createRubros', compact('cdps','ordenPago','distri'));
         }
     }
 
