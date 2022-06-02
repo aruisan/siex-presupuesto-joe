@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hacienda\Presupuesto;
 
 use App\Http\Controllers\Controller;
 use App\Model\Hacienda\Presupuesto\FontsVigencia;
+use App\Model\Hacienda\Presupuesto\PlantillaCuipo;
 use App\Model\Hacienda\Presupuesto\RubrosMov;
 use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
@@ -54,7 +55,14 @@ class RubrosController extends Controller
             $fila = $vigencia->ultimo - $levels;
         }
 
-        return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'subProy', 'fila', 'niveles', 'registers', 'codigos','vigencia_id'));
+        // PLANTILLA PARA EGRESOS E INGRESOS
+        if ($vigencia->tipo == 0) $plantilla = PlantillaCuipo::where('id','>=',318)->get();
+        else $plantilla = PlantillaCuipo::where('id','<',318)->get();
+
+        $rubrosChecked = Rubro::where('plantilla_cuipos_id','!=',null)->where('vigencia_id', $vigencia_id)->select(['plantilla_cuipos_id'])->get();
+
+        return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'subProy', 'fila', 'niveles', 'registers', 'codigos','vigencia_id',
+            'plantilla','rubrosChecked'));
     }
 
     /**
@@ -65,30 +73,60 @@ class RubrosController extends Controller
      */
     public function store(Request $request)
     {
-        $id         = $request->rubro_id;
-        $name       = $request->nombre;
-        $subProy    = $request->subproyecto_id;
-        $code       = $request->code;
-        $register   = $request->register_id;
-        $vigencia   = $request->vigencia_id;
-        $count = count($register);
+        $rubrosChecked = Rubro::where('plantilla_cuipos_id','!=',null)->where('vigencia_id', $request->vigencia_id)->get();
 
-        for($i = 0; $i < $count; $i++){
+        foreach ($request->checkedIDs as $checked){
+            $validate = false;
+            foreach ($rubrosChecked as $rubroChecked){
+                if ($rubroChecked->plantilla_cuipos_id == $checked){
+                    $validate = true;
+                    break;
+                }
+            }
+            if ($validate == false){
 
-            if($id[$i]){
-                $this->update($id[$i], $name[$i], $code[$i], $register[$i], $subProy[$i]);
-            }else{
+                $dataPlantilla = PlantillaCuipo::findOrFail($checked);
+
                 $rubro = new Rubro();
-                $rubro->name = $name[$i];
-                $rubro->cod = $code[$i];
-                $rubro->register_id = $register[$i];
-                $rubro->subproyecto_id = $subProy[$i];
-                $rubro->vigencia_id = $vigencia;
+                $rubro->name =  $dataPlantilla->name;
+                $rubro->cod = $dataPlantilla->code;
+                $rubro->subproyecto_id = 1;
+                $rubro->vigencia_id = $request->vigencia_id;
+                $rubro->plantilla_cuipos_id = $checked;
                 $rubro->save();
+
             }
         }
 
-        return  back();
+        Session::flash('success','Los rubros han sido actualizados exitosamente');
+        return redirect('/presupuesto/rubro/create/'.$request->vigencia_id);
+        /**
+        ANTERIOR LOGICA
+            $id         = $request->rubro_id;
+            $name       = $request->nombre;
+            $subProy    = 1;
+            $code       = $request->code;
+            $register   = $request->register_id;
+            $vigencia   = $request->vigencia_id;
+            $count = count($register);
+
+            for($i = 0; $i < $count; $i++){
+
+                if($id[$i]){
+                    $this->update($id[$i], $name[$i], $code[$i], $register[$i], $subProy[$i]);
+                }else{
+                    $rubro = new Rubro();
+                    $rubro->name = $name[$i];
+                    $rubro->cod = $code[$i];
+                    $rubro->register_id = $register[$i];
+                    $rubro->subproyecto_id = $subProy[$i];
+                    $rubro->vigencia_id = $vigencia;
+                    $rubro->save();
+                }
+            }
+         */
+
+        //return  back();
     }
 
     /**
@@ -220,10 +258,10 @@ class RubrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteRubro($id, $vigencia)
     {
-        $proyecto = Rubro::find($id);
-        $proyecto->delete();
+        $rubrosDelete = Rubro::where('plantilla_cuipos_id',$id)->where('vigencia_id', $vigencia)->get();
+        $rubrosDelete[0]->delete();
     }
 
     public function index()

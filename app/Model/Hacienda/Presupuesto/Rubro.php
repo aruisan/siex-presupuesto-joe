@@ -57,4 +57,8 @@ class Rubro extends Model implements Auditable
     public function pac(){
         return $this->hasOne('App\Model\Administrativo\Tesoreria\Pac','rubro_id', 'id');
     }
+
+    public function cpcs(){
+        return $this->hasMany('App\Model\Hacienda\Presupuesto\CpcsRubro','rubro_id');
+    }
 }

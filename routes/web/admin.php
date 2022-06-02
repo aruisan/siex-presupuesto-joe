@@ -326,6 +326,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
 	Route::get('presupuesto/font/create/{vigencia}', 'Hacienda\Presupuesto\FontsController@create');
 	Route::resource('presupuesto/font', 'Hacienda\Presupuesto\FontsController');
 	Route::get('presupuesto/rubro/create/{vigencia}', 'Hacienda\Presupuesto\RubrosController@create');
+    Route::delete('presupuesto/rubro/{id}/{vigencia}', 'Hacienda\Presupuesto\RubrosController@deleteRubro');
 	Route::resource('presupuesto/rubro', 'Hacienda\Presupuesto\RubrosController');
     Route::put('presupuesto/rubro/m/{m}/{id}', 'Hacienda\Presupuesto\RubrosMovController@movimiento');
 	Route::resource('presupuesto/FontRubro', 'Hacienda\Presupuesto\FontRubroController');
@@ -354,6 +355,17 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::get('presupuestoIng','Hacienda\Presupuesto\PresupuestoController@ingresos');
     ///// RUTAS DEL PRESUPUESTO DEL SIGUIENTE AÑO
     Route::get('newPreIng/{type}/{year}','Hacienda\Presupuesto\PresupuestoController@newPreIng');
+
+    ////// RUTAS DEL PRESUPUESTO PARA EL CUIPO
+    Route::get('presupuesto/rubro/CUIPO/{paso}/{vigencia}', 'Hacienda\Presupuesto\CuipoController@index');
+    Route::get('presupuesto/rubro/CUIPO/CPC/{id}/{vigencia}/DELETE', 'Hacienda\Presupuesto\CuipoController@deleteCPCRubro');
+    Route::get('presupuesto/rubro/CUIPO/CPC/{id}/{vigencia}/DELETEALL', 'Hacienda\Presupuesto\CuipoController@deleteAllCPCRubro');
+    Route::post('presupuesto/rubro/CUIPO/CPC', 'Hacienda\Presupuesto\CuipoController@saveCPC');
+    Route::post('presupuesto/rubro/CUIPO/SourceFundings', 'Hacienda\Presupuesto\CuipoController@saveSourceFundings');
+    Route::get('presupuesto/rubro/CUIPO/SourceFundings/{id}/{vigencia}/DELETE', 'Hacienda\Presupuesto\CuipoController@deleteFontRubro');
+    Route::get('presupuesto/rubro/CUIPO/SourceFundings/{id}/{vigencia}/DELETEALL', 'Hacienda\Presupuesto\CuipoController@deleteAllFontsRubro');
+    Route::post('presupuesto/rubro/CUIPO/TipoNormas', 'Hacienda\Presupuesto\CuipoController@saveTipoNorma');
+    Route::post('presupuesto/rubro/CUIPO/Terceros', 'Hacienda\Presupuesto\CuipoController@saveTercero');
 
 
     ////// RUTAS PLAN DE DESARROLLO

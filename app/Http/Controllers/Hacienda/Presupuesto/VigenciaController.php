@@ -16,6 +16,7 @@ use App\Model\Hacienda\Presupuesto\Rubro;
 use App\Model\Hacienda\Presupuesto\Level;
 use App\Model\Administrativo\Pago\Pagos;
 use App\Model\Administrativo\Cdp\Cdp;
+use App\Model\Administrativo\ComprobanteIngresos\CIRubros;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\FileTraits;
@@ -54,7 +55,7 @@ class VigenciaController extends Controller
             $vigencia = new Vigencia;
             $vigencia->vigencia = $request->vigencia;
             $vigencia->tipo = $request->tipo;
-            $vigencia->ultimo = $request->niveles;
+            $vigencia->ultimo = 0;
             $vigencia->presupuesto_inicial = $request->valor;
             $vigencia->ruta = $ruta;
             $vigencia->numero_decreto = $request->decreto;
@@ -64,7 +65,7 @@ class VigenciaController extends Controller
             $vigencia->save();
 
             Session::flash('success','La Vigencia se ha creado exitosamente');
-            return redirect('/presupuesto/level/create/'.$vigencia->id);
+            return redirect('/presupuesto/rubro/create/'.$vigencia->id);
         }else{
             Session::flash('error','La Vigencia no se puede duplicar');
             return back();
