@@ -60,9 +60,10 @@ class RubrosController extends Controller
         else $plantilla = PlantillaCuipo::where('id','<',318)->get();
 
         $rubrosChecked = Rubro::where('plantilla_cuipos_id','!=',null)->where('vigencia_id', $vigencia_id)->select(['plantilla_cuipos_id'])->get();
+        $validate = false;
 
         return view('hacienda.presupuesto.vigencia.createRubros', compact('vigencia', 'fonts', 'subProy', 'fila', 'niveles', 'registers', 'codigos','vigencia_id',
-            'plantilla','rubrosChecked'));
+            'plantilla','rubrosChecked','validate'));
     }
 
     /**

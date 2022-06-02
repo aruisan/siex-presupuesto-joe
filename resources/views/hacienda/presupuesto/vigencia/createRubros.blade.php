@@ -80,8 +80,8 @@
 									@foreach($rubrosChecked as $checked)
 										@if($checked['plantilla_cuipos_id'] == $data['id'])
 											@php
-											$validate = true;
-                                            break;
+												$validate = true;
+												break;
 											@endphp
 										@else
 											@php
