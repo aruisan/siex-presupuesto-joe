@@ -19,7 +19,7 @@ class UpdateRubrosTableCuipos extends Migration
             $table->integer('plantilla_cuipos_id')->nullable()->unsigned()->after('code_contractuales_id');
             $table->foreign('plantilla_cuipos_id')->references('id')->on('plantilla_cuipos');
 
-            $table->integer('terceros_id')->nullable()->unsigned()->after('source_fundings_id');
+            $table->integer('terceros_id')->nullable()->unsigned()->after('plantilla_cuipos_id');
             $table->foreign('terceros_id')->references('id')->on('terceros');
 
             $table->integer('public_politics_id')->nullable()->unsigned()->after('terceros_id');
