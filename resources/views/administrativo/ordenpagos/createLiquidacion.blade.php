@@ -98,18 +98,6 @@
                                     </td>
                                 </tr>
                             @endfor
-                            <tr colspan="4">
-                                <div class="alert alert-danger">
-                                    <br>
-                                    <center>
-                                        Se debe tener presente que el valor de debito y credito debe ser el mismo, ejemplo: Si el valor de la orden de pago es de 10 millones,
-                                        el PUC seleccionado en debito debe tener 10 millones y el PUC seleccionado en credito debe tener 10 millones sin importar el valor de
-                                        los descuentos en el caso que cuente con ellos. Anteriormente el PUC de credito llevaba el valor de la orden de pago menos los descuentos
-                                        seleccionados, ahora se debe colocar el valor entero de la orden de pago sin tener en cuenta el valor de los descuentos.
-                                    </center>
-                                    <br>
-                                </div>
-                            </tr>
                             @if($ordenPago->pucs != null)
                                 @foreach($ordenPago->pucs as $pucs)
                                     <tr>

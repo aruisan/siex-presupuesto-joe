@@ -193,9 +193,8 @@ class OrdenPagosController extends Controller
             }else{
                 $totalDeb = array_sum($request->valorPucD);
                 $totalCred = array_sum($request->valorPucC);
-                //$totalDes = $ordenPago->descuentos->sum('valor');
-                //Se realiza cambio para que el credito y debito den valor igual sin importar el valor de los descuentos
-                if ( $totalCred == $totalDeb){
+                $totalDes = $ordenPago->descuentos->sum('valor');
+                if ( $totalCred + $totalDes == $totalDeb){
                     $registro->saldo = $registro->saldo - $request->valorPucD[$i];
                     $registro->save();
                     $oPP = new OrdenPagosPuc();
