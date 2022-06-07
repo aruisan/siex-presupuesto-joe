@@ -171,6 +171,19 @@
 				</tr>
 				</thead>
 				<tbody>
+				@foreach($OrdenPagoDescuentos as  $PagosDesc)
+					<tr class="text-center">
+						@if($PagosDesc->retencion_fuente_id == null)
+							<td>{{ $PagosDesc->descuento_mun['codigo'] }}</td>
+						@else
+							<td>{{ $PagosDesc->descuento_retencion->codigo}}</td>
+						@endif
+						<td>{{ $PagosDesc->nombre }}</td>
+						<td>{{ $OrdenPago->registros->persona->num_dc }} {{ $OrdenPago->registros->persona->nombre }}</td>
+						<td>$0</td>
+						<td>$ <?php echo number_format($PagosDesc['valor'],0);?></td>
+					</tr>
+				@endforeach
 				@for($z = 0; $z < $OrdenPago->pucs->count(); $z++)
 					<tr class="text-center">
 						<td>{{$OrdenPago->pucs[$z]->data_puc->codigo}}</td>

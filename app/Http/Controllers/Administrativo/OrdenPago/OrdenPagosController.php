@@ -436,7 +436,7 @@ class OrdenPagosController extends Controller
     public function pdf_OP($id)
     {
         $OrdenPago = OrdenPagos::findOrFail($id);
-        $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->get();
+        $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->where('valor','>',0)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
         $all_rubros = Rubro::all();
@@ -547,7 +547,7 @@ class OrdenPagosController extends Controller
         $Pago = Pagos::findOrFail($id);
         $Egreso_id = $Pago->code;
         $OrdenPago = OrdenPagos::findOrFail($Pago->orden_pago_id);
-        $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $OrdenPago->id)->get();
+        $OrdenPagoDescuentos = OrdenPagosDescuentos::where('orden_pagos_id', $id)->where('valor','>',0)->get();
         $R = Registro::findOrFail($OrdenPago->registros_id);
 
         $all_rubros = Rubro::all();
