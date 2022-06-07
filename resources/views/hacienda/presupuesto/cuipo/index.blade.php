@@ -26,7 +26,7 @@
 		@if($paso == "1")
 			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/2',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li>
 		@elseif($paso == "2")
-			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/3',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li>
+		{{-- <li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/3',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li> --}}
 		@endif
 	</ul>
 		<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{  $vigencia->id }}">
@@ -140,8 +140,10 @@
 				<center><a href="{{ url('/presupuesto/rubro/CUIPO/2',$vigencia->id) }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></center>
 				<br>
 			@elseif($paso == "2")
+				{{--
 				<center><a href="{{ url('/presupuesto/rubro/CUIPO/3',$vigencia->id) }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></center>
 				<br>
+				--}}
 			@endif
 		</div>
  </div>
@@ -242,6 +244,7 @@
 		$('#formTipoNormas').modal('show');
 	}
 
+	{{--
 	function getModalTercero(rubro, terceros){
 		$('#rubroIDT').val(rubro['id']);
 		$('#vigencia_idT').val(rubro['vigencia_id']);
@@ -258,6 +261,8 @@
 
 		$('#formTerceros').modal('show');
 	}
+
+	--}}
 
 $(document).ready(function() {
 	$('.select-cpc').select2({
