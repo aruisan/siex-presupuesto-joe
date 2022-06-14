@@ -7,6 +7,7 @@ use App\Model\Hacienda\Presupuesto\Cpc;
 use App\Model\Hacienda\Presupuesto\CpcsRubro;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Hacienda\Presupuesto\FontsVigencia;
+use App\Model\Hacienda\Presupuesto\PublicPolitic;
 use App\Model\Hacienda\Presupuesto\SourceFunding;
 use App\Model\Hacienda\Presupuesto\Terceros;
 use App\Model\Hacienda\Presupuesto\TipoNorma;
@@ -31,14 +32,17 @@ class CuipoController extends Controller
             $CPCs = Cpc::select(['id','code','class'])->get();
             $CPCsRubro = CpcsRubro::all();
             return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','CPCs','CPCsRubro','paso'));
-        } else {
+        } elseif ($paso == "2") {
             $rubros = Rubro::where('vigencia_id',$vigencia_id)->with('fontsRubro')->get();
             $vigencia = Vigencia::findOrFail($vigencia_id);
-            $terceros = Terceros::all()->take(10);
+            $terceros = Terceros::all();
             $tipoNormas = TipoNorma::all();
             $fuentes = SourceFunding::all();
             $fontRubro = FontsRubro::where('source_fundings_id','!=',null)->get();
-            return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','terceros','paso','vigencia','fuentes','tipoNormas','fontRubro'));
+            $publicPolitics = PublicPolitic::all();
+            return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','terceros','paso','vigencia','tipoNormas','fuentes','fontRubro','publicPolitics'));
+        } else{
+            dd("Paso 3");
         }
     }
 
@@ -188,6 +192,22 @@ class CuipoController extends Controller
 
         Session::flash('success','Se ha asignado el tercero al rubro correctamente');
         return redirect('/presupuesto/rubro/CUIPO/2/'.$request->vigencia_idT);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function savePP(Request $request)
+    {
+        $rubro = Rubro::where('id',$request->rubroIDPP)->get();
+        $rubro[0]->public_politics_id = $request->codePP;
+        $rubro[0]->save();
+
+        Session::flash('success','Se ha asignado la politica pública al rubro correctamente');
+        return redirect('/presupuesto/rubro/CUIPO/2/'.$request->vigencia_idPP);
     }
 
     /**

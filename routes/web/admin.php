@@ -366,6 +366,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::get('presupuesto/rubro/CUIPO/SourceFundings/{id}/{vigencia}/DELETEALL', 'Hacienda\Presupuesto\CuipoController@deleteAllFontsRubro');
     Route::post('presupuesto/rubro/CUIPO/TipoNormas', 'Hacienda\Presupuesto\CuipoController@saveTipoNorma');
     Route::post('presupuesto/rubro/CUIPO/Terceros', 'Hacienda\Presupuesto\CuipoController@saveTercero');
+    Route::post('presupuesto/rubro/CUIPO/PoliticaPublica', 'Hacienda\Presupuesto\CuipoController@savePP');
 
 
     ////// RUTAS PLAN DE DESARROLLO

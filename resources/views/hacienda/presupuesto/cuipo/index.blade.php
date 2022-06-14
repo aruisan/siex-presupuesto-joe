@@ -7,6 +7,7 @@
 		@include('modal.cuipo.terceros')
 		@include('modal.cuipo.sourcefundings')
 		@include('modal.cuipo.tiponormas')
+		@include('modal.cuipo.politicapublica')
 	@endif
     <div class="col-md-12 align-self-center" id="crud">
 		<div class="row justify-content-center">
@@ -72,13 +73,17 @@
 								@endif
 							</td>
 							<td class="text-center">
-								<button onclick="getModalTercero({{$data}}, {{$terceros}})" class="btn btn-danger">Pendiente!</button>
+								@if($data['terceros_id'] != null)
+									<button onclick="getModalTercero({{$data}}, {{$terceros}})" class="btn btn-success">OK!</button>
+								@else
+									<button onclick="getModalTercero({{$data}}, {{$terceros}})" class="btn btn-danger">Pendiente!</button>
+								@endif
 							</td>
 							<td class="text-center">
 								@if($data['public_politics_id'] != null)
-									<button class="btn btn-success">OK!</button>
+									<button onclick="getModalPoliticaPublica({{$data}}, {{$publicPolitics}})" class="btn btn-success">OK!</button>
 								@else
-									<button class="btn btn-danger">Pendiente!</button>
+									<button onclick="getModalPoliticaPublica({{$data}}, {{$publicPolitics}})" class="btn btn-danger">Pendiente!</button>
 								@endif
 							</td>
 							<td class="text-center">
@@ -244,7 +249,6 @@
 		$('#formTipoNormas').modal('show');
 	}
 
-	{{--
 	function getModalTercero(rubro, terceros){
 		$('#rubroIDT').val(rubro['id']);
 		$('#vigencia_idT').val(rubro['vigencia_id']);
@@ -262,6 +266,24 @@
 		$('#formTerceros').modal('show');
 	}
 
+	{{--
+	function getModalPoliticaPublica(rubro, publicPolitics){
+		$('#rubroIDPP').val(rubro['id']);
+		$('#vigencia_idPP').val(rubro['vigencia_id']);
+		document.getElementById("nameRubroPP").innerHTML = rubro['name'];
+
+		if(rubro['public_politics_id'] != null){
+			var idFind = rubro['public_politics_id'] - 1;
+			document.getElementById("selectedPP").innerHTML = "" +
+					"<p>Politica pública seleccionada actualmente</p>"+
+					"<table class='table table-bordered'><thead><th class='text-center'>Código</th><th class='text-center'>Descripción</th> " +
+					"</thead><tbody><tr><td>"+ publicPolitics[idFind]['code'] +"</td><td>"+ publicPolitics[idFind]['description'] +"</td></tr></tbody></table>"+
+					"<p>Cambiar Politica Pública:</p>";
+		} else document.getElementById("selectedPP").innerHTML = "";
+
+		$('#formPoliticaPublica').modal('show');
+	}
+
 	--}}
 
 $(document).ready(function() {
@@ -272,6 +294,7 @@ $(document).ready(function() {
 		theme: "classic"
 	});
 	$('.select-tercero').select2();
+	$('.select-politica-publica').select2();
 
 		$('.select-cpc').on('select2:opening select2:closing', function( event ) {
 			var $searchfield = $(this).parent().find('.select2-search__field');
