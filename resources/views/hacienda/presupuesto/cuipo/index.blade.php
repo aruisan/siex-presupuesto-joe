@@ -266,7 +266,6 @@
 		$('#formTerceros').modal('show');
 	}
 
-	{{--
 	function getModalPoliticaPublica(rubro, publicPolitics){
 		$('#rubroIDPP').val(rubro['id']);
 		$('#vigencia_idPP').val(rubro['vigencia_id']);
@@ -283,8 +282,6 @@
 
 		$('#formPoliticaPublica').modal('show');
 	}
-
-	--}}
 
 $(document).ready(function() {
 	$('.select-cpc').select2({
