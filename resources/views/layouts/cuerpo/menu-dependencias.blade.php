@@ -179,6 +179,15 @@
       <li><a class="item-menu" tabindex="-1" href="#">Informes</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/bancos') }}">Bancos</a></li>
       <li><a class="item-menu" tabindex="-1" href="{{ url('/administrativo/pac') }}">PAC</a></li>
+      <li class="dropdown-submenu">
+         <a class="dropdown-item item-menu" >Impuestos Predial</a>
+         <ul class="dropdown-menu">
+            <li><a class="item-menu" href="{{ url('/administrativo/impuestospredial/liquidador') }}">Liquidador</a></li>
+            <li><a class="item-menu" href="{{ url('/administrativo/ordenPagos/5') }}">Calendario Tasa de Descuento</a></li>
+            <li><a class="item-menu" href="{{ url('/administrativo/ordenPagos/7') }}">Tarifa por mil</a></li>
+            <li><a class="item-menu" href="{{ url('/administrativo/ordenPagos/7') }}">Generar Factura</a></li>
+         </ul>
+      </li>
    </ul>
 </li>
 

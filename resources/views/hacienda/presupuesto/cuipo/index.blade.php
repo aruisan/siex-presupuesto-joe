@@ -8,6 +8,9 @@
 		@include('modal.cuipo.sourcefundings')
 		@include('modal.cuipo.tiponormas')
 		@include('modal.cuipo.politicapublica')
+	@elseif($paso == "3")
+		@include('modal.cuipo.budgetsections')
+		@include('modal.cuipo.vigenciagastos')
 	@endif
     <div class="col-md-12 align-self-center" id="crud">
 		<div class="row justify-content-center">
@@ -22,12 +25,16 @@
 			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/create',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-left"></i><span class="hide-menu">&nbsp; Rubros</span></a></li>
 		@elseif($paso == "2")
 			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/1',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-left"></i>&nbsp; Anterior</a></li>
+		@elseif($paso == "3")
+			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/2',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-left"></i>&nbsp; Anterior</a></li>
 		@endif
 		<li class="nav-item active"> <a href="#crear" class="nav-link">CUIPO</a></li>
 		@if($paso == "1")
 			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/2',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li>
 		@elseif($paso == "2")
-		{{-- <li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/3',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li> --}}
+			<li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/3',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li>
+		@elseif($paso == "3")
+			{{-- <li class="nav-item regresar"> <a href="{{ url('/presupuesto/rubro/CUIPO/4',$vigencia->id) }}" class="nav-link"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></li> --}}
 		@endif
 	</ul>
 		<input type="hidden" id="vigencia_id" name="vigencia_id" value="{{  $vigencia->id }}">
@@ -42,6 +49,7 @@
 					<th class="text-center">Fuentes de Financiación</th>
 					<th class="text-center">Tercero</th>
 					<th class="text-center">Politica Pública</th>
+				@elseif($paso == "3")
 					<th class="text-center">Secciones Presupuestales</th>
 					<th class="text-center">Vigencia Gasto</th>
 					<th class="text-center">Sector</th>
@@ -86,18 +94,19 @@
 									<button onclick="getModalPoliticaPublica({{$data}}, {{$publicPolitics}})" class="btn btn-danger">Pendiente!</button>
 								@endif
 							</td>
+						@elseif($paso == "3")
 							<td class="text-center">
 								@if($data['budget_sections_id'] != null)
-									<button class="btn btn-success">OK!</button>
+									<button onclick="getModalBudgetSection({{$data}}, {{$budgetSections}})" class="btn btn-success">OK!</button>
 								@else
-									<button class="btn btn-danger">Pendiente!</button>
+									<button onclick="getModalBudgetSection({{$data}}, {{$budgetSections}})" class="btn btn-danger">Pendiente!</button>
 								@endif
 							</td>
 							<td class="text-center">
 								@if($data['vigencia_gastos_id'] != null)
-									<button class="btn btn-success">OK!</button>
+									<button onclick="getModalVigenciaGastos({{$data}}, {{$vigenciaGastos}})" class="btn btn-success">OK!</button>
 								@else
-									<button class="btn btn-danger">Pendiente!</button>
+									<button onclick="getModalVigenciaGastos({{$data}}, {{$vigenciaGastos}})" class="btn btn-danger">Pendiente!</button>
 								@endif
 							</td>
 							<td class="text-center">
@@ -145,10 +154,11 @@
 				<center><a href="{{ url('/presupuesto/rubro/CUIPO/2',$vigencia->id) }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></center>
 				<br>
 			@elseif($paso == "2")
-				{{--
 				<center><a href="{{ url('/presupuesto/rubro/CUIPO/3',$vigencia->id) }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></center>
 				<br>
-				--}}
+			@elseif($paso == "3")
+				<center><a href="{{ url('/presupuesto/rubro/CUIPO/4',$vigencia->id) }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i>&nbsp; Siguiente</a></center>
+				<br>
 			@endif
 		</div>
  </div>
@@ -283,6 +293,40 @@
 		$('#formPoliticaPublica').modal('show');
 	}
 
+	function getModalBudgetSection(rubro, budgetSections){
+		$('#rubroIDBS').val(rubro['id']);
+		$('#vigencia_idBS').val(rubro['vigencia_id']);
+		document.getElementById("nameRubroBS").innerHTML = rubro['name'];
+
+		if(rubro['budget_sections_id'] != null){
+			var idFind = rubro['budget_sections_id'] - 1;
+			document.getElementById("selectedBS").innerHTML = "" +
+					"<p>Sección presupuestal seleccionada actualmente</p>"+
+					"<table class='table table-bordered'><thead><th class='text-center'>Código</th><th class='text-center'>Descripción</th> " +
+					"</thead><tbody><tr><td>"+ budgetSections[idFind]['code'] +"</td><td>"+ budgetSections[idFind]['description'] +"</td></tr></tbody></table>"+
+					"<p>Cambiar Sección presupuestal:</p>";
+		} else document.getElementById("selectedBS").innerHTML = "";
+
+		$('#formBudgetSections').modal('show');
+	}
+
+	function getModalVigenciaGastos(rubro, vigenciaGastos){
+		$('#rubroIDVG').val(rubro['id']);
+		$('#vigencia_idVG').val(rubro['vigencia_id']);
+		document.getElementById("nameRubroVG").innerHTML = rubro['name'];
+
+		if(rubro['vigencia_gastos_id'] != null){
+			var idFind = rubro['vigencia_gastos_id'] - 1;
+			document.getElementById("selectedVG").innerHTML = "" +
+					"<p>Vigencia Gasto seleccionada actualmente</p>"+
+					"<table class='table table-bordered'><thead><th class='text-center'>Código</th><th class='text-center'>Descripción</th> " +
+					"</thead><tbody><tr><td>"+ vigenciaGastos[idFind]['code'] +"</td><td>"+ vigenciaGastos[idFind]['description'] +"</td></tr></tbody></table>"+
+					"<p>Cambiar Vigencia Gasto:</p>";
+		} else document.getElementById("selectedVG").innerHTML = "";
+
+		$('#formVigenciaGastos').modal('show');
+	}
+
 $(document).ready(function() {
 	$('.select-cpc').select2({
 		theme: "classic"
@@ -292,6 +336,7 @@ $(document).ready(function() {
 	});
 	$('.select-tercero').select2();
 	$('.select-politica-publica').select2();
+	$('.select-budget-section').select2();
 
 		$('.select-cpc').on('select2:opening select2:closing', function( event ) {
 			var $searchfield = $(this).parent().find('.select2-search__field');

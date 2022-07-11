@@ -252,6 +252,13 @@ Route::group([ 'middleware' => 'auth'] ,function(){
         Route::resource('contabilidad/informes','Administrativo\Contabilidad\ReportsController');
         Route::get('contabilidad/informes/lvl/{id}','Administrativo\Contabilidad\ReportsController@lvl');
         Route::get('contabilidad/informes/rubros/{id}','Administrativo\Contabilidad\ReportsController@rubros');
+
+        //Impuestos Predial
+
+        Route::get('impuestospredial/liquidador/make','Administrativo\ImpuestosPredial\LiquidadorController@make');
+        Route::post('impuestospredial/liquidador/make','Administrativo\ImpuestosPredial\LiquidadorController@makeLiquidacion');
+        Route::resource('impuestospredial/liquidador','Administrativo\ImpuestosPredial\LiquidadorController');
+
 	});
 
 
@@ -367,6 +374,8 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::post('presupuesto/rubro/CUIPO/TipoNormas', 'Hacienda\Presupuesto\CuipoController@saveTipoNorma');
     Route::post('presupuesto/rubro/CUIPO/Terceros', 'Hacienda\Presupuesto\CuipoController@saveTercero');
     Route::post('presupuesto/rubro/CUIPO/PoliticaPublica', 'Hacienda\Presupuesto\CuipoController@savePP');
+    Route::post('presupuesto/rubro/CUIPO/BudgetSection', 'Hacienda\Presupuesto\CuipoController@saveBS');
+    Route::post('presupuesto/rubro/CUIPO/VigenciaGastos', 'Hacienda\Presupuesto\CuipoController@saveVG');
 
 
     ////// RUTAS PLAN DE DESARROLLO

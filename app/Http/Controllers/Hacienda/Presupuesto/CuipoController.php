@@ -12,6 +12,7 @@ use App\Model\Hacienda\Presupuesto\SourceFunding;
 use App\Model\Hacienda\Presupuesto\Terceros;
 use App\Model\Hacienda\Presupuesto\TipoNorma;
 use App\Model\Hacienda\Presupuesto\Vigencia;
+use App\Model\Hacienda\Presupuesto\VigenciaGasto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Hacienda\Presupuesto\Rubro;
@@ -41,8 +42,12 @@ class CuipoController extends Controller
             $fontRubro = FontsRubro::where('source_fundings_id','!=',null)->get();
             $publicPolitics = PublicPolitic::all();
             return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','terceros','paso','vigencia','tipoNormas','fuentes','fontRubro','publicPolitics'));
-        } else{
-            dd("Paso 3");
+        } elseif ($paso == "3"){
+            $rubros = Rubro::where('vigencia_id',$vigencia_id)->with('fontsRubro')->get();
+            $vigencia = Vigencia::findOrFail($vigencia_id);
+            $budgetSections = BudgetSection::all();
+            $vigenciaGastos = VigenciaGasto::all();
+            return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','paso','budgetSections','vigenciaGastos'));
         }
     }
 
@@ -208,6 +213,39 @@ class CuipoController extends Controller
 
         Session::flash('success','Se ha asignado la politica pública al rubro correctamente');
         return redirect('/presupuesto/rubro/CUIPO/2/'.$request->vigencia_idPP);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveBS(Request $request)
+    {
+        $rubro = Rubro::where('id',$request->rubroIDBS)->get();
+        $rubro[0]->budget_sections_id = $request->codeBS;
+        $rubro[0]->save();
+
+        Session::flash('success','Se ha asignado la sección presupuestal al rubro correctamente');
+        return redirect('/presupuesto/rubro/CUIPO/3/'.$request->vigencia_idBS);
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveVG(Request $request)
+    {
+        $rubro = Rubro::where('id',$request->rubroIDVG)->get();
+        $rubro[0]->vigencia_gastos_id = $request->codeVG;
+        $rubro[0]->save();
+
+        Session::flash('success','Se ha asignado la vigencia gastos al rubro correctamente');
+        return redirect('/presupuesto/rubro/CUIPO/3/'.$request->vigencia_idVG);
     }
 
     /**
