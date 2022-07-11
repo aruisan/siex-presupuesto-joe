@@ -850,7 +850,32 @@ class PresupuestoController extends Controller
                 }
                 $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
             } elseif($cod['valor'] == 0 and $cod['id_rubro'] != ""){
-                $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => 0]);
+                foreach ($valoresAdd as $valores1){
+                    if ($cod['id_rubro'] == $valores1['id']){
+                        $valAd1 = $valores1['valor'];
+                    }
+                }
+                foreach ($valoresRed as $valores2){
+                    if ($cod['id_rubro'] == $valores2['id']){
+                        $valRed1 = $valores2['valor'];
+                    }
+                }
+                foreach ($valoresCred as $valores3){
+                    if ($cod['id_rubro'] == $valores3['id']){
+                        $valCred1 = $valores3['valor'];
+                    }
+                }
+                foreach ($valoresCcred as $valores4){
+                    if ($cod['id_rubro'] == $valores4['id']){
+                        $valCcred1 = $valores4['valor'];
+                    }
+                }
+                if (isset($valoresCred) and !isset($valoresCcred1)){
+                    $AD = $cod['valor'] + $valCred1;
+                } else if (!isset($valoresCred) and isset($valoresCcred1)){
+                    $AD = $cod['valor'] - $valCcred1;
+                }
+                $ArrayDispon[] = collect(['id' => $cod['id_rubro'], 'valor' => $AD]);
             }
         }
 
