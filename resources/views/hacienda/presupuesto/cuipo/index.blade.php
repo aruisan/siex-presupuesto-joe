@@ -11,6 +11,7 @@
 	@elseif($paso == "3")
 		@include('modal.cuipo.budgetsections')
 		@include('modal.cuipo.vigenciagastos')
+		@include('modal.cuipo.sectors')
 	@endif
     <div class="col-md-12 align-self-center" id="crud">
 		<div class="row justify-content-center">
@@ -111,9 +112,9 @@
 							</td>
 							<td class="text-center">
 								@if($data['sectors_id'] != null)
-									<button class="btn btn-success">OK!</button>
+									<button onclick="getModalSectors({{$data}}, {{$sectors}})" class="btn btn-success">OK!</button>
 								@else
-									<button class="btn btn-danger">Pendiente!</button>
+									<button onclick="getModalSectors({{$data}}, {{$sectors}})" class="btn btn-danger">Pendiente!</button>
 								@endif
 							</td>
 							<td class="text-center">
@@ -327,6 +328,23 @@
 		$('#formVigenciaGastos').modal('show');
 	}
 
+	function getModalSectors(rubro, sectors){
+		$('#rubroIDSec').val(rubro['id']);
+		$('#vigencia_idSec').val(rubro['vigencia_id']);
+		document.getElementById("nameRubroSec").innerHTML = rubro['name'];
+
+		if(rubro['sectors_id'] != null){
+			var idFind = rubro['sectors_id'] - 1;
+			document.getElementById("selectedSec").innerHTML = "" +
+					"<p>Sector seleccionado actualmente</p>"+
+					"<table class='table table-bordered'><thead><th class='text-center'>Código</th><th class='text-center'>Descripción</th> " +
+					"</thead><tbody><tr><td>"+ sectors[idFind]['code'] +"</td><td>"+ sectors[idFind]['description'] +"</td></tr></tbody></table>"+
+					"<p>Cambiar Sector:</p>";
+		} else document.getElementById("selectedSec").innerHTML = "";
+
+		$('#formSectors').modal('show');
+	}
+
 $(document).ready(function() {
 	$('.select-cpc').select2({
 		theme: "classic"
@@ -337,6 +355,7 @@ $(document).ready(function() {
 	$('.select-tercero').select2();
 	$('.select-politica-publica').select2();
 	$('.select-budget-section').select2();
+	$('.select-sectors').select2();
 
 		$('.select-cpc').on('select2:opening select2:closing', function( event ) {
 			var $searchfield = $(this).parent().find('.select2-search__field');

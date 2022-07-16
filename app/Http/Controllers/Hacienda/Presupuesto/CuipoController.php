@@ -8,6 +8,7 @@ use App\Model\Hacienda\Presupuesto\CpcsRubro;
 use App\Model\Hacienda\Presupuesto\FontsRubro;
 use App\Model\Hacienda\Presupuesto\FontsVigencia;
 use App\Model\Hacienda\Presupuesto\PublicPolitic;
+use App\Model\Hacienda\Presupuesto\Sector;
 use App\Model\Hacienda\Presupuesto\SourceFunding;
 use App\Model\Hacienda\Presupuesto\Terceros;
 use App\Model\Hacienda\Presupuesto\TipoNorma;
@@ -47,7 +48,8 @@ class CuipoController extends Controller
             $vigencia = Vigencia::findOrFail($vigencia_id);
             $budgetSections = BudgetSection::all();
             $vigenciaGastos = VigenciaGasto::all();
-            return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','paso','budgetSections','vigenciaGastos'));
+            $sectors = Sector::all();
+            return view('hacienda.presupuesto.cuipo.index', compact('vigencia', 'rubros','paso','budgetSections','vigenciaGastos','sectors'));
         }
     }
 
@@ -246,6 +248,22 @@ class CuipoController extends Controller
 
         Session::flash('success','Se ha asignado la vigencia gastos al rubro correctamente');
         return redirect('/presupuesto/rubro/CUIPO/3/'.$request->vigencia_idVG);
+    }
+
+    /**
+     * Store a newly created resource of sectors in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveSec(Request $request)
+    {
+        $rubro = Rubro::where('id',$request->rubroIDSec)->get();
+        $rubro[0]->sectors_id = $request->codeSec;
+        $rubro[0]->save();
+
+        Session::flash('success','Se ha asignado el sector al rubro correctamente');
+        return redirect('/presupuesto/rubro/CUIPO/3/'.$request->vigencia_idSec);
     }
 
     /**

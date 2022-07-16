@@ -376,6 +376,7 @@ Route::group([ 'middleware' => 'auth'] ,function(){
     Route::post('presupuesto/rubro/CUIPO/PoliticaPublica', 'Hacienda\Presupuesto\CuipoController@savePP');
     Route::post('presupuesto/rubro/CUIPO/BudgetSection', 'Hacienda\Presupuesto\CuipoController@saveBS');
     Route::post('presupuesto/rubro/CUIPO/VigenciaGastos', 'Hacienda\Presupuesto\CuipoController@saveVG');
+    Route::post('presupuesto/rubro/CUIPO/Sectors', 'Hacienda\Presupuesto\CuipoController@saveSec');
 
 
     ////// RUTAS PLAN DE DESARROLLO
