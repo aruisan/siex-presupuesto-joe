@@ -68,7 +68,7 @@ class VisitanteController extends Controller
 
         if ($vigens->count() == 0){
             $V = "Vacio";
-
+            info('douglas');
             return view('visitante.index', compact('V', 'Concejales', 'añoActual','Boletines','Actas','Acuerdos','Resoluciones','ManualC','PlanA'));
 
         } else {

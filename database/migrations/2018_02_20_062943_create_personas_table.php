@@ -26,6 +26,10 @@ class CreatePersonasTable extends Migration
             $table->string('direccion', 200);
             $table->enum('tipo', ['NATURAL', 'JURIDICA']);
             $table->bigInteger('telefono');
+            $table->enum('declarante', ['1', '0']);
+            $table->enum('tipo_cc', ['NIT', 'CC']);
+            $table->string('ciudad')->nullable();
+            $table->string('regimen')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

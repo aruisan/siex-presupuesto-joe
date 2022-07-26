@@ -13,7 +13,7 @@ class VigenciasSeeder extends Seeder
     public function run()
     {
         Vigencia::create([
-           'vigencia' => 2019,
+           'vigencia' => 2022,
            'tipo' => 0,
            'numero_decreto' => 01,
            'fecha' =>  '2019-02-04',

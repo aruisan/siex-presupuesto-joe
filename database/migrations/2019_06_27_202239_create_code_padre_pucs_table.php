@@ -17,9 +17,9 @@ class CreateCodePadrePucsTable extends Migration
             $table->increments('id');
 
             $table->integer('registers_puc_id')->unsigned();
-            $table->foreign('registers_puc_id')->references('id')->on('registers_pucs');
+            
             $table->integer('register2_puc_id')->unsigned();
-            $table->foreign('register2_puc_id')->references('id')->on('registers_pucs');
+            
 
             $table->timestamps();
         });

@@ -11,6 +11,6 @@ class RolPermisosTableSeeder extends Seeder
      */
     public function run()
     {
-        
+        Rol::
     }
 }

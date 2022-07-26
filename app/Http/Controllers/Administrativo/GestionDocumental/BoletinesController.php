@@ -15,7 +15,7 @@ class BoletinesController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:boletines-list');
+         $this->middleware('permission:boletines-list',  ['only' => ['index']]);
          $this->middleware('permission:boletines-create', ['only' => ['create','store']]);
          $this->middleware('permission:boletines-edit', ['only' => ['edit','update']]);
          $this->middleware('permission:boletines-delete', ['only' => ['destroy']]);

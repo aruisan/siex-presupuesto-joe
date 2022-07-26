@@ -18,6 +18,7 @@ class CreatePddsTable extends Migration
             $table->string('name');
             $table->date('ff_inicio');
             $table->date('ff_final');
+            $table->string('ruta')->nullable();
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

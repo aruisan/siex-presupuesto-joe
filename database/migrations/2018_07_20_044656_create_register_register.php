@@ -16,9 +16,9 @@ class CreateRegisterRegister extends Migration
         Schema::create('code_padres', function (Blueprint $table){
             $table->increments('id');
             $table->integer('register_id')->unsigned();
-            $table->foreign('register_id')->references('id')->on('registers');
+           
             $table->integer('register2_id')->unsigned();
-            $table->foreign('register2_id')->references('id')->on('registers');
+            
 
             $table->timestamps();
         });

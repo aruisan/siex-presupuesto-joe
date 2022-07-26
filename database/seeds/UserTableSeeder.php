@@ -1,6 +1,6 @@
 <?php
 
-use App\Model\User;
+use App\User;
 use App\Model\Cobro\UserBoss;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -19,6 +19,7 @@ class UserTableSeeder extends Seeder
            'name' => 'Admin',
            'email' => 'Admin@admin.com',
            'password' => bcrypt('123456'),
+           'type_id' => 1,
         ]);  
 
        $user->assignRole('administrador');

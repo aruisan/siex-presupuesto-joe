@@ -28,7 +28,7 @@ class CreateDocumentosTable extends Migration
             $table->date('ff_segundodbte');
             $table->date('ff_aprobacion');
             $table->date('ff_sancion');
-            $table->enum('type',['Actas','Acuerdos','Resoluciones','Proyectos de acuerdo', 'Lista de empleados', 'Manual de contratación', 'Plan de adquisiones', 'Procesos de Contratación', 'Correspondencia entrada', 'Correspondencia salida', 'Otros documentos']);// campo referencia a las tablas cc 
+           // campo referencia a las tablas cc 
             $table->integer('cc_id');
             $table->string('name');
             $table->integer('number_doc');
@@ -47,6 +47,7 @@ class CreateDocumentosTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('tercero_id')->nullable()->unsigned();
             $table->foreign('tercero_id')->references('id')->on('users');
+            $table->integer('carpeta_id');
             $table->timestamps();
         });
 

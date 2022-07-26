@@ -20,6 +20,9 @@ class CreatePermissionTables extends Migration
         Schema::create('modulos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            
+            $table->integer('tabs_permission_id')->nullable()->unsigned();
+            
             $table->timestamps();
         });
 
@@ -28,6 +31,7 @@ class CreatePermissionTables extends Migration
             $table->string('name');
             $table->string('alias')->nullable();
             $table->string('guard_name');
+            $table->enum('activo',[0,1])->default(1);
 
             //puesto manual
             $table->integer('modulo_id')->nullable()->unsigned();

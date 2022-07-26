@@ -33,6 +33,9 @@ class CreateCdpsTable extends Migration
 
             $table->string('ruta')->nullable();
 
+            $table->integer('vigencia_id')->nullable()->unsigned();
+            $table->foreign('vigencia_id')->references('id')->on('vigencias');
+
             $table->timestamps();
         });
     }

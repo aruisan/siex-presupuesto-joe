@@ -18,10 +18,16 @@ class CreateFontsRubroTable extends Migration
             $table->integer('valor');
             $table->bigInteger('valor_disp')->nullable();
 
-            $table->integer('font_id')->unsigned();
-            $table->foreign('font_id')->references('id')->on('fonts');
+            $table->integer('font_vigencia_id')->unsigned();
+            $table->foreign('font_vigencia_id')->references('id')->on('fonts');
             $table->integer('rubro_id')->unsigned();
             $table->foreign('rubro_id')->references('id')->on('rubros');
+
+            $table->integer('source_fundings_id')->nullable()->unsigned();
+            
+
+            $table->integer('tipo_normas_id')->nullable()->unsigned();
+            
 
             $table->timestamps();
         });
