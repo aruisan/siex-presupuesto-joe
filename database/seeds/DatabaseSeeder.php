@@ -25,6 +25,14 @@ class DatabaseSeeder extends Seeder
         $this->call(RegisterPucsTableSeeder::class);  
         $this->call(gPucsTableSeeder::class);
         $this->call(FontsVigenciaSeeder::class);
+
+
+        $this->call(PersonaTableSeeder::class);
+        $this->call(RegistroTableSeeder::class);
+        $this->call(OrdenPagoTableSeeder::class); 
+        $this->call(CdpsTableSeeder::class);
+
+
         
         // $this->call(PersonaTableSeeder::class);
         // $this->call(PredioTableSeeder::class);

@@ -12,6 +12,14 @@ class PersonaTableSeeder extends Seeder
      */
     public function run()
     {
-		 factory(Persona::class, 5)->create();
+		 Persona::create([
+           'nombre' => 'jhoy',
+           'num_dc' => '24213452',
+           'email' => '1',
+           'direccion' => 'Providencia',
+           'tipo' => 'NATURAL',
+           'telefono' => '0'
+
+        ]);
     }
 }
