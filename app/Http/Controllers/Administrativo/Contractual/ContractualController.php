@@ -39,7 +39,7 @@ class ContractualController extends Controller
         ->where('dependencias.id','=',$dependencia)
         ->get();
 
-        // $consulta = Contractual::where('modulo', '=', 'contractual')->get();
+        $consulta = Contractual::where('modulo', '=', 'contractual')->get();
 
 
         // $consulta = ModuloInicial::where('modulo', '=', 'contractual')
